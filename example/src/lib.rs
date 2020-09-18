@@ -1,5 +1,4 @@
 use yew::prelude::*;
-use wasm_bindgen::prelude::*;
 use mat_web_comp::ButtonComponent;
 
 pub struct App {}
@@ -30,11 +29,4 @@ impl Component for App {
         </div>
         }
     }
-}
-
-#[wasm_bindgen(start)]
-pub fn start() -> Result<(), JsValue> {
-    yew::start_app::<App>();
-
-    Ok(())
 }
