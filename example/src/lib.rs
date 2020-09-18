@@ -1,5 +1,5 @@
 use yew::prelude::*;
-use mat_web_comp::ButtonComponent;
+use mat_web_comp::{MatComponent};
 
 pub struct App {}
 
@@ -23,10 +23,14 @@ impl Component for App {
     fn view(&self) -> Html {
 
         html! {
-        <div>
-            <p>{ "Hello world!" }</p>
-            <ButtonComponent></ButtonComponent>
-        </div>
+            <div style="display: flex; flex-direction: column; width: max-content; gap: 1em; padding: 0 1em;">
+                <MatComponent label="Click me!" raised=true icon="code" />
+                <MatComponent label="Click me!" unelevated=true />
+                <MatComponent label="Click me!" outlined=true />
+                <MatComponent label="Click me!" dense=true unelevated=true />
+                <MatComponent label="Click me!" disabled=true />
+                <MatComponent label="Click me!" icon="code" trailing_icon=true />
+            </div>
         }
     }
 }

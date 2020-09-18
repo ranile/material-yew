@@ -1,3 +1,4 @@
+// #[cfg(target_feature = "button")]
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
 
@@ -14,19 +15,40 @@ extern "C" {
 // call the macro with the type
 loader_hack!(Button);
 
-pub struct ButtonComponent {}
+pub struct MatComponent {
+    props: Props
+}
 
 pub enum Msg {}
 
-impl Component for ButtonComponent {
-    type Message = Msg;
-    type Properties = ();
+#[derive(Debug, Properties, Clone)]
+pub struct Props {
+    pub label: String,
+    #[prop_or_default]
+    pub icon: Option<String>,
+    #[prop_or_default]
+    pub raised: bool,
+    #[prop_or_default]
+    pub unelevated: bool,
+    #[prop_or_default]
+    pub outlined: bool,
+    #[prop_or_default]
+    pub dense: bool,
+    #[prop_or_default]
+    pub disabled: bool,
+    #[prop_or_default]
+    pub trailing_icon: bool,
+}
 
-    fn create(_: Self::Properties, _: ComponentLink<Self>) -> Self {
+impl Component for MatComponent {
+    type Message = Msg;
+    type Properties = Props;
+
+    fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
         // call this every time you need the type to be loaded.
         // don't worry, this only runs once
         Button::ensure_loaded();
-        Self {}
+        Self { props }
     }
 
     fn update(&mut self, _msg: Self::Message) -> ShouldRender {
@@ -39,9 +61,23 @@ impl Component for ButtonComponent {
 
     fn view(&self) -> Html {
         html! {
-        <div>
-            <mwc-button id="myButton" label="Click Me!" raised="true"></mwc-button>
-        </div>
+            <mwc-button
+                label=self.props.label
+                icon?=self.props.icon.as_ref()
+                raised?=to_option(self.props.raised)
+                unelevated?=to_option(self.props.unelevated)
+                outlined?=to_option(self.props.outlined)
+                dense?=to_option(self.props.dense)
+                trailingIcon?=to_option(self.props.trailing_icon)
+                disabled=self.props.disabled
+            ></mwc-button>
         }
+    }
+}
+
+fn to_option(value: bool) -> Option<&'static str> {
+    match value {
+        true => Some("true"),
+        false => None
     }
 }

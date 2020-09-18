@@ -13,4 +13,4 @@ macro_rules! loader_hack {
 }
 
 mod button;
-pub use button::ButtonComponent;
+pub use button::*;
