@@ -12,5 +12,15 @@ macro_rules! loader_hack {
     };
 }
 
+fn to_option(value: bool) -> Option<&'static str> {
+    match value {
+        true => Some("true"),
+        false => None
+    }
+}
+
 mod button;
 pub use button::*;
+
+mod circular_progress;
+pub use circular_progress::*;

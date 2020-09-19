@@ -1,6 +1,6 @@
-// #[cfg(target_feature = "button")]
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
+use crate::to_option;
 
 #[wasm_bindgen(module = "/build/button.js")]
 extern "C" {
@@ -15,7 +15,7 @@ extern "C" {
 // call the macro with the type
 loader_hack!(Button);
 
-pub struct MatComponent {
+pub struct MatButton {
     props: Props
 }
 
@@ -40,7 +40,7 @@ pub struct Props {
     pub trailing_icon: bool,
 }
 
-impl Component for MatComponent {
+impl Component for MatButton {
     type Message = Msg;
     type Properties = Props;
 
@@ -55,8 +55,9 @@ impl Component for MatComponent {
         false
     }
 
-    fn change(&mut self, _props: Self::Properties) -> bool {
-        false
+    fn change(&mut self, props: Self::Properties) -> bool {
+        self.props = props;
+        true
     }
 
     fn view(&self) -> Html {
@@ -72,12 +73,5 @@ impl Component for MatComponent {
                 disabled=self.props.disabled
             ></mwc-button>
         }
-    }
-}
-
-fn to_option(value: bool) -> Option<&'static str> {
-    match value {
-        true => Some("true"),
-        false => None
     }
 }
