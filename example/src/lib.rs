@@ -35,8 +35,8 @@ impl Component for App {
         html! {
             // <div style="display: flex; flex-direction: column; width: max-content; gap: 1em; padding: 0 1em;">
                 // <Button />
-                // <CircularProgress />
-                <Checkbox />
+                <CircularProgress />
+                // <Checkbox />
             // </div>
         }
     }

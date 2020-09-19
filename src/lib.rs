@@ -28,3 +28,6 @@ pub use circular_progress::MatCircularProgress;
 mod checkbox;
 pub use checkbox::MatCheckbox;
 
+mod circular_progress_four_color;
+pub use circular_progress_four_color::MatCircularProgressFourColor;
+
