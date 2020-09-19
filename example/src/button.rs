@@ -1,5 +1,5 @@
 use yew::prelude::*;
-use mat_web_comp::{MatButton, MatCircularProgress};
+use mat_web_comp::{MatButton};
 
 pub struct Button {}
 

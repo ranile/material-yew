@@ -19,4 +19,4 @@ const generateInput = (component, minify = false) => {
 }
 
 
-export default ['button', 'circular-progress'].map((it) => generateInput(it))
+export default ['button', 'circular-progress', 'checkbox'].map((it) => generateInput(it))

@@ -49,9 +49,6 @@ impl Component for CircularProgress {
                     <MatButton label="Increase progress" outlined=true /> <br />
                     <MatCircularProgress progress=self.progress />
                 </div>
-
-
-
             </div>
         }
     }

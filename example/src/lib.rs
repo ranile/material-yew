@@ -1,13 +1,13 @@
 mod circular_progress;
 mod button;
+mod checkbox;
 
 use yew::prelude::*;
-use crate::circular_progress::CircularProgress;
-use crate::button::Button;
+use circular_progress::CircularProgress;
+use button::Button;
+use checkbox::Checkbox;
 
 pub struct App {
-    closed: bool,
-    progress: f32,
     link: ComponentLink<Self>
 }
 
@@ -20,12 +20,10 @@ impl Component for App {
     type Properties = ();
 
     fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
-        App {closed: false, link, progress: 0.0}
+        App {link}
     }
 
     fn update(&mut self, _msg: Self::Message) -> ShouldRender {
-        // self.closed = !self.closed;
-        self.progress += 0.1;
         true
     }
 
@@ -35,10 +33,11 @@ impl Component for App {
     fn view(&self) -> Html {
 
         html! {
-            <div style="display: flex; flex-direction: column; width: max-content; gap: 1em; padding: 0 1em;">
+            // <div style="display: flex; flex-direction: column; width: max-content; gap: 1em; padding: 0 1em;">
                 // <Button />
-                <CircularProgress />
-            </div>
+                // <CircularProgress />
+                <Checkbox />
+            // </div>
         }
     }
 }

@@ -24,18 +24,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="237ac129-c0f6-4c65-98b2-26dab8ff7e01" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/example/src/button.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/src/circular_progress.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/circular_progress.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/mat-web-comp.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/mat-web-comp.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/src/checkbox.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/checkbox.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/button.js" beforeDir="false" afterPath="$PROJECT_DIR$/build/button.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/src/button.rs" beforeDir="false" afterPath="$PROJECT_DIR$/example/src/button.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/src/circular_progress.rs" beforeDir="false" afterPath="$PROJECT_DIR$/example/src/circular_progress.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/example/src/lib.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rollup.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/rollup.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/button.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/button.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -105,7 +102,7 @@
       <workItem from="1600432410259" duration="5530000" />
       <workItem from="1600438695619" duration="1595000" />
       <workItem from="1600440303883" duration="10479000" />
-      <workItem from="1600510619133" duration="1707000" />
+      <workItem from="1600510619133" duration="8780000" />
     </task>
     <task id="LOCAL-00001" summary="Add example app">
       <created>1600438871438</created>
@@ -128,7 +125,14 @@
       <option name="project" value="LOCAL" />
       <updated>1600446952268</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Add circular progress + some more changes">
+      <created>1600512536829</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1600512536829</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -153,28 +157,30 @@
     <MESSAGE value="Add example app" />
     <MESSAGE value="Fix Cargo.toml, add js to git" />
     <MESSAGE value="Get button to work" />
-    <option name="LAST_COMMIT_MESSAGE" value="Get button to work" />
+    <MESSAGE value="Add circular progress + some more changes" />
+    <MESSAGE value="Add checkbox" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add checkbox" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="726" y="205" key="#com.intellij.ide.util.MemberChooser" timestamp="1600434973709">
+    <state x="726" y="205" key="#com.intellij.ide.util.MemberChooser" timestamp="1600515486906">
       <screen x="0" y="26" width="1920" height="1054" />
     </state>
-    <state x="726" y="205" key="#com.intellij.ide.util.MemberChooser/0.26.1920.1054@0.26.1920.1054" timestamp="1600434973709" />
+    <state x="726" y="205" key="#com.intellij.ide.util.MemberChooser/0.26.1920.1054@0.26.1920.1054" timestamp="1600515486906" />
     <state x="329" y="101" key="SettingsEditor" timestamp="1600440350267">
       <screen x="0" y="26" width="1920" height="1054" />
     </state>
     <state x="329" y="101" key="SettingsEditor/0.26.1920.1054@0.26.1920.1054" timestamp="1600440350267" />
-    <state x="460" y="227" key="Vcs.Push.Dialog.v2" timestamp="1600446980342">
+    <state x="460" y="227" key="Vcs.Push.Dialog.v2" timestamp="1600515294746">
       <screen x="0" y="26" width="1920" height="1054" />
     </state>
-    <state x="460" y="227" key="Vcs.Push.Dialog.v2/0.26.1920.1054@0.26.1920.1054" timestamp="1600446980342" />
+    <state x="460" y="227" key="Vcs.Push.Dialog.v2/0.26.1920.1054@0.26.1920.1054" timestamp="1600515294746" />
     <state x="590" y="208" width="739" height="690" key="find.popup" timestamp="1600501252502">
       <screen x="0" y="26" width="1920" height="1054" />
     </state>
     <state x="590" y="208" width="739" height="690" key="find.popup/0.26.1920.1054@0.26.1920.1054" timestamp="1600501252502" />
-    <state x="539" y="44" width="840" height="1034" key="search.everywhere.popup" timestamp="1600443499807">
+    <state x="539" y="44" width="840" height="1034" key="search.everywhere.popup" timestamp="1600516283532">
       <screen x="0" y="26" width="1920" height="1054" />
     </state>
-    <state x="539" y="44" width="840" height="1034" key="search.everywhere.popup/0.26.1920.1054@0.26.1920.1054" timestamp="1600443499807" />
+    <state x="539" y="44" width="840" height="1034" key="search.everywhere.popup/0.26.1920.1054@0.26.1920.1054" timestamp="1600516283532" />
   </component>
 </project>

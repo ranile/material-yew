@@ -5,6 +5,7 @@
   "main": "rollup.config.js",
   "dependencies": {
     "@material/mwc-button": "^0.18.0",
+    "@material/mwc-checkbox": "^0.18.0",
     "@material/mwc-circular-progress": "^0.18.0",
     "@webcomponents/webcomponentsjs": "^2.4.4"
   },

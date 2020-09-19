@@ -20,7 +20,11 @@ fn to_option(value: bool) -> Option<&'static str> {
 }
 
 mod button;
-pub use button::*;
+pub use button::MatButton;
 
 mod circular_progress;
-pub use circular_progress::*;
+pub use circular_progress::MatCircularProgress;
+
+mod checkbox;
+pub use checkbox::MatCheckbox;
+
