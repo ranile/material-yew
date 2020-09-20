@@ -1,6 +1,6 @@
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
-use crate::to_option;
+use crate::{to_option, add_event_listener};
 use wasm_bindgen::JsCast;
 
 #[wasm_bindgen(module = "/build/checkbox.js")]
@@ -82,16 +82,14 @@ impl Component for MatCheckbox {
         if first_render {
             let callback = self.props.onchange.clone();
             let ele = element.clone();
-            self.closure = Some(Closure::wrap(Box::new(move || {
+            add_event_listener(&self.node_ref, "change", move || {
                 let checked = match ele.get_attribute("checked") {
                     Some(_) => true,
                     _ => false
                 };
 
                 callback.emit(checked);
-            }) as Box<dyn FnMut()>));
-
-            element.add_event_listener_with_callback("change", self.closure.as_ref().unwrap().as_ref().unchecked_ref());
+            }, &mut self.closure)
         }
     }
 }

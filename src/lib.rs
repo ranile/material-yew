@@ -1,3 +1,7 @@
+use wasm_bindgen::prelude::Closure;
+use wasm_bindgen::JsCast;
+use yew::NodeRef;
+
 // this macro is defined here so we can access it in the modules
 macro_rules! loader_hack {
     ($ty:ty) => {
@@ -19,6 +23,12 @@ fn to_option(value: bool) -> Option<&'static str> {
     }
 }
 
+pub fn add_event_listener(node_ref: &NodeRef, name: &str, func: impl Fn() + 'static, closure_to_store_in: &mut Option<Closure<dyn FnMut()>>) {
+    let element = node_ref.cast::<yew::web_sys::Element>().unwrap();
+    *closure_to_store_in = Some(Closure::wrap(Box::new(func) as Box<dyn FnMut()>));
+    element.add_event_listener_with_callback(name, closure_to_store_in.as_ref().unwrap().as_ref().unchecked_ref());
+}
+
 mod button;
 pub use button::MatButton;
 
@@ -31,3 +41,14 @@ pub use checkbox::MatCheckbox;
 mod circular_progress_four_color;
 pub use circular_progress_four_color::MatCircularProgressFourColor;
 
+mod drawer;
+pub use drawer::MatDrawer;
+
+mod top_app_bar;
+pub use top_app_bar::MatTopAppBar;
+
+mod icon_button;
+pub use icon_button::MatIconButton;
+
+mod fab;
+pub use fab::MatFab;

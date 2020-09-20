@@ -24,14 +24,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="237ac129-c0f6-4c65-98b2-26dab8ff7e01" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/circular_progress_four_color.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/example/src/drawer.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/drawer.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/fab.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/icon_button.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/top_app_bar.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/example/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/src/circular_progress.rs" beforeDir="false" afterPath="$PROJECT_DIR$/example/src/circular_progress.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/example/src/lib.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rollup.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/rollup.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/checkbox.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/checkbox.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -75,22 +79,13 @@
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src" />
+      <recent name="$PROJECT_DIR$/src/drawer" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src" />
     </key>
-  </component>
-  <component name="RunManager">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
   </component>
   <component name="RustProjectSettings">
     <option name="toolchainHomeDirectory" value="$USER_HOME$/.cargo/bin" />
@@ -107,7 +102,9 @@
       <workItem from="1600432410259" duration="5530000" />
       <workItem from="1600438695619" duration="1595000" />
       <workItem from="1600440303883" duration="10479000" />
-      <workItem from="1600510619133" duration="9787000" />
+      <workItem from="1600510619133" duration="10659000" />
+      <workItem from="1600593855068" duration="9080000" />
+      <workItem from="1600612037139" duration="322000" />
     </task>
     <task id="LOCAL-00001" summary="Add example app">
       <created>1600438871438</created>
@@ -144,7 +141,14 @@
       <option name="project" value="LOCAL" />
       <updated>1600519640141</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Add `MatCircularProgressFourColor`&#10;&#10;Colors must be added for this to work&#10;Like in `example/index.html`">
+      <created>1600520685048</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1600520685048</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -171,28 +175,33 @@
     <MESSAGE value="Get button to work" />
     <MESSAGE value="Add circular progress + some more changes" />
     <MESSAGE value="Add checkbox" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add checkbox" />
+    <MESSAGE value="Add `MatCircularProgressFourColor`&#10;&#10;Colors must be added for this to work&#10;Like in `example/index.html`" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add `MatCircularProgressFourColor`&#10;&#10;Colors must be added for this to work&#10;Like in `example/index.html`" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="726" y="205" key="#com.intellij.ide.util.MemberChooser" timestamp="1600515486906">
+    <state x="726" y="205" key="#com.intellij.ide.util.MemberChooser" timestamp="1600598064423">
       <screen x="0" y="26" width="1920" height="1054" />
     </state>
-    <state x="726" y="205" key="#com.intellij.ide.util.MemberChooser/0.26.1920.1054@0.26.1920.1054" timestamp="1600515486906" />
+    <state x="726" y="205" key="#com.intellij.ide.util.MemberChooser/0.26.1920.1054@0.26.1920.1054" timestamp="1600598064423" />
     <state x="329" y="101" key="SettingsEditor" timestamp="1600440350267">
       <screen x="0" y="26" width="1920" height="1054" />
     </state>
     <state x="329" y="101" key="SettingsEditor/0.26.1920.1054@0.26.1920.1054" timestamp="1600440350267" />
-    <state x="460" y="227" key="Vcs.Push.Dialog.v2" timestamp="1600515294746">
+    <state width="623" height="498" key="SwitcherDM" timestamp="1600594120407">
       <screen x="0" y="26" width="1920" height="1054" />
     </state>
-    <state x="460" y="227" key="Vcs.Push.Dialog.v2/0.26.1920.1054@0.26.1920.1054" timestamp="1600515294746" />
-    <state x="590" y="208" width="739" height="690" key="find.popup" timestamp="1600501252502">
+    <state width="623" height="498" key="SwitcherDM/0.26.1920.1054@0.26.1920.1054" timestamp="1600594120407" />
+    <state x="460" y="227" key="Vcs.Push.Dialog.v2" timestamp="1600522769206">
       <screen x="0" y="26" width="1920" height="1054" />
     </state>
-    <state x="590" y="208" width="739" height="690" key="find.popup/0.26.1920.1054@0.26.1920.1054" timestamp="1600501252502" />
-    <state x="539" y="44" width="840" height="1034" key="search.everywhere.popup" timestamp="1600516283532">
+    <state x="460" y="227" key="Vcs.Push.Dialog.v2/0.26.1920.1054@0.26.1920.1054" timestamp="1600522769206" />
+    <state x="590" y="208" width="786" height="690" key="find.popup" timestamp="1600602117803">
       <screen x="0" y="26" width="1920" height="1054" />
     </state>
-    <state x="539" y="44" width="840" height="1034" key="search.everywhere.popup/0.26.1920.1054@0.26.1920.1054" timestamp="1600516283532" />
+    <state x="590" y="208" width="786" height="690" key="find.popup/0.26.1920.1054@0.26.1920.1054" timestamp="1600602117803" />
+    <state x="539" y="44" width="840" height="1034" key="search.everywhere.popup" timestamp="1600599954915">
+      <screen x="0" y="26" width="1920" height="1054" />
+    </state>
+    <state x="539" y="44" width="840" height="1034" key="search.everywhere.popup/0.26.1920.1054@0.26.1920.1054" timestamp="1600599954915" />
   </component>
 </project>
