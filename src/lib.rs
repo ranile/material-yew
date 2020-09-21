@@ -86,3 +86,9 @@ pub use fab::MatFab;
 
 mod form_field;
 pub use form_field::MatFormfield;
+
+mod icon;
+pub use icon::MatIcon;
+
+mod linear_progress;
+pub use linear_progress::MatLinearProgress;

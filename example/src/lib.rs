@@ -1,4 +1,4 @@
-mod circular_progress;
+mod progress;
 mod button;
 mod checkbox;
 mod drawer;

@@ -24,13 +24,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="237ac129-c0f6-4c65-98b2-26dab8ff7e01" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/icon.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/linear_progress.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/button.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/button.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/circular_progress.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/circular_progress.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/circular_progress_four_color.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/circular_progress_four_color.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fab.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/fab.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/form_field.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/form_field.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/icon_button.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/icon_button.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/src/circular_progress.rs" beforeDir="false" afterPath="$PROJECT_DIR$/example/src/progress.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/src/drawer.rs" beforeDir="false" afterPath="$PROJECT_DIR$/example/src/drawer.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/example/src/lib.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -50,6 +52,16 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitRewordedCommitMessages">
+    <option name="commitMessagesMapping">
+      <RewordedCommitMessageMapping>
+        <option name="originalMessage" value="Use component! wherever possible" />
+        <option name="rewordedMessage" value="Use component! wherever possible" />
+      </RewordedCommitMessageMapping>
+    </option>
+    <option name="currentCommit" value="1" />
+    <option name="onto" value="fb5dff6fca80aa27a7d1e34e43e4daf497b9527a" />
   </component>
   <component name="JupyterTrust" id="bbf1dbc1-d8a0-4b79-a3f8-3361706d88d2" />
   <component name="KotlinMultiplatform">
@@ -116,7 +128,7 @@
       <workItem from="1600510619133" duration="10659000" />
       <workItem from="1600593855068" duration="9080000" />
       <workItem from="1600612037139" duration="2502000" />
-      <workItem from="1600666494006" duration="8803000" />
+      <workItem from="1600666494006" duration="10170000" />
     </task>
     <task id="LOCAL-00001" summary="Add example app">
       <created>1600438871438</created>
@@ -181,7 +193,21 @@
       <option name="project" value="LOCAL" />
       <updated>1600674709371</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Use component! wherever possible">
+      <created>1600676179122</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1600676179122</updated>
+    </task>
+    <task id="LOCAL-00011" summary="oopsie">
+      <created>1600676777208</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1600676777208</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -212,21 +238,27 @@
     <MESSAGE value="Add a bunch of more components&#10;&#10;These are:&#10;- icon-button&#10;- fab&#10;- drawer&#10;- top-app-bar" />
     <MESSAGE value="build every component to one file" />
     <MESSAGE value="Add Formfield component + component!" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add Formfield component + component!" />
+    <MESSAGE value="Use component! wherever possible" />
+    <MESSAGE value="oopsie" />
+    <option name="LAST_COMMIT_MESSAGE" value="oopsie" />
   </component>
   <component name="WindowStateProjectService">
     <state x="726" y="205" key="#com.intellij.ide.util.MemberChooser" timestamp="1600598064423">
       <screen x="0" y="26" width="1920" height="1054" />
     </state>
     <state x="726" y="205" key="#com.intellij.ide.util.MemberChooser/0.26.1920.1054@0.26.1920.1054" timestamp="1600598064423" />
+    <state x="739" y="423" key="Git.Rebase.Log.Action.NewCommitMessage.Dialog" timestamp="1600676788094">
+      <screen x="0" y="26" width="1920" height="1054" />
+    </state>
+    <state x="739" y="423" key="Git.Rebase.Log.Action.NewCommitMessage.Dialog/0.26.1920.1054@0.26.1920.1054" timestamp="1600676788094" />
     <state x="329" y="101" key="SettingsEditor" timestamp="1600440350267">
       <screen x="0" y="26" width="1920" height="1054" />
     </state>
     <state x="329" y="101" key="SettingsEditor/0.26.1920.1054@0.26.1920.1054" timestamp="1600440350267" />
-    <state width="623" height="498" key="SwitcherDM" timestamp="1600594120407">
+    <state width="623" height="574" key="SwitcherDM" timestamp="1600676695400">
       <screen x="0" y="26" width="1920" height="1054" />
     </state>
-    <state width="623" height="498" key="SwitcherDM/0.26.1920.1054@0.26.1920.1054" timestamp="1600594120407" />
+    <state width="623" height="574" key="SwitcherDM/0.26.1920.1054@0.26.1920.1054" timestamp="1600676695400" />
     <state x="460" y="227" key="Vcs.Push.Dialog.v2" timestamp="1600612546183">
       <screen x="0" y="26" width="1920" height="1054" />
     </state>

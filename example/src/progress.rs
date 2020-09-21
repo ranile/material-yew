@@ -1,7 +1,7 @@
 use yew::prelude::*;
-use mat_web_comp::{MatCircularProgressFourColor, MatCircularProgress, MatButton};
+use mat_web_comp::{MatCircularProgressFourColor, MatCircularProgress, MatButton, MatLinearProgress};
 
-pub struct CircularProgress {
+pub struct Progress {
     closed: bool,
     progress: f32,
     link: ComponentLink<Self>,
@@ -12,12 +12,12 @@ pub enum Msg {
     ChangeProgress,
 }
 
-impl Component for CircularProgress {
+impl Component for Progress {
     type Message = Msg;
     type Properties = ();
 
     fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
-        CircularProgress { closed: false, link, progress: 0.0 }
+        Progress { closed: false, link, progress: 0.0 }
     }
 
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
@@ -37,6 +37,7 @@ impl Component for CircularProgress {
 
 
     fn view(&self) -> Html {
+        let buffer = self.progress - 0.3;
         html! {
             <div style="display: flex; flex-direction: column; width: max-content; gap: 1em; padding: 0 1em;">
                 <h3> {"Normal"} </h3>
@@ -44,11 +45,13 @@ impl Component for CircularProgress {
                 <div onclick=self.link.callback(|_| Msg::Close)>
                     <MatButton label="Close" raised=true  /> <br />
                     <MatCircularProgress indeterminate=true closed=self.closed />
+                    <MatLinearProgress indeterminate=true closed=self.closed />
                 </div>
 
                 <div onclick=self.link.callback(|_| Msg::ChangeProgress)>
                     <MatButton label="Increase progress" outlined=true /> <br />
                     <MatCircularProgress progress=self.progress />
+                    <MatLinearProgress progress=self.progress buffer=buffer />
                 </div>
 
                 <h3> {"Four colored"} </h3>

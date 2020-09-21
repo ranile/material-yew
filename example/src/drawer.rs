@@ -1,7 +1,7 @@
 use yew::prelude::*;
-use mat_web_comp::{MatDrawer, MatTopAppBar, MatIconButton, MatFab};
+use mat_web_comp::{MatDrawer, MatTopAppBar, MatIconButton, MatFab, MatIcon};
 use crate::checkbox::Checkbox;
-use crate::circular_progress::CircularProgress;
+use crate::progress::Progress;
 use crate::button::Button;
 
 pub struct Drawer {
@@ -44,6 +44,7 @@ impl Component for Drawer {
 
     fn view(&self) -> Html {
 
+
         html! {
             <MatDrawer open=self.state drawer_type="modal"
             onopened=self.link.callback(|_| Msg::Opened)
@@ -65,13 +66,13 @@ impl Component for Drawer {
                         <span slot="navigationIcon">
                             <MatIconButton icon="menu"></MatIconButton>
                         </span>
-                        <div slot="title">{"Title"}</div>
+                        <div slot="title"><MatIcon>{"code"}</MatIcon> {"Title"}</div>
                         <span slot="actionItems"><MatIconButton icon="file_download"></MatIconButton></span>
                     </MatTopAppBar>
                     <div>
                         <Button />
                         <MatFab icon="add" label="new" />
-                        <CircularProgress />
+                        <Progress />
                         <Checkbox />
                     </div>
                 </div>

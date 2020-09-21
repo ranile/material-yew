@@ -7,6 +7,8 @@ import {TopAppBar} from '@material/mwc-top-app-bar'
 import {IconButton} from '@material/mwc-icon-button'
 import {Fab} from '@material/mwc-fab'
 import {Formfield} from '@material/mwc-formfield'
+import {LinearProgress} from '@material/mwc-linear-progress'
+import {Icon} from '@material/mwc-icon'
 
 export {
     Button,
@@ -18,4 +20,6 @@ export {
     IconButton,
     Fab,
     Formfield,
+    LinearProgress,
+    Icon,
 }
