@@ -10,6 +10,7 @@
     "@material/mwc-circular-progress-four-color": "^0.18.0",
     "@material/mwc-drawer": "^0.18.0",
     "@material/mwc-fab": "^0.18.0",
+    "@material/mwc-formfield": "^0.18.0",
     "@material/mwc-icon-button": "^0.18.0",
     "@material/mwc-top-app-bar": "^0.18.0",
     "@webcomponents/webcomponentsjs": "^2.4.4"

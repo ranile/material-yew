@@ -24,18 +24,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="237ac129-c0f6-4c65-98b2-26dab8ff7e01" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/main.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/form_field.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/example/src/lib.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rollup.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/rollup.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/button.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/button.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/checkbox.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/checkbox.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/circular_progress.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/circular_progress.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/circular_progress_four_color.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/circular_progress_four_color.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/drawer.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/drawer.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/fab.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/fab.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/icon_button.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/icon_button.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/top_app_bar.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/top_app_bar.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,6 +82,21 @@
       <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
+  <component name="RunManager">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="RustProjectSettings">
     <option name="toolchainHomeDirectory" value="$USER_HOME$/.cargo/bin" />
     <option name="version" value="2" />
@@ -105,6 +115,7 @@
       <workItem from="1600510619133" duration="10659000" />
       <workItem from="1600593855068" duration="9080000" />
       <workItem from="1600612037139" duration="2502000" />
+      <workItem from="1600666494006" duration="7467000" />
     </task>
     <task id="LOCAL-00001" summary="Add example app">
       <created>1600438871438</created>
@@ -155,7 +166,14 @@
       <option name="project" value="LOCAL" />
       <updated>1600612541884</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="build every component to one file">
+      <created>1600666650752</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1600666650752</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -184,7 +202,8 @@
     <MESSAGE value="Add checkbox" />
     <MESSAGE value="Add `MatCircularProgressFourColor`&#10;&#10;Colors must be added for this to work&#10;Like in `example/index.html`" />
     <MESSAGE value="Add a bunch of more components&#10;&#10;These are:&#10;- icon-button&#10;- fab&#10;- drawer&#10;- top-app-bar" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add a bunch of more components&#10;&#10;These are:&#10;- icon-button&#10;- fab&#10;- drawer&#10;- top-app-bar" />
+    <MESSAGE value="build every component to one file" />
+    <option name="LAST_COMMIT_MESSAGE" value="build every component to one file" />
   </component>
   <component name="WindowStateProjectService">
     <state x="726" y="205" key="#com.intellij.ide.util.MemberChooser" timestamp="1600598064423">

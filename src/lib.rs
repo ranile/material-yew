@@ -16,6 +16,38 @@ macro_rules! loader_hack {
     };
 }
 
+macro_rules! component {
+    ($comp: ident, $props: ty, $html: expr, $mwc_to_initialize: ident) => {
+        pub struct $comp {
+            link: yew::ComponentLink<Self>,
+            props: $props
+        }
+
+        impl yew::Component for $comp {
+            type Message = ();
+            type Properties = Props;
+
+            fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
+                $mwc_to_initialize::ensure_loaded();
+                Self { props, link }
+            }
+
+            fn update(&mut self, _msg: Self::Message) -> ShouldRender {
+                false
+            }
+
+            fn change(&mut self, props: Self::Properties) -> bool {
+                self.props = props;
+                true
+            }
+
+            fn view(&self) -> Html {
+                $html(self)
+            }
+        }
+    };
+}
+
 fn to_option(value: bool) -> Option<&'static str> {
     match value {
         true => Some("true"),
@@ -52,3 +84,6 @@ pub use icon_button::MatIconButton;
 
 mod fab;
 pub use fab::MatFab;
+
+mod form_field;
+pub use form_field::MatFormfield;

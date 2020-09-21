@@ -6,6 +6,7 @@ import {Drawer} from '@material/mwc-drawer'
 import {TopAppBar} from '@material/mwc-top-app-bar'
 import {IconButton} from '@material/mwc-icon-button'
 import {Fab} from '@material/mwc-fab'
+import {Formfield} from '@material/mwc-formfield'
 
 export {
     Button,
@@ -16,4 +17,5 @@ export {
     TopAppBar,
     IconButton,
     Fab,
+    Formfield,
 }

@@ -5,6 +5,7 @@ mod drawer;
 
 use yew::prelude::*;
 use crate::drawer::Drawer;
+use mat_web_comp::{MatFormfield, MatCheckbox};
 
 pub struct App {
     link: ComponentLink<Self>,
@@ -30,6 +31,7 @@ impl Component for App {
 
 
     fn view(&self) -> Html {
+
         html! {
 <>
     <Drawer />

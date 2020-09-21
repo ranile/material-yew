@@ -1,5 +1,5 @@
 use yew::prelude::*;
-use mat_web_comp::{MatCheckbox, MatButton};
+use mat_web_comp::{MatCheckbox, MatButton, MatFormfield};
 
 pub struct Checkbox {
     link: ComponentLink<Self>,
@@ -37,9 +37,12 @@ impl Component for Checkbox {
             <div style="display: flex; width: max-content; gap: 1em; padding: 0 1em;">
             {&self.change}
                 <MatCheckbox onchange=self.link.callback(|val| Msg::Change(val)) ref=self.node_ref.clone() />
-                <MatCheckbox checked=true />
                 <MatCheckbox indeterminate=true />
                 <MatCheckbox disabled=true />
+                <br/>
+                <MatFormfield label="Test" align_end=true>
+                    <MatCheckbox checked=true />
+                </MatFormfield>
             </div>
         }
     }
