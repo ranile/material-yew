@@ -4,10 +4,11 @@ mod checkbox;
 mod drawer;
 mod radio;
 mod switch;
+mod dialog;
 
 use yew::prelude::*;
 use crate::drawer::Drawer;
-use mat_web_comp::{MatFormfield, MatCheckbox};
+use crate::dialog::Dialog;
 
 pub struct App {
     link: ComponentLink<Self>,
@@ -36,11 +37,9 @@ impl Component for App {
 
         html! {
 <>
-    <Drawer />
+    <Dialog />
+    // <Drawer />
 </>
-
-            // <div style="display: flex; flex-direction: column; width: max-content; gap: 1em; padding: 0 1em;">
-            // </div>
         }
     }
 }

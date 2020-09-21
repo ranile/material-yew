@@ -1,7 +1,6 @@
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
 use crate::{to_option, add_event_listener};
-use wasm_bindgen::JsCast;
 
 #[wasm_bindgen(module = "/build/built-js.js")]
 extern "C" {

@@ -1,6 +1,5 @@
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
-use crate::to_option;
 
 #[wasm_bindgen(module = "/build/built-js.js")]
 extern "C" {

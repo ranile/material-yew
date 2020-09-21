@@ -12,6 +12,7 @@ import {Icon} from '@material/mwc-icon'
 import {Radio} from '@material/mwc-radio'
 import {Switch} from '@material/mwc-switch'
 import {TopAppBarFixed} from '@material/mwc-top-app-bar-fixed'
+import {Dialog} from '@material/mwc-dialog'
 
 export {
     Button,
@@ -27,5 +28,6 @@ export {
     Icon,
     Radio,
     Switch,
-    TopAppBarFixed
+    TopAppBarFixed,
+    Dialog,
 }
