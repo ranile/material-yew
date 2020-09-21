@@ -1,5 +1,8 @@
 use yew::prelude::*;
-use mat_web_comp::{MatDrawer, MatTopAppBar, MatIconButton};
+use mat_web_comp::{MatDrawer, MatTopAppBar, MatIconButton, MatFab};
+use crate::checkbox::Checkbox;
+use crate::circular_progress::CircularProgress;
+use crate::button::Button;
 
 pub struct Drawer {
     link: ComponentLink<Self>,
@@ -66,7 +69,10 @@ impl Component for Drawer {
                         <span slot="actionItems"><MatIconButton icon="file_download"></MatIconButton></span>
                     </MatTopAppBar>
                     <div>
-                        <p>{"Main Content!"}</p>
+                        <Button />
+                        <MatFab icon="add" label="new" />
+                        <CircularProgress />
+                        <Checkbox />
                     </div>
                 </div>
             </MatDrawer>

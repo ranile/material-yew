@@ -4,11 +4,7 @@ mod checkbox;
 mod drawer;
 
 use yew::prelude::*;
-use circular_progress::CircularProgress;
-use button::Button;
-use checkbox::Checkbox;
 use crate::drawer::Drawer;
-use mat_web_comp::MatFab;
 
 pub struct App {
     link: ComponentLink<Self>,
@@ -36,12 +32,9 @@ impl Component for App {
     fn view(&self) -> Html {
         html! {
 <>
-    <Button />
-    <MatFab icon="add" label="new" />
+    <Drawer />
 </>
-                // <CircularProgress />
-                // <Checkbox />
-                // <Drawer />
+
             // <div style="display: flex; flex-direction: column; width: max-content; gap: 1em; padding: 0 1em;">
             // </div>
         }

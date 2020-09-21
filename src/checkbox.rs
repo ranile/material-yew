@@ -3,7 +3,7 @@ use yew::prelude::*;
 use crate::{to_option, add_event_listener};
 use wasm_bindgen::JsCast;
 
-#[wasm_bindgen(module = "/build/checkbox.js")]
+#[wasm_bindgen(module = "/build/built-js.js")]
 extern "C" {
     #[derive(Debug)]
     type Checkbox;

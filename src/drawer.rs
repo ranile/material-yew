@@ -3,7 +3,7 @@ use yew::prelude::*;
 use wasm_bindgen::JsCast;
 use crate::add_event_listener;
 
-#[wasm_bindgen(module = "/build/drawer.js")]
+#[wasm_bindgen(module = "/build/built-js.js")]
 extern "C" {
     #[derive(Debug)]
     type Drawer;

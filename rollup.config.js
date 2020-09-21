@@ -1,6 +1,6 @@
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import { terser } from "rollup-plugin-terser";
-
+/*
 const generateInput = (component, minify = false) => {
     const plugins = [nodeResolve()]
     if (minify) {
@@ -28,4 +28,14 @@ export default [
     'top-app-bar',
     'icon-button',
     'fab'
-].map((it) => generateInput(it))
+].map((it) => generateInput(it))*/
+
+export default {
+    input: `main.js`,
+    plugins: [nodeResolve(), terser()],
+    output: {
+        format: "es",
+        file: `build/built-js.js`,
+        inlineDynamicImports: true,
+    },
+}

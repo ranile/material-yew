@@ -24,19 +24,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="237ac129-c0f6-4c65-98b2-26dab8ff7e01" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/example/src/drawer.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/drawer.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/fab.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/icon_button.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/top_app_bar.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/example/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/example/src/lib.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rollup.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/rollup.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/button.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/button.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/checkbox.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/checkbox.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/circular_progress.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/circular_progress.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/circular_progress_four_color.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/circular_progress_four_color.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/drawer.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/drawer.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fab.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/fab.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/icon_button.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/icon_button.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/top_app_bar.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/top_app_bar.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,6 +76,7 @@
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="org.rust.cargo.project.model.PROJECT_DISCOVERY" value="true" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -104,7 +104,7 @@
       <workItem from="1600440303883" duration="10479000" />
       <workItem from="1600510619133" duration="10659000" />
       <workItem from="1600593855068" duration="9080000" />
-      <workItem from="1600612037139" duration="322000" />
+      <workItem from="1600612037139" duration="2502000" />
     </task>
     <task id="LOCAL-00001" summary="Add example app">
       <created>1600438871438</created>
@@ -148,7 +148,14 @@
       <option name="project" value="LOCAL" />
       <updated>1600520685048</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Add a bunch of more components&#10;&#10;These are:&#10;- icon-button&#10;- fab&#10;- drawer&#10;- top-app-bar">
+      <created>1600612541884</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1600612541884</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -176,7 +183,8 @@
     <MESSAGE value="Add circular progress + some more changes" />
     <MESSAGE value="Add checkbox" />
     <MESSAGE value="Add `MatCircularProgressFourColor`&#10;&#10;Colors must be added for this to work&#10;Like in `example/index.html`" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add `MatCircularProgressFourColor`&#10;&#10;Colors must be added for this to work&#10;Like in `example/index.html`" />
+    <MESSAGE value="Add a bunch of more components&#10;&#10;These are:&#10;- icon-button&#10;- fab&#10;- drawer&#10;- top-app-bar" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add a bunch of more components&#10;&#10;These are:&#10;- icon-button&#10;- fab&#10;- drawer&#10;- top-app-bar" />
   </component>
   <component name="WindowStateProjectService">
     <state x="726" y="205" key="#com.intellij.ide.util.MemberChooser" timestamp="1600598064423">
@@ -191,10 +199,10 @@
       <screen x="0" y="26" width="1920" height="1054" />
     </state>
     <state width="623" height="498" key="SwitcherDM/0.26.1920.1054@0.26.1920.1054" timestamp="1600594120407" />
-    <state x="460" y="227" key="Vcs.Push.Dialog.v2" timestamp="1600522769206">
+    <state x="460" y="227" key="Vcs.Push.Dialog.v2" timestamp="1600612546183">
       <screen x="0" y="26" width="1920" height="1054" />
     </state>
-    <state x="460" y="227" key="Vcs.Push.Dialog.v2/0.26.1920.1054@0.26.1920.1054" timestamp="1600522769206" />
+    <state x="460" y="227" key="Vcs.Push.Dialog.v2/0.26.1920.1054@0.26.1920.1054" timestamp="1600612546183" />
     <state x="590" y="208" width="786" height="690" key="find.popup" timestamp="1600602117803">
       <screen x="0" y="26" width="1920" height="1054" />
     </state>
