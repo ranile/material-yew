@@ -15,12 +15,6 @@ extern "C" {
 // call the macro with the type
 loader_hack!(Button);
 
-pub struct MatButton {
-    props: Props
-}
-
-pub enum Msg {}
-
 #[derive(Debug, Properties, Clone)]
 pub struct Props {
     pub label: String,
@@ -40,38 +34,15 @@ pub struct Props {
     pub trailing_icon: bool,
 }
 
-impl Component for MatButton {
-    type Message = Msg;
-    type Properties = Props;
-
-    fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
-        // call this every time you need the type to be loaded.
-        // don't worry, this only runs once
-        Button::ensure_loaded();
-        Self { props }
-    }
-
-    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
-        false
-    }
-
-    fn change(&mut self, props: Self::Properties) -> bool {
-        self.props = props;
-        true
-    }
-
-    fn view(&self) -> Html {
-        html! {
-            <mwc-button
-                label=self.props.label
-                icon?=self.props.icon.as_ref()
-                raised?=to_option(self.props.raised)
-                unelevated?=to_option(self.props.unelevated)
-                outlined?=to_option(self.props.outlined)
-                dense?=to_option(self.props.dense)
-                trailingIcon?=to_option(self.props.trailing_icon)
-                disabled=self.props.disabled
-            ></mwc-button>
-        }
-    }
-}
+component!(MatButton, Props, |props: &Props| html! {
+    <mwc-button
+        label=props.label
+        icon?=props.icon.as_ref()
+        raised?=to_option(props.raised)
+        unelevated?=to_option(props.unelevated)
+        outlined?=to_option(props.outlined)
+        dense?=to_option(props.dense)
+        trailingIcon?=to_option(props.trailing_icon)
+        disabled=props.disabled
+    ></mwc-button>
+}, Button);

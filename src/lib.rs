@@ -19,7 +19,6 @@ macro_rules! loader_hack {
 macro_rules! component {
     ($comp: ident, $props: ty, $html: expr, $mwc_to_initialize: ident) => {
         pub struct $comp {
-            link: yew::ComponentLink<Self>,
             props: $props
         }
 
@@ -27,9 +26,9 @@ macro_rules! component {
             type Message = ();
             type Properties = Props;
 
-            fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
+            fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
                 $mwc_to_initialize::ensure_loaded();
-                Self { props, link }
+                Self { props }
             }
 
             fn update(&mut self, _msg: Self::Message) -> ShouldRender {
@@ -42,7 +41,7 @@ macro_rules! component {
             }
 
             fn view(&self) -> Html {
-                $html(self)
+                $html(&self.props)
             }
         }
     };

@@ -13,12 +13,6 @@ extern "C" {
 
 loader_hack!(Fab);
 
-pub struct MatFab {
-    props: Props
-}
-
-pub enum Msg {}
-
 #[derive(Debug, Properties, Clone)]
 pub struct Props {
     #[prop_or_default]
@@ -37,34 +31,13 @@ pub struct Props {
     pub children: Children,
 }
 
-impl Component for MatFab {
-    type Message = Msg;
-    type Properties = Props;
-
-    fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
-        Fab::ensure_loaded();
-        Self { props }
-    }
-
-    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
-        false
-    }
-
-    fn change(&mut self, props: Self::Properties) -> bool {
-        self.props = props;
-        true
-    }
-
-    fn view(&self) -> Html {
-        html! {
-            <mwc-fab
-                label=self.props.label
-                icon=self.props.icon
-                mini?=to_option(self.props.mini)
-                reducedTouchTarget?=to_option(self.props.reduced_touch_target)
-                extended?=to_option(self.props.extended)
-                showIconAtEnd?=to_option(self.props.show_icon_at_end)
-            >{ self.props.children.clone() }</mwc-fab>
-        }
-    }
-}
+component!(MatFab, Props, |props: &Props| html! {
+    <mwc-fab
+        label=props.label
+        icon=props.icon
+        mini?=to_option(props.mini)
+        reducedTouchTarget?=to_option(props.reduced_touch_target)
+        extended?=to_option(props.extended)
+        showIconAtEnd?=to_option(props.show_icon_at_end)
+    >{ props.children.clone() }</mwc-fab>
+}, Fab);

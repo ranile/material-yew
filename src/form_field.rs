@@ -26,12 +26,12 @@ pub struct Props {
     pub nowrap: bool,
 }
 
-component!(MatFormfield, Props, |self_: &MatFormfield| html! {
+component!(MatFormfield, Props, |props: &Props| html! {
     <mwc-formfield
-        label=self_.props.label
-        alignEnd?=to_option(self_.props.align_end)
-        spaceBetween?=to_option(self_.props.space_between)
-        nowrap?=to_option(self_.props.nowrap)
-    >{ self_.props.children.clone() }</mwc-formfield>
+        label=props.label
+        alignEnd?=to_option(props.align_end)
+        spaceBetween?=to_option(props.space_between)
+        nowrap?=to_option(props.nowrap)
+    >{ props.children.clone() }</mwc-formfield>
 }, Formfield);
 
