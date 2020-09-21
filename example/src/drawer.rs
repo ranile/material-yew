@@ -1,5 +1,5 @@
 use yew::prelude::*;
-use mat_web_comp::{MatDrawer, MatTopAppBar, MatIconButton, MatFab, MatIcon};
+use mat_web_comp::{MatDrawer, MatTopAppBar, MatTopAppBarFixed, MatIconButton, MatFab, MatIcon};
 use crate::checkbox::Checkbox;
 use crate::progress::Progress;
 use crate::button::Button;
@@ -14,7 +14,7 @@ pub struct Drawer {
 pub enum Msg {
     Click,
     Opened,
-    Closed
+    Closed,
 }
 
 impl Component for Drawer {
@@ -30,7 +30,7 @@ impl Component for Drawer {
             Msg::Click => {
                 self.state = true;
                 true
-            },
+            }
             Msg::Closed => {
                 self.state = false;
                 false
@@ -45,8 +45,6 @@ impl Component for Drawer {
     fn change(&mut self, _props: Self::Properties) -> bool { false }
 
     fn view(&self) -> Html {
-
-
         html! {
             <MatDrawer open=self.state drawer_type="modal"
             onopened=self.link.callback(|_| Msg::Opened)
@@ -64,18 +62,18 @@ impl Component for Drawer {
                     <MatIconButton icon="gavel"/>
                 </div>
                 <div slot="appContent">
-                    <MatTopAppBar center_title=true onnavigationiconclick=self.link.callback(|_| Msg::Click)>
+                    <MatTopAppBarFixed center_title=true onnavigationiconclick=self.link.callback(|_| Msg::Click)>
                         <span slot="navigationIcon">
                             <MatIconButton icon="menu"></MatIconButton>
                         </span>
                         <div slot="title"><MatIcon>{"code"}</MatIcon> {"Title"}</div>
                         <span slot="actionItems"><MatIconButton icon="file_download"></MatIconButton></span>
-                    </MatTopAppBar>
+                    </MatTopAppBarFixed>
                     <div>
-                        // <Button />
-                        // <MatFab icon="add" label="new" />
-                        // <Progress />
-                        // <Checkbox />
+                        <Button />
+                        <MatFab icon="add" label="new" />
+                        <Progress />
+                        <Checkbox />
                         <Radio />
                         <Switch />
                     </div>

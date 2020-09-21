@@ -17,6 +17,7 @@
     "@material/mwc-radio": "^0.18.0",
     "@material/mwc-switch": "^0.18.0",
     "@material/mwc-top-app-bar": "^0.18.0",
+    "@material/mwc-top-app-bar-fixed": "^0.18.0",
     "@webcomponents/webcomponentsjs": "^2.4.4"
   },
   "devDependencies": {

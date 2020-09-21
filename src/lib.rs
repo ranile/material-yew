@@ -105,3 +105,6 @@ pub use radio::MatRadio;
 
 mod switch;
 pub use switch::MatSwitch;
+
+mod top_app_bar_fixed;
+pub use top_app_bar_fixed::MatTopAppBarFixed;

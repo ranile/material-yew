@@ -11,6 +11,7 @@ import {LinearProgress} from '@material/mwc-linear-progress'
 import {Icon} from '@material/mwc-icon'
 import {Radio} from '@material/mwc-radio'
 import {Switch} from '@material/mwc-switch'
+import {TopAppBarFixed} from '@material/mwc-top-app-bar-fixed'
 
 export {
     Button,
@@ -26,4 +27,5 @@ export {
     Icon,
     Radio,
     Switch,
+    TopAppBarFixed
 }

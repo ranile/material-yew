@@ -24,14 +24,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="237ac129-c0f6-4c65-98b2-26dab8ff7e01" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/example/src/radio.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/src/switch.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/radio.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/switch.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/top_app_bar_fixed.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/src/drawer.rs" beforeDir="false" afterPath="$PROJECT_DIR$/example/src/drawer.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/example/src/lib.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
@@ -82,7 +77,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/example/src" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="org.rust.cargo.project.model.PROJECT_DISCOVERY" value="true" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
@@ -90,8 +85,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/example/src" />
       <recent name="$PROJECT_DIR$/src" />
+      <recent name="$PROJECT_DIR$/example/src" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src" />
@@ -131,7 +126,7 @@
       <workItem from="1600510619133" duration="10659000" />
       <workItem from="1600593855068" duration="9080000" />
       <workItem from="1600612037139" duration="2502000" />
-      <workItem from="1600666494006" duration="13352000" />
+      <workItem from="1600666494006" duration="13999000" />
     </task>
     <task id="LOCAL-00001" summary="Add example app">
       <created>1600438871438</created>
@@ -217,7 +212,14 @@
       <option name="project" value="LOCAL" />
       <updated>1600677300339</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Add radio and switch components">
+      <created>1600680681990</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1600680681990</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -251,7 +253,8 @@
     <MESSAGE value="Use component! wherever possible" />
     <MESSAGE value="oopsie" />
     <MESSAGE value="Add icon and linear-progress components" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add icon and linear-progress components" />
+    <MESSAGE value="Add radio and switch components" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add radio and switch components" />
   </component>
   <component name="WindowStateProjectService">
     <state x="726" y="205" key="#com.intellij.ide.util.MemberChooser" timestamp="1600598064423">
@@ -270,10 +273,10 @@
       <screen x="0" y="26" width="1920" height="1054" />
     </state>
     <state width="623" height="574" key="SwitcherDM/0.26.1920.1054@0.26.1920.1054" timestamp="1600676695400" />
-    <state x="460" y="227" key="Vcs.Push.Dialog.v2" timestamp="1600612546183">
+    <state x="460" y="227" key="Vcs.Push.Dialog.v2" timestamp="1600680783163">
       <screen x="0" y="26" width="1920" height="1054" />
     </state>
-    <state x="460" y="227" key="Vcs.Push.Dialog.v2/0.26.1920.1054@0.26.1920.1054" timestamp="1600612546183" />
+    <state x="460" y="227" key="Vcs.Push.Dialog.v2/0.26.1920.1054@0.26.1920.1054" timestamp="1600680783163" />
     <state x="590" y="208" width="786" height="690" key="find.popup" timestamp="1600675160419">
       <screen x="0" y="26" width="1920" height="1054" />
     </state>
