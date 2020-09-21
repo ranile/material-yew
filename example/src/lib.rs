@@ -2,6 +2,8 @@ mod progress;
 mod button;
 mod checkbox;
 mod drawer;
+mod radio;
+mod switch;
 
 use yew::prelude::*;
 use crate::drawer::Drawer;

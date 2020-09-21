@@ -1,5 +1,5 @@
 use wasm_bindgen::prelude::Closure;
-use wasm_bindgen::JsCast;
+use wasm_bindgen::{JsCast, JsValue};
 use yew::NodeRef;
 
 // this macro is defined here so we can access it in the modules
@@ -60,6 +60,13 @@ pub fn add_event_listener(node_ref: &NodeRef, name: &str, func: impl Fn() + 'sta
     element.add_event_listener_with_callback(name, closure_to_store_in.as_ref().unwrap().as_ref().unchecked_ref());
 }
 
+pub fn read_boolean_property(element: &yew::web_sys::Element, name: &str) -> bool {
+    js_sys::Reflect::get(&element, &JsValue::from_str(name))
+        .expect("`checked` property is not found")
+        .as_bool()
+        .expect("`checked` property is not a bool")
+}
+
 mod button;
 pub use button::MatButton;
 
@@ -92,3 +99,9 @@ pub use icon::MatIcon;
 
 mod linear_progress;
 pub use linear_progress::MatLinearProgress;
+
+mod radio;
+pub use radio::MatRadio;
+
+mod switch;
+pub use switch::MatSwitch;

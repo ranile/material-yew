@@ -9,6 +9,8 @@ import {Fab} from '@material/mwc-fab'
 import {Formfield} from '@material/mwc-formfield'
 import {LinearProgress} from '@material/mwc-linear-progress'
 import {Icon} from '@material/mwc-icon'
+import {Radio} from '@material/mwc-radio'
+import {Switch} from '@material/mwc-switch'
 
 export {
     Button,
@@ -22,4 +24,6 @@ export {
     Formfield,
     LinearProgress,
     Icon,
+    Radio,
+    Switch,
 }
