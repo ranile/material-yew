@@ -1,6 +1,6 @@
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
-use crate::add_event_listener;
+use crate::{add_event_listener, set_element_property};
 
 #[wasm_bindgen(module = "/build/built-js.js")]
 extern "C" {
@@ -66,14 +66,8 @@ impl Component for MatDrawer {
 
     fn rendered(&mut self, first_render: bool) {
         let element = self.node_ref.cast::<yew::web_sys::Element>().unwrap();
-
         element.set_attribute("type", &self.props.drawer_type);
-        if self.props.open {
-            element.set_attribute("open", "true");
-        } else {
-            element.remove_attribute("open");
-        }
-
+        set_element_property(&element, "open", &JsValue::from(self.props.open));
 
         if first_render {
             let onopen_callback = self.props.onopened.clone();
@@ -84,7 +78,7 @@ impl Component for MatDrawer {
             }, &mut self.opened_closure);
             add_event_listener(&self.node_ref, "MDCDrawer:closed", move || {
                 onclose_callback.emit(());
-            }, &mut self.opened_closure);
+            }, &mut self.closed_closure);
         }
     }
 }

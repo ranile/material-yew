@@ -60,22 +60,17 @@ pub fn add_event_listener(node_ref: &NodeRef, name: &str, func: impl Fn() + 'sta
     element.add_event_listener_with_callback(name, closure_to_store_in.as_ref().unwrap().as_ref().unchecked_ref());
 }
 
-pub fn add_event_listener_with_param<T>(
-    node_ref: &NodeRef,
-    name: &str, func: impl Fn(T) + 'static,
-    closure_to_store_in: &mut Option<Closure<dyn FnMut(T)>>)
-where T: FromWasmAbi + 'static
-{
-    let element = node_ref.cast::<yew::web_sys::Element>().unwrap();
-    *closure_to_store_in = Some(Closure::wrap(Box::new(func) as Box<dyn FnMut(T)>));
-    element.add_event_listener_with_callback(name, closure_to_store_in.as_ref().unwrap().as_ref().unchecked_ref());
-}
-
 pub fn read_boolean_property(element: &yew::web_sys::Element, name: &str) -> bool {
     js_sys::Reflect::get(&element, &JsValue::from_str(name))
-        .expect("`checked` property is not found")
+        .expect("property is not found")
         .as_bool()
-        .expect("`checked` property is not a bool")
+        .expect("property is not a bool")
+}
+
+pub fn set_element_property(element: &yew::web_sys::Element, key: &str, value: &JsValue) -> bool {
+    js_sys::Reflect::set(&element, &JsValue::from_str(key), value)
+        .expect("Setting property failed")
+
 }
 
 mod button;
@@ -119,7 +114,6 @@ pub use switch::MatSwitch;
 
 mod top_app_bar_fixed;
 pub use top_app_bar_fixed::MatTopAppBarFixed;
-use wasm_bindgen::convert::FromWasmAbi;
 
 mod dialog;
 pub use dialog::MatDialog;
