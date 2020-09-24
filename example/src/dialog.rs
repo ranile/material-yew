@@ -1,5 +1,5 @@
 use yew::prelude::*;
-use mat_web_comp::{MatFormfield, MatCheckbox, MatDialog, MatButton};
+use yew_material_components::{MatFormfield, MatCheckbox, MatDialog, MatButton};
 use yew::services::ConsoleService;
 
 pub struct Dialog {

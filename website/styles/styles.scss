@@ -1,0 +1,104 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+:root {
+    --mdc-theme-primary: #3f51b5;
+}
+
+body {
+    font-size: 16px;
+    font-family: Roboto, serif;
+}
+
+mwc-top-app-bar-fixed {
+    --mdc-top-app-bar-fixed-box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 5px 8px 0 rgba(0, 0, 0, .14), 0 1px 14px 0 rgba(0, 0, 0, .12);
+}
+
+#router-outlet {
+    padding: 1rem;
+}
+
+.home-content {
+    padding: 0 0.6em;
+    line-height: 1.5em;
+
+    h3 {
+        padding: 1em 0 0.5em;
+    }
+
+    span code { line-height: 2em; }
+}
+
+.components-grid {
+    display: grid;
+    align-content: center;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3em;
+    padding: 2em 6em;
+    /* standard drawer
+    gap: 2em;
+    margin: 2em 0 1em 2em;*/
+
+    a {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1em;
+        width: min-content;
+        width: -moz-min-content;
+        border-radius: 16px;
+        border: 1px solid rgba(0, 0, 0, 0.18);
+        padding-bottom: 1em;
+        cursor: pointer;
+        text-decoration: none;
+        color: black;
+
+        img {
+            border-radius: 16px;
+        }
+
+        h6 {
+            font-size: 1.2em;
+        }
+    }
+
+    a:hover {
+        background: rgba(0, 0, 0, .03);
+    }
+}
+
+pre {
+    background-color: rgba(0, 0, 0, 0.07);
+    padding: 0.75em 0.75em 0.75em 0.3em;
+    border-radius: 0.75em;
+    line-height: 1.8em;
+}
+
+code {
+    font-family: "JetBrains Mono", monospace;
+}
+
+.app-title {
+    display: flex;
+    align-items: center;
+
+    a {
+        text-decoration: none;
+        color: white;
+    }
+}
+
+// Hacking button to make it show in top-app-bar-fixed
+.action-item {
+    --mdc-theme-primary: white;
+    margin-left: 0.5em;
+}
+
+.comp-demo {
+    display: flex;
+    gap: 1em;
+    padding: 1em 0;
+    align-items: center;
+}

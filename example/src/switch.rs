@@ -1,5 +1,5 @@
 use yew::prelude::*;
-use mat_web_comp::{MatSwitch, MatButton, MatFormfield};
+use yew_material_components::{MatSwitch, MatButton, MatFormfield};
 
 pub struct Switch {
     link: ComponentLink<Self>,

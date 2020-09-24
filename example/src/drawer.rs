@@ -1,5 +1,5 @@
 use yew::prelude::*;
-use mat_web_comp::{MatDrawer, MatTopAppBar, MatTopAppBarFixed, MatIconButton, MatFab, MatIcon};
+use yew_material_components::{MatDrawer, MatTopAppBar, MatTopAppBarFixed, MatIconButton, MatFab, MatIcon};
 use crate::checkbox::Checkbox;
 use crate::progress::Progress;
 use crate::button::Button;

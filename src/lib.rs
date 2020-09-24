@@ -1,3 +1,17 @@
+//! A Material components library for Yew. It wrpas around Material Web Components exposing Yew components
+//!
+//! Example usage:
+//! ```rust
+//! use yew_material_components::MatButton;
+//! use yew::html;
+//!
+//! html! {
+//!     <MatButton label="Click me!" />
+//! }
+//! ```
+//!
+//! More information can be found in the [GitHub README](https://github.com/hamza1311/yew-material-components)
+
 use wasm_bindgen::prelude::Closure;
 use wasm_bindgen::{JsCast, JsValue};
 use yew::NodeRef;
@@ -54,66 +68,65 @@ fn to_option(value: bool) -> Option<&'static str> {
     }
 }
 
-pub fn add_event_listener(node_ref: &NodeRef, name: &str, func: impl Fn() + 'static, closure_to_store_in: &mut Option<Closure<dyn FnMut()>>) {
+fn add_event_listener(node_ref: &NodeRef, name: &str, func: impl Fn() + 'static, closure_to_store_in: &mut Option<Closure<dyn FnMut()>>) {
     let element = node_ref.cast::<yew::web_sys::Element>().unwrap();
     *closure_to_store_in = Some(Closure::wrap(Box::new(func) as Box<dyn FnMut()>));
     element.add_event_listener_with_callback(name, closure_to_store_in.as_ref().unwrap().as_ref().unchecked_ref());
 }
 
-pub fn read_boolean_property(element: &yew::web_sys::Element, name: &str) -> bool {
+fn read_boolean_property(element: &yew::web_sys::Element, name: &str) -> bool {
     js_sys::Reflect::get(&element, &JsValue::from_str(name))
         .expect("property is not found")
         .as_bool()
         .expect("property is not a bool")
 }
 
-pub fn set_element_property(element: &yew::web_sys::Element, key: &str, value: &JsValue) -> bool {
+fn set_element_property(element: &yew::web_sys::Element, key: &str, value: &JsValue) -> bool {
     js_sys::Reflect::set(&element, &JsValue::from_str(key), value)
         .expect("Setting property failed")
-
 }
 
-mod button;
+pub mod button;
 pub use button::MatButton;
 
-mod circular_progress;
+pub mod circular_progress;
 pub use circular_progress::MatCircularProgress;
 
-mod checkbox;
+pub mod checkbox;
 pub use checkbox::MatCheckbox;
 
-mod circular_progress_four_color;
+pub mod circular_progress_four_color;
 pub use circular_progress_four_color::MatCircularProgressFourColor;
 
-mod drawer;
+pub mod drawer;
 pub use drawer::MatDrawer;
 
-mod top_app_bar;
+pub mod top_app_bar;
 pub use top_app_bar::MatTopAppBar;
 
-mod icon_button;
+pub mod icon_button;
 pub use icon_button::MatIconButton;
 
-mod fab;
+pub mod fab;
 pub use fab::MatFab;
 
-mod form_field;
+pub mod form_field;
 pub use form_field::MatFormfield;
 
-mod icon;
+pub mod icon;
 pub use icon::MatIcon;
 
-mod linear_progress;
+pub mod linear_progress;
 pub use linear_progress::MatLinearProgress;
 
-mod radio;
+pub mod radio;
 pub use radio::MatRadio;
 
-mod switch;
+pub mod switch;
 pub use switch::MatSwitch;
 
-mod top_app_bar_fixed;
+pub mod top_app_bar_fixed;
 pub use top_app_bar_fixed::MatTopAppBarFixed;
 
-mod dialog;
+pub mod dialog;
 pub use dialog::MatDialog;

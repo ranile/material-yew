@@ -9,4 +9,4 @@ edition = "2018"
 [dependencies]
 wasm-bindgen = "^0.2"
 yew = { git = "https://github.com/yewstack/yew/", branch = "master" }
-mat-web-comp = { path = ".." }
+yew-material-components = { path = ".." }

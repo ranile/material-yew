@@ -1,5 +1,5 @@
 use yew::prelude::*;
-use mat_web_comp::{MatRadio, MatButton, MatFormfield};
+use yew_material_components::{MatRadio, MatButton, MatFormfield};
 
 pub struct Radio {
     link: ComponentLink<Self>,

@@ -1,5 +1,5 @@
 use yew::prelude::*;
-use mat_web_comp::{MatButton};
+use yew_material_components::{MatButton};
 
 pub struct Button {}
 

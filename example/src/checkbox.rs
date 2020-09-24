@@ -1,5 +1,5 @@
 use yew::prelude::*;
-use mat_web_comp::{MatCheckbox, MatButton, MatFormfield};
+use yew_material_components::{MatCheckbox, MatButton, MatFormfield};
 
 pub struct Checkbox {
     link: ComponentLink<Self>,

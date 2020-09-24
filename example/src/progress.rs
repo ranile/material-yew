@@ -1,5 +1,5 @@
 use yew::prelude::*;
-use mat_web_comp::{MatCircularProgressFourColor, MatCircularProgress, MatButton, MatLinearProgress};
+use yew_material_components::{MatCircularProgressFourColor, MatCircularProgress, MatButton, MatLinearProgress};
 
 pub struct Progress {
     closed: bool,

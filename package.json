@@ -1,5 +1,5 @@
 {
-  "name": "mat-web-comp",
+  "name": "yew-material-components",
   "version": "1.0.0",
   "description": "WIP",
   "main": "rollup.config.js",
