@@ -25,38 +25,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="237ac129-c0f6-4c65-98b2-26dab8ff7e01" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/website/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/website/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/website/src/components/button.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/website/src/components/checkbox.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/website/src/components/circular_progress.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/website/src/components/components.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/website/src/components/drawer.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/website/src/components/fab.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/website/src/components/form_field.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/website/src/components/home.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/website/src/components/icon.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/website/src/components/icon_button.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/website/src/components/linear_progress.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/website/src/components/mod.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/website/src/components/radio.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/website/src/components/switch.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/website/src/lib.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/website/styles/styles.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/mat-web-comp.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/mat-web-comp.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/list/check_list_item.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/list/list.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/list/list_item.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/list/mod.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/list/radio_list_item.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/website/src/components/list.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/example/Cargo.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/src/button.rs" beforeDir="false" afterPath="$PROJECT_DIR$/example/src/button.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/src/checkbox.rs" beforeDir="false" afterPath="$PROJECT_DIR$/example/src/checkbox.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/src/dialog.rs" beforeDir="false" afterPath="$PROJECT_DIR$/example/src/dialog.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/src/drawer.rs" beforeDir="false" afterPath="$PROJECT_DIR$/example/src/drawer.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/src/progress.rs" beforeDir="false" afterPath="$PROJECT_DIR$/example/src/progress.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/src/radio.rs" beforeDir="false" afterPath="$PROJECT_DIR$/example/src/radio.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/src/switch.rs" beforeDir="false" afterPath="$PROJECT_DIR$/example/src/switch.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/website/src/components/components.rs" beforeDir="false" afterPath="$PROJECT_DIR$/website/src/components/components.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/website/src/components/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/website/src/components/mod.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/website/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/website/src/lib.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/website/styles/styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/website/styles/styles.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,32 +86,39 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/website/src/components" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/list" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="org.rust.cargo.project.model.PROJECT_DISCOVERY" value="true" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/list" />
       <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$/src/drawer" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/list" />
+      <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$/website/src/components" />
       <recent name="$PROJECT_DIR$/website" />
-      <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$/example/src" />
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -154,7 +144,8 @@
       <workItem from="1600612037139" duration="2502000" />
       <workItem from="1600666494006" duration="23553000" />
       <workItem from="1600710689488" duration="784000" />
-      <workItem from="1600711574160" duration="42611000" />
+      <workItem from="1600711574160" duration="51117000" />
+      <workItem from="1601024687288" duration="3550000" />
     </task>
     <task id="LOCAL-00001" summary="Add example app">
       <created>1600438871438</created>
@@ -268,7 +259,14 @@
       <option name="project" value="LOCAL" />
       <updated>1600785622281</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="add website, update name and some docs and fixes">
+      <created>1600947348681</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1600947348681</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -306,17 +304,22 @@
     <MESSAGE value="Add top-app-bar-fixed component" />
     <MESSAGE value="Add dialog component, fix some warnings" />
     <MESSAGE value="fix drawer component" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix drawer component" />
+    <MESSAGE value="add website, update name and some docs and fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="add website, update name and some docs and fixes" />
   </component>
   <component name="WindowStateProjectService">
     <state x="460" y="112" width="1000" height="881" key="#Plugins" timestamp="1600711175266">
       <screen x="0" y="26" width="1920" height="1054" />
     </state>
     <state x="460" y="112" width="1000" height="881" key="#Plugins/0.26.1920.1054@0.26.1920.1054" timestamp="1600711175266" />
-    <state x="726" y="205" key="#com.intellij.ide.util.MemberChooser" timestamp="1600694553592">
+    <state x="320" y="29" key="#Project_Structure" timestamp="1600951159856">
       <screen x="0" y="26" width="1920" height="1054" />
     </state>
-    <state x="726" y="205" key="#com.intellij.ide.util.MemberChooser/0.26.1920.1054@0.26.1920.1054" timestamp="1600694553592" />
+    <state x="320" y="29" key="#Project_Structure/0.26.1920.1054@0.26.1920.1054" timestamp="1600951159856" />
+    <state x="726" y="205" key="#com.intellij.ide.util.MemberChooser" timestamp="1601027751450">
+      <screen x="0" y="26" width="1920" height="1054" />
+    </state>
+    <state x="726" y="205" key="#com.intellij.ide.util.MemberChooser/0.26.1920.1054@0.26.1920.1054" timestamp="1601027751450" />
     <state x="739" y="423" key="Git.Rebase.Log.Action.NewCommitMessage.Dialog" timestamp="1600676788094">
       <screen x="0" y="26" width="1920" height="1054" />
     </state>
@@ -325,22 +328,22 @@
       <screen x="0" y="26" width="1920" height="1054" />
     </state>
     <state x="329" y="101" key="SettingsEditor/0.26.1920.1054@0.26.1920.1054" timestamp="1600440350267" />
-    <state width="623" height="574" key="SwitcherDM" timestamp="1600676695400">
+    <state width="623" height="574" key="SwitcherDM" timestamp="1600950848811">
       <screen x="0" y="26" width="1920" height="1054" />
     </state>
-    <state width="623" height="574" key="SwitcherDM/0.26.1920.1054@0.26.1920.1054" timestamp="1600676695400" />
-    <state x="460" y="227" key="Vcs.Push.Dialog.v2" timestamp="1600709539666">
+    <state width="623" height="574" key="SwitcherDM/0.26.1920.1054@0.26.1920.1054" timestamp="1600950848811" />
+    <state x="460" y="227" key="Vcs.Push.Dialog.v2" timestamp="1600950173211">
       <screen x="0" y="26" width="1920" height="1054" />
     </state>
-    <state x="460" y="227" key="Vcs.Push.Dialog.v2/0.26.1920.1054@0.26.1920.1054" timestamp="1600709539666" />
+    <state x="460" y="227" key="Vcs.Push.Dialog.v2/0.26.1920.1054@0.26.1920.1054" timestamp="1600950173211" />
     <state x="100" y="126" width="1720" height="854" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1600875412942">
       <screen x="0" y="26" width="1920" height="1054" />
     </state>
     <state x="100" y="126" width="1720" height="854" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.26.1920.1054@0.26.1920.1054" timestamp="1600875412942" />
-    <state x="590" y="208" width="786" height="766" key="find.popup" timestamp="1600869500395">
+    <state x="590" y="208" width="786" height="766" key="find.popup" timestamp="1601027287209">
       <screen x="0" y="26" width="1920" height="1054" />
     </state>
-    <state x="590" y="208" width="786" height="766" key="find.popup/0.26.1920.1054@0.26.1920.1054" timestamp="1600869500395" />
+    <state x="590" y="208" width="786" height="766" key="find.popup/0.26.1920.1054@0.26.1920.1054" timestamp="1601027287209" />
     <state x="540" y="250" key="run.anything.popup" timestamp="1600871733309">
       <screen x="0" y="26" width="1920" height="1054" />
     </state>

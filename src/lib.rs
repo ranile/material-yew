@@ -130,3 +130,6 @@ pub use top_app_bar_fixed::MatTopAppBarFixed;
 
 pub mod dialog;
 pub use dialog::MatDialog;
+
+pub mod list;
+pub use list::{MatList, MatListItem, MatCheckListItem, MatRadioListItem};

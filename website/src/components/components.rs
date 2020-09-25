@@ -39,6 +39,7 @@ impl Component for Components {
             // TODO { component_card("Drawer", AppRoute::Drawer) }
             { component_card("Form Field", AppRoute::FormField) }
             { component_card("Linear Progress", AppRoute::LinearProgress) }
+            { component_card("List", AppRoute::List) }
         </section>
        }
     }

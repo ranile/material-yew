@@ -2,8 +2,11 @@ mod components;
 
 use yew::prelude::*;
 use yew_router::prelude::*;
-use yew_material_components::{MatDrawer, MatTopAppBarFixed, MatIconButton, MatButton};
-use crate::components::{Home, Button, Components, Checkbox, Radio, Switch, Fab, IconButton, Icon, CircularProgress, Drawer, FormField, LinearProgress};
+use yew_material_components::{MatDrawer, MatTopAppBarFixed, MatIconButton, MatButton, MatList, MatListItem};
+use crate::components::{
+    Home, Button, Components, Checkbox, Radio, Switch, Fab, IconButton, Icon,
+    CircularProgress, Drawer, FormField, LinearProgress, List,
+};
 
 #[derive(Switch, Clone)]
 pub enum AppRoute {
@@ -29,6 +32,8 @@ pub enum AppRoute {
     FormField,
     #[to = "/components/linear-progress"]
     LinearProgress,
+    #[to = "/components/list"]
+    List,
     #[to = "/components"]
     Components,
     #[to = "/"]
@@ -83,14 +88,22 @@ impl Component for App {
             onopened=self.link.callback(|_| Msg::Opened)
             onclosed=self.link.callback(|_| Msg::Closed)>
 
-                <span slot="title">{"Components"}</span>
+                <span class="drawer-title" slot="title">{"Components"}</span>
 
-                <div style="padding: 1em 16px 0 16px;display: flex;flex-direction: column;gap: 1em;">
-                // TODO MatList
-                    <span>{"Drawer content 1"}</span>
-                    <span>{"Drawer content 2"}</span>
-                    <span>{"Drawer content 3"}</span>
-                    <span>{"Drawer content 4"}</span>
+                <div class="drawer-content">
+                    <MatList>
+                        <AppRouterAnchor route=AppRoute::Button><MatListItem>{"Button"}</MatListItem></AppRouterAnchor>
+                        <AppRouterAnchor route=AppRoute::Checkbox><MatListItem>{"Checkbox"}</MatListItem></AppRouterAnchor>
+                        <AppRouterAnchor route=AppRoute::Radio><MatListItem>{"Radio"}</MatListItem></AppRouterAnchor>
+                        <AppRouterAnchor route=AppRoute::Switch><MatListItem>{"Switch"}</MatListItem></AppRouterAnchor>
+                        <AppRouterAnchor route=AppRoute::Fab><MatListItem>{"Floating Action Button"}</MatListItem></AppRouterAnchor>
+                        <AppRouterAnchor route=AppRoute::IconButton><MatListItem>{"Icon Button"}</MatListItem></AppRouterAnchor>
+                        <AppRouterAnchor route=AppRoute::Icon><MatListItem>{"Icon"}</MatListItem></AppRouterAnchor>
+                        <AppRouterAnchor route=AppRoute::CircularProgress><MatListItem>{"Circular Progress"}</MatListItem></AppRouterAnchor>
+                        <AppRouterAnchor route=AppRoute::FormField><MatListItem>{"Form Field"}</MatListItem></AppRouterAnchor>
+                        <AppRouterAnchor route=AppRoute::LinearProgress><MatListItem>{"Linear Progress"}</MatListItem></AppRouterAnchor>
+                        <AppRouterAnchor route=AppRoute::List><MatListItem>{"List"}</MatListItem></AppRouterAnchor>
+                    </MatList>
                 </div>
 
                 <div slot="appContent" class="app-content">
@@ -137,6 +150,7 @@ impl App {
             AppRoute::Drawer => html! { <Drawer /> },
             AppRoute::FormField => html! { <FormField /> },
             AppRoute::LinearProgress => html! { <LinearProgress /> },
+            AppRoute::List => html! { <List /> },
         }
     }
 }

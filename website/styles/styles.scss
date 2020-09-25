@@ -10,14 +10,32 @@
 body {
     font-size: 16px;
     font-family: Roboto, serif;
+    overflow: hidden;
 }
 
 mwc-top-app-bar-fixed {
-    --mdc-top-app-bar-fixed-box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 5px 8px 0 rgba(0, 0, 0, .14), 0 1px 14px 0 rgba(0, 0, 0, .12);
+    box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 5px 8px 0 rgba(0, 0, 0, .14), 0 1px 14px 0 rgba(0, 0, 0, .12);
+}
+
+.drawer-content {
+    padding: 1em 16px 0 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.drawer-title {
+    padding: 0 16px;
+}
+
+mwc-list a {
+    text-decoration: none;
 }
 
 #router-outlet {
     padding: 1rem;
+    height: calc(100vh - 100px);
+    overflow: auto;
 }
 
 .home-content {
@@ -28,7 +46,9 @@ mwc-top-app-bar-fixed {
         padding: 1em 0 0.5em;
     }
 
-    span code { line-height: 2em; }
+    span code {
+        line-height: 2em;
+    }
 }
 
 .components-grid {
@@ -102,3 +122,19 @@ code {
     padding: 1em 0;
     align-items: center;
 }
+
+.list-demo {
+    h2 {
+        padding: 1em 0;
+    }
+    mwc-list {
+        border: 1px solid #d3d3d3;
+        max-width: 400px;
+        margin-bottom: 1em;
+    }
+}
+
+mwc-list-item, mwc-check-list-item, mwc-radio-list-item {
+    padding: 0 16px;
+}
+
