@@ -1,7 +1,6 @@
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
 use crate::{add_event_listener, read_boolean_property, to_option};
-use wasm_bindgen::JsCast;
 
 #[wasm_bindgen(module = "/build/built-js.js")]
 extern "C" {
@@ -15,13 +14,10 @@ extern "C" {
 loader_hack!(IconButtonToggle);
 
 pub struct MatIconButtonToggle {
-    link: ComponentLink<Self>,
     props: Props,
     node_ref: NodeRef,
     closure: Option<Closure<dyn FnMut()>>,
 }
-
-pub enum Msg {}
 
 #[derive(Debug, Properties, Clone)]
 pub struct Props {
@@ -42,12 +38,12 @@ pub struct Props {
 }
 
 impl Component for MatIconButtonToggle {
-    type Message = Msg;
+    type Message = ();
     type Properties = Props;
 
-    fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
+    fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
         IconButtonToggle::ensure_loaded();
-        Self { props, link, node_ref: NodeRef::default(), closure: None }
+        Self { props, node_ref: NodeRef::default(), closure: None }
     }
 
     fn update(&mut self, _msg: Self::Message) -> ShouldRender { false }

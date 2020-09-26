@@ -1,16 +1,14 @@
 use yew::prelude::*;
 use crate::{AppRouterAnchor, AppRoute};
 
-pub struct Components {
-    link: ComponentLink<Self>,
-}
+pub struct Components {}
 
 impl Component for Components {
     type Message = ();
     type Properties = ();
 
-    fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
-        Self { link }
+    fn create(_: Self::Properties, _: ComponentLink<Self>) -> Self {
+        Self {}
     }
 
     fn update(&mut self, _msg: Self::Message) -> ShouldRender { false }

@@ -1,19 +1,17 @@
 use yew::prelude::*;
 use yew_material_components::{MatCheckbox, MatFormfield, MatSwitch, MatRadio};
 
-pub struct FormField {
-    link: ComponentLink<Self>,
-}
+pub struct FormField {}
 
 impl Component for FormField {
     type Message = ();
     type Properties = ();
 
-    fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
-        Self { link }
+    fn create(_: Self::Properties, _: ComponentLink<Self>) -> Self {
+        Self {}
     }
 
-    fn update(&mut self, _msg: Self::Message) -> ShouldRender { false    }
+    fn update(&mut self, _msg: Self::Message) -> ShouldRender { false }
 
     fn change(&mut self, _props: Self::Properties) -> bool { false }
 

@@ -31,7 +31,6 @@ impl Component for List {
                     "radio" => self.radio_selected_index = val as u32,
                     _ => panic!("dude you fucked up you should've just used an enum or different messages")
                 }
-
             }
         }
         true

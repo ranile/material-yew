@@ -1,6 +1,6 @@
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
-use crate::{to_option, add_event_listener};
+use crate::{to_option, add_event_listener, read_boolean_property};
 
 #[wasm_bindgen(module = "/build/built-js.js")]
 extern "C" {
@@ -19,13 +19,9 @@ extern "C" {
 loader_hack!(Checkbox);
 
 pub struct MatCheckbox {
-    link: ComponentLink<Self>,
     props: Props,
     node_ref: NodeRef,
     closure: Option<Closure<dyn FnMut()>>
-}
-
-pub enum Msg {
 }
 
 #[derive(Debug, Properties, Clone)]
@@ -45,12 +41,12 @@ pub struct Props {
 }
 
 impl Component for MatCheckbox {
-    type Message = Msg;
+    type Message = ();
     type Properties = Props;
 
-    fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
+    fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
         Checkbox::ensure_loaded();
-        Self { props, link, node_ref: NodeRef::default(), closure: None }
+        Self { props, node_ref: NodeRef::default(), closure: None }
     }
 
     fn update(&mut self, _msg: Self::Message) -> ShouldRender {        false    }
@@ -82,12 +78,7 @@ impl Component for MatCheckbox {
             let callback = self.props.onchange.clone();
             let ele = element.clone();
             add_event_listener(&self.node_ref, "change", move || {
-                let checked = match ele.get_attribute("checked") {
-                    Some(_) => true,
-                    _ => false
-                };
-
-                callback.emit(checked);
+                callback.emit(read_boolean_property(&ele, "checked"));
             }, &mut self.closure)
         }
     }

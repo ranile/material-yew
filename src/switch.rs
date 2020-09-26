@@ -14,13 +14,10 @@ extern "C" {
 loader_hack!(Switch);
 
 pub struct MatSwitch {
-    link: ComponentLink<Self>,
     props: Props,
     node_ref: NodeRef,
     closure: Option<Closure<dyn FnMut()>>,
 }
-
-pub enum Msg {}
 
 #[derive(Debug, Properties, Clone)]
 pub struct Props {
@@ -33,12 +30,12 @@ pub struct Props {
 }
 
 impl Component for MatSwitch {
-    type Message = Msg;
+    type Message = ();
     type Properties = Props;
 
-    fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
+    fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
         Switch::ensure_loaded();
-        Self { props, link, node_ref: NodeRef::default(), closure: None }
+        Self { props, node_ref: NodeRef::default(), closure: None }
     }
 
     fn update(&mut self, _msg: Self::Message) -> ShouldRender { false }

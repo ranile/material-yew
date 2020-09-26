@@ -1,6 +1,6 @@
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
-use crate::{add_event_listener, to_option};
+use crate::{to_option};
 
 #[wasm_bindgen(module = "/build/built-js.js")]
 extern "C" {
@@ -16,6 +16,7 @@ loader_hack!(Tab);
 pub struct MatTab {
     props: Props,
     node_ref: NodeRef,
+    // TODO
     interacted_closure: Option<Closure<dyn FnMut(JsValue)>>,
 }
 

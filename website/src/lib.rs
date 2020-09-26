@@ -51,7 +51,6 @@ pub enum AppRoute {
 
 type AppRouter = Router<AppRoute>;
 type AppRouterAnchor = RouterAnchor<AppRoute>;
-type AppRouteButton = Router<AppRoute>;
 
 pub struct App {
     link: ComponentLink<Self>,

@@ -1,16 +1,14 @@
 use yew::prelude::*;
 use crate::{AppRouterAnchor, AppRoute};
 
-pub struct Home {
-    link: ComponentLink<Self>,
-}
+pub struct Home {}
 
 impl Component for Home {
     type Message = ();
     type Properties = ();
 
-    fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
-        Self { link }
+    fn create(_: Self::Properties, _: ComponentLink<Self>) -> Self {
+        Self {}
     }
 
     fn update(&mut self, _msg: Self::Message) -> ShouldRender { false }
@@ -18,7 +16,6 @@ impl Component for Home {
     fn change(&mut self, _props: Self::Properties) -> bool { false }
 
     fn view(&self) -> Html {
-
         let getting_started_cargo_code = "
 [dependencies]
 material-yew-components = { git = \"https://github.com/hamza1311/material-yew-components/\", branch = \"master\" }
