@@ -19,6 +19,7 @@
     "@material/mwc-list": "^0.18.0",
     "@material/mwc-radio": "^0.18.0",
     "@material/mwc-slider": "^0.18.0",
+    "@material/mwc-snackbar": "^0.18.0",
     "@material/mwc-switch": "^0.18.0",
     "@material/mwc-tab": "^0.18.0",
     "@material/mwc-tab-bar": "^0.18.0",

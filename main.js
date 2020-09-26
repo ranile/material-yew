@@ -21,6 +21,7 @@ import {IconButtonToggle} from '@material/mwc-icon-button-toggle'
 import {Slider} from '@material/mwc-slider'
 import {Tab} from '@material/mwc-tab'
 import {TabBar} from '@material/mwc-tab-bar'
+import {Snackbar} from '@material/mwc-snackbar'
 
 export {
     Button,
@@ -46,4 +47,5 @@ export {
     Slider,
     Tab,
     TabBar,
+    Snackbar,
 }

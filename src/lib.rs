@@ -142,3 +142,6 @@ pub use slider::MatSlider;
 
 pub mod tabs;
 pub use tabs::{MatTab, MatTabBar};
+
+pub mod snackbar;
+pub use snackbar::MatSnackbar;

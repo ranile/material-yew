@@ -16,6 +16,7 @@ mod list;
 mod icon_button_toggle;
 mod slider;
 mod tabs;
+mod snackbar;
 
 pub use button::Button;
 pub use code_block::CodeBlock;
@@ -35,3 +36,4 @@ pub use list::List;
 pub use icon_button_toggle::IconButtonToggle;
 pub use slider::Slider;
 pub use tabs::Tabs;
+pub use snackbar::Snackbar;

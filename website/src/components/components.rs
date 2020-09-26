@@ -41,6 +41,7 @@ impl Component for Components {
             { component_card("Icon Button Toggle", AppRoute::IconButtonToggle) }
             { component_card("Slider", AppRoute::Slider) }
             { component_card("Tabs", AppRoute::Tabs) }
+            { component_card("Snackbar", AppRoute::Snackbar) }
         </section>
        }
     }

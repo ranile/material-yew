@@ -148,3 +148,11 @@ mwc-list-item, mwc-check-list-item, mwc-radio-list-item {
         padding: 1em 0;
     }
 }
+
+.snackbar-dismiss-slot mwc-icon-button {
+    --mdc-icon-size: 18px;
+    --mdc-icon-button-size: 36px;
+    color:rgba(255, 255, 255, 0.87);
+    margin-left:8px;
+    margin-right:0
+}
