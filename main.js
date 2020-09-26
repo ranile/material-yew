@@ -17,6 +17,8 @@ import {List} from '@material/mwc-list'
 import {ListItem} from '@material/mwc-list/mwc-list-item'
 import {CheckListItem} from '@material/mwc-list/mwc-check-list-item'
 import {RadioListItem} from '@material/mwc-list/mwc-radio-list-item'
+import {IconButtonToggle} from '@material/mwc-icon-button-toggle'
+import {Slider} from '@material/mwc-slider'
 
 export {
     Button,
@@ -38,4 +40,6 @@ export {
     ListItem,
     CheckListItem,
     RadioListItem,
+    IconButtonToggle,
+    Slider
 }

@@ -13,6 +13,7 @@ mod form_field;
 mod drawer;
 mod linear_progress;
 mod list;
+mod icon_button_toggle;
 
 pub use button::Button;
 pub use code_block::CodeBlock;
@@ -29,3 +30,4 @@ pub use form_field::FormField;
 pub use drawer::Drawer;
 pub use linear_progress::LinearProgress;
 pub use list::List;
+pub use icon_button_toggle::IconButtonToggle;

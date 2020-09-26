@@ -2,10 +2,12 @@ mod components;
 
 use yew::prelude::*;
 use yew_router::prelude::*;
-use yew_material_components::{MatDrawer, MatTopAppBarFixed, MatIconButton, MatButton, MatList, MatListItem};
+use yew_material_components::{
+    MatDrawer, MatTopAppBarFixed, MatIconButton, MatButton, MatList, MatListItem,
+};
 use crate::components::{
     Home, Button, Components, Checkbox, Radio, Switch, Fab, IconButton, Icon,
-    CircularProgress, Drawer, FormField, LinearProgress, List,
+    CircularProgress, Drawer, FormField, LinearProgress, List, IconButtonToggle
 };
 
 #[derive(Switch, Clone)]
@@ -20,6 +22,8 @@ pub enum AppRoute {
     Switch,
     #[to = "/components/fab"]
     Fab,
+    #[to = "/components/icon-button-toggle"]
+    IconButtonToggle,
     #[to = "/components/icon-button"]
     IconButton,
     #[to = "/components/icon"]
@@ -103,6 +107,7 @@ impl Component for App {
                         <AppRouterAnchor route=AppRoute::FormField><MatListItem>{"Form Field"}</MatListItem></AppRouterAnchor>
                         <AppRouterAnchor route=AppRoute::LinearProgress><MatListItem>{"Linear Progress"}</MatListItem></AppRouterAnchor>
                         <AppRouterAnchor route=AppRoute::List><MatListItem>{"List"}</MatListItem></AppRouterAnchor>
+                        <AppRouterAnchor route=AppRoute::IconButtonToggle><MatListItem>{"Icon Button Toggle"}</MatListItem></AppRouterAnchor>
                     </MatList>
                 </div>
 
@@ -151,6 +156,7 @@ impl App {
             AppRoute::FormField => html! { <FormField /> },
             AppRoute::LinearProgress => html! { <LinearProgress /> },
             AppRoute::List => html! { <List /> },
+            AppRoute::IconButtonToggle => html! { <IconButtonToggle /> },
         }
     }
 }

@@ -133,3 +133,6 @@ pub use dialog::MatDialog;
 
 pub mod list;
 pub use list::{MatList, MatListItem, MatCheckListItem, MatRadioListItem};
+
+pub mod icon_button_toggle;
+pub use icon_button_toggle::MatIconButtonToggle;

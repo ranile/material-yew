@@ -40,6 +40,7 @@ impl Component for Components {
             { component_card("Form Field", AppRoute::FormField) }
             { component_card("Linear Progress", AppRoute::LinearProgress) }
             { component_card("List", AppRoute::List) }
+            { component_card("Icon Button Toggle", AppRoute::IconButtonToggle) }
         </section>
        }
     }
