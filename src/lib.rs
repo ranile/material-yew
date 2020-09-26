@@ -136,3 +136,9 @@ pub use list::{MatList, MatListItem, MatCheckListItem, MatRadioListItem};
 
 pub mod icon_button_toggle;
 pub use icon_button_toggle::MatIconButtonToggle;
+
+pub mod slider;
+pub use slider::MatSlider;
+
+pub mod tabs;
+pub use tabs::{MatTab, MatTabBar};

@@ -41,6 +41,8 @@ impl Component for Components {
             { component_card("Linear Progress", AppRoute::LinearProgress) }
             { component_card("List", AppRoute::List) }
             { component_card("Icon Button Toggle", AppRoute::IconButtonToggle) }
+            { component_card("Slider", AppRoute::Slider) }
+            { component_card("Tabs", AppRoute::Tabs) }
         </section>
        }
     }

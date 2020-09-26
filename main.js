@@ -19,6 +19,8 @@ import {CheckListItem} from '@material/mwc-list/mwc-check-list-item'
 import {RadioListItem} from '@material/mwc-list/mwc-radio-list-item'
 import {IconButtonToggle} from '@material/mwc-icon-button-toggle'
 import {Slider} from '@material/mwc-slider'
+import {Tab} from '@material/mwc-tab'
+import {TabBar} from '@material/mwc-tab-bar'
 
 export {
     Button,
@@ -41,5 +43,7 @@ export {
     CheckListItem,
     RadioListItem,
     IconButtonToggle,
-    Slider
+    Slider,
+    Tab,
+    TabBar,
 }

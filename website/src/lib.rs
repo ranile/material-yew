@@ -7,7 +7,8 @@ use yew_material_components::{
 };
 use crate::components::{
     Home, Button, Components, Checkbox, Radio, Switch, Fab, IconButton, Icon,
-    CircularProgress, Drawer, FormField, LinearProgress, List, IconButtonToggle
+    CircularProgress, Drawer, FormField, LinearProgress, List, IconButtonToggle, Slider,
+    Tabs,
 };
 
 #[derive(Switch, Clone)]
@@ -38,6 +39,10 @@ pub enum AppRoute {
     LinearProgress,
     #[to = "/components/list"]
     List,
+    #[to = "/components/slider"]
+    Slider,
+    #[to = "/components/tabs"]
+    Tabs,
     #[to = "/components"]
     Components,
     #[to = "/"]
@@ -108,6 +113,8 @@ impl Component for App {
                         <AppRouterAnchor route=AppRoute::LinearProgress><MatListItem>{"Linear Progress"}</MatListItem></AppRouterAnchor>
                         <AppRouterAnchor route=AppRoute::List><MatListItem>{"List"}</MatListItem></AppRouterAnchor>
                         <AppRouterAnchor route=AppRoute::IconButtonToggle><MatListItem>{"Icon Button Toggle"}</MatListItem></AppRouterAnchor>
+                        <AppRouterAnchor route=AppRoute::Slider><MatListItem>{"Slider"}</MatListItem></AppRouterAnchor>
+                        <AppRouterAnchor route=AppRoute::Tabs><MatListItem>{"Tabs"}</MatListItem></AppRouterAnchor>
                     </MatList>
                 </div>
 
@@ -157,6 +164,8 @@ impl App {
             AppRoute::LinearProgress => html! { <LinearProgress /> },
             AppRoute::List => html! { <List /> },
             AppRoute::IconButtonToggle => html! { <IconButtonToggle /> },
+            AppRoute::Slider => html! { <Slider /> },
+            AppRoute::Tabs => html! { <Tabs /> },
         }
     }
 }

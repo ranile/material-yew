@@ -14,6 +14,8 @@ mod drawer;
 mod linear_progress;
 mod list;
 mod icon_button_toggle;
+mod slider;
+mod tabs;
 
 pub use button::Button;
 pub use code_block::CodeBlock;
@@ -31,3 +33,5 @@ pub use drawer::Drawer;
 pub use linear_progress::LinearProgress;
 pub use list::List;
 pub use icon_button_toggle::IconButtonToggle;
+pub use slider::Slider;
+pub use tabs::Tabs;
