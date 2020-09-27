@@ -5,6 +5,7 @@ use yew::web_sys::Node;
 pub use web_sys::ValidityState as NativeValidityState;
 use crate::{to_option, set_element_property};
 use std::rc::Rc;
+use js_sys::Object;
 
 #[derive(Debug, Clone)]
 pub enum TextFieldType {
@@ -44,24 +45,68 @@ impl ToString for TextFieldType {
     }
 }
 
-// TODO use snake_case
+/*// TODO use snake_case
 // TODO Figure out why the returned isn't doing anything
 // The function is being called but the return value from that method means nothing
 #[allow(non_snake_case)]
 #[wasm_bindgen]
 pub struct ValidityState {
-    pub badInput: bool,
-    pub customError: bool,
-    pub patternMismatch: bool,
-    pub rangeOverflow: bool,
-    pub rangeUnderflow: bool,
-    pub stepMismatch: bool,
-    pub tooLong: bool,
-    pub tooShort: bool,
-    pub typeMismatch: bool,
-    pub valid: bool,
-    pub valueMissing: bool,
+    pub badInput: Option<bool>,
+    pub customError: Option<bool>,
+    pub patternMismatch: Option<bool>,
+    pub rangeOverflow: Option<bool>,
+    pub rangeUnderflow: Option<bool>,
+    pub stepMismatch: Option<bool>,
+    pub tooLong: Option<bool>,
+    pub tooShort: Option<bool>,
+    pub typeMismatch: Option<bool>,
+    pub valid: Option<bool>,
+    pub valueMissing: Option<bool>,
 }
+*/
+#[wasm_bindgen]
+extern "C" {
+    #[derive(Debug)]
+    #[wasm_bindgen(extends = Object)]
+    pub type ValidityState;
+
+    #[wasm_bindgen(method, setter = badInput)]
+    pub fn set_bad_input(this: &ValidityState, val: bool);
+
+    #[wasm_bindgen(method, setter = customError)]
+    pub fn set_custom_error(this: &ValidityState, val: bool);
+
+    #[wasm_bindgen(method, setter = patternMismatch)]
+    pub fn set_pattern_mismatch(this: &ValidityState, val: bool);
+
+    #[wasm_bindgen(method, setter = rangeOverflow)]
+    pub fn set_range_overflow(this: &ValidityState, val: bool);
+
+    #[wasm_bindgen(method, setter = rangeUnderflow)]
+    pub fn set_range_underflow(this: &ValidityState, val: bool);
+
+    #[wasm_bindgen(method, setter = too_long)]
+    pub fn set_too_long(this: &ValidityState, val: bool);
+
+    #[wasm_bindgen(method, setter = tooShort)]
+    pub fn set_too_short(this: &ValidityState, val: bool);
+
+    #[wasm_bindgen(method, setter = type_mismatch)]
+    pub fn set_type_mismatch(this: &ValidityState, val: bool);
+
+    #[wasm_bindgen(method, setter = valid)]
+    pub fn set_valid(this: &ValidityState, val: bool);
+
+    #[wasm_bindgen(method, setter = valueMissing)]
+    pub fn set_value_missing(this: &ValidityState, val: bool);
+}
+
+impl Default for ValidityState {
+    fn default() -> Self {
+        Object::new().unchecked_into()
+    }
+}
+
 
 #[wasm_bindgen(module = "/build/built-js.js")]
 extern "C" {
@@ -92,6 +137,7 @@ pub struct MatTextField {
 pub enum Msg {}
 
 type ValidityTransformFn = fn(String, NativeValidityState) -> ValidityState;
+
 #[derive(Clone)]
 pub struct ValidityTransform(
     pub Rc<ValidityTransformFn>

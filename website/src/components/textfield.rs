@@ -17,11 +17,17 @@ impl Component for Textfield {
     fn change(&mut self, _props: Self::Properties) -> bool { false }
 
     fn view(&self) -> Html {
-
+        let tr = MatTextField::validity_transform(move |s, _| {
+            ConsoleService::log(&format!("str {}", s));
+            let vs = ValidityState::default();
+            vs.set_valid(false);
+            vs.set_pattern_mismatch(true);
+            vs
+        });
         html! {<main class="textfield-demo">
             <h2>{"Filled"}</h2>
             <div class="demo-group-spaced">
-                <MatTextField label="Standard" />
+                <MatTextField label="Standard" validity_transform=tr />
                 <MatTextField label="Standard" icon="event" field_type=TextFieldType::Date />
                 <MatTextField label="Standard" icon_trailing="delete" />
             </div>
