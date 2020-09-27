@@ -156,3 +156,36 @@ mwc-list-item, mwc-check-list-item, mwc-radio-list-item {
     margin-left:8px;
     margin-right:0
 }
+
+.textfield-demo {
+    mwc-textfield {
+        min-width: 240px;
+    }
+    .shaped-filled {
+        --mdc-text-field-filled-border-radius: 32px 32px 0 0;
+    }
+    .shaped-outlined {
+        --mdc-notched-outline-leading-width: 28px;
+        --mdc-notched-outline-leading-border-radius: 28px 0 0 28px;
+        --mdc-notched-outline-trailing-border-radius: 0 28px 28px 0;
+    }
+    mwc-textarea {
+        min-width: 250px;
+    }
+
+    .demo-group-spaced {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
+
+    h2 {
+        padding: 0.5em 0;
+    }
+
+    .demo-group-spaced > *,
+    [fullwidth] {
+        margin-top: 8px;
+    }
+}

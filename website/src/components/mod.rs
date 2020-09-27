@@ -17,6 +17,7 @@ mod icon_button_toggle;
 mod slider;
 mod tabs;
 mod snackbar;
+mod textfield;
 
 pub use button::Button;
 pub use code_block::CodeBlock;
@@ -37,3 +38,4 @@ pub use icon_button_toggle::IconButtonToggle;
 pub use slider::Slider;
 pub use tabs::Tabs;
 pub use snackbar::Snackbar;
+pub use textfield::Textfield;

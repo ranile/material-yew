@@ -145,3 +145,6 @@ pub use tabs::{MatTab, MatTabBar};
 
 pub mod snackbar;
 pub use snackbar::MatSnackbar;
+
+mod textfield;
+pub use textfield::{MatTextField, TextFieldType, ValidityState, NativeValidityState};

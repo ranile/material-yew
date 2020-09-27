@@ -1,51 +1,25 @@
-import {Button} from '@material/mwc-button'
-import {CircularProgress} from '@material/mwc-circular-progress'
-import {Checkbox} from '@material/mwc-checkbox'
-import {CircularProgressFourColor} from '@material/mwc-circular-progress-four-color'
-import {Drawer} from '@material/mwc-drawer'
-import {TopAppBar} from '@material/mwc-top-app-bar'
-import {IconButton} from '@material/mwc-icon-button'
-import {Fab} from '@material/mwc-fab'
-import {Formfield} from '@material/mwc-formfield'
-import {LinearProgress} from '@material/mwc-linear-progress'
-import {Icon} from '@material/mwc-icon'
-import {Radio} from '@material/mwc-radio'
-import {Switch} from '@material/mwc-switch'
-import {TopAppBarFixed} from '@material/mwc-top-app-bar-fixed'
-import {Dialog} from '@material/mwc-dialog'
-import {List} from '@material/mwc-list'
-import {ListItem} from '@material/mwc-list/mwc-list-item'
-import {CheckListItem} from '@material/mwc-list/mwc-check-list-item'
-import {RadioListItem} from '@material/mwc-list/mwc-radio-list-item'
-import {IconButtonToggle} from '@material/mwc-icon-button-toggle'
-import {Slider} from '@material/mwc-slider'
-import {Tab} from '@material/mwc-tab'
-import {TabBar} from '@material/mwc-tab-bar'
-import {Snackbar} from '@material/mwc-snackbar'
-
-export {
-    Button,
-    CircularProgress,
-    Checkbox,
-    CircularProgressFourColor,
-    Drawer,
-    TopAppBar,
-    IconButton,
-    Fab,
-    Formfield,
-    LinearProgress,
-    Icon,
-    Radio,
-    Switch,
-    TopAppBarFixed,
-    Dialog,
-    List,
-    ListItem,
-    CheckListItem,
-    RadioListItem,
-    IconButtonToggle,
-    Slider,
-    Tab,
-    TabBar,
-    Snackbar,
-}
+export { Button } from '@material/mwc-button'
+export { CircularProgress } from '@material/mwc-circular-progress'
+export { Checkbox } from '@material/mwc-checkbox'
+export { CircularProgressFourColor } from '@material/mwc-circular-progress-four-color'
+export { Drawer } from '@material/mwc-drawer'
+export { TopAppBar } from '@material/mwc-top-app-bar'
+export { IconButton } from '@material/mwc-icon-button'
+export { Fab } from '@material/mwc-fab'
+export { Formfield } from '@material/mwc-formfield'
+export { LinearProgress } from '@material/mwc-linear-progress'
+export { Icon } from '@material/mwc-icon'
+export { Radio } from '@material/mwc-radio'
+export { Switch } from '@material/mwc-switch'
+export { TopAppBarFixed } from '@material/mwc-top-app-bar-fixed'
+export { Dialog } from '@material/mwc-dialog'
+export { List } from '@material/mwc-list'
+export { ListItem } from '@material/mwc-list/mwc-list-item'
+export { CheckListItem } from '@material/mwc-list/mwc-check-list-item'
+export { RadioListItem } from '@material/mwc-list/mwc-radio-list-item'
+export { IconButtonToggle } from '@material/mwc-icon-button-toggle'
+export { Slider } from '@material/mwc-slider'
+export { Tab } from '@material/mwc-tab'
+export { TabBar } from '@material/mwc-tab-bar'
+export { Snackbar } from '@material/mwc-snackbar'
+export { TextField } from '@material/mwc-textfield'
