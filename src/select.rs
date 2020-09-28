@@ -1,11 +1,12 @@
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
-use yew::web_sys::Node;
+use yew::web_sys::{Node, Element};
 use crate::{add_event_listener, to_option, to_option_string, NativeValidityState, ValidityState, ValidityTransform};
 use std::cell::RefCell;
 use std::ops::Deref;
 use std::rc::Rc;
 use crate::utils::WeakComponentLink;
+use crate::add_event_listener_with_callback_to_emit_one_param_to;
 
 #[wasm_bindgen(module = "/build/built-js.js")]
 extern "C" {
@@ -29,6 +30,10 @@ pub struct MatSelect {
     props: Props,
     node_ref: NodeRef,
     validity_transform_closure: Option<Closure<dyn FnMut(String, NativeValidityState) -> ValidityState>>,
+    opened_closure: Option<Closure<dyn FnMut()>>,
+    closed_closure: Option<Closure<dyn FnMut()>>,
+    action_closure: Option<Closure<dyn FnMut(JsValue)>>,
+    selected_closure: Option<Closure<dyn FnMut(JsValue)>>,
 }
 
 #[derive(Properties, Clone)]
@@ -62,11 +67,17 @@ pub struct Props {
     #[prop_or_default]
     pub validate_on_initial_render: bool,
     #[prop_or_default]
-    pub onaction: Callback<f64>,
-    #[prop_or_default]
     pub children: Children,
     #[prop_or_default]
     pub select_link: WeakComponentLink<MatSelect>,
+    #[prop_or_default]
+    pub onopened: Callback<()>,
+    #[prop_or_default]
+    pub onclosed: Callback<()>,
+    #[prop_or_default]
+    pub onaction: Callback<JsValue>,
+    #[prop_or_default]
+    pub onselected: Callback<JsValue>,
 }
 
 impl Component for MatSelect {
@@ -76,7 +87,7 @@ impl Component for MatSelect {
     fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
         props.select_link.borrow_mut().replace(link);
         Select::ensure_loaded();
-        Self { props, node_ref: NodeRef::default(), validity_transform_closure: None }
+        Self { props, node_ref: NodeRef::default(), validity_transform_closure: None, opened_closure: None, closed_closure: None, action_closure: None, selected_closure: None }
     }
 
     fn update(&mut self, _msg: Self::Message) -> ShouldRender { false }
@@ -114,11 +125,20 @@ impl Component for MatSelect {
         if first_render {
 
             let this = self.node_ref.cast::<Select>().unwrap();
-
             if let Some(validity_transform) = &self.props.validity_transform {
                 self.validity_transform_closure = Some(Closure::wrap(Box::new(*validity_transform.0) as Box<dyn FnMut(String, NativeValidityState) -> ValidityState>));
                 this.set_validity_transform(&self.validity_transform_closure.as_ref().unwrap());
             }
+
+            let onopened = self.props.onopened.clone();
+            add_event_listener(&self.node_ref, "opened", move || { onopened.emit(()) }, &mut self.opened_closure);
+
+            let onclosed = self.props.onclosed.clone();
+            add_event_listener(&self.node_ref, "closed", move || { onclosed.emit(()) }, &mut self.closed_closure);
+
+            add_event_listener_with_callback_to_emit_one_param_to(&self.node_ref, "action", self.props.onaction.clone(), &mut self.action_closure);
+
+            add_event_listener_with_callback_to_emit_one_param_to(&self.node_ref, "selected", self.props.onselected.clone(), &mut self.selected_closure);
         }
     }
 }

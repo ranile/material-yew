@@ -14,7 +14,7 @@
 
 use wasm_bindgen::prelude::Closure;
 use wasm_bindgen::{JsCast, JsValue};
-use yew::NodeRef;
+use yew::{NodeRef, Callback};
 mod utils;
 
 // this macro is defined here so we can access it in the modules
@@ -81,6 +81,16 @@ fn to_option_string(s: &str) -> Option<&str> {
 fn add_event_listener(node_ref: &NodeRef, name: &str, func: impl Fn() + 'static, closure_to_store_in: &mut Option<Closure<dyn FnMut()>>) {
     let element = node_ref.cast::<yew::web_sys::Element>().unwrap();
     *closure_to_store_in = Some(Closure::wrap(Box::new(func) as Box<dyn FnMut()>));
+    element.add_event_listener_with_callback(name, closure_to_store_in.as_ref().unwrap().as_ref().unchecked_ref());
+}
+
+// Please no
+// This function name is horrible
+fn add_event_listener_with_callback_to_emit_one_param_to(node_ref: &NodeRef, name: &str, callback: Callback<JsValue>, closure_to_store_in: &mut Option<Closure<dyn FnMut(JsValue)>>) {
+    let element = node_ref.cast::<yew::web_sys::Element>().unwrap();
+    *closure_to_store_in = Some(Closure::wrap(Box::new(move |val: JsValue| {
+        callback.emit(val);
+    }) as Box<dyn FnMut(JsValue)>));
     element.add_event_listener_with_callback(name, closure_to_store_in.as_ref().unwrap().as_ref().unchecked_ref());
 }
 
