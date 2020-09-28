@@ -68,6 +68,15 @@ fn to_option(value: bool) -> Option<&'static str> {
     }
 }
 
+
+fn to_option_string(s: &str) -> Option<&str> {
+    match s {
+        "" => None,
+        _ => Some(s)
+    }
+}
+
+
 fn add_event_listener(node_ref: &NodeRef, name: &str, func: impl Fn() + 'static, closure_to_store_in: &mut Option<Closure<dyn FnMut()>>) {
     let element = node_ref.cast::<yew::web_sys::Element>().unwrap();
     *closure_to_store_in = Some(Closure::wrap(Box::new(func) as Box<dyn FnMut()>));
@@ -146,5 +155,5 @@ pub use tabs::{MatTab, MatTabBar};
 pub mod snackbar;
 pub use snackbar::MatSnackbar;
 
-mod textfield;
-pub use textfield::{MatTextField, TextFieldType, ValidityState, NativeValidityState};
+mod text_inputs;
+pub use text_inputs::*;

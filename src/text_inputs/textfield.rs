@@ -3,110 +3,9 @@ use yew::prelude::*;
 use wasm_bindgen::JsCast;
 use yew::web_sys::Node;
 pub use web_sys::ValidityState as NativeValidityState;
-use crate::{to_option, set_element_property};
+use crate::{to_option, set_element_property, to_option_string};
+use crate::text_inputs::{ValidityState, TextFieldType, ValidityTransform, ValidityTransformFn};
 use std::rc::Rc;
-use js_sys::Object;
-
-#[derive(Debug, Clone)]
-pub enum TextFieldType {
-    Text,
-    Search,
-    Tel,
-    Url,
-    Email,
-    Password,
-    Date,
-    Month,
-    Week,
-    Time,
-    DatetimeLocal,
-    Number,
-    Color,
-}
-
-impl ToString for TextFieldType {
-    fn to_string(&self) -> String {
-        use TextFieldType::*;
-        match self {
-            Text => "text",
-            Search => "search",
-            Tel => "tel",
-            Url => "url",
-            Email => "email",
-            Password => "password",
-            Date => "date",
-            Month => "month",
-            Week => "week",
-            Time => "time",
-            DatetimeLocal => "datetime-local",
-            Number => "number",
-            Color => "color",
-        }.to_string()
-    }
-}
-
-/*// TODO use snake_case
-// TODO Figure out why the returned isn't doing anything
-// The function is being called but the return value from that method means nothing
-#[allow(non_snake_case)]
-#[wasm_bindgen]
-pub struct ValidityState {
-    pub badInput: Option<bool>,
-    pub customError: Option<bool>,
-    pub patternMismatch: Option<bool>,
-    pub rangeOverflow: Option<bool>,
-    pub rangeUnderflow: Option<bool>,
-    pub stepMismatch: Option<bool>,
-    pub tooLong: Option<bool>,
-    pub tooShort: Option<bool>,
-    pub typeMismatch: Option<bool>,
-    pub valid: Option<bool>,
-    pub valueMissing: Option<bool>,
-}
-*/
-#[wasm_bindgen]
-extern "C" {
-    #[derive(Debug)]
-    #[wasm_bindgen(extends = Object)]
-    pub type ValidityState;
-
-    #[wasm_bindgen(method, setter = badInput)]
-    pub fn set_bad_input(this: &ValidityState, val: bool);
-
-    #[wasm_bindgen(method, setter = customError)]
-    pub fn set_custom_error(this: &ValidityState, val: bool);
-
-    #[wasm_bindgen(method, setter = patternMismatch)]
-    pub fn set_pattern_mismatch(this: &ValidityState, val: bool);
-
-    #[wasm_bindgen(method, setter = rangeOverflow)]
-    pub fn set_range_overflow(this: &ValidityState, val: bool);
-
-    #[wasm_bindgen(method, setter = rangeUnderflow)]
-    pub fn set_range_underflow(this: &ValidityState, val: bool);
-
-    #[wasm_bindgen(method, setter = too_long)]
-    pub fn set_too_long(this: &ValidityState, val: bool);
-
-    #[wasm_bindgen(method, setter = tooShort)]
-    pub fn set_too_short(this: &ValidityState, val: bool);
-
-    #[wasm_bindgen(method, setter = type_mismatch)]
-    pub fn set_type_mismatch(this: &ValidityState, val: bool);
-
-    #[wasm_bindgen(method, setter = valid)]
-    pub fn set_valid(this: &ValidityState, val: bool);
-
-    #[wasm_bindgen(method, setter = valueMissing)]
-    pub fn set_value_missing(this: &ValidityState, val: bool);
-}
-
-impl Default for ValidityState {
-    fn default() -> Self {
-        Object::new().unchecked_into()
-    }
-}
-
 
 #[wasm_bindgen(module = "/build/built-js.js")]
 extern "C" {
@@ -114,7 +13,6 @@ extern "C" {
     #[wasm_bindgen(extends = Node)]
     type TextField;
 
-    // This needs to be added to each component
     #[wasm_bindgen(getter, static_method_of = TextField)]
     fn _dummy_loader() -> JsValue;
 
@@ -122,26 +20,13 @@ extern "C" {
     fn set_validity_transform(this: &TextField, val: &Closure<dyn FnMut(String, NativeValidityState) -> ValidityState>);
 }
 
-// call the macro with the type
 loader_hack!(TextField);
 
 pub struct MatTextField {
     props: Props,
     node_ref: NodeRef,
     validity_transform_closure: Option<Closure<dyn FnMut(String, NativeValidityState) -> ValidityState>>,
-    opened_closure: Option<Closure<dyn FnMut()>>,
-    closing_closure: Option<Closure<dyn FnMut(JsValue)>>,
-    closed_closure: Option<Closure<dyn FnMut(JsValue)>>,
 }
-
-pub enum Msg {}
-
-type ValidityTransformFn = fn(String, NativeValidityState) -> ValidityState;
-
-#[derive(Clone)]
-pub struct ValidityTransform(
-    pub Rc<ValidityTransformFn>
-);
 
 #[derive(Properties, Clone)]
 pub struct Props {
@@ -201,17 +86,15 @@ pub struct Props {
     pub validate_on_initial_render: bool,
     #[prop_or_default]
     pub name: String,
-    #[prop_or_default]
-    pub onopening: Callback<()>,
 }
 
 impl Component for MatTextField {
-    type Message = Msg;
+    type Message = ();
     type Properties = Props;
 
     fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
         TextField::ensure_loaded();
-        Self { props, node_ref: NodeRef::default(), validity_transform_closure: None, opened_closure: None, closing_closure: None, closed_closure: None }
+        Self { props, node_ref: NodeRef::default(), validity_transform_closure: None }
     }
 
     fn update(&mut self, _msg: Self::Message) -> ShouldRender { false }
@@ -270,12 +153,5 @@ impl Component for MatTextField {
 impl MatTextField {
     pub fn validity_transform(func: ValidityTransformFn) -> ValidityTransform {
         ValidityTransform(Rc::new(func))
-    }
-}
-
-fn to_option_string(s: &str) -> Option<&str> {
-    match s {
-        "" => None,
-        _ => Some(s)
     }
 }
