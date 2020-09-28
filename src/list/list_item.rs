@@ -2,7 +2,7 @@ use wasm_bindgen::prelude::*;
 use yew::prelude::*;
 use crate::list::GraphicType;
 use wasm_bindgen::JsCast;
-use crate::to_option;
+use crate::{to_option, to_option_string};
 
 #[wasm_bindgen(module = "/build/built-js.js")]
 extern "C" {
@@ -28,7 +28,7 @@ pub enum Msg {}
 #[derive(Debug, Properties, Clone)]
 pub struct Props {
     #[prop_or_default]
-    pub value: bool,
+    pub value: String,
     #[prop_or_default]
     pub group: bool,
     #[prop_or(-1)]
@@ -76,7 +76,7 @@ impl Component for MatListItem {
     fn view(&self) -> Html {
         html! {
             <mwc-list-item
-                value?=to_option(self.props.value)
+                value?=to_option_string(&self.props.value)
                 group?=to_option(self.props.group)
                 tabindex=self.props.tabindex
                 disabled=self.props.disabled

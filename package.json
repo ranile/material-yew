@@ -18,6 +18,7 @@
     "@material/mwc-linear-progress": "^0.18.0",
     "@material/mwc-list": "^0.18.0",
     "@material/mwc-radio": "^0.18.0",
+    "@material/mwc-select": "^0.18.0",
     "@material/mwc-slider": "^0.18.0",
     "@material/mwc-snackbar": "^0.18.0",
     "@material/mwc-switch": "^0.18.0",

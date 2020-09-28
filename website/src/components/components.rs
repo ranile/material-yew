@@ -44,6 +44,7 @@ impl Component for Components {
             { component_card("Snackbar", AppRoute::Snackbar) }
             { component_card("TextField", AppRoute::Textfield) }
             { component_card("TextArea", AppRoute::TextArea) }
+            { component_card("Select", AppRoute::Select) }
         </section>
        }
     }

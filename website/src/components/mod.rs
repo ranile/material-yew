@@ -19,6 +19,7 @@ mod tabs;
 mod snackbar;
 mod textfield;
 mod textarea;
+mod select;
 
 pub use button::Button;
 pub use code_block::CodeBlock;
@@ -41,3 +42,4 @@ pub use tabs::Tabs;
 pub use snackbar::Snackbar;
 pub use textfield::Textfield;
 pub use textarea::TextArea;
+pub use select::Select;

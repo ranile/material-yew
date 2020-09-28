@@ -15,6 +15,7 @@
 use wasm_bindgen::prelude::Closure;
 use wasm_bindgen::{JsCast, JsValue};
 use yew::NodeRef;
+mod utils;
 
 // this macro is defined here so we can access it in the modules
 macro_rules! loader_hack {
@@ -155,5 +156,10 @@ pub use tabs::{MatTab, MatTabBar};
 pub mod snackbar;
 pub use snackbar::MatSnackbar;
 
-mod text_inputs;
+pub mod text_inputs;
 pub use text_inputs::*;
+
+pub mod select;
+pub use select::MatSelect;
+
+pub use utils::WeakComponentLink;
