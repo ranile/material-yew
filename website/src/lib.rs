@@ -8,7 +8,7 @@ use yew_material_components::{
 use crate::components::{
     Home, Button, Components, Checkbox, Radio, Switch, Fab, IconButton, Icon,
     CircularProgress, Drawer, FormField, LinearProgress, List, IconButtonToggle, Slider,
-    Tabs, Snackbar, Textfield
+    Tabs, Snackbar, Textfield, TextArea
 };
 
 #[derive(Switch, Clone)]
@@ -47,6 +47,8 @@ pub enum AppRoute {
     Snackbar,
     #[to = "/components/textfield"]
     Textfield,
+    #[to = "/components/textarea"]
+    TextArea,
     #[to = "/components"]
     Components,
     #[to = "/"]
@@ -120,6 +122,7 @@ impl Component for App {
                         <AppRouterAnchor route=AppRoute::Tabs><MatListItem>{"Tabs"}</MatListItem></AppRouterAnchor>
                         <AppRouterAnchor route=AppRoute::Snackbar><MatListItem>{"Snackbar"}</MatListItem></AppRouterAnchor>
                         <AppRouterAnchor route=AppRoute::Textfield><MatListItem>{"Textfield"}</MatListItem></AppRouterAnchor>
+                        <AppRouterAnchor route=AppRoute::TextArea><MatListItem>{"TextArea"}</MatListItem></AppRouterAnchor>
                     </MatList>
                 </div>
 
@@ -173,6 +176,7 @@ impl App {
             AppRoute::Tabs => html! { <Tabs /> },
             AppRoute::Snackbar => html! { <Snackbar /> },
             AppRoute::Textfield => html! { <Textfield /> },
+            AppRoute::TextArea => html! { <TextArea /> },
         }
     }
 }

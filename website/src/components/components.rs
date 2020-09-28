@@ -42,7 +42,8 @@ impl Component for Components {
             { component_card("Slider", AppRoute::Slider) }
             { component_card("Tabs", AppRoute::Tabs) }
             { component_card("Snackbar", AppRoute::Snackbar) }
-            { component_card("Textfield", AppRoute::Textfield) }
+            { component_card("TextField", AppRoute::Textfield) }
+            { component_card("TextArea", AppRoute::TextArea) }
         </section>
        }
     }

@@ -18,6 +18,7 @@ mod slider;
 mod tabs;
 mod snackbar;
 mod textfield;
+mod textarea;
 
 pub use button::Button;
 pub use code_block::CodeBlock;
@@ -39,3 +40,4 @@ pub use slider::Slider;
 pub use tabs::Tabs;
 pub use snackbar::Snackbar;
 pub use textfield::Textfield;
+pub use textarea::TextArea;
