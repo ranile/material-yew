@@ -84,6 +84,12 @@ fn add_event_listener(node_ref: &NodeRef, name: &str, func: impl Fn() + 'static,
     element.add_event_listener_with_callback(name, closure_to_store_in.as_ref().unwrap().as_ref().unchecked_ref());
 }
 
+fn add_event_listener_with_one_param(node_ref: &NodeRef, name: &str, func: impl Fn(JsValue) + 'static, closure_to_store_in: &mut Option<Closure<dyn FnMut(JsValue)>>) {
+    let element = node_ref.cast::<yew::web_sys::Element>().unwrap();
+    *closure_to_store_in = Some(Closure::wrap(Box::new(func) as Box<dyn FnMut(JsValue)>));
+    element.add_event_listener_with_callback(name, closure_to_store_in.as_ref().unwrap().as_ref().unchecked_ref());
+}
+
 // Please no
 // This function name is horrible
 fn add_event_listener_with_callback_to_emit_one_param_to(node_ref: &NodeRef, name: &str, callback: Callback<JsValue>, closure_to_store_in: &mut Option<Closure<dyn FnMut(JsValue)>>) {

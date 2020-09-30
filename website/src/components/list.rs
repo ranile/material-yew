@@ -1,16 +1,20 @@
 use yew::prelude::*;
-use yew_material_components::{MatList, MatListItem, MatCheckListItem, MatRadioListItem};
+use yew_material_components::{MatList, MatListItem, MatCheckListItem, MatRadioListItem, WeakComponentLink, MatButton};
+use yew_material_components::list::ListIndex;
 
 pub struct List {
     link: ComponentLink<Self>,
-    basic_selected_index: u32,
-    activatable_selected_index: u32,
-    checklist_selected_index: u32,
-    radio_selected_index: u32,
+    list_link: WeakComponentLink<MatList>,
+    basic_selected_index: String,
+    activatable_selected_index: String,
+    checklist_selected_index: String,
+    radio_selected_index: String,
+    multi_selected_index: String,
 }
 
 pub enum Msg {
-    Action(f64, &'static str),
+    Action(ListIndex, &'static str),
+    Focus,
 }
 
 impl Component for List {
@@ -18,22 +22,37 @@ impl Component for List {
     type Properties = ();
 
     fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
-        Self { link, basic_selected_index: 0, activatable_selected_index: 0, checklist_selected_index: 0, radio_selected_index: 0 }
+        Self { link, basic_selected_index:  "".to_string(), activatable_selected_index:  "".to_string(), checklist_selected_index:  "".to_string(), radio_selected_index:  "".to_string(), multi_selected_index: "".to_string(), list_link: WeakComponentLink::default() }
     }
 
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
+        let transform = |v| {
+            match v {
+                ListIndex::Single(o) => o.map(|it| it.to_string()).unwrap_or("none".to_string()),
+                ListIndex::Multi(s) => {
+                    let mut out = String::new();
+                    s.iter().for_each(|it| { out.push_str(&it.to_string()); out.push_str(", ") });
+                    out
+                }
+            }
+        };
         match msg {
             Msg::Action(val, which) => {
                 match which {
-                    "basic" => self.basic_selected_index = val as u32,
-                    "activatable" => self.activatable_selected_index = val as u32,
-                    "checklist" => self.checklist_selected_index = val as u32,
-                    "radio" => self.radio_selected_index = val as u32,
+                    "basic" => self.basic_selected_index = transform(val),
+                    "activatable" => self.activatable_selected_index = transform(val),
+                    "checklist" => self.checklist_selected_index = transform(val),
+                    "radio" => self.radio_selected_index = transform(val),
+                    "multi" => self.multi_selected_index = transform(val),
                     _ => panic!("dude you fucked up you should've just used an enum or different messages")
                 }
+                true
+            },
+            Msg::Focus => {
+                self.list_link.focus_item_at_index(2);
+                false
             }
         }
-        true
     }
 
     fn change(&mut self, _props: Self::Properties) -> bool { false }
@@ -42,18 +61,27 @@ impl Component for List {
         html! {<div class="list-demo">
             <section>
                 <h2>{"Basic"}</h2>
-                <MatList onaction=self.link.callback(|val| Msg::Action(val, "basic"))>
+                <MatList onaction=self.link.callback(|val| Msg::Action(val, "basic")) list_link=self.list_link.clone()>
                     <MatListItem>{"Item 0"}</MatListItem>
                     <MatListItem>{"Item 1"}</MatListItem>
                     <MatListItem>{"Item 2"}</MatListItem>
                     <MatListItem>{"Item 3"}</MatListItem>
                 </MatList>
-                <span>{"Selected index: "}{self.basic_selected_index}</span>
+                <div>{"Selected index: "}{&self.basic_selected_index}</div>
+                <div onclick=self.link.callback(|_| Msg::Focus)>
+                    <MatButton label="Focus index 2" raised=true />
+                </div>
             </section>
 
             <section>
-                <h2>{"Multi"}</h2>
-                <span>{"Currently unsupported because I got no clue how to expose `number | Set<number>` in Rust"}</span>
+                <h2>{"Multi + Activatable"}</h2>
+                <MatList onaction=self.link.callback(|val| Msg::Action(val, "multi")) multi=true activatable=true>
+                    <MatListItem>{"Item 0"}</MatListItem>
+                    <MatListItem>{"Item 1"}</MatListItem>
+                    <MatListItem>{"Item 2"}</MatListItem>
+                    <MatListItem>{"Item 3"}</MatListItem>
+                </MatList>
+                <span>{"Selected index: "}{&self.multi_selected_index}</span>
             </section>
 
             <section>
@@ -64,7 +92,7 @@ impl Component for List {
                     <MatListItem>{"Item 2"}</MatListItem>
                     <MatListItem>{"Item 3"}</MatListItem>
                 </MatList>
-                <span>{"Selected index: "}{self.activatable_selected_index}</span>
+                <span>{"Selected index: "}{&self.activatable_selected_index}</span>
             </section>
 
             <section>
@@ -88,7 +116,7 @@ impl Component for List {
                     // Blame Material components
                     <MatCheckListItem disabled=true><span>{"Disabled"}</span></MatCheckListItem>
                 </MatList>
-                <span>{"Selected index: "}{self.checklist_selected_index}</span>
+                <span>{"Selected index: "}{&self.checklist_selected_index}</span>
             </section>
 
             <section>
@@ -99,7 +127,7 @@ impl Component for List {
                     <MatRadioListItem left=true>{"Item 2"}</MatRadioListItem>
                     <MatRadioListItem left=true>{"Item 3"}</MatRadioListItem>
                 </MatList>
-                <span>{"Selected index: "}{self.radio_selected_index}</span>
+                <span>{"Selected index: "}{&self.radio_selected_index}</span>
             </section>
         </div>}
     }
