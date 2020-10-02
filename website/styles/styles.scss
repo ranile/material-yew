@@ -133,6 +133,7 @@ code {
     h2 {
         padding: 1em 0;
     }
+
     mwc-list {
         border: 1px solid #d3d3d3;
         max-width: 400px;
@@ -146,6 +147,7 @@ mwc-list-item, mwc-check-list-item, mwc-radio-list-item {
 
 .tab-component {
     padding: 1em 0;
+
     h2 {
         padding: 1em 0;
     }
@@ -154,23 +156,26 @@ mwc-list-item, mwc-check-list-item, mwc-radio-list-item {
 .snackbar-dismiss-slot mwc-icon-button {
     --mdc-icon-size: 18px;
     --mdc-icon-button-size: 36px;
-    color:rgba(255, 255, 255, 0.87);
-    margin-left:8px;
-    margin-right:0
+    color: rgba(255, 255, 255, 0.87);
+    margin-left: 8px;
+    margin-right: 0
 }
 
 .textfield-demo {
     mwc-textfield {
         min-width: 240px;
     }
+
     .shaped-filled {
         --mdc-text-field-filled-border-radius: 32px 32px 0 0;
     }
+
     .shaped-outlined {
         --mdc-notched-outline-leading-width: 28px;
         --mdc-notched-outline-leading-border-radius: 28px 0 0 28px;
         --mdc-notched-outline-trailing-border-radius: 0 28px 28px 0;
     }
+
     mwc-textarea {
         min-width: 250px;
     }
@@ -189,5 +194,44 @@ mwc-list-item, mwc-check-list-item, mwc-radio-list-item {
     .demo-group-spaced > *,
     [fullwidth] {
         margin-top: 8px;
+    }
+}
+
+
+.codeblock {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 0.3em;
+    padding: 1em;
+    max-width: 40%;
+
+    .header {
+        display: flex;
+        align-items: center;
+        margin: 0 0 2em 0;
+
+        .title {
+            font-size: 1.4em;
+        }
+
+        .right-icon {
+            margin-left: auto;
+        }
+    }
+
+    pre {
+        overflow-x: auto;
+        white-space: pre-wrap;
+        white-space: -moz-pre-wrap;
+        white-space: -o-pre-wrap;
+        word-wrap: break-word;
+
+        margin-bottom: 1em;
+        padding: 1em 0 1em 1em;
+    }
+
+    .demo {
+        display: flex;
+        gap: 1em;
+        align-items: center;
     }
 }

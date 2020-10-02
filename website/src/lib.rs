@@ -1,4 +1,5 @@
 mod components;
+pub mod macros;
 
 use yew::prelude::*;
 use yew_router::prelude::*;
@@ -8,8 +9,14 @@ use yew_material_components::{
 use crate::components::{
     Home, Button, Components, Checkbox, Radio, Switch, Fab, IconButton, Icon,
     CircularProgress, Drawer, FormField, LinearProgress, List, IconButtonToggle, Slider,
-    Tabs, Snackbar, Textfield, TextArea, Select
+    Tabs, Snackbar, Textfield, TextArea, Select,
 };
+use yew::services::fetch::{Request, FetchTask, FetchService, Response};
+use yew::format::{Nothing, Binary};
+use std::rc::Rc;
+use wasm_bindgen::prelude::*;
+use yew::services::ConsoleService;
+
 
 #[derive(Switch, Clone)]
 pub enum AppRoute {
@@ -64,6 +71,7 @@ pub struct App {
     link: ComponentLink<Self>,
     /// `true` represents open; `false` represents close
     drawer_state: bool,
+    // TODO tasks: Vec<FetchTask>,
 }
 
 pub enum Msg {
@@ -77,6 +85,21 @@ impl Component for App {
     type Properties = ();
 
     fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
+        /*let theme_task = FetchService::fetch_binary(
+            Request::get("/Material-Theme.theme").body(Nothing).unwrap(),
+            link.callback(|resp: Response<Binary>| {
+                let resp = resp.body().as_ref().unwrap();
+                Msg::SyntactThemeLoaded(syntect::dumps::from_binary(resp))
+            }),
+        ).unwrap();
+        let syntax_task = FetchService::fetch_binary(
+            Request::get("/rust.syntax").body(Nothing).unwrap(),
+            link.callback(|resp: Response<Binary>| {
+                let resp = resp.body().as_ref().unwrap();
+                Msg::SyntactSyntaxSetLoaded(syntect::dumps::from_binary(resp))
+            }),
+        ).unwrap();*/
+
         Self { link, drawer_state: false }
     }
 
@@ -183,4 +206,18 @@ impl App {
             AppRoute::Select => html! { <Select /> },
         }
     }
+}
+
+fn html_to_element(html: &str) -> Html {
+    let template: wasm_bindgen::JsValue = web_sys::window()
+        .unwrap()
+        .document()
+        .unwrap()
+        .create_element("template")
+        .unwrap()
+        .into();
+    let template: web_sys::HtmlTemplateElement = template.into();
+    let html = html.trim();
+    template.set_inner_html(html);
+    Html::VRef(template.content().first_child().unwrap().into())
 }

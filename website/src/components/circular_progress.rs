@@ -1,5 +1,6 @@
 use yew::prelude::*;
 use yew_material_components::{MatCircularProgress, MatCircularProgressFourColor, MatButton};
+use crate::components::Codeblock;
 
 pub struct CircularProgress {
     link: ComponentLink<Self>,
@@ -26,6 +27,7 @@ impl Component for CircularProgress {
                 self.progress += 0.1;
             }
             Msg::Close => {
+                yew::services::ConsoleService::log("test");
                 self.closed = !self.closed;
             }
         }
@@ -35,13 +37,19 @@ impl Component for CircularProgress {
     fn change(&mut self, _props: Self::Properties) -> bool { false }
 
     fn view(&self) -> Html {
-        html! {<>
-            <section class="comp-demo">
+        use crate::with_raw_code;
+        let toggle_example = with_raw_code!(toggle_example { html! {
+            <section class="demo">
                 <span onclick=self.link.callback(|_| Msg::Close)>
                     <MatButton label="Toggle" raised=true  />
                  </span><br />
-                <MatCircularProgress closed=self.closed progress=0.75/>
+                <MatCircularProgress closed=self.closed progress=0.75 />
             </section>
+        }});
+        html! {<>
+            <Codeblock code=toggle_example.0 title="Toggle open state">
+                {toggle_example.1}
+            </Codeblock>
 
             <section class="comp-demo">
                 <h2>{"Indeterminate"}</h2>

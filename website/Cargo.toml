@@ -11,5 +11,5 @@ wasm-bindgen = "^0.2"
 yew = { git = "https://github.com/yewstack/yew/", branch = "master" }
 yew-router = { git = "https://github.com/yewstack/yew/", branch = "master" }
 yew-material-components = { path = ".." }
-syntect = { version = "4.4", default-features = false, features = ["default-fancy"] }
-web-sys = { version = "0.3", features = ["HtmlMetaElement", "Document", "Element", "DocumentFragment", "HtmlTemplateElement"]}
+web-sys = { version = "0.3", features = ["HtmlMetaElement", "Document", "Element", "DocumentFragment", "HtmlTemplateElement"] }
+unindent = "0.1"
