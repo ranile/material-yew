@@ -11,12 +11,11 @@ use crate::components::{
     CircularProgress, Drawer, FormField, LinearProgress, List, IconButtonToggle, Slider,
     Tabs, Snackbar, Textfield, TextArea, Select,
 };
-use yew::services::fetch::{Request, FetchTask, FetchService, Response};
-use yew::format::{Nothing, Binary};
-use std::rc::Rc;
-use wasm_bindgen::prelude::*;
-use yew::services::ConsoleService;
 
+use wasm_bindgen::prelude::*;
+use std::cell::RefCell;
+use syntect::parsing::SyntaxSet;
+use syntect::highlighting::Theme;
 
 #[derive(Switch, Clone)]
 pub enum AppRoute {
@@ -80,26 +79,27 @@ pub enum Msg {
     Closed,
 }
 
+pub struct SyntectData {
+    theme: Option<Theme>,
+    syntax_set: Option<SyntaxSet>,
+}
+
+thread_local!(pub static SYNTECT_DATA: RefCell<SyntectData> = RefCell::new(SyntectData {
+    theme: None,
+    syntax_set: None,
+}));
+
+
 impl Component for App {
     type Message = Msg;
     type Properties = ();
 
     fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
-        /*let theme_task = FetchService::fetch_binary(
-            Request::get("/Material-Theme.theme").body(Nothing).unwrap(),
-            link.callback(|resp: Response<Binary>| {
-                let resp = resp.body().as_ref().unwrap();
-                Msg::SyntactThemeLoaded(syntect::dumps::from_binary(resp))
-            }),
-        ).unwrap();
-        let syntax_task = FetchService::fetch_binary(
-            Request::get("/rust.syntax").body(Nothing).unwrap(),
-            link.callback(|resp: Response<Binary>| {
-                let resp = resp.body().as_ref().unwrap();
-                Msg::SyntactSyntaxSetLoaded(syntect::dumps::from_binary(resp))
-            }),
-        ).unwrap();*/
-
+        SYNTECT_DATA.with(|cell| {
+            let mut data = cell.borrow_mut();
+            data.theme = Some(syntect::dumps::from_binary(include_bytes!("../syntect-dumps/Material-Theme.theme")));
+            data.syntax_set = Some(syntect::dumps::from_binary(include_bytes!("../syntect-dumps/rust.syntax")));
+        });
         Self { link, drawer_state: false }
     }
 
@@ -209,7 +209,7 @@ impl App {
 }
 
 fn html_to_element(html: &str) -> Html {
-    let template: wasm_bindgen::JsValue = web_sys::window()
+    let template: JsValue = web_sys::window()
         .unwrap()
         .document()
         .unwrap()

@@ -45,6 +45,7 @@ impl Component for Codeblock {
     }
 
     fn view(&self) -> Html {
+        let code = html_to_element(&self.props.code);
         html! { <>
             <section class="codeblock">
                 <section class="header">
@@ -56,9 +57,7 @@ impl Component for Codeblock {
 
                 {
                     if self.showing_code {
-                        html! {
-                            <pre><code>{&self.props.code}</code></pre>
-                        }
+                        {code}
                     } else { html!{} }
                 }
 

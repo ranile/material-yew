@@ -226,7 +226,8 @@ mwc-list-item, mwc-check-list-item, mwc-radio-list-item {
         word-wrap: break-word;
 
         margin-bottom: 1em;
-        padding: 1em 0 1em 1em;
+        font-family: "JetBrains Mono", "Monospaced", monospace;
+        padding: 1em;
     }
 
     .demo {
