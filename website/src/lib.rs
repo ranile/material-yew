@@ -9,7 +9,7 @@ use yew_material_components::{
 use crate::components::{
     Home, Button, Components, Checkbox, Radio, Switch, Fab, IconButton, Icon,
     CircularProgress, Drawer, FormField, LinearProgress, List, IconButtonToggle, Slider,
-    Tabs, Snackbar, Textfield, TextArea, Select,
+    Tabs, Snackbar, Textfield, TextArea, Select, Menu
 };
 
 use wasm_bindgen::prelude::*;
@@ -57,6 +57,8 @@ pub enum AppRoute {
     TextArea,
     #[to = "/components/select"]
     Select,
+    #[to = "/components/menu"]
+    Menu,
     #[to = "/components"]
     Components,
     #[to = "/"]
@@ -80,8 +82,8 @@ pub enum Msg {
 }
 
 pub struct SyntectData {
-    theme: Option<Theme>,
-    syntax_set: Option<SyntaxSet>,
+    pub theme: Option<Theme>,
+    pub syntax_set: Option<SyntaxSet>,
 }
 
 thread_local!(pub static SYNTECT_DATA: RefCell<SyntectData> = RefCell::new(SyntectData {
@@ -95,11 +97,6 @@ impl Component for App {
     type Properties = ();
 
     fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
-        SYNTECT_DATA.with(|cell| {
-            let mut data = cell.borrow_mut();
-            data.theme = Some(syntect::dumps::from_binary(include_bytes!("../syntect-dumps/Material-Theme.theme")));
-            data.syntax_set = Some(syntect::dumps::from_binary(include_bytes!("../syntect-dumps/rust.syntax")));
-        });
         Self { link, drawer_state: false }
     }
 
@@ -149,6 +146,7 @@ impl Component for App {
                         <AppRouterAnchor route=AppRoute::Textfield><MatListItem>{"Textfield"}</MatListItem></AppRouterAnchor>
                         <AppRouterAnchor route=AppRoute::TextArea><MatListItem>{"TextArea"}</MatListItem></AppRouterAnchor>
                         <AppRouterAnchor route=AppRoute::Select><MatListItem>{"Select"}</MatListItem></AppRouterAnchor>
+                        <AppRouterAnchor route=AppRoute::Menu><MatListItem>{"Menu"}</MatListItem></AppRouterAnchor>
                     </MatList>
                 </div>
 
@@ -204,6 +202,7 @@ impl App {
             AppRoute::Textfield => html! { <Textfield /> },
             AppRoute::TextArea => html! { <TextArea /> },
             AppRoute::Select => html! { <Select /> },
+            AppRoute::Menu => html! { <Menu /> },
         }
     }
 }

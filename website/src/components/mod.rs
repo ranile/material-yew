@@ -20,9 +20,10 @@ mod snackbar;
 mod textfield;
 mod textarea;
 mod select;
+mod menu;
 
 pub use button::Button;
-pub use code_block::CodeBlock;
+pub use code_block::Codeblock;
 pub use components::Components;
 pub use home::Home;
 pub use checkbox::Checkbox;
@@ -43,3 +44,4 @@ pub use snackbar::Snackbar;
 pub use textfield::Textfield;
 pub use textarea::TextArea;
 pub use select::Select;
+pub use menu::Menu;

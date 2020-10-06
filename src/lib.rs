@@ -178,4 +178,7 @@ pub use text_inputs::*;
 pub mod select;
 pub use select::MatSelect;
 
+pub mod menu;
+pub use menu::MatMenu;
+
 pub use utils::WeakComponentLink;

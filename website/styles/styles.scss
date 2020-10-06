@@ -1,3 +1,5 @@
+@use "jetbrains-mono.css";
+
 * {
     padding: 0;
     margin: 0;
@@ -94,6 +96,12 @@ pre {
     padding: 0.75em 0.75em 0.75em 0.3em;
     border-radius: 0.75em;
     line-height: 1.8em;
+
+    overflow-x: auto;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
 }
 
 code {
@@ -202,7 +210,8 @@ mwc-list-item, mwc-check-list-item, mwc-radio-list-item {
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 0.3em;
     padding: 1em;
-    max-width: 40%;
+    max-width: 45%;
+    margin: 1em 2em 2em 0;
 
     .header {
         display: flex;
@@ -219,12 +228,6 @@ mwc-list-item, mwc-check-list-item, mwc-radio-list-item {
     }
 
     pre {
-        overflow-x: auto;
-        white-space: pre-wrap;
-        white-space: -moz-pre-wrap;
-        white-space: -o-pre-wrap;
-        word-wrap: break-word;
-
         margin-bottom: 1em;
         font-family: "JetBrains Mono", "Monospaced", monospace;
         padding: 1em;
@@ -234,5 +237,24 @@ mwc-list-item, mwc-check-list-item, mwc-radio-list-item {
         display: flex;
         gap: 1em;
         align-items: center;
+    }
+}
+
+.four-colored-progress {
+    --mdc-circular-progress-bar-color-1:#2196f3;
+    --mdc-circular-progress-bar-color-2:#e91e63;
+    --mdc-circular-progress-bar-color-3:#ffc107;
+    --mdc-circular-progress-bar-color-4:#03dac5;
+}
+
+#menu-demo {
+    .scrollable {
+        border: solid 1px black;
+        overflow-y: scroll;
+        height: 100px;
+    }
+
+    .scrollable .spacer {
+        height: 1000px;
     }
 }

@@ -1,6 +1,7 @@
 use yew::prelude::*;
 use yew_material_components::{MatCircularProgress, MatCircularProgressFourColor, MatButton};
 use crate::components::Codeblock;
+use crate::with_raw_code;
 
 pub struct CircularProgress {
     link: ComponentLink<Self>,
@@ -37,7 +38,7 @@ impl Component for CircularProgress {
     fn change(&mut self, _props: Self::Properties) -> bool { false }
 
     fn view(&self) -> Html {
-        use crate::with_raw_code;
+
         let toggle_example = with_raw_code!(toggle_example { html! {
             <section class="demo">
                 <span onclick=self.link.callback(|_| Msg::Close)>
@@ -46,31 +47,45 @@ impl Component for CircularProgress {
                 <MatCircularProgress closed=self.closed progress=0.75 />
             </section>
         }});
+
+        let indeterminate_ex = with_raw_code!(indeterminate_ex { html! {
+            <MatCircularProgress indeterminate=true />
+        }});
+
+        let determinate_ex = with_raw_code!(determinate_ex { html! {
+            <section class="demo">
+                <span onclick=self.link.callback(|_| Msg::ChangeProgress)>
+                    <MatButton label="Increase progress" raised=true />
+                </span>
+                <MatCircularProgress progress=self.progress />
+            </section>
+        }});
+
+        let four_color_ex = with_raw_code!(four_color_ex { html! {
+            <MatCircularProgressFourColor indeterminate=true />
+        }});
+
         html! {<>
             <Codeblock code=toggle_example.0 title="Toggle open state">
                 {toggle_example.1}
             </Codeblock>
 
-            <section class="comp-demo">
-                <h2>{"Indeterminate"}</h2>
-                <MatCircularProgress indeterminate=true />
-            </section>
+            <Codeblock code=indeterminate_ex.0 title="Indeterminate">
+                {indeterminate_ex.1}
+            </Codeblock>
 
-            <section class="comp-demo">
-                <h2>{"Determinate"}</h2> <br />
-                <span onclick=self.link.callback(|_| Msg::ChangeProgress)>
-                    <MatButton label="Increase progress" raised=true />
-                </span> <br />
-                <MatCircularProgress progress=self.progress />
-            </section>
+            <Codeblock code=determinate_ex.0 title="Determinate">
+                {determinate_ex.1}
+            </Codeblock>
 
             <p>
                 <b>{"Note:"}</b> {" Four colored variants of circular progress is available under "} <code>{"MatCircularProgressFourColor"}</code>
             </p>
 
-            <section class="comp-demo">
-                <h2>{"Four colored indeterminate"}</h2>
-                <MatCircularProgressFourColor indeterminate=true />
+            <section class="four-colored-progress">
+                <Codeblock code=four_color_ex.0 title="Four colored indeterminate">
+                    {four_color_ex.1}
+                </Codeblock>
             </section>
         </>}
     }

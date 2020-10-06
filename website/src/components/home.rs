@@ -40,7 +40,7 @@ html! {
             <section class="home-content">
                 <p>
                     {"Yew Material components is a components library for "} <a href="https://yew.rs/">{"Yew"}</a> {" framework "}
-                    {"which is a wrapper around "} <a href="https://github.com/material-components/material-components-web-components"> {"Material Web Components exposing Yew components. "} </a>
+                    {"which is a wrapper around "} <a href="https://github.com/material-components/material-components-web-components"> {"Material Web Components"} </a> {" exposing Yew components. "}
                     {"All modern browsers are supported. There is no support for polyfills required by Internet Explorer 11"}
                 </p>
                 <h3>{"Example"}</h3>

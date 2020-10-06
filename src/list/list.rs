@@ -3,10 +3,11 @@ use yew::prelude::*;
 use crate::{add_event_listener, to_option, add_event_listener_with_one_param, WeakComponentLink};
 use yew::web_sys::Node;
 use std::collections::HashSet;
-use wasm_bindgen::__rt::core::result::Result::Ok;
 use wasm_bindgen::JsCast;
 use js_sys::Object;
 use yew::virtual_dom::Attributes::IndexMap;
+use crate::list::list_index::ListIndex;
+use crate::list::SelectedDetail;
 
 #[wasm_bindgen(module = "/build/built-js.js")]
 extern "C" {
@@ -31,84 +32,6 @@ extern "C" {
 }
 
 loader_hack!(List);
-
-#[wasm_bindgen]
-extern "C" {
-    #[derive(Debug)]
-    #[wasm_bindgen(extends = Object)]
-    type SelectedDetailJS;
-
-    #[wasm_bindgen(method, getter)]
-    pub fn index(this: &SelectedDetailJS) -> JsValue;
-
-    #[wasm_bindgen(method, getter)]
-    pub fn diff(this: &SelectedDetailJS) -> IndexDiffJS;
-
-    #[derive(Debug)]
-    #[wasm_bindgen(extends = Object)]
-    type IndexDiffJS;
-
-    #[wasm_bindgen(method, getter)]
-    pub fn added(this: &IndexDiffJS) -> Vec<usize>;
-
-    #[wasm_bindgen(method, getter)]
-    pub fn removed(this: &IndexDiffJS) -> Vec<usize>;
-}
-
-#[derive(Debug)]
-pub enum ListIndex {
-    Single(Option<usize>),
-    Multi(HashSet<usize>),
-}
-
-#[derive(Debug)]
-pub struct SelectedDetail {
-    index: ListIndex,
-    diff: Option<IndexDiff>,
-}
-
-#[derive(Debug)]
-pub struct IndexDiff {
-    added: Vec<usize>,
-    removed: Vec<usize>,
-}
-
-impl From<JsValue> for ListIndex {
-    fn from(val: JsValue) -> Self {
-        if let Ok(set) = val.clone().dyn_into::<js_sys::Set>() {
-            let indices = set.values()
-                .into_iter()
-                .filter_map(|item| item.ok())
-                .filter_map(|value| value.as_f64())
-                .map(|num| num as usize)
-                .collect();
-            ListIndex::Multi(indices)
-        } else if let Some(value) = val.as_f64() {
-            ListIndex::Single(if value != -1.0 { Some(value as usize) } else { None })
-        } else {
-            panic!("This should never happen")
-        }
-    }
-}
-
-impl From<JsValue> for SelectedDetail {
-    fn from(value: JsValue) -> Self {
-        let detail = value.unchecked_into::<SelectedDetailJS>();
-        let index = ListIndex::from(detail.index());
-
-        let diff = if detail.diff().is_undefined() { None } else {
-            let diff = detail.diff();
-            Some(IndexDiff {
-                added: diff.added(),
-                removed: diff.removed(),
-            })
-        };
-        Self {
-            index,
-            diff,
-        }
-    }
-}
 
 pub struct MatList {
     props: Props,

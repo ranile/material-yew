@@ -1,11 +1,9 @@
 use yew::prelude::*;
 use yew_material_components::MatIconButton;
 use crate::{html_to_element};
-use yew::services::ConsoleService;
 
 pub struct Codeblock {
     link: ComponentLink<Self>,
-    node_ref: NodeRef,
     props: Props,
     showing_code: bool,
     highlighted_html: Option<Html>,
@@ -27,7 +25,7 @@ impl Component for Codeblock {
     type Properties = Props;
 
     fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
-        Self { link, props, node_ref: NodeRef::default(), showing_code: false, highlighted_html: None }
+        Self { link, props, showing_code: false, highlighted_html: None }
     }
 
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
