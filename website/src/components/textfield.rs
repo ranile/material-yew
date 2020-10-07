@@ -1,6 +1,5 @@
 use yew::prelude::*;
 use yew_material_components::{MatTextField, TextFieldType, ValidityState};
-use yew::services::ConsoleService;
 
 pub struct Textfield {}
 
@@ -17,12 +16,11 @@ impl Component for Textfield {
     fn change(&mut self, _props: Self::Properties) -> bool { false }
 
     fn view(&self) -> Html {
-        let tr = MatTextField::validity_transform(move |s, _| {
-            ConsoleService::log(&format!("str {}", s));
-            let vs = ValidityState::default();
-            vs.set_valid(false);
-            vs.set_pattern_mismatch(true);
-            vs
+        let tr = MatTextField::validity_transform(move |_, _| {
+            let mut state = ValidityState::new();
+            state.set_valid(false)
+                .set_bad_input(true);
+            state
         });
         html! {<main class="textfield-demo">
             <h2>{"Filled"}</h2>

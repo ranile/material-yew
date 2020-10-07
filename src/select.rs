@@ -1,7 +1,7 @@
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
 use web_sys::{Node, CustomEvent};
-use crate::{add_event_listener, add_event_listener_with_one_param, to_option, to_option_string, NativeValidityState, ValidityState, ValidityTransform};
+use crate::{add_event_listener, add_event_listener_with_one_param, to_option, to_option_string, NativeValidityState, ValidityStateJS, ValidityTransform, ValidityState};
 use crate::utils::WeakComponentLink;
 use wasm_bindgen::JsCast;
 use crate::list::{ActionDetail, SelectedDetail};
@@ -19,7 +19,7 @@ extern "C" {
     fn select(this: &Select, index: usize);
 
     #[wasm_bindgen(method, setter = validityTransform)]
-    fn set_validity_transform(this: &Select, val: &Closure<dyn FnMut(String, NativeValidityState) -> ValidityState>);
+    fn set_validity_transform(this: &Select, val: &Closure<dyn Fn(String, NativeValidityState) -> ValidityStateJS>);
 }
 
 loader_hack!(Select);
@@ -27,7 +27,7 @@ loader_hack!(Select);
 pub struct MatSelect {
     props: Props,
     node_ref: NodeRef,
-    validity_transform_closure: Option<Closure<dyn FnMut(String, NativeValidityState) -> ValidityState>>,
+    validity_transform_closure: Option<Closure<dyn Fn(String, NativeValidityState) -> ValidityStateJS>>,
     opened_closure: Option<Closure<dyn FnMut()>>,
     closed_closure: Option<Closure<dyn FnMut()>>,
     action_closure: Option<Closure<dyn FnMut(JsValue)>>,
@@ -123,8 +123,10 @@ impl Component for MatSelect {
         if first_render {
 
             let this = self.node_ref.cast::<Select>().unwrap();
-            if let Some(validity_transform) = &self.props.validity_transform {
-                self.validity_transform_closure = Some(Closure::wrap(Box::new(*validity_transform.0) as Box<dyn FnMut(String, NativeValidityState) -> ValidityState>));
+            if let Some(transform) = self.props.validity_transform.clone() {
+                self.validity_transform_closure = Some(Closure::wrap(Box::new(move |s: String, v: NativeValidityState| -> ValidityStateJS {
+                    transform.0(s, v).into()
+                }) as Box<dyn Fn(String, NativeValidityState) -> ValidityStateJS>));
                 this.set_validity_transform(&self.validity_transform_closure.as_ref().unwrap());
             }
 
@@ -165,3 +167,8 @@ impl WeakComponentLink<MatSelect> {
     }
 }
 
+impl MatSelect {
+    pub fn validity_transform<F: Fn(String, NativeValidityState) -> ValidityState + 'static>(func: F) -> ValidityTransform {
+        ValidityTransform::new(func)
+    }
+}

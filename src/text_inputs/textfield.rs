@@ -1,9 +1,8 @@
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
 pub use web_sys::ValidityState as NativeValidityState;
-use crate::{to_option, to_option_string};
-use crate::text_inputs::{ValidityState, TextFieldType, ValidityTransform, ValidityTransformFn};
-use std::rc::Rc;
+use crate::{to_option, to_option_string, ValidityState, ValidityTransform};
+use crate::text_inputs::{ValidityStateJS, TextFieldType};
 use web_sys::Node;
 
 #[wasm_bindgen(module = "/build/built-js.js")]
@@ -16,7 +15,7 @@ extern "C" {
     fn _dummy_loader() -> JsValue;
 
     #[wasm_bindgen(method, setter = validityTransform)]
-    fn set_validity_transform(this: &TextField, val: &Closure<dyn FnMut(String, NativeValidityState) -> ValidityState>);
+    fn set_validity_transform(this: &TextField, val: &Closure<dyn Fn(String, NativeValidityState) -> ValidityStateJS>);
 
     #[wasm_bindgen(method, setter)]
     fn set_type(this: &TextField, val: &JsValue);
@@ -27,7 +26,7 @@ loader_hack!(TextField);
 pub struct MatTextField {
     props: Props,
     node_ref: NodeRef,
-    validity_transform_closure: Option<Closure<dyn FnMut(String, NativeValidityState) -> ValidityState>>,
+    validity_transform_closure: Option<Closure<dyn Fn(String, NativeValidityState) -> ValidityStateJS>>,
 }
 
 #[derive(Properties, Clone)]
@@ -144,8 +143,10 @@ impl Component for MatTextField {
             element.set_type(&JsValue::from(&self.props.field_type.to_string()));
 
             let this = self.node_ref.cast::<TextField>().unwrap();
-            if let Some(c) = &self.props.validity_transform {
-                self.validity_transform_closure = Some(Closure::wrap(Box::new(*c.0) as Box<dyn FnMut(String, NativeValidityState) -> ValidityState>));
+            if let Some(transform) = self.props.validity_transform.clone() {
+                self.validity_transform_closure = Some(Closure::wrap(Box::new(move |s: String, v: NativeValidityState| -> ValidityStateJS {
+                    transform.0(s, v).into()
+                }) as Box<dyn Fn(String, NativeValidityState) -> ValidityStateJS>));
                 this.set_validity_transform(&self.validity_transform_closure.as_ref().unwrap());
             }
         }
@@ -153,7 +154,7 @@ impl Component for MatTextField {
 }
 
 impl MatTextField {
-    pub fn validity_transform(func: ValidityTransformFn) -> ValidityTransform {
-        ValidityTransform(Rc::new(func))
+    pub fn validity_transform<F: Fn(String, NativeValidityState) -> ValidityState + 'static>(func: F) -> ValidityTransform {
+        ValidityTransform::new(func)
     }
 }
