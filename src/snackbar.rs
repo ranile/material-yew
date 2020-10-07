@@ -1,19 +1,39 @@
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
 use wasm_bindgen::JsCast;
-use crate::{to_option, add_event_listener, set_element_property, add_event_listener_with_callback_to_emit_one_param_to};
+use web_sys::Node;
+use js_sys::Object;
+use crate::{to_option, add_event_listener, add_event_listener_with_one_param, WeakComponentLink};
 
 #[wasm_bindgen(module = "/build/built-js.js")]
 extern "C" {
     #[derive(Debug)]
+    #[wasm_bindgen(extends = Node)]
     type Snackbar;
 
-    // This needs to be added to each component
     #[wasm_bindgen(getter, static_method_of = Snackbar)]
     fn _dummy_loader() -> JsValue;
+
+    #[wasm_bindgen(method, setter)]
+    fn set_open(this: &Snackbar, value: bool);
+
+    #[wasm_bindgen(method)]
+    fn show(this: &Snackbar);
+
+    #[wasm_bindgen(method)]
+    fn close(this: &Snackbar, reason: &JsValue);
 }
 
-// call the macro with the type
+#[wasm_bindgen]
+extern "C" {
+    #[derive(Debug)]
+    #[wasm_bindgen(extends = Object)]
+    type DetailsReason;
+
+    #[wasm_bindgen(method, getter)]
+    fn reason(this: &DetailsReason) -> String;
+}
+
 loader_hack!(Snackbar);
 
 pub struct MatSnackbar {
@@ -25,9 +45,7 @@ pub struct MatSnackbar {
     closed_closure: Option<Closure<dyn FnMut(JsValue)>>,
 }
 
-pub enum Msg {}
-
-#[derive(Debug, Properties, Clone)]
+#[derive(Properties, Clone)]
 pub struct Props {
     #[prop_or_default]
     pub open: bool,
@@ -45,21 +63,22 @@ pub struct Props {
     pub onopening: Callback<()>,
     #[prop_or_default]
     pub onopened: Callback<()>,
-    // This is currently a JsValue because I don't want to depend on serde to try and extract the data from it
-    // It is up to ths user to do whatever they want from it
     #[prop_or_default]
-    pub onclosing: Callback<JsValue>,
+    pub onclosing: Callback<Option<String>>,
     #[prop_or_default]
-    pub onclosed: Callback<JsValue>,
+    pub onclosed: Callback<Option<String>>,
+    #[prop_or_default]
+    pub snackbar_link: WeakComponentLink<MatSnackbar>,
     #[prop_or_default]
     pub children: Children,
 }
 
 impl Component for MatSnackbar {
-    type Message = Msg;
+    type Message = ();
     type Properties = Props;
 
-    fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
+    fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
+        props.snackbar_link.borrow_mut().replace(link);
         Snackbar::ensure_loaded();
         Self { props, node_ref: NodeRef::default(), opening_closure: None, opened_closure: None, closing_closure: None, closed_closure: None }
     }
@@ -85,24 +104,66 @@ impl Component for MatSnackbar {
     }
 
     fn rendered(&mut self, first_render: bool) {
-        let element = self.node_ref.cast::<yew::web_sys::Element>().unwrap();
-        set_element_property(&element, "open", &JsValue::from(self.props.open));
+        let element = self.node_ref.cast::<Snackbar>().unwrap();
+        element.set_open(self.props.open);
+
         if first_render {
             let on_opening = self.props.onopening.clone();
-            let on_opened = self.props.onopened.clone();
-
             add_event_listener(&self.node_ref, "MDCSnackbar:opening", move || {
                 on_opening.emit(());
             }, &mut self.opening_closure);
 
+            let on_opened = self.props.onopened.clone();
             add_event_listener(&self.node_ref, "MDCSnackbar:opened", move || {
                 on_opened.emit(());
             }, &mut self.opened_closure);
 
+            let on_closing = self.props.onclosing.clone();
+            add_event_listener_with_one_param(&self.node_ref, "MDCSnackbar:closing", move |value| {
+                on_closing.emit(js_value_into_details_reason(value));
+            }, &mut self.closing_closure);
 
-            add_event_listener_with_callback_to_emit_one_param_to(&self.node_ref, "MDCSnackbar:closing", self.props.onclosing.clone(), &mut self.closing_closure);
-            add_event_listener_with_callback_to_emit_one_param_to(&self.node_ref, "MDCSnackbar:closed", self.props.onclosed.clone(), &mut self.closed_closure);
+            let on_closed = self.props.onclosed.clone();
+            add_event_listener_with_one_param(&self.node_ref, "MDCSnackbar:closed", move |value| {
+                on_closed.emit(js_value_into_details_reason(value));
+            }, &mut self.closed_closure);
         }
     }
 }
 
+impl WeakComponentLink<MatSnackbar> {
+    pub fn show(&self) {
+        (*self.borrow()
+            .as_ref()
+            .unwrap()
+            .get_component()
+            .unwrap())
+            .node_ref
+            .cast::<Snackbar>()
+            .unwrap()
+            .show()
+    }
+
+    pub fn close(&self, reason: &str) {
+        (*self.borrow()
+            .as_ref()
+            .unwrap()
+            .get_component()
+            .unwrap())
+            .node_ref
+            .cast::<Snackbar>()
+            .unwrap()
+            .close(&JsValue::from_str(reason))
+    }
+}
+
+fn js_value_into_details_reason(value: JsValue) -> Option<String> {
+    let event = value.unchecked_into::<web_sys::CustomEvent>();
+    let details: JsValue = event.detail();
+    if details.is_undefined() {
+        None
+    } else {
+        Some(details.unchecked_into::<DetailsReason>().reason())
+    }
+
+}

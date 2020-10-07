@@ -1,7 +1,8 @@
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
-use crate::list::{GraphicType, request_selected_listener};
+use crate::list::{GraphicType, RequestSelectedDetail};
 use crate::to_option;
+use crate::list::request_selected::request_selected_listener;
 
 #[wasm_bindgen(module = "/build/built-js.js")]
 extern "C" {
@@ -30,11 +31,8 @@ pub struct Props {
     pub group: Option<String>,
     #[prop_or(GraphicType::Control)]
     pub graphic: GraphicType,
-    // This is currently a JsValue because I don't want to depend on serde to try and extract the data from it
-    // It is up to ths user to do whatever they want from it
-    // It's probably possible to never touch this event but I'm gonna keep it for the sake of completeness
     #[prop_or_default]
-    pub on_request_selected: Callback<JsValue>,
+    pub on_request_selected: Callback<RequestSelectedDetail>,
     pub children: Children,
 }
 

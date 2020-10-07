@@ -1,5 +1,9 @@
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
+use crate::add_event_listener_with_one_param;
+use wasm_bindgen::JsCast;
+use web_sys::CustomEvent;
+use js_sys::Object;
 
 #[wasm_bindgen(module = "/build/built-js.js")]
 extern "C" {
@@ -15,7 +19,6 @@ loader_hack!(TabBar);
 pub struct MatTabBar {
     props: Props,
     node_ref: NodeRef,
-    // TODO
     activated_closure: Option<Closure<dyn FnMut(JsValue)>>,
 }
 
@@ -26,7 +29,7 @@ pub struct Props {
     #[prop_or_default]
     pub active_index: u32,
     #[prop_or_default]
-    pub onactivated: Callback<JsValue>,
+    pub onactivated: Callback<usize>,
     #[prop_or_default]
     pub children: Children,
 }
@@ -57,8 +60,24 @@ impl Component for MatTabBar {
     }
 
     fn rendered(&mut self, first_render: bool) {
+        let on_activated = self.props.onactivated.clone();
         if first_render {
-
+            add_event_listener_with_one_param(&self.node_ref, "MDCTabBar:activated", move |value| {
+                let event = value.unchecked_into::<CustomEvent>();
+                let detail = event.detail().unchecked_into::<ActivatedDetailJS>();
+                on_activated.emit(detail.index());
+            }, &mut self.activated_closure)
         }
     }
+}
+
+
+#[wasm_bindgen]
+extern "C" {
+    #[derive(Debug)]
+    #[wasm_bindgen(extends = Object)]
+    type ActivatedDetailJS;
+
+    #[wasm_bindgen(method, getter)]
+    fn index(this: &ActivatedDetailJS) -> usize;
 }

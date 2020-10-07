@@ -1,4 +1,4 @@
-//! A Material components library for Yew. It wrpas around Material Web Components exposing Yew components
+//! A Material components library for [Yew](https://yew.rs). It wrpas around [Material Web Components](https://github.com/material-components/material-components-web-components) exposing Yew components
 //!
 //! Example usage:
 //! ```rust
@@ -10,11 +10,12 @@
 //! }
 //! ```
 //!
-//! More information can be found in the [GitHub README](https://github.com/hamza1311/yew-material-components)
+//! More information can be found on the [website]() and in the [GitHub README](https://github.com/hamza1311/yew-material-components)
 
 use wasm_bindgen::prelude::Closure;
 use wasm_bindgen::{JsCast, JsValue};
-use yew::{NodeRef, Callback};
+use yew::{NodeRef};
+use web_sys::Element;
 mod utils;
 
 // this macro is defined here so we can access it in the modules
@@ -79,38 +80,17 @@ fn to_option_string(s: &str) -> Option<&str> {
 
 
 fn add_event_listener(node_ref: &NodeRef, name: &str, func: impl Fn() + 'static, closure_to_store_in: &mut Option<Closure<dyn FnMut()>>) {
-    let element = node_ref.cast::<yew::web_sys::Element>().unwrap();
+    let element = node_ref.cast::<Element>().unwrap();
     *closure_to_store_in = Some(Closure::wrap(Box::new(func) as Box<dyn FnMut()>));
     element.add_event_listener_with_callback(name, closure_to_store_in.as_ref().unwrap().as_ref().unchecked_ref());
 }
 
 fn add_event_listener_with_one_param(node_ref: &NodeRef, name: &str, func: impl Fn(JsValue) + 'static, closure_to_store_in: &mut Option<Closure<dyn FnMut(JsValue)>>) {
-    let element = node_ref.cast::<yew::web_sys::Element>().unwrap();
+    let element = node_ref.cast::<Element>().unwrap();
     *closure_to_store_in = Some(Closure::wrap(Box::new(func) as Box<dyn FnMut(JsValue)>));
     element.add_event_listener_with_callback(name, closure_to_store_in.as_ref().unwrap().as_ref().unchecked_ref());
 }
 
-// Please no
-// This function name is horrible
-fn add_event_listener_with_callback_to_emit_one_param_to(node_ref: &NodeRef, name: &str, callback: Callback<JsValue>, closure_to_store_in: &mut Option<Closure<dyn FnMut(JsValue)>>) {
-    let element = node_ref.cast::<yew::web_sys::Element>().unwrap();
-    *closure_to_store_in = Some(Closure::wrap(Box::new(move |val: JsValue| {
-        callback.emit(val);
-    }) as Box<dyn FnMut(JsValue)>));
-    element.add_event_listener_with_callback(name, closure_to_store_in.as_ref().unwrap().as_ref().unchecked_ref());
-}
-
-fn read_boolean_property(element: &yew::web_sys::Element, name: &str) -> bool {
-    js_sys::Reflect::get(&element, &JsValue::from_str(name))
-        .expect("property is not found")
-        .as_bool()
-        .expect("property is not a bool")
-}
-
-fn set_element_property(element: &yew::web_sys::Element, key: &str, value: &JsValue) -> bool {
-    js_sys::Reflect::set(&element, &JsValue::from_str(key), value)
-        .expect("Setting property failed")
-}
 
 pub mod button;
 pub use button::MatButton;

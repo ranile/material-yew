@@ -1,18 +1,24 @@
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
-use crate::{add_event_listener, set_element_property};
+use crate::{add_event_listener};
+use web_sys::Node;
 
 #[wasm_bindgen(module = "/build/built-js.js")]
 extern "C" {
     #[derive(Debug)]
+    #[wasm_bindgen(extends = Node)]
     type Drawer;
 
-    // This needs to be added to each component
     #[wasm_bindgen(getter, static_method_of = Drawer)]
     fn _dummy_loader() -> JsValue;
+
+    #[wasm_bindgen(method, setter)]
+    fn set_open(this: &Drawer, value: bool);
+
+    #[wasm_bindgen(method, setter)]
+    fn set_type(this: &Drawer, value: &JsValue);
 }
 
-// call the macro with the type
 loader_hack!(Drawer);
 
 pub struct MatDrawer {
@@ -57,7 +63,6 @@ impl Component for MatDrawer {
 
     fn view(&self) -> Html {
         html! {
-//         open=self.props.open
 <mwc-drawer hasHeader=self.props.has_header ref=self.node_ref.clone()>
     { self.props.children.clone() }
 </mwc-drawer>
@@ -65,9 +70,9 @@ impl Component for MatDrawer {
     }
 
     fn rendered(&mut self, first_render: bool) {
-        let element = self.node_ref.cast::<yew::web_sys::Element>().unwrap();
-        element.set_attribute("type", &self.props.drawer_type);
-        set_element_property(&element, "open", &JsValue::from(self.props.open));
+        let element = self.node_ref.cast::<Drawer>().unwrap();
+        element.set_type(&JsValue::from(&self.props.drawer_type));
+        element.set_open(self.props.open);
 
         if first_render {
             let onopen_callback = self.props.onopened.clone();

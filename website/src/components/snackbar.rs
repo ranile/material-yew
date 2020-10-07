@@ -1,20 +1,21 @@
 use yew::prelude::*;
-use yew_material_components::{MatSnackbar, MatButton, MatIconButton};
+use yew_material_components::{MatSnackbar, MatButton, MatIconButton, WeakComponentLink};
+use yew::services::ConsoleService;
 
 pub struct Snackbar {
     link: ComponentLink<Self>,
-    default_open: bool,
-    leading_open: bool,
-    stacked_open: bool,
+    default_link: WeakComponentLink<MatSnackbar>,
+    leading_link: WeakComponentLink<MatSnackbar>,
+    stacked_link: WeakComponentLink<MatSnackbar>,
 }
 
 pub enum Msg {
     OpenDefault,
     OpenLeading,
     OpenStacked,
-    DefaultClosed,
-    LeadingClosed,
-    StackedClosed,
+    DefaultClosed(Option<String>),
+    LeadingClosed(Option<String>),
+    StackedClosed(Option<String>),
 }
 
 impl Component for Snackbar {
@@ -22,19 +23,24 @@ impl Component for Snackbar {
     type Properties = ();
 
     fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
-        Self { default_open: false, leading_open: false, link, stacked_open: false }
+        Self {
+            link,
+            default_link: WeakComponentLink::default(),
+            leading_link: WeakComponentLink::default(),
+            stacked_link: WeakComponentLink::default(),
+        }
     }
 
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
         match msg {
-            Msg::OpenDefault => { self.default_open = true; }
-            Msg::OpenLeading => { self.leading_open = true; }
-            Msg::OpenStacked => { self.stacked_open = true; }
-            Msg::DefaultClosed => { self.default_open = false; }
-            Msg::LeadingClosed => { self.leading_open = false; }
-            Msg::StackedClosed => { self.stacked_open = false; }
+            Msg::OpenDefault => { ConsoleService::log("show"); self.default_link.show(); }
+            Msg::OpenLeading => { self.leading_link.show(); }
+            Msg::OpenStacked => { self.stacked_link.show(); }
+            Msg::DefaultClosed(reason) => { ConsoleService::log(&format!("default closed with reason {:?}", reason)) }
+            Msg::LeadingClosed(reason) => { ConsoleService::log(&format!("leading closed with reason {:?}", reason)) }
+            Msg::StackedClosed(reason) => { ConsoleService::log(&format!("stacked closed with reason {:?}", reason)) }
         }
-        true
+        false
     }
 
     fn change(&mut self, _props: Self::Properties) -> bool { false }
@@ -45,8 +51,8 @@ impl Component for Snackbar {
                 <span onclick=self.link.callback(|_| Msg::OpenDefault)>
                     <MatButton label="Default" raised=true  />
                  </span>
-                <MatSnackbar label_text="Can't send photo. Retry in 5 seconds." open=self.default_open
-                    onclosed=self.link.callback(|_| Msg::DefaultClosed)>
+                <MatSnackbar label_text="Can't send photo. Retry in 5 seconds." snackbar_link=self.default_link.clone()
+                    onclosed=self.link.callback(|reason| Msg::DefaultClosed(reason))>
                     <span slot="action">
                         <MatButton label="RETRY" />
                     </span>
@@ -61,8 +67,8 @@ impl Component for Snackbar {
                 <span onclick=self.link.callback(|_| Msg::OpenLeading)>
                     <MatButton label="Leading" raised=true  />
                  </span>
-                <MatSnackbar label_text="Can't send photo. Retry in 5 seconds." open=self.leading_open leading=true
-                    onclosed=self.link.callback(|_| Msg::LeadingClosed)>
+                <MatSnackbar label_text="Can't send photo. Retry in 5 seconds." snackbar_link=self.leading_link.clone() leading=true
+                    onclosed=self.link.callback(|reason| Msg::LeadingClosed(reason))>
                     <span slot="action">
                         <MatButton label="RETRY" />
                     </span>
@@ -77,8 +83,8 @@ impl Component for Snackbar {
                 <span onclick=self.link.callback(|_| Msg::OpenStacked)>
                     <MatButton label="Default" raised=true  />
                  </span>
-                <MatSnackbar label_text="Can't send photo. Retry in 5 seconds." open=self.stacked_open stacked=true
-                    onclosed=self.link.callback(|_| Msg::StackedClosed)>
+                <MatSnackbar label_text="Can't send photo. Retry in 5 seconds." snackbar_link=self.stacked_link.clone() stacked=true
+                    onclosed=self.link.callback(|reason| Msg::StackedClosed(reason))>
                     <span slot="action">
                         <MatButton label="RETRY" />
                     </span>

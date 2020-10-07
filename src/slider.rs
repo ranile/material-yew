@@ -1,7 +1,8 @@
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
-use crate::{to_option};
+use crate::{to_option, add_event_listener_with_one_param};
 use wasm_bindgen::JsCast;
+use web_sys::CustomEvent;
 
 #[wasm_bindgen(module = "/build/built-js.js")]
 extern "C" {
@@ -37,14 +38,14 @@ pub struct Props {
     pub pin: bool,
     #[prop_or(false)]
     pub markers: bool,
-    /// This is `JsValue` because `Slider` is undocumented
+    /// This is `CustomEvent` because `Slider` is undocumented
     /// See: https://github.com/material-components/material-components-web-components/issues/1848
     #[prop_or_default]
-    pub oninput: Callback<JsValue>,
-    /// This is `JsValue` because `Slider` is undocumented
+    pub oninput: Callback<CustomEvent>,
+    /// This is `CustomEvent` because `Slider` is undocumented
     /// See: https://github.com/material-components/material-components-web-components/issues/1848
     #[prop_or_default]
-    pub onchange: Callback<JsValue>,
+    pub onchange: Callback<CustomEvent>,
 }
 
 impl Component for MatSlider {
@@ -79,19 +80,15 @@ impl Component for MatSlider {
 
     fn rendered(&mut self, first_render: bool) {
         if first_render {
-            // TODO parse values
-            let element = self.node_ref.cast::<yew::web_sys::Element>().unwrap();
             let oninput = self.props.oninput.clone();
-            self.input_closure = Some(Closure::wrap(Box::new(move |val| {
-                oninput.emit(val)
-            }) as Box<dyn FnMut(JsValue)>));
-            element.add_event_listener_with_callback("input", self.input_closure.as_ref().unwrap().as_ref().unchecked_ref());
+            add_event_listener_with_one_param(&self.node_ref, "input", move |val| {
+                oninput.emit(val.unchecked_into::<CustomEvent>())
+            }, &mut self.input_closure);
 
             let onchange = self.props.onchange.clone();
-            self.change_closure = Some(Closure::wrap(Box::new(move |val| {
-                onchange.emit(val)
-            }) as Box<dyn FnMut(JsValue)>));
-            element.add_event_listener_with_callback("change", self.change_closure.as_ref().unwrap().as_ref().unchecked_ref());
+            add_event_listener_with_one_param(&self.node_ref, "change", move |val| {
+                onchange.emit(val.unchecked_into::<CustomEvent>())
+            }, &mut self.change_closure);
         }
     }
 }

@@ -1,12 +1,10 @@
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
-use yew::web_sys::{Node, Element};
-use crate::{add_event_listener, to_option, to_option_string, NativeValidityState, ValidityState, ValidityTransform};
-use std::cell::RefCell;
-use std::ops::Deref;
-use std::rc::Rc;
+use web_sys::{Node, CustomEvent};
+use crate::{add_event_listener, add_event_listener_with_one_param, to_option, to_option_string, NativeValidityState, ValidityState, ValidityTransform};
 use crate::utils::WeakComponentLink;
-use crate::add_event_listener_with_callback_to_emit_one_param_to;
+use wasm_bindgen::JsCast;
+use crate::list::{ActionDetail, SelectedDetail};
 
 #[wasm_bindgen(module = "/build/built-js.js")]
 extern "C" {
@@ -75,9 +73,9 @@ pub struct Props {
     #[prop_or_default]
     pub onclosed: Callback<()>,
     #[prop_or_default]
-    pub onaction: Callback<JsValue>,
+    pub onaction: Callback<ActionDetail>,
     #[prop_or_default]
-    pub onselected: Callback<JsValue>,
+    pub onselected: Callback<SelectedDetail>,
 }
 
 impl Component for MatSelect {
@@ -136,9 +134,19 @@ impl Component for MatSelect {
             let onclosed = self.props.onclosed.clone();
             add_event_listener(&self.node_ref, "closed", move || { onclosed.emit(()) }, &mut self.closed_closure);
 
-            add_event_listener_with_callback_to_emit_one_param_to(&self.node_ref, "action", self.props.onaction.clone(), &mut self.action_closure);
+            let on_action = self.props.onaction.clone();
+            add_event_listener_with_one_param(&self.node_ref, "action", move |value| {
+                let event = value.unchecked_into::<CustomEvent>();
+                let details = ActionDetail::from(event.detail());
 
-            add_event_listener_with_callback_to_emit_one_param_to(&self.node_ref, "selected", self.props.onselected.clone(), &mut self.selected_closure);
+                on_action.emit(details)
+            }, &mut self.action_closure);
+
+            let on_selected = self.props.onselected.clone();
+            add_event_listener_with_one_param(&self.node_ref, "selected", move |value| {
+                let event = value.unchecked_into::<web_sys::CustomEvent>();
+                on_selected.emit(SelectedDetail::from(event.detail()))
+            }, &mut self.selected_closure);
         }
     }
 }

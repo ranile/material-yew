@@ -1,14 +1,22 @@
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
-use crate::{to_option, add_event_listener, read_boolean_property};
+use crate::{to_option, add_event_listener};
+use web_sys::Node;
 
 #[wasm_bindgen(module = "/build/built-js.js")]
 extern "C" {
     #[derive(Debug)]
+    #[wasm_bindgen(extends = Node)]
     type Radio;
 
     #[wasm_bindgen(getter, static_method_of = Radio)]
     fn _dummy_loader() -> JsValue;
+
+    #[wasm_bindgen(method, getter)]
+    fn checked(this: &Radio) -> bool;
+
+    #[wasm_bindgen(method, setter)]
+    fn set_checked(this: &Radio, value: bool);
 }
 
 loader_hack!(Radio);
@@ -68,17 +76,13 @@ impl Component for MatRadio {
 
 
     fn rendered(&mut self, first_render: bool) {
-        let element = self.node_ref.cast::<yew::web_sys::Element>().unwrap();
-        if self.props.checked {
-            element.set_attribute("checked", &self.props.checked.to_string());
-        } else {
-            element.remove_attribute("checked");
-        }
+        let element = self.node_ref.cast::<Radio>().unwrap();
+        element.set_checked(self.props.checked);
 
         if first_render {
             let callback = self.props.onchange.clone();
             add_event_listener(&self.node_ref, "change", move || {
-                callback.emit(read_boolean_property(&element, "checked"));
+                callback.emit(element.checked());
             }, &mut self.closure)
         }
     }

@@ -10,10 +10,14 @@ pub use check_list_item::MatCheckListItem;
 pub mod radio_list_item;
 mod list_index;
 mod selected_detail;
+mod action_detail;
+mod request_selected;
 
 pub use list_index::ListIndex;
 pub use selected_detail::{SelectedDetail, IndexDiff};
 pub use radio_list_item::MatRadioListItem;
+pub use action_detail::ActionDetail;
+pub use request_selected::{RequestSelectedDetail, RequestSelectedSource};
 
 #[derive(Clone, Debug)]
 pub enum GraphicType {

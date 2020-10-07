@@ -1,11 +1,10 @@
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
-use wasm_bindgen::JsCast;
-use yew::web_sys::Node;
 pub use web_sys::ValidityState as NativeValidityState;
 use crate::{to_option, to_option_string};
 use crate::text_inputs::{ValidityState, TextFieldType, ValidityTransform, ValidityTransformFn};
 use std::rc::Rc;
+use web_sys::Node;
 
 #[wasm_bindgen(module = "/build/built-js.js")]
 extern "C" {
@@ -18,6 +17,9 @@ extern "C" {
 
     #[wasm_bindgen(method, setter = validityTransform)]
     fn set_validity_transform(this: &TextField, val: &Closure<dyn FnMut(String, NativeValidityState) -> ValidityState>);
+
+    #[wasm_bindgen(method, setter)]
+    fn set_type(this: &TextField, val: &JsValue);
 }
 
 loader_hack!(TextField);
@@ -137,9 +139,9 @@ impl Component for MatTextField {
     }
 
     fn rendered(&mut self, first_render: bool) {
-        let element = self.node_ref.cast::<yew::web_sys::Element>().unwrap();
         if first_render {
-            element.set_attribute("type", &self.props.field_type.to_string());
+            let element = self.node_ref.cast::<TextField>().unwrap();
+            element.set_type(&JsValue::from(&self.props.field_type.to_string()));
 
             let this = self.node_ref.cast::<TextField>().unwrap();
             if let Some(c) = &self.props.validity_transform {

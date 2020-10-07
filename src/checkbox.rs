@@ -1,27 +1,30 @@
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
-use crate::{to_option, add_event_listener, read_boolean_property};
+use crate::{to_option, add_event_listener};
+use web_sys::Node;
 
 #[wasm_bindgen(module = "/build/built-js.js")]
 extern "C" {
     #[derive(Debug)]
+    #[wasm_bindgen(extends = Node)]
     type Checkbox;
 
-    // This needs to be added to each component
     #[wasm_bindgen(getter, static_method_of = Checkbox)]
     fn _dummy_loader() -> JsValue;
 
     #[wasm_bindgen(method, setter)]
-    fn set_checked(this: &Checkbox, value: &str);
+    fn set_checked(this: &Checkbox, value: bool);
+
+    #[wasm_bindgen(method, getter)]
+    fn checked(this: &Checkbox) -> bool;
 }
 
-// call the macro with the type
 loader_hack!(Checkbox);
 
 pub struct MatCheckbox {
     props: Props,
     node_ref: NodeRef,
-    closure: Option<Closure<dyn FnMut()>>
+    closure: Option<Closure<dyn FnMut()>>,
 }
 
 #[derive(Debug, Properties, Clone)]
@@ -49,7 +52,7 @@ impl Component for MatCheckbox {
         Self { props, node_ref: NodeRef::default(), closure: None }
     }
 
-    fn update(&mut self, _msg: Self::Message) -> ShouldRender {        false    }
+    fn update(&mut self, _msg: Self::Message) -> ShouldRender { false }
 
     fn change(&mut self, props: Self::Properties) -> bool {
         self.props = props;
@@ -70,15 +73,14 @@ impl Component for MatCheckbox {
 
 
     fn rendered(&mut self, first_render: bool) {
-        let element = self.node_ref.cast::<yew::web_sys::Element>().unwrap();
+        let element = self.node_ref.cast::<Checkbox>().unwrap();
         if self.props.checked {
-            element.set_attribute("checked", &self.props.checked.to_string());
+            element.set_checked(self.props.checked);
         }
         if first_render {
             let callback = self.props.onchange.clone();
-            let ele = element.clone();
             add_event_listener(&self.node_ref, "change", move || {
-                callback.emit(read_boolean_property(&ele, "checked"));
+                callback.emit(element.checked());
             }, &mut self.closure)
         }
     }

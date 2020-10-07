@@ -1,6 +1,9 @@
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
-use crate::{to_option};
+use crate::{to_option, add_event_listener_with_one_param};
+use js_sys::Object;
+use web_sys::CustomEvent;
+use wasm_bindgen::JsCast;
 
 #[wasm_bindgen(module = "/build/built-js.js")]
 extern "C" {
@@ -16,7 +19,6 @@ loader_hack!(Tab);
 pub struct MatTab {
     props: Props,
     node_ref: NodeRef,
-    // TODO
     interacted_closure: Option<Closure<dyn FnMut(JsValue)>>,
 }
 
@@ -41,7 +43,7 @@ pub struct Props {
     #[prop_or_default]
     pub stacked: bool,
     #[prop_or_default]
-    pub oninteracted: Callback<JsValue>,
+    pub oninteracted: Callback<String>,
     #[prop_or_default]
     pub children: Children,
 }
@@ -79,8 +81,24 @@ impl Component for MatTab {
     }
 
     fn rendered(&mut self, first_render: bool) {
+        let on_interacted = self.props.oninteracted.clone();
         if first_render {
-
+            add_event_listener_with_one_param(&self.node_ref, "MDCTab:interacted", move |value| {
+                let event = value.unchecked_into::<CustomEvent>();
+                let detail = event.detail().unchecked_into::<InteractedDetailJS>();
+                on_interacted.emit(detail.tab_id());
+            }, &mut self.interacted_closure)
         }
     }
+}
+
+
+#[wasm_bindgen]
+extern "C" {
+    #[derive(Debug)]
+    #[wasm_bindgen(extends = Object)]
+    type InteractedDetailJS;
+
+    #[wasm_bindgen(method, getter, js_name=tabId)]
+    fn tab_id(this: &InteractedDetailJS) -> String;
 }

@@ -1,5 +1,5 @@
 use yew::prelude::*;
-use yew_material_components::{MatTextField, TextFieldType, ValidityState, NativeValidityState};
+use yew_material_components::{MatTextField, TextFieldType, ValidityState};
 use yew::services::ConsoleService;
 
 pub struct Textfield {}

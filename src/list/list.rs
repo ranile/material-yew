@@ -1,11 +1,8 @@
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
 use crate::{add_event_listener, to_option, add_event_listener_with_one_param, WeakComponentLink};
-use yew::web_sys::Node;
-use std::collections::HashSet;
+use web_sys::Node;
 use wasm_bindgen::JsCast;
-use js_sys::Object;
-use yew::virtual_dom::Attributes::IndexMap;
 use crate::list::list_index::ListIndex;
 use crate::list::SelectedDetail;
 
@@ -116,7 +113,6 @@ impl Component for MatList {
             add_event_listener_with_one_param(&self.node_ref, "selected", move |value: JsValue| {
                 let event = value.unchecked_into::<web_sys::CustomEvent>();
                 let val = SelectedDetail::from(event.detail());
-                yew::services::ConsoleService::log(&format!("val {:?}", val));
                 onselected.emit(val);
             }, &mut self.selected_closure)
         }

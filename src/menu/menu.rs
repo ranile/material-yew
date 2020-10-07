@@ -1,11 +1,8 @@
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
 use crate::{add_event_listener, to_option, add_event_listener_with_one_param, WeakComponentLink};
-use yew::web_sys::Node;
-use std::collections::HashSet;
+use web_sys::Node;
 use wasm_bindgen::JsCast;
-use js_sys::Object;
-use yew::virtual_dom::Attributes::IndexMap;
 use crate::list::{ListIndex, SelectedDetail};
 use crate::menu::{Corner, MenuCorner, DefaultFocusState};
 
@@ -56,7 +53,7 @@ pub struct Props {
     #[prop_or_default]
     pub open: bool,
     #[prop_or_default]
-    pub anchor: Option<yew::web_sys::HtmlElement>,
+    pub anchor: Option<web_sys::HtmlElement>,
     #[prop_or(Corner::TopStart)]
     pub corner: Corner,
     #[prop_or(MenuCorner::Start)]

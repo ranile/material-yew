@@ -1,5 +1,5 @@
 use yew::prelude::*;
-use yew_material_components::{MatTextArea, TextFieldType, ValidityState, NativeValidityState};
+use yew_material_components::{MatTextArea, ValidityState};
 use yew::services::ConsoleService;
 use yew_material_components::textarea::TextAreaCharCounter;
 

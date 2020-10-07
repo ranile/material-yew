@@ -6,7 +6,6 @@ pub struct Codeblock {
     link: ComponentLink<Self>,
     props: Props,
     showing_code: bool,
-    highlighted_html: Option<Html>,
 }
 
 pub enum Msg {
@@ -25,7 +24,7 @@ impl Component for Codeblock {
     type Properties = Props;
 
     fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
-        Self { link, props, showing_code: false, highlighted_html: None }
+        Self { link, props, showing_code: false }
     }
 
     fn update(&mut self, msg: Self::Message) -> ShouldRender {

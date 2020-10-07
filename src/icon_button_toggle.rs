@@ -1,14 +1,19 @@
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
-use crate::{add_event_listener, read_boolean_property, to_option};
+use crate::{add_event_listener, to_option};
+use web_sys::Node;
 
 #[wasm_bindgen(module = "/build/built-js.js")]
 extern "C" {
     #[derive(Debug)]
+    #[wasm_bindgen(extends = Node)]
     type IconButtonToggle;
 
     #[wasm_bindgen(getter, static_method_of = IconButtonToggle)]
     fn _dummy_loader() -> JsValue;
+
+    #[wasm_bindgen(method, getter)]
+    fn on(this: &IconButtonToggle) -> bool;
 }
 
 loader_hack!(IconButtonToggle);
@@ -54,7 +59,6 @@ impl Component for MatIconButtonToggle {
     }
 
     fn view(&self) -> Html {
-
         html! {
             <mwc-icon-button-toggle
                 on?=to_option(self.props.on)
@@ -69,14 +73,12 @@ impl Component for MatIconButtonToggle {
 
 
     fn rendered(&mut self, first_render: bool) {
-        let element = self.node_ref.cast::<yew::web_sys::Element>().unwrap();
-
         if first_render {
+            let element = self.node_ref.cast::<IconButtonToggle>().unwrap();
+
             let callback = self.props.onchange.clone();
-            let el = element.clone();
-            add_event_listener(&self.node_ref, "MDCIconButtonToggle:change",move || {
-                let is_on = read_boolean_property(&el, "on");
-                callback.emit(is_on)
+            add_event_listener(&self.node_ref, "MDCIconButtonToggle:change", move || {
+                callback.emit(element.on())
             }, &mut self.closure);
         }
     }
