@@ -1,5 +1,7 @@
 use yew::prelude::*;
 use yew_material_components::{MatCheckbox};
+use crate::with_raw_code;
+use crate::components::Codeblock;
 
 pub struct Checkbox {}
 
@@ -16,26 +18,44 @@ impl Component for Checkbox {
     fn change(&mut self, _props: Self::Properties) -> bool { false }
 
     fn view(&self) -> Html {
+        let standard_checkbox = with_raw_code!(standard_checkbox { html! {
+        <section class="demo">
+            <MatCheckbox />
+            <h3>{"Standard checkbox"}</h3>
+        </section>
+        }});
+
+        let checked_checkbox = with_raw_code!(checked_checkbox { html! {
+        <section class="demo">
+            <MatCheckbox checked=true />
+            <h3>{"Checked checkbox"}</h3>
+        </section>
+        }});
+
+        let indeterminate_checkbox = with_raw_code!(indeterminate_checkbox { html! {
+        <section class="demo">
+            <MatCheckbox indeterminate=true />
+            <h3>{"Indeterminate checkbox"}</h3>
+        </section>
+        }});
+
+        let disabled_checkbox = with_raw_code!(disabled_checkbox { html! {
+        <section class="demo">
+            <MatCheckbox disabled=true />
+            <h3>{"Disabled checkbox"}</h3>
+        </section>
+        }});
+
         html! {<>
-            <section class="comp-demo">
-                <h2>{"Standard"}</h2>
-                <MatCheckbox />
-            </section>
 
-            <section class="comp-demo">
-                <h2>{"Checked"}</h2>
-                <MatCheckbox checked=true />
-            </section>
+            <Codeblock title="Standard" code_and_html=standard_checkbox />
 
-            <section class="comp-demo">
-                <h2>{"Indeterminate"}</h2>
-                <MatCheckbox indeterminate=true />
-            </section>
+            <Codeblock title="Checked" code_and_html=checked_checkbox />
 
-            <section class="comp-demo">
-                <h2>{"Disabled"}</h2>
-                <MatCheckbox disabled=true />
-            </section>
+            <Codeblock title="Indeterminate" code_and_html=indeterminate_checkbox />
+
+            <Codeblock title="Disabled" code_and_html=disabled_checkbox />
+
         </>}
     }
 }

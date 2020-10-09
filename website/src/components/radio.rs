@@ -1,5 +1,7 @@
 use yew::prelude::*;
 use yew_material_components::{MatRadio};
+use crate::with_raw_code;
+use crate::components::Codeblock;
 
 pub struct Radio {}
 
@@ -16,21 +18,28 @@ impl Component for Radio {
     fn change(&mut self, _props: Self::Properties) -> bool { false }
 
     fn view(&self) -> Html {
+        let standard = with_raw_code!(standard { html! {
+        <section class="demo">
+            <MatRadio name="some name" />
+        </section>
+        }});
+        let checked = with_raw_code!(checked { html! {
+        <section class="demo">
+            <MatRadio checked=true />
+        </section>
+        }});
+        let disabled = with_raw_code!(disabled { html! {
+        <section class="demo">
+            <MatRadio disabled=true />
+        </section>
+        }});
+
         html! {<>
-            <section class="comp-demo">
-                <h2>{"Standard"}</h2>
-                <MatRadio name="some name" />
-            </section>
+            <Codeblock title="Standard Radio" code_and_html=standard />
 
-            <section class="comp-demo">
-                <h2>{"Checked"}</h2>
-                <MatRadio checked=true />
-            </section>
+            <Codeblock title="Checked Radio" code_and_html=checked />
 
-            <section class="comp-demo">
-                <h2>{"Disabled"}</h2>
-                <MatRadio disabled=true />
-            </section>
+            <Codeblock title="Disabled Radio" code_and_html=disabled />
         </>}
     }
 }

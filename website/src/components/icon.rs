@@ -1,5 +1,7 @@
 use yew::prelude::*;
 use yew_material_components::{MatIcon};
+use crate::with_raw_code;
+use crate::components::Codeblock;
 
 pub struct Icon {}
 
@@ -16,15 +18,17 @@ impl Component for Icon {
     fn change(&mut self, _props: Self::Properties) -> bool { false }
 
     fn view(&self) -> Html {
+        let icons = with_raw_code!(icons { html! {
+        <section class="demo">
+            <MatIcon>{"sentiment_very_dissatisfied"}</MatIcon>
+            <MatIcon>{"sentiment_dissatisfied"}</MatIcon>
+            <MatIcon>{"sentiment_very_dissatisfied"}</MatIcon>
+            <MatIcon>{"sentiment_very_dissatisfied"}</MatIcon>
+            <MatIcon>{"sentiment_very_dissatisfied"}</MatIcon>
+        </section>
+        }});
         html! {<>
-            <section class="comp-demo">
-                <MatIcon>{"sentiment_very_dissatisfied"}</MatIcon>
-                <MatIcon>{"sentiment_dissatisfied"}</MatIcon>
-                <MatIcon>{"sentiment_very_dissatisfied"}</MatIcon>
-                <MatIcon>{"sentiment_very_dissatisfied"}</MatIcon>
-                <MatIcon>{"sentiment_very_dissatisfied"}</MatIcon>
-            </section>
-
+            <Codeblock title="Icons" code_and_html=icons />
         </>}
     }
 }

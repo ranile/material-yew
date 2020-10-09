@@ -1,5 +1,7 @@
 use yew::prelude::*;
 use yew_material_components::{MatLinearProgress, MatButton};
+use crate::with_raw_code;
+use crate::components::Codeblock;
 
 pub struct LinearProgress {
     link: ComponentLink<Self>,
@@ -37,32 +39,41 @@ impl Component for LinearProgress {
     fn view(&self) -> Html {
         let buffer = self.progress - 0.3;
 
+        let toggle = with_raw_code!(toggle { html! {
+        <section>
+            <span onclick=self.link.callback(|_| Msg::Close)>
+                <MatButton label="Toggle" raised=true  />
+             </span><br />
+            <div style="margin: 1em;">
+                <MatLinearProgress closed=self.closed progress=0.75 buffer=0.5 />
+            </div>
+        </section>
+        }});
+
+        let indeterminate = with_raw_code!(indeterminate { html! {
+        <section>
+            <div style="margin: 1em;">
+                <MatLinearProgress indeterminate=true />
+            </div>
+        </section>
+        }});
+
+        let determinate = with_raw_code!(determinate { html! {
+        <section>
+            <span onclick=self.link.callback(|_| Msg::ChangeProgress)>
+                <MatButton label="Increase progress" raised=true />
+            </span> <br />
+            <div style="margin: 1em;">
+                <MatLinearProgress progress=self.progress buffer=buffer />
+            </div>
+        </section>
+        }});
         html! {<>
-            <section>
-                <span onclick=self.link.callback(|_| Msg::Close)>
-                    <MatButton label="Toggle" raised=true  />
-                 </span><br />
-                <div style="margin: 1em;">
-                    <MatLinearProgress closed=self.closed progress=0.75 buffer=0.5 />
-                </div>
-            </section>
+            <Codeblock title="Toggle Linear Progress" code_and_html=toggle />
 
-            <section>
-                <h2>{"Indeterminate"}</h2>
-                <div style="margin: 1em;">
-                    <MatLinearProgress indeterminate=true />
-                </div>
-            </section>
+            <Codeblock title="Indeterminate Linear Progress" code_and_html=indeterminate />
 
-            <section>
-                <h2>{"Determinate"}</h2> <br />
-                <span onclick=self.link.callback(|_| Msg::ChangeProgress)>
-                    <MatButton label="Increase progress" raised=true />
-                </span> <br />
-                <div style="margin: 1em;">
-                    <MatLinearProgress progress=self.progress buffer=buffer />
-                </div>
-            </section>
+            <Codeblock title="Determinate Linear Progress" code_and_html=determinate />
         </>}
     }
 }

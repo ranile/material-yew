@@ -129,10 +129,6 @@ code {
     gap: 1em;
     padding: 1em 0;
     align-items: center;
-
-    mwc-slider {
-        width: 50%;
-    }
 }
 
 .list-demo {
@@ -256,5 +252,11 @@ mwc-list-item, mwc-check-list-item, mwc-radio-list-item {
 
     .scrollable .spacer {
         height: 1000px;
+    }
+}
+
+#slider-demo {
+    mwc-slider {
+        width: 50%;
     }
 }

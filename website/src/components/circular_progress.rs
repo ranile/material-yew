@@ -66,26 +66,18 @@ impl Component for CircularProgress {
         }});
 
         html! {<>
-            <Codeblock code=toggle_example.0 title="Toggle open state">
-                {toggle_example.1}
-            </Codeblock>
+            <Codeblock code_and_html=toggle_example title="Toggle open state" />
 
-            <Codeblock code=indeterminate_ex.0 title="Indeterminate">
-                {indeterminate_ex.1}
-            </Codeblock>
+            <Codeblock code_and_html=indeterminate_ex title="Indeterminate" />
 
-            <Codeblock code=determinate_ex.0 title="Determinate">
-                {determinate_ex.1}
-            </Codeblock>
+            <Codeblock code_and_html=determinate_ex title="Determinate" />
 
             <p>
                 <b>{"Note:"}</b> {" Four colored variants of circular progress is available under "} <code>{"MatCircularProgressFourColor"}</code>
             </p>
 
             <section class="four-colored-progress">
-                <Codeblock code=four_color_ex.0 title="Four colored indeterminate">
-                    {four_color_ex.1}
-                </Codeblock>
+                <Codeblock code_and_html=four_color_ex title="Four colored indeterminate" />
             </section>
         </>}
     }

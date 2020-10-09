@@ -1,5 +1,7 @@
 use yew::prelude::*;
 use yew_material_components::{MatFab};
+use crate::with_raw_code;
+use crate::components::Codeblock;
 
 pub struct Fab {}
 
@@ -16,21 +18,30 @@ impl Component for Fab {
     fn change(&mut self, _props: Self::Properties) -> bool { false }
 
     fn view(&self) -> Html {
+        let standard_fab = with_raw_code!(standard_fab { html! {
+        <section class="demo">
+            <MatFab icon="edit" />
+        </section>
+        }});
+
+        let mini_fab = with_raw_code!(mini_fab { html! {
+        <section class="demo">
+            <MatFab icon="add" mini=true />
+        </section>
+        }});
+
+        let extended_fab = with_raw_code!(extended_fab { html! {
+        <section class="demo">
+            <MatFab icon="shopping_cart" label="Add to cart" extended=true />
+        </section>
+        }});
+
         html! {<>
-            <section class="comp-demo">
-                <h2>{"Standard"}</h2>
-                <MatFab icon="edit" />
-            </section>
+            <Codeblock title="Standard" code_and_html=standard_fab />
 
-            <section class="comp-demo">
-                <h2>{"Mini"}</h2>
-                <MatFab icon="add" mini=true />
-            </section>
+            <Codeblock title="Mini" code_and_html=mini_fab />
 
-            <section class="comp-demo">
-                <h2>{"Extended"}</h2>
-                <MatFab icon="shopping_cart" label="Add to cart" extended=true />
-            </section>
+            <Codeblock title="Extended" code_and_html=extended_fab />
         </>}
     }
 }

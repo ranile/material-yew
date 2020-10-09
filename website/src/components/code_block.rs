@@ -14,9 +14,10 @@ pub enum Msg {
 
 #[derive(Properties, Clone)]
 pub struct Props {
-    pub children: Children,
-    pub code: String,
+    // pub children: Children,
+    // pub code: String,
     pub title: String,
+    pub code_and_html: (String, Html),
 }
 
 impl Component for Codeblock {
@@ -42,7 +43,7 @@ impl Component for Codeblock {
     }
 
     fn view(&self) -> Html {
-        let code = html_to_element(&self.props.code);
+        let code = html_to_element(&self.props.code_and_html.0);
         html! { <>
             <section class="codeblock">
                 <section class="header">
@@ -58,7 +59,7 @@ impl Component for Codeblock {
                     } else { html!{} }
                 }
 
-                { self.props.children.clone() }
+                { self.props.code_and_html.1.clone() }
             </section>
         </> }
     }

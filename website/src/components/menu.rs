@@ -237,30 +237,21 @@ impl Component for Menu {
 
         html! {
             <main id="menu-demo">
-            <Codeblock code=basic_menu.0 title="Basic Menu">
-                {basic_menu.1}
-            </Codeblock>
-            <Codeblock code=corner_menu.0 title="Corner Menu">
-                {corner_menu.1}
-            </Codeblock>
-            <Codeblock code=quick_menu.0 title="Quick Menu">
-                {quick_menu.1}
-            </Codeblock>
-            <Codeblock code=scrollable.0 title="Scrollable menu">
-                {scrollable.1}
-            </Codeblock>
-            <Codeblock code=absolute_menu_no_anchor.0 title="Absolute Menu (no anchor)">
-                {absolute_menu_no_anchor.1}
-            </Codeblock>
-            <Codeblock code=activatable_menu.0 title="Activatable Menu">
-                {activatable_menu.1}
-            </Codeblock>
-            <Codeblock code=multi_activatable_menu.0 title="Multi (activatable) Menu">
-                {multi_activatable_menu.1}
-            </Codeblock>
-            <Codeblock code=default_focus_menu.0 title="Menu With Default Focus">
-                {default_focus_menu.1}
-            </Codeblock>
+            <Codeblock code_and_html=basic_menu title="Basic Menu" />
+
+            <Codeblock code_and_html=corner_menu title="Corner Menu" />
+
+            <Codeblock code_and_html=quick_menu title="Quick Menu" />
+
+            <Codeblock code_and_html=scrollable title="Scrollable menu" />
+
+            <Codeblock code_and_html=absolute_menu_no_anchor title="Absolute Menu (no anchor)" />
+
+            <Codeblock code_and_html=activatable_menu title="Activatable Menu" />
+
+            <Codeblock code_and_html=multi_activatable_menu title="Multi (activatable) Menu" />
+
+            <Codeblock code_and_html=default_focus_menu title="Menu With Default Focus" />
         </main>
         }
     }
