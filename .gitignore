@@ -11,5 +11,3 @@ Cargo.lock
 
 # Node stuff
 node_modules
-
-build/
