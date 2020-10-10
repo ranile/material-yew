@@ -16,13 +16,13 @@ html! {
 ## Getting started
 ### Installation
 
-Currently, this library can only be imported via git. In the future, it'll be available from crates.io.
+Currently, this library can only be imported via git. In the future, it'll be available from crates.io.  
 `Cargo.toml`:
 ```toml
 [dependencies]
 material-yew-components = { git = "https://github.com/hamza1311/material-yew-components/", branch = "master" }
 ```
-Material icons and a Material font can also be imported for full functionality.
+Material icons and a Material font can also be imported for full functionality.  
 `index.html`:
 ```html
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
@@ -35,7 +35,7 @@ These components respect the theming applied to Material Web Components using st
 
 ## Documentation
 
-Full API documentation can be found here. Demos of components can be found here.
+Full API documentation can be found [here](). Demos of components can be found [here](https://yew-material.web.app/).
 
 ## Contributing
 
