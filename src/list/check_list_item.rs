@@ -15,12 +15,19 @@ extern "C" {
 
 loader_hack!(CheckListItem);
 
+/// The `mwc-check-list-item` component
+///
+/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/list#checklist)
 pub struct MatCheckListItem {
     props: Props,
     node_ref: NodeRef,
     closure: Option<Closure<dyn FnMut(JsValue)>>,
 }
 
+/// Props for [MatCheckListItem]
+///
+/// MWC Documentation for [properties](https://github.com/material-components/material-components-web-components/tree/master/packages/list#mwc-check-list-item)
+/// and [events](https://github.com/material-components/material-components-web-components/tree/master/packages/list#mwc-check-list-item-1)
 #[derive(Debug, Properties, Clone)]
 pub struct Props {
     #[prop_or_default]

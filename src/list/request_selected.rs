@@ -10,6 +10,9 @@ pub enum RequestSelectedSource {
     Property,
 }
 
+/// The `RequestSelectedDetail` type
+///
+/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/list#mwc-list-item-2)
 pub struct RequestSelectedDetail {
     pub selected: bool,
     pub source: RequestSelectedSource,

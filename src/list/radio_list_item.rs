@@ -15,14 +15,19 @@ extern "C" {
 
 loader_hack!(RadioListItem);
 
+/// The `mwc-list-item` Component
+///
+/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/list#mwc-radio-list-item)
 pub struct MatRadioListItem {
     props: Props,
     node_ref: NodeRef,
     closure: Option<Closure<dyn FnMut(JsValue)>>,
 }
 
-pub enum Msg {}
-
+/// Props for `MatListItem`
+///
+/// MWC Documentation [properties](https://github.com/material-components/material-components-web-components/tree/master/packages/list#mwc-radio-list-item-1)
+/// and [events](https://github.com/material-components/material-components-web-components/tree/master/packages/list#mwc-radio-list-item-2)
 #[derive(Debug, Properties, Clone)]
 pub struct Props {
     #[prop_or_default]
@@ -31,13 +36,14 @@ pub struct Props {
     pub group: Option<String>,
     #[prop_or(GraphicType::Control)]
     pub graphic: GraphicType,
+    /// Binds to `request-selected` event on `mwc-list-item`.
     #[prop_or_default]
     pub on_request_selected: Callback<RequestSelectedDetail>,
     pub children: Children,
 }
 
 impl Component for MatRadioListItem {
-    type Message = Msg;
+    type Message = ();
     type Properties = Props;
 
     fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {

@@ -12,34 +12,11 @@ mod list_index;
 mod selected_detail;
 mod action_detail;
 mod request_selected;
+pub mod graphic_type;
 
 pub use list_index::ListIndex;
 pub use selected_detail::{SelectedDetail, IndexDiff};
 pub use radio_list_item::MatRadioListItem;
 pub use action_detail::ActionDetail;
 pub use request_selected::{RequestSelectedDetail, RequestSelectedSource};
-
-#[derive(Clone, Debug)]
-pub enum GraphicType {
-    Avatar,
-    Icon,
-    Medium,
-    Large,
-    Control,
-    Null,
-}
-
-impl ToString for GraphicType {
-    fn to_string(&self) -> String {
-        use GraphicType::*;
-        match self {
-            Avatar => "avatar",
-            Icon => "icon",
-            Medium => "medium",
-            Large => "large",
-            Control => "control",
-            Null => "null",
-        }.to_string()
-    }
-}
-
+pub use graphic_type::GraphicType;

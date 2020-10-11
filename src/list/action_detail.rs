@@ -3,6 +3,7 @@ use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use js_sys::Object;
 
+/// Equivalent to `ActionDetail` mentioned [here](https://github.com/material-components/material-components-web-components/tree/master/packages/list#mwc-list-2)
 #[derive(Debug)]
 pub struct ActionDetail {
     index: ListIndex,

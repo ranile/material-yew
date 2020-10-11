@@ -30,6 +30,9 @@ extern "C" {
 
 loader_hack!(List);
 
+/// The `mwc-list` component
+///
+/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/list)
 pub struct MatList {
     props: Props,
     node_ref: NodeRef,
@@ -55,10 +58,18 @@ pub struct Props {
     pub inner_role: Option<String>,
     #[prop_or_default]
     pub noninteractive: bool,
+    /// Binds to `action` event on `mwc-list`
     #[prop_or_default]
     pub onaction: Callback<ListIndex>,
+    /// Binds to `selected` event `mwc-list`
     #[prop_or_default]
     pub onselected: Callback<SelectedDetail>,
+    /// `WeakComponentLink` for `MatList` which provides the following methods
+    /// - ```toggle(&self, index: usize, force: bool)```
+    /// - ```get_focused_item_index(&self) -> usize```
+    /// - ```focus_item_at_index(&self, index: usize)```
+    ///
+    /// See [`WeakComponentLink`](./struct.WeakComponentLink.html) documentation for more information
     #[prop_or_default]
     pub list_link: WeakComponentLink<MatList>,
     pub children: Children,
@@ -120,6 +131,9 @@ impl Component for MatList {
 }
 
 impl WeakComponentLink<MatList> {
+    /// Binds to `toggle` method.
+    ///
+    /// See [here](https://github.com/material-components/material-components-web-components/tree/master/packages/list#methods) for details
     pub fn toggle(&self, index: usize, force: bool) {
         let list = (*self.borrow()
             .as_ref()
@@ -131,6 +145,9 @@ impl WeakComponentLink<MatList> {
         list.toggle(index, force)
     }
 
+    /// Binds to `getFocusedItemIndex` method.
+    ///
+    /// See [here](https://github.com/material-components/material-components-web-components/tree/master/packages/list#methods) for details
     pub fn get_focused_item_index(&self) -> usize {
         (*self.borrow()
             .as_ref()
@@ -144,6 +161,9 @@ impl WeakComponentLink<MatList> {
 
     }
 
+    /// Binds to `focusItemAtIndex` method.
+    ///
+    /// See [here](https://github.com/material-components/material-components-web-components/tree/master/packages/list#methods) for details
     pub fn focus_item_at_index(&self, index: usize) {
         (*self.borrow()
             .as_ref()

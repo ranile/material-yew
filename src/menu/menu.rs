@@ -37,6 +37,9 @@ extern "C" {
 
 loader_hack!(Menu);
 
+/// The `mwc-menu` Component
+///
+/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/menu)
 pub struct MatMenu {
     props: Props,
     node_ref: NodeRef,
@@ -46,10 +49,14 @@ pub struct MatMenu {
     selected_closure: Option<Closure<dyn FnMut(JsValue)>>,
 }
 
-pub enum Msg {}
-
+/// Props for `MatMenu`
+///
+/// MWC Documentation [properties](https://github.com/material-components/material-components-web-components/tree/master/packages/menu#propertiesattributes)
+/// and [events](https://github.com/material-components/material-components-web-components/tree/master/packages/menu#events)
 #[derive(Properties, Clone)]
 pub struct Props {
+    /// Changing this prop re-renders the component.
+    /// For general usage, consider using `show` method provided by `WeakComponentLink<MatMenu>` via `menu_link`
     #[prop_or_default]
     pub open: bool,
     #[prop_or_default]
@@ -82,21 +89,41 @@ pub struct Props {
     pub multi: bool,
     #[prop_or_default]
     pub activatable: bool,
+    /// Binds to `opened` event on `mwc-menu-surface`
+    ///
+    /// See events docs to learn more.
     #[prop_or_default]
     pub onopened: Callback<()>,
+    /// Binds to `closed` event on `mwc-menu-surface`
+    ///
+    /// See events docs to learn more.
     #[prop_or_default]
     pub onclosed: Callback<()>,
+    /// Binds to `action` event on `mwc-list`
+    ///
+    /// See events docs to learn more.
     #[prop_or_default]
     pub onaction: Callback<ListIndex>,
+    /// Binds to `selected` event on `mwc-list`
+    ///
+    /// See events docs to learn more.
     #[prop_or_default]
     pub onselected: Callback<SelectedDetail>,
+    /// `WeakComponentLink` for `MatMenu` which provides the following methods
+    /// - `get_focused_item_index(&self) -> usize`
+    /// - `focus_item_at_index(&self, index: usize)`
+    /// - `select(&self, index: &JsValue)`
+    /// - `show(&self)`
+    /// - `close(&self)`
+    ///
+    /// See [`WeakComponentLink`](./struct.WeakComponentLink.html) documentation for more information
     #[prop_or_default]
     pub menu_link: WeakComponentLink<MatMenu>,
     pub children: Children,
 }
 
 impl Component for MatMenu {
-    type Message = Msg;
+    type Message = ();
     type Properties = Props;
 
     fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
@@ -168,6 +195,9 @@ impl Component for MatMenu {
 }
 
 impl WeakComponentLink<MatMenu> {
+    /// Binds to `getFocusedItemIndex` method.
+    ///
+    /// See [here](https://github.com/material-components/material-components-web-components/tree/master/packages/menu#methods) for details
     pub fn get_focused_item_index(&self) -> usize {
         (*self.borrow()
             .as_ref()
@@ -181,6 +211,9 @@ impl WeakComponentLink<MatMenu> {
 
     }
 
+    /// Binds to `focusItemAtIndex` method.
+    ///
+    /// See [here](https://github.com/material-components/material-components-web-components/tree/master/packages/menu#methods) for details
     pub fn focus_item_at_index(&self, index: usize) {
         (*self.borrow()
             .as_ref()
@@ -193,7 +226,11 @@ impl WeakComponentLink<MatMenu> {
             .focus_item_at_index(index)
     }
 
-    /// `index` is `JsValue` because `MWCMenuIndex` mentioned in mwc docs is completely undocumented
+    /// Binds to `select` method.
+    ///
+    /// `index` is `JsValue` because `MWCMenuIndex` mentioned in mwc docs is completely undocumented.
+    ///
+    /// See [here](https://github.com/material-components/material-components-web-components/tree/master/packages/menu#methods) for details
     pub fn select(&self, index: &JsValue) {
         (*self.borrow()
             .as_ref()
@@ -206,6 +243,9 @@ impl WeakComponentLink<MatMenu> {
             .select(index);
     }
 
+    /// Binds to `show` method.
+    ///
+    /// See [here](https://github.com/material-components/material-components-web-components/tree/master/packages/menu#methods) for details
     pub fn show(&self) {
         (*self.borrow()
             .as_ref()
@@ -218,6 +258,9 @@ impl WeakComponentLink<MatMenu> {
             .show();
     }
 
+    /// Binds to `close` method.
+    ///
+    /// See [here](https://github.com/material-components/material-components-web-components/tree/master/packages/menu#methods) for details
     pub fn close(&self) {
         (*self.borrow()
             .as_ref()

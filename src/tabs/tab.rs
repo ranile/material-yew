@@ -16,14 +16,19 @@ extern "C" {
 
 loader_hack!(Tab);
 
+/// The `mwc-tab` component
+///
+/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/tab)
 pub struct MatTab {
     props: Props,
     node_ref: NodeRef,
     interacted_closure: Option<Closure<dyn FnMut(JsValue)>>,
 }
 
-pub enum Msg {}
-
+/// Props for `MatTab`
+///
+/// MWC Documentation [properties](https://github.com/material-components/material-components-web-components/tree/master/packages/tab#propertiesattributes)
+/// and [events](https://github.com/material-components/material-components-web-components/tree/master/packages/tab#events)
 #[derive(Debug, Properties, Clone)]
 pub struct Props {
     #[prop_or_default]
@@ -42,6 +47,9 @@ pub struct Props {
     pub is_min_width_indicator: bool,
     #[prop_or_default]
     pub stacked: bool,
+    /// Binds to `MDCTab:interacted` event on `mwc-tab`
+    ///
+    /// See events docs to learn more.
     #[prop_or_default]
     pub oninteracted: Callback<String>,
     #[prop_or_default]
@@ -49,7 +57,7 @@ pub struct Props {
 }
 
 impl Component for MatTab {
-    type Message = Msg;
+    type Message = ();
     type Properties = Props;
 
     fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {

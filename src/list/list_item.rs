@@ -9,14 +9,15 @@ extern "C" {
     #[derive(Debug)]
     type ListItem;
 
-    // This needs to be added to each component
     #[wasm_bindgen(getter, static_method_of = ListItem)]
     fn _dummy_loader() -> JsValue;
 }
 
-// call the macro with the type
 loader_hack!(ListItem);
 
+/// The `mwc-list-item` Component
+///
+/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/list#mwc-list-item)
 pub struct MatListItem {
     props: Props,
     node_ref: NodeRef,
@@ -25,6 +26,10 @@ pub struct MatListItem {
 
 pub enum Msg {}
 
+/// Props for `MatListItem`
+///
+/// MWC Documentation [properties](https://github.com/material-components/material-components-web-components/tree/master/packages/list#mwc-list-item-1)
+/// and [events](https://github.com/material-components/material-components-web-components/tree/master/packages/list#mwc-list-item-2)
 #[derive(Debug, Properties, Clone)]
 pub struct Props {
     #[prop_or_default]
@@ -49,6 +54,7 @@ pub struct Props {
     pub noninteractive: bool,
     #[prop_or_default]
     pub selected: bool,
+    /// Binds to `request-selected` event on `mwc-list-item`.
     #[prop_or_default]
     pub on_request_selected: Callback<RequestSelectedDetail>,
     pub children: Children,

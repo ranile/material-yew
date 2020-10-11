@@ -1,3 +1,6 @@
+/// The `Corner` type
+///
+/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/menu#propertiesattributes)
 #[derive(Clone)]
 pub enum Corner {
     TopLeft,
@@ -26,6 +29,9 @@ impl ToString for Corner {
     }
 }
 
+/// The `MenuCorner` type
+///
+/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/menu#propertiesattributes)
 #[derive(Clone)]
 pub enum MenuCorner {
     Start,
@@ -42,6 +48,9 @@ impl ToString for MenuCorner {
     }
 }
 
+/// The `DefaultFocusState` type
+///
+/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/menu#propertiesattributes)
 #[derive(Clone)]
 pub enum DefaultFocusState {
     None,

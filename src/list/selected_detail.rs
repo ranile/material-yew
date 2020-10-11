@@ -3,6 +3,9 @@ use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use js_sys::Object;
 
+/// The `RequestSelectedDetail` type
+///
+/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/list#mwc-list-2)
 #[derive(Debug)]
 pub struct SelectedDetail {
     index: ListIndex,

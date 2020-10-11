@@ -16,18 +16,26 @@ extern "C" {
 
 loader_hack!(TabBar);
 
+/// The `mwc-tab-bar` component
+///
+/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/tab-bar)
 pub struct MatTabBar {
     props: Props,
     node_ref: NodeRef,
     activated_closure: Option<Closure<dyn FnMut(JsValue)>>,
 }
 
-pub enum Msg {}
-
+/// Props for `MatTabBar`.
+///
+/// MWC Documentation [properties](https://github.com/material-components/material-components-web-components/tree/master/packages/tab-bar#propertiesattributes)
+/// and [events](https://github.com/material-components/material-components-web-components/tree/master/packages/tab-bar#events)
 #[derive(Debug, Properties, Clone)]
 pub struct Props {
     #[prop_or_default]
     pub active_index: u32,
+    /// Binds to `MDCTabBar:activated` event on `mwc-tab`
+    ///
+    /// See events docs to learn more.
     #[prop_or_default]
     pub onactivated: Callback<usize>,
     #[prop_or_default]
@@ -35,7 +43,7 @@ pub struct Props {
 }
 
 impl Component for MatTabBar {
-    type Message = Msg;
+    type Message = ();
     type Properties = Props;
 
     fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
