@@ -1,5 +1,7 @@
 use yew::prelude::*;
 use yew_material_components::{MatCheckbox, MatFormfield, MatSwitch, MatRadio};
+use crate::with_raw_code;
+use crate::components::Codeblock;
 
 pub struct FormField {}
 
@@ -16,33 +18,45 @@ impl Component for FormField {
     fn change(&mut self, _props: Self::Properties) -> bool { false }
 
     fn view(&self) -> Html {
-        html! {<>
-            <section class="comp-demo">
+        let checkbox = with_raw_code!(checkbox { html! {
+        <section>
+            <div class="demo">
+                <h3>{"Standard"}</h3>
                 <MatFormfield label="This is a checkbox">
                     <MatCheckbox />
                 </MatFormfield>
-            </section>
+            </div>
 
-            <section class="comp-demo">
-                <h2>{"Align End"}</h2>
+            <div class="demo">
+                <h3>{"Align End"}</h3>
                 <MatFormfield label="This is another checkbox" align_end=true>
                     <MatCheckbox />
                 </MatFormfield>
-            </section>
+            </div>
+        </section> }});
 
-            <section class="comp-demo">
-                <h2>{"Switch"}</h2>
-                <MatFormfield label="This is a switch">
-                    <MatSwitch />
-                </MatFormfield>
-            </section>
+        let switch = with_raw_code!(switch { html! {
+        <section class="demo">
+            <MatFormfield label="This is a switch">
+                <MatSwitch />
+            </MatFormfield>
+        </section>
+        }});
 
-            <section class="comp-demo">
-                <h2>{"Radio"}</h2>
-                <MatFormfield label="This is a radio button">
-                    <MatRadio name="rad" />
-                </MatFormfield>
-            </section>
+        let radio = with_raw_code!(radio { html! {
+        <section class="demo">
+            <MatFormfield label="This is a radio button">
+                <MatRadio name="radio-name" />
+            </MatFormfield>
+        </section>
+        }});
+
+        html! {<>
+            <Codeblock title="Checkbox" code_and_html=checkbox />
+
+            <Codeblock title="Switch" code_and_html=switch />
+
+            <Codeblock title="Radio" code_and_html=radio />
         </>}
     }
 }

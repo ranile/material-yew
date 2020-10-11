@@ -18,6 +18,8 @@ pub struct Props {
     // pub code: String,
     pub title: String,
     pub code_and_html: (String, Html),
+    #[prop_or(45)]
+    pub max_width: u32
 }
 
 impl Component for Codeblock {
@@ -45,7 +47,7 @@ impl Component for Codeblock {
     fn view(&self) -> Html {
         let code = html_to_element(&self.props.code_and_html.0);
         html! { <>
-            <section class="codeblock">
+            <section class="codeblock" style=format!("max-width: {}%", self.props.max_width)>
                 <section class="header">
                     <h2 class="title">{&self.props.title}</h2>
                     <span class="right-icon" onclick=self.link.callback(|_| Msg::FlipShowCode)>

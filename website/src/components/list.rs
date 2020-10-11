@@ -1,6 +1,8 @@
 use yew::prelude::*;
 use yew_material_components::{MatList, MatListItem, MatCheckListItem, MatRadioListItem, WeakComponentLink, MatButton};
 use yew_material_components::list::ListIndex;
+use crate::with_raw_code;
+use crate::components::Codeblock;
 
 pub struct List {
     link: ComponentLink<Self>,
@@ -58,77 +60,95 @@ impl Component for List {
     fn change(&mut self, _props: Self::Properties) -> bool { false }
 
     fn view(&self) -> Html {
-        html! {<div class="list-demo">
-            <section>
-                <h2>{"Basic"}</h2>
-                <MatList onaction=self.link.callback(|val| Msg::Action(val, "basic")) list_link=self.list_link.clone()>
-                    <MatListItem>{"Item 0"}</MatListItem>
-                    <MatListItem>{"Item 1"}</MatListItem>
-                    <MatListItem>{"Item 2"}</MatListItem>
-                    <MatListItem>{"Item 3"}</MatListItem>
-                </MatList>
-                <div>{"Selected index: "}{&self.basic_selected_index}</div>
-                <div onclick=self.link.callback(|_| Msg::Focus)>
-                    <MatButton label="Focus index 2" raised=true />
-                </div>
-            </section>
+        let basic = with_raw_code!(basic { html! {
+        <section>
+            <MatList onaction=self.link.callback(|val| Msg::Action(val, "basic")) list_link=self.list_link.clone()>
+                <MatListItem>{"Item 0"}</MatListItem>
+                <MatListItem>{"Item 1"}</MatListItem>
+                <MatListItem>{"Item 2"}</MatListItem>
+                <MatListItem>{"Item 3"}</MatListItem>
+            </MatList>
+            <div>{"Selected index: "}{&self.basic_selected_index}</div>
+            <div onclick=self.link.callback(|_| Msg::Focus)>
+                <MatButton label="Focus index 2" raised=true />
+            </div>
+        </section>
+        }});
 
-            <section>
-                <h2>{"Multi + Activatable"}</h2>
-                <MatList onaction=self.link.callback(|val| Msg::Action(val, "multi")) multi=true activatable=true>
-                    <MatListItem>{"Item 0"}</MatListItem>
-                    <MatListItem>{"Item 1"}</MatListItem>
-                    <MatListItem>{"Item 2"}</MatListItem>
-                    <MatListItem>{"Item 3"}</MatListItem>
-                </MatList>
-                <span>{"Selected index: "}{&self.multi_selected_index}</span>
-            </section>
+        let multi_activatable = with_raw_code!(multi_activatable { html! {
+        <section>
+            <MatList onaction=self.link.callback(|val| Msg::Action(val, "multi")) multi=true activatable=true>
+                <MatListItem>{"Item 0"}</MatListItem>
+                <MatListItem>{"Item 1"}</MatListItem>
+                <MatListItem>{"Item 2"}</MatListItem>
+                <MatListItem>{"Item 3"}</MatListItem>
+            </MatList>
 
-            <section>
-                <h2>{"Activatable"}</h2>
-                <MatList activatable=true onaction=self.link.callback(|val| Msg::Action(val, "activatable"))>
-                    <MatListItem>{"Item 0"}</MatListItem>
-                    <MatListItem>{"Item 1"}</MatListItem>
-                    <MatListItem>{"Item 2"}</MatListItem>
-                    <MatListItem>{"Item 3"}</MatListItem>
-                </MatList>
-                <span>{"Selected index: "}{&self.activatable_selected_index}</span>
-            </section>
+            <span>{"Selected index: "}{&self.multi_selected_index}</span>
+        </section>
+        }});
 
-            <section>
-                <h2>{"Non-interactive"}</h2>
-                <MatList noninteractive=true>
-                    <MatListItem>{"Item 0"}</MatListItem>
-                    <MatListItem>{"Item 1"}</MatListItem>
-                    <MatListItem>{"Item 2"}</MatListItem>
-                    <MatListItem>{"Item 3"}</MatListItem>
-                </MatList>
-            </section>
+        let activatable = with_raw_code!(activatable { html! {
+        <section>
+            <MatList activatable=true onaction=self.link.callback(|val| Msg::Action(val, "activatable"))>
+                <MatListItem>{"Item 0"}</MatListItem>
+                <MatListItem>{"Item 1"}</MatListItem>
+                <MatListItem>{"Item 2"}</MatListItem>
+                <MatListItem>{"Item 3"}</MatListItem>
+            </MatList>
 
-            <section>
-                <h2>{"Checklist"}</h2>
-                <MatList onaction=self.link.callback(|val| Msg::Action(val, "checklist"))>
-                    <MatCheckListItem>{"Item 0"}</MatCheckListItem>
-                    <MatCheckListItem>{"Item 1"}</MatCheckListItem>
-                    <MatCheckListItem left=true>{"Item 2"}</MatCheckListItem>
-                    <MatCheckListItem left=true>{"Item 3"}</MatCheckListItem>
-                    // Text needs be in a span to be displayed correctly
-                    // Blame Material components
-                    <MatCheckListItem disabled=true><span>{"Disabled"}</span></MatCheckListItem>
-                </MatList>
-                <span>{"Selected index: "}{&self.checklist_selected_index}</span>
-            </section>
+            <span>{"Selected index: "}{&self.activatable_selected_index}</span>
+        </section>
+        }});
 
-            <section>
-                <h2>{"Radio list"}</h2>
-                <MatList onaction=self.link.callback(|val| Msg::Action(val, "radio"))>
-                    <MatRadioListItem>{"Item 0"}</MatRadioListItem>
-                    <MatRadioListItem>{"Item 1"}</MatRadioListItem>
-                    <MatRadioListItem left=true>{"Item 2"}</MatRadioListItem>
-                    <MatRadioListItem left=true>{"Item 3"}</MatRadioListItem>
-                </MatList>
-                <span>{"Selected index: "}{&self.radio_selected_index}</span>
-            </section>
-        </div>}
+        let non_interactive = with_raw_code!(non_interactive { html! {
+        <section>
+            <MatList noninteractive=true>
+                <MatListItem>{"Item 0"}</MatListItem>
+                <MatListItem>{"Item 1"}</MatListItem>
+                <MatListItem>{"Item 2"}</MatListItem>
+                <MatListItem>{"Item 3"}</MatListItem>
+            </MatList>
+        </section>
+        }});
+
+        let checklist = with_raw_code!(checklist { html! {
+        <section>
+            <MatList onaction=self.link.callback(|val| Msg::Action(val, "checklist"))>
+                <MatCheckListItem>{"Item 0"}</MatCheckListItem>
+                <MatCheckListItem>{"Item 1"}</MatCheckListItem>
+                <MatCheckListItem left=true>{"Item 2"}</MatCheckListItem>
+                <MatCheckListItem left=true>{"Item 3"}</MatCheckListItem>
+                // Text needs be in a span (or any other element) to be displayed correctly
+                // Blame Material components
+                <MatCheckListItem disabled=true><span>{"Disabled"}</span></MatCheckListItem>
+            </MatList>
+
+            <span>{"Selected index: "}{&self.checklist_selected_index}</span>
+        </section>
+        }});
+
+        let radio_list = with_raw_code!(radio_list { html! {
+        <section>
+            <MatList onaction=self.link.callback(|val| Msg::Action(val, "radio"))>
+                <MatRadioListItem>{"Item 0"}</MatRadioListItem>
+                <MatRadioListItem>{"Item 1"}</MatRadioListItem>
+                <MatRadioListItem left=true>{"Item 2"}</MatRadioListItem>
+                <MatRadioListItem left=true>{"Item 3"}</MatRadioListItem>
+            </MatList>
+
+            <span>{"Selected index: "}{&self.radio_selected_index}</span>
+        </section>
+        }});
+
+
+        html! {<main class="list-demo">
+            <Codeblock title="Basic" code_and_html=basic />
+            <Codeblock title="Multi + Activatable" code_and_html=multi_activatable />
+            <Codeblock title="Activatable" code_and_html=activatable />
+            <Codeblock title="Non-interactive" code_and_html=non_interactive />
+            <Codeblock title="Checklist" code_and_html=checklist />
+            <Codeblock title="Radio list" code_and_html=radio_list />
+        </main>}
     }
 }
