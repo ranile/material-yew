@@ -33,7 +33,7 @@ impl Component for Components {
             { component_card("Icon Button", AppRoute::IconButton) }
             { component_card("Icon", AppRoute::Icon) }
             { component_card("Circular Progress", AppRoute::CircularProgress) }
-            // TODO { component_card("Dialog", AppRoute::Dialog) }
+            { component_card("Dialog", AppRoute::Dialog) }
             // TODO { component_card("Drawer", AppRoute::Drawer) }
             { component_card("Form Field", AppRoute::FormField) }
             { component_card("Linear Progress", AppRoute::LinearProgress) }

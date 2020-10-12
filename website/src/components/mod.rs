@@ -21,6 +21,7 @@ mod textfield;
 mod textarea;
 mod select;
 mod menu;
+mod dialog;
 
 pub use button::Button;
 pub use code_block::Codeblock;
@@ -45,3 +46,4 @@ pub use textfield::Textfield;
 pub use textarea::TextArea;
 pub use select::Select;
 pub use menu::Menu;
+pub use dialog::Dialog;

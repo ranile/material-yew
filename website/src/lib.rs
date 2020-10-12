@@ -9,7 +9,7 @@ use yew_material_components::{
 use crate::components::{
     Home, Button, Components, Checkbox, Radio, Switch, Fab, IconButton, Icon,
     CircularProgress, Drawer, FormField, LinearProgress, List, IconButtonToggle, Slider,
-    Tabs, Snackbar, Textfield, TextArea, Select, Menu
+    Tabs, Snackbar, Textfield, TextArea, Select, Menu, Dialog
 };
 
 use wasm_bindgen::prelude::*;
@@ -59,6 +59,8 @@ pub enum AppRoute {
     Select,
     #[to = "/components/menu"]
     Menu,
+    #[to = "/components/dialog"]
+    Dialog,
     #[to = "/components"]
     Components,
     #[to = "/"]
@@ -146,6 +148,7 @@ impl Component for App {
                         <AppRouterAnchor route=AppRoute::TextArea><MatListItem>{"TextArea"}</MatListItem></AppRouterAnchor>
                         <AppRouterAnchor route=AppRoute::Select><MatListItem>{"Select"}</MatListItem></AppRouterAnchor>
                         <AppRouterAnchor route=AppRoute::Menu><MatListItem>{"Menu"}</MatListItem></AppRouterAnchor>
+                        <AppRouterAnchor route=AppRoute::Dialog><MatListItem>{"Dialog"}</MatListItem></AppRouterAnchor>
                     </MatList>
                 </div>
 
@@ -202,6 +205,7 @@ impl App {
             AppRoute::TextArea => html! { <TextArea /> },
             AppRoute::Select => html! { <Select /> },
             AppRoute::Menu => html! { <Menu /> },
+            AppRoute::Dialog => html! { <Dialog /> },
         }
     }
 }
