@@ -1,5 +1,5 @@
 use yew::prelude::*;
-use yew_material_components::{MatSnackbar, MatButton, MatIconButton, WeakComponentLink};
+use yew_material::{MatSnackbar, MatButton, MatIconButton, WeakComponentLink};
 use yew::services::ConsoleService;
 use crate::with_raw_code;
 use crate::components::Codeblock;

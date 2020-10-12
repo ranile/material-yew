@@ -1,5 +1,5 @@
 use yew::prelude::*;
-use yew_material_components::MatIconButton;
+use yew_material::MatIconButton;
 use crate::{html_to_element};
 
 pub struct Codeblock {

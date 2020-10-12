@@ -1,5 +1,5 @@
 use yew::prelude::*;
-use yew_material_components::{MatTextField, TextFieldType, ValidityState};
+use yew_material::{MatTextField, TextFieldType, ValidityState};
 use crate::with_raw_code;
 use crate::components::Codeblock;
 

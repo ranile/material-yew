@@ -1,11 +1,11 @@
-# Yew material components
+# Yew Material
 
-Yew Material components is a components library for [Yew framework](https://github.com/yewstack/yew/) which is a wrapper around [Material Web Components](https://github.com/material-components/material-components-web-components) exposing Yew components. All modern browsers are supported. There is no support for polyfills required by Internet Explorer 11.
+Yew Material is a components library for [Yew framework](https://github.com/yewstack/yew/) which is a wrapper around [Material Web Components](https://github.com/material-components/material-components-web-components) exposing Yew components. All modern browsers are supported. There is no support for polyfills required by Internet Explorer 11.
 
 ### Example
 
 ```rust
-use yew_material_components::MatButton;
+use yew_material::MatButton;
 use yew::html;
 
 html! {

@@ -1,7 +1,7 @@
 use yew::prelude::*;
-use yew_material_components::{MatMenu, WeakComponentLink, MatButton, MatListItem};
+use yew_material::{MatMenu, WeakComponentLink, MatButton, MatListItem};
 use crate::with_raw_code;
-use yew_material_components::menu::{Corner, DefaultFocusState};
+use yew_material::menu::{Corner, DefaultFocusState};
 use crate::components::Codeblock;
 
 pub struct Menu {

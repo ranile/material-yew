@@ -1,5 +1,5 @@
 use yew::prelude::*;
-use yew_material_components::{MatButton};
+use yew_material::{MatButton};
 use crate::with_raw_code;
 use crate::components::Codeblock;
 

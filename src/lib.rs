@@ -2,7 +2,7 @@
 //!
 //! Example usage:
 //! ```rust
-//! use yew_material_components::MatButton;
+//! use yew_material::MatButton;
 //! use yew::html;
 //!
 //! html! {
@@ -10,7 +10,7 @@
 //! }
 //! ```
 //!
-//! More information can be found on the [website]() and in the [GitHub README](https://github.com/hamza1311/yew-material-components)
+//! More information can be found on the [website]() and in the [GitHub README](https://github.com/hamza1311/yew-material)
 
 use wasm_bindgen::prelude::Closure;
 use wasm_bindgen::{JsCast, JsValue};

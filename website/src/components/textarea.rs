@@ -1,6 +1,6 @@
 use yew::prelude::*;
-use yew_material_components::{MatTextArea, ValidityState};
-use yew_material_components::textarea::TextAreaCharCounter;
+use yew_material::{MatTextArea, ValidityState};
+use yew_material::textarea::TextAreaCharCounter;
 use crate::with_raw_code;
 use crate::components::Codeblock;
 

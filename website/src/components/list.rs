@@ -1,6 +1,6 @@
 use yew::prelude::*;
-use yew_material_components::{MatList, MatListItem, MatCheckListItem, MatRadioListItem, WeakComponentLink, MatButton};
-use yew_material_components::list::ListIndex;
+use yew_material::{MatList, MatListItem, MatCheckListItem, MatRadioListItem, WeakComponentLink, MatButton};
+use yew_material::list::ListIndex;
 use crate::with_raw_code;
 use crate::components::Codeblock;
 

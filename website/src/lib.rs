@@ -3,7 +3,7 @@ pub mod macros;
 
 use yew::prelude::*;
 use yew_router::prelude::*;
-use yew_material_components::{
+use yew_material::{
     MatDrawer, MatTopAppBarFixed, MatIconButton, MatButton, MatList, MatListItem,
 };
 use crate::components::{
@@ -158,7 +158,7 @@ impl Component for App {
                             <MatIconButton icon="menu"></MatIconButton>
                         </span>
                         <div slot="title" class="app-title">
-                            <AppRouterAnchor route=AppRoute::Home>{"Yew Material components"}</AppRouterAnchor>
+                            <AppRouterAnchor route=AppRoute::Home>{"Yew Material"}</AppRouterAnchor>
                             <span class="action-item">
                                 <AppRouterAnchor route=AppRoute::Components><MatButton label="Components"/></AppRouterAnchor>
                             </span>

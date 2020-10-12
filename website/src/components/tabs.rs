@@ -1,5 +1,5 @@
 use yew::prelude::*;
-use yew_material_components::{MatTab, MatTabBar};
+use yew_material::{MatTab, MatTabBar};
 use crate::with_raw_code;
 use crate::components::Codeblock;
 

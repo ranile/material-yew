@@ -27,7 +27,7 @@ material-yew-components = { git = \"https://github.com/hamza1311/material-yew-co
         ".trim();
 
         let example_code = "\
-use yew_material_components::MatButton;
+use yew_material::MatButton;
 use yew::html;
 
 html! {
@@ -39,7 +39,7 @@ html! {
         html! {
             <section class="home-content">
                 <p>
-                    {"Yew Material components is a components library for "} <a href="https://yew.rs/">{"Yew"}</a> {" framework "}
+                    {"Yew Material is a components library for "} <a href="https://yew.rs/">{"Yew"}</a> {" framework "}
                     {"which is a wrapper around "} <a href="https://github.com/material-components/material-components-web-components"> {"Material Web Components"} </a> {" exposing Yew components. "}
                     {"All modern browsers are supported. There is no support for polyfills required by Internet Explorer 11"}
                 </p>
@@ -71,8 +71,8 @@ html! {
 
                 <h3>{"Contributing"}</h3>
                 <p>
-                    {"If you'd like to help improve these components, just create a "}<a href="https://github.com/hamza1311/yew-material-components/pulls">{"Pull Request."}</a>
-                    {"You can report bugs and issues "}<a href="https://github.com/hamza1311/yew-material-components/issues">{"here."}</a>
+                    {"If you'd like to help improve these components, just create a "}<a href="https://github.com/hamza1311/yew-material/pulls">{"Pull Request."}</a>
+                    {"You can report bugs and issues "}<a href="https://github.com/hamza1311/yew-material/issues">{"here."}</a>
                 </p>
             </section>
         }
@@ -91,7 +91,7 @@ material-yew-components = { git = \"https://github.com/hamza1311/material-yew-co
         ".trim(), "html");
 
         let example_code = self.to_highlighted_string("\
-use yew_material_components::MatButton;
+use yew_material::MatButton;
 use yew::html;
 
 html! {

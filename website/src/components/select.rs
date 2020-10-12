@@ -1,6 +1,6 @@
 use yew::prelude::*;
-use yew_material_components::{MatSelect, MatListItem, MatButton, WeakComponentLink};
-use yew_material_components::list::GraphicType;
+use yew_material::{MatSelect, MatListItem, MatButton, WeakComponentLink};
+use yew_material::list::GraphicType;
 use crate::with_raw_code;
 use crate::components::Codeblock;
 

@@ -1,5 +1,5 @@
 use yew::prelude::*;
-use yew_material_components::{MatCircularProgress, MatCircularProgressFourColor, MatButton};
+use yew_material::{MatCircularProgress, MatCircularProgressFourColor, MatButton};
 use crate::components::Codeblock;
 use crate::with_raw_code;
 

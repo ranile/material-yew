@@ -1,5 +1,5 @@
 use yew::prelude::*;
-use yew_material_components::{MatIcon};
+use yew_material::{MatIcon};
 use crate::with_raw_code;
 use crate::components::Codeblock;
 

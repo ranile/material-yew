@@ -1,7 +1,7 @@
 [package]
 authors = ["Hamza"]
 edition = "2018"
-name = "yew-material-components"
+name = "yew-material"
 version = "0.1.0"
 
 [dependencies]
