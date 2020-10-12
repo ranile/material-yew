@@ -6,7 +6,6 @@ use wasm_bindgen::JsCast;
 extern "C" {
     #[derive(Debug)]
     #[wasm_bindgen(extends = Object)]
-    // TODO see if `pub(crate)` works
     pub(crate) type ValidityStateJS;
 
     #[wasm_bindgen(method, setter = badInput)]

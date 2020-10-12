@@ -23,6 +23,9 @@ extern "C" {
 
 loader_hack!(TextArea);
 
+/// The `mwc-textarea` component
+///
+/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/textarea)
 pub struct MatTextArea {
     props: Props,
     node_ref: NodeRef,
@@ -45,6 +48,11 @@ impl ToString for TextAreaCharCounter {
     }
 }
 
+/// Props for [`MatTextArea`]
+///
+/// MWC Documentation:
+///
+/// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/checkbox#propertiesattributes)
 #[derive(Properties, Clone)]
 pub struct Props {
     #[prop_or_default]

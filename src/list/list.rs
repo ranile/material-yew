@@ -40,6 +40,12 @@ pub struct MatList {
     selected_closure: Option<Closure<dyn FnMut(JsValue)>>,
 }
 
+/// Props for [`MatList`]
+///
+/// MWC Documentation:
+///
+/// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/list#mwc-list-1)
+/// - [Events](https://github.com/material-components/material-components-web-components/tree/master/packages/list#mwc-list-2)
 #[derive(Properties, Clone)]
 pub struct Props {
     #[prop_or_default]

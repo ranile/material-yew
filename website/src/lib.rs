@@ -72,7 +72,6 @@ pub struct App {
     link: ComponentLink<Self>,
     /// `true` represents open; `false` represents close
     drawer_state: bool,
-    // TODO tasks: Vec<FetchTask>,
 }
 
 pub enum Msg {

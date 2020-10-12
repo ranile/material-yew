@@ -23,12 +23,20 @@ extern "C" {
 
 loader_hack!(TextField);
 
+/// The `mwc-textfield` component
+///
+/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/textfield)
 pub struct MatTextField {
     props: Props,
     node_ref: NodeRef,
     validity_transform_closure: Option<Closure<dyn Fn(String, NativeValidityState) -> ValidityStateJS>>,
 }
 
+/// Props for [`MatTextField`]
+///
+/// MWC Documentation:
+///
+/// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/textfield#propertiesattributes)
 #[derive(Properties, Clone)]
 pub struct Props {
     #[prop_or_default]

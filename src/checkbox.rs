@@ -21,6 +21,9 @@ extern "C" {
 
 loader_hack!(Checkbox);
 
+/// The `mwc-checkbox` component
+///
+/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/checkbox)
 pub struct MatCheckbox {
     props: Props,
     node_ref: NodeRef,
