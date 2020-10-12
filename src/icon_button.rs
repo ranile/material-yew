@@ -12,6 +12,9 @@ extern "C" {
 
 loader_hack!(IconButton);
 
+/// Props for [`MatIconButton`]
+///
+/// [MWC Documentation for properties](https://github.com/material-components/material-components-web-components/tree/master/packages/icon-button#propertiesattributes)
 #[derive(Debug, Properties, Clone)]
 pub struct Props {
     #[prop_or_default]
@@ -30,4 +33,4 @@ component!(MatIconButton, Props, |props: &Props| html! {
         icon=props.icon
         disabled=props.disabled
     >{ props.children.clone() }</mwc-icon-button>
-}, IconButton);
+}, IconButton, "icon-button");

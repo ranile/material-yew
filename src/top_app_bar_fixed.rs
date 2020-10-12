@@ -13,16 +13,21 @@ extern "C" {
 
 loader_hack!(TopAppBarFixed);
 
+/// The `mwc-top-app-bar-fixed` component
+///
+/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/top-app-bar-fixed)
 pub struct MatTopAppBarFixed {
     props: Props,
     node_ref: NodeRef,
     closure: Option<Closure<dyn FnMut()>>
 }
 
-pub enum Msg {
-    Fuck
-}
-
+/// Props for [`MatTopAppBarFixed`]
+///
+/// MWC Documentation:
+///
+/// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/top-app-bar-fixed#propertiesattributes)
+/// - [Events](https://github.com/material-components/material-components-web-components/tree/master/packages/top-app-bar-fixed#events)
 #[derive(Debug, Properties, Clone)]
 pub struct Props {
     pub children: Children,
@@ -32,12 +37,15 @@ pub struct Props {
     pub dense: bool,
     #[prop_or_default]
     pub prominent: bool,
+    /// Binds to `MDCTopAppBar:nav`
+    ///
+    /// See events docs to learn more.
     #[prop_or_default]
     pub onnavigationiconclick: Callback<()>,
 }
 
 impl Component for MatTopAppBarFixed {
-    type Message = Msg;
+    type Message = ();
     type Properties = Props;
 
     fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {

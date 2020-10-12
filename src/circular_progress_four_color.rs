@@ -15,6 +15,9 @@ extern "C" {
 // call the macro with the type
 loader_hack!(CircularProgressFourColor);
 
+/// Props for [`MatCircularProgressFourColor`]
+///
+/// [MWC Documentation for properties](https://github.com/material-components/material-components-web-components/tree/master/packages/circular-progress-four-color#propertiesattributes)
 #[derive(Debug, Properties, Clone)]
 pub struct Props {
     #[prop_or_default]
@@ -34,5 +37,5 @@ component!(MatCircularProgressFourColor, Props, |props: &Props| html! {
     density=props.density
     closed?=to_option(props.closed)
 ></mwc-circular-progress-four-color>
-}, CircularProgressFourColor);
+}, CircularProgressFourColor, "circular-progress-four-color");
 

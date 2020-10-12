@@ -33,11 +33,16 @@ macro_rules! loader_hack {
 }
 
 macro_rules! component {
-    ($comp: ident, $props: ty, $html: expr, $mwc_to_initialize: ident) => {
-        pub struct $comp {
-            props: $props
+    ($comp: ident, $props: ty, $html: expr, $mwc_to_initialize: ident, $mwc_name: literal) => {
+    use paste::paste;
+        paste! {
+            #[doc = "The `mwc-" $mwc_name "` component"]
+            #[doc = ""]
+            #[doc = "[MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/"$mwc_name")"]
+            pub struct $comp {
+                props: $props
+            }
         }
-
         impl yew::Component for $comp {
             type Message = ();
             type Properties = Props;
@@ -138,7 +143,7 @@ pub mod dialog;
 pub use dialog::MatDialog;
 
 pub mod list;
-pub use list::{MatList, MatListItem, MatCheckListItem, MatRadioListItem};
+pub use list::*;
 
 pub mod icon_button_toggle;
 pub use icon_button_toggle::MatIconButtonToggle;

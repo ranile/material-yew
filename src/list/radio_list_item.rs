@@ -24,7 +24,7 @@ pub struct MatRadioListItem {
     closure: Option<Closure<dyn FnMut(JsValue)>>,
 }
 
-/// Props for `MatListItem`
+/// Props for [`MatRadioListItem`]
 ///
 /// MWC Documentation [properties](https://github.com/material-components/material-components-web-components/tree/master/packages/list#mwc-radio-list-item-1)
 /// and [events](https://github.com/material-components/material-components-web-components/tree/master/packages/list#mwc-radio-list-item-2)

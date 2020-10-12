@@ -15,6 +15,9 @@ extern "C" {
 // call the macro with the type
 loader_hack!(Button);
 
+/// Props for [`MatButton`]
+///
+/// [MWC Documentation for properties](https://github.com/material-components/material-components-web-components/tree/master/packages/button#propertiesattributes)
 #[derive(Debug, Properties, Clone)]
 pub struct Props {
     pub label: String,
@@ -45,4 +48,4 @@ component!(MatButton, Props, |props: &Props| html! {
         trailingIcon?=to_option(props.trailing_icon)
         disabled=props.disabled
     ></mwc-button>
-}, Button);
+}, Button, "button");

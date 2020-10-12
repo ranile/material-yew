@@ -24,9 +24,7 @@ pub struct MatListItem {
     closure: Option<Closure<dyn FnMut(JsValue)>>,
 }
 
-pub enum Msg {}
-
-/// Props for `MatListItem`
+/// Props for [`MatListItem`]
 ///
 /// MWC Documentation [properties](https://github.com/material-components/material-components-web-components/tree/master/packages/list#mwc-list-item-1)
 /// and [events](https://github.com/material-components/material-components-web-components/tree/master/packages/list#mwc-list-item-2)
@@ -36,7 +34,7 @@ pub struct Props {
     pub value: String,
     #[prop_or_default]
     pub group: bool,
-    #[prop_or(-1)]
+    #[prop_or(- 1)]
     pub tabindex: i32,
     #[prop_or_default]
     pub disabled: bool,
@@ -61,7 +59,7 @@ pub struct Props {
 }
 
 impl Component for MatListItem {
-    type Message = Msg;
+    type Message = ();
     type Properties = Props;
 
     fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {

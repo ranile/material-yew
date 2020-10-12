@@ -13,6 +13,9 @@ extern "C" {
 
 loader_hack!(Formfield);
 
+/// Props for [`MatFormfield`]
+///
+/// [MWC Documentation for properties](https://github.com/material-components/material-components-web-components/tree/master/packages/formfield#propertiesattributes)
 #[derive(Properties, Clone)]
 pub struct Props {
     pub children: Children,
@@ -33,5 +36,5 @@ component!(MatFormfield, Props, |props: &Props| html! {
         spaceBetween?=to_option(props.space_between)
         nowrap?=to_option(props.nowrap)
     >{ props.children.clone() }</mwc-formfield>
-}, Formfield);
+}, Formfield, "formfield");
 

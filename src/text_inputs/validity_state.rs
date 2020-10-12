@@ -7,7 +7,7 @@ extern "C" {
     #[derive(Debug)]
     #[wasm_bindgen(extends = Object)]
     // TODO see if `pub(crate)` works
-    pub type ValidityStateJS;
+    pub(crate) type ValidityStateJS;
 
     #[wasm_bindgen(method, setter = badInput)]
     pub fn set_bad_input(this: &ValidityStateJS, val: bool);

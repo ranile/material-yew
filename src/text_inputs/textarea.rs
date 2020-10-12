@@ -3,7 +3,7 @@ use yew::prelude::*;
 use web_sys::Node;
 pub use web_sys::ValidityState as NativeValidityState;
 use crate::{to_option, to_option_string, TextFieldType, ValidityState, ValidityTransform};
-use crate::text_inputs::{ValidityStateJS};
+use crate::text_inputs::{validity_state::ValidityStateJS};
 
 #[wasm_bindgen(module = "/build/built-js.js")]
 extern "C" {

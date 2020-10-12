@@ -24,7 +24,7 @@ pub struct MatCheckListItem {
     closure: Option<Closure<dyn FnMut(JsValue)>>,
 }
 
-/// Props for [MatCheckListItem]
+/// Props for [`MatCheckListItem`]
 ///
 /// MWC Documentation for [properties](https://github.com/material-components/material-components-web-components/tree/master/packages/list#mwc-check-list-item)
 /// and [events](https://github.com/material-components/material-components-web-components/tree/master/packages/list#mwc-check-list-item-1)

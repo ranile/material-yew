@@ -116,7 +116,7 @@ pub struct Props {
     /// - `show(&self)`
     /// - `close(&self)`
     ///
-    /// See [`WeakComponentLink`](./struct.WeakComponentLink.html) documentation for more information
+    /// See [`WeakComponentLink`](/yew_material_components/struct.WeakComponentLink.html) documentation for more information
     #[prop_or_default]
     pub menu_link: WeakComponentLink<MatMenu>,
     pub children: Children,

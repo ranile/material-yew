@@ -15,6 +15,9 @@ extern "C" {
 // call the macro with the type
 loader_hack!(CircularProgress);
 
+/// Props for [`MatCircularProgress`]
+///
+/// [MWC Documentation for properties](https://github.com/material-components/material-components-web-components/tree/master/packages/circular-progress#propertiesattributes)
 #[derive(Debug, Properties, Clone)]
 pub struct Props {
     #[prop_or_default]
@@ -34,4 +37,4 @@ component!(MatCircularProgress, Props, |props: &Props| html! {
         density=props.density
         closed?=to_option(props.closed)
     ></mwc-circular-progress>
-} ,CircularProgress);
+}, CircularProgress, "circular-progress");

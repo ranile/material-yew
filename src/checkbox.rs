@@ -27,6 +27,12 @@ pub struct MatCheckbox {
     closure: Option<Closure<dyn FnMut()>>,
 }
 
+/// Props for [`MatCheckbox`]
+///
+/// MWC Documentation:
+///
+/// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/checkbox#propertiesattributes)
+/// - [Events](https://github.com/material-components/material-components-web-components/tree/master/packages/checkbox#events)
 #[derive(Debug, Properties, Clone)]
 pub struct Props {
     #[prop_or_default]
@@ -39,6 +45,9 @@ pub struct Props {
     pub value: String,
     #[prop_or_default]
     pub reduced_touch_target: bool,
+    /// Binds to `change` event on `mwc-checkbox`
+    ///
+    /// See events docs to learn more.
     #[prop_or_default]
     pub onchange: Callback<bool>,
 }

@@ -40,8 +40,6 @@ pub struct MatList {
     selected_closure: Option<Closure<dyn FnMut(JsValue)>>,
 }
 
-pub enum Msg {}
-
 #[derive(Properties, Clone)]
 pub struct Props {
     #[prop_or_default]
@@ -64,19 +62,19 @@ pub struct Props {
     /// Binds to `selected` event `mwc-list`
     #[prop_or_default]
     pub onselected: Callback<SelectedDetail>,
-    /// `WeakComponentLink` for `MatList` which provides the following methods
+    /// [`WeakComponentLink`] for `MatList` which provides the following methods
     /// - ```toggle(&self, index: usize, force: bool)```
     /// - ```get_focused_item_index(&self) -> usize```
     /// - ```focus_item_at_index(&self, index: usize)```
     ///
-    /// See [`WeakComponentLink`](./struct.WeakComponentLink.html) documentation for more information
+    /// See [`WeakComponentLink`] documentation for more information
     #[prop_or_default]
     pub list_link: WeakComponentLink<MatList>,
     pub children: Children,
 }
 
 impl Component for MatList {
-    type Message = Msg;
+    type Message = ();
     type Properties = Props;
 
     fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {

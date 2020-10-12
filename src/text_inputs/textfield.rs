@@ -1,8 +1,8 @@
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
-pub use web_sys::ValidityState as NativeValidityState;
+use web_sys::ValidityState as NativeValidityState;
 use crate::{to_option, to_option_string, ValidityState, ValidityTransform};
-use crate::text_inputs::{ValidityStateJS, TextFieldType};
+use crate::text_inputs::{validity_state::ValidityStateJS, TextFieldType};
 use web_sys::Node;
 
 #[wasm_bindgen(module = "/build/built-js.js")]

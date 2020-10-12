@@ -36,6 +36,9 @@ extern "C" {
 
 loader_hack!(Snackbar);
 
+/// The `mwc-snackbar` component
+///
+/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/snackbar)
 pub struct MatSnackbar {
     props: Props,
     node_ref: NodeRef,
@@ -45,6 +48,12 @@ pub struct MatSnackbar {
     closed_closure: Option<Closure<dyn FnMut(JsValue)>>,
 }
 
+/// Props for [`MatSnackbar`]
+///
+/// MWC Documentation:
+///
+/// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/snackbar#propertiesattributes)
+/// - [Events](https://github.com/material-components/material-components-web-components/tree/master/packages/snackbar#events)
 #[derive(Properties, Clone)]
 pub struct Props {
     #[prop_or_default]
@@ -59,14 +68,35 @@ pub struct Props {
     pub stacked: bool,
     #[prop_or_default]
     pub leading: bool,
+    /// Binds to `MDCSnackbar:opening` event
+    ///
+    /// See events docs to learn more.
     #[prop_or_default]
     pub onopening: Callback<()>,
+    /// Binds to `MDCSnackbar:opened` event
+    ///
+    /// See events docs to learn more.
     #[prop_or_default]
     pub onopened: Callback<()>,
+    /// Binds to `MDCSnackbar:` event
+    ///
+    /// The argument passed to callback corresponds to `reason` parameter of the event
+    ///
+    /// See events docs to learn more.
     #[prop_or_default]
     pub onclosing: Callback<Option<String>>,
+    /// Binds to `closing` event
+    ///
+    /// The argument passed to callback corresponds to `reason` parameter of the event
+    ///
+    /// See events docs to learn more.
     #[prop_or_default]
     pub onclosed: Callback<Option<String>>,
+    /// [`WeakComponentLink`] for `MatList` which provides the following methods
+    /// - ```show(&self)```
+    /// - ```close(&self, reason: &str)```
+    ///
+    /// See [`WeakComponentLink`] documentation for more information
     #[prop_or_default]
     pub snackbar_link: WeakComponentLink<MatSnackbar>,
     #[prop_or_default]

@@ -13,6 +13,9 @@ extern "C" {
 
 loader_hack!(LinearProgress);
 
+/// Props for [`MatLinearProgress`]
+///
+/// [MWC Documentation for properties](https://github.com/material-components/material-components-web-components/tree/master/packages/linear-progress#propertiesattributes)
 #[derive(Debug, Properties, Clone)]
 pub struct Props {
     #[prop_or_default]
@@ -35,4 +38,4 @@ component!(MatLinearProgress, Props, |props: &Props| html! {
         reverse?=to_option(props.reverse)
         closed?=to_option(props.closed)
     ></mwc-linear-progress>
-}, LinearProgress);
+}, LinearProgress, "linear-progress");

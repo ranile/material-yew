@@ -1,7 +1,7 @@
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
 use web_sys::{Node, CustomEvent};
-use crate::{add_event_listener, add_event_listener_with_one_param, to_option, to_option_string, NativeValidityState, ValidityStateJS, ValidityTransform, ValidityState};
+use crate::{add_event_listener, add_event_listener_with_one_param, to_option, to_option_string, NativeValidityState, validity_state::ValidityStateJS, ValidityTransform, ValidityState};
 use crate::utils::WeakComponentLink;
 use wasm_bindgen::JsCast;
 use crate::list::{ActionDetail, SelectedDetail};
@@ -24,6 +24,9 @@ extern "C" {
 
 loader_hack!(Select);
 
+/// The `mwc-select` component
+///
+/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/select)
 pub struct MatSelect {
     props: Props,
     node_ref: NodeRef,
@@ -34,6 +37,12 @@ pub struct MatSelect {
     selected_closure: Option<Closure<dyn FnMut(JsValue)>>,
 }
 
+/// Props for [`MatSelect`]
+///
+/// MWC Documentation:
+///
+/// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/select#propertiesattributes)
+/// - [Events](https://github.com/material-components/material-components-web-components/tree/master/packages/select#events)
 #[derive(Properties, Clone)]
 pub struct Props {
     #[prop_or_default]
@@ -55,8 +64,6 @@ pub struct Props {
     #[prop_or_default]
     pub validation_message: String,
     #[prop_or_default]
-    pub selected: String,
-    #[prop_or_default]
     pub items: String,
     #[prop_or(- 1)]
     pub index: i64,
@@ -66,14 +73,30 @@ pub struct Props {
     pub validate_on_initial_render: bool,
     #[prop_or_default]
     pub children: Children,
+    /// [`WeakComponentLink`] for `MatList` which provides the following methods
+    /// - ```select(&self)```
+    ///
+    /// See [`WeakComponentLink`] documentation for more information
     #[prop_or_default]
     pub select_link: WeakComponentLink<MatSelect>,
+    /// Binds to `opened` event on `mwc-select-surface`
+    ///
+    /// See events docs to learn more.
     #[prop_or_default]
     pub onopened: Callback<()>,
+    /// Binds to `closed` event on `mwc-select-surface`
+    ///
+    /// See events docs to learn more.
     #[prop_or_default]
     pub onclosed: Callback<()>,
+    /// Binds to `action` event on `mwc-list`
+    ///
+    /// See events docs to learn more.
     #[prop_or_default]
     pub onaction: Callback<ActionDetail>,
+    /// Binds to `selected` event on `mwc-list`
+    ///
+    /// See events docs to learn more.
     #[prop_or_default]
     pub onselected: Callback<SelectedDetail>,
 }
@@ -107,7 +130,6 @@ impl Component for MatSelect {
                 helper?=to_option_string(&self.props.helper)
                 required=self.props.required
                 validationMessage?=to_option_string(&self.props.validation_message)
-                // selected=self.props.selected
                 items?=to_option_string(&self.props.items)
                 index=self.props.index
                 validateOnInitialRender?=to_option(self.props.validate_on_initial_render)
@@ -168,6 +190,7 @@ impl WeakComponentLink<MatSelect> {
 }
 
 impl MatSelect {
+    /// Returns [`ValidityTransform`] to be passed to `validity_transform` prop
     pub fn validity_transform<F: Fn(String, NativeValidityState) -> ValidityState + 'static>(func: F) -> ValidityTransform {
         ValidityTransform::new(func)
     }

@@ -21,12 +21,21 @@ extern "C" {
 
 loader_hack!(Radio);
 
+/// The `mwc-radio` component
+///
+/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/radio)
 pub struct MatRadio {
     props: Props,
     node_ref: NodeRef,
     closure: Option<Closure<dyn FnMut()>>
 }
 
+/// Props for [`MatRadio`]
+///
+/// MWC Documentation:
+///
+/// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/radio#propertiesattributes)
+/// - [Events](https://github.com/material-components/material-components-web-components/tree/master/packages/radio#events)
 #[derive(Debug, Properties, Clone)]
 pub struct Props {
     #[prop_or_default]
@@ -41,6 +50,11 @@ pub struct Props {
     pub global: bool,
     #[prop_or_default]
     pub reduced_touch_target: bool,
+    /// Binds to `change`.
+    ///
+    /// Callback's parameter of type denotes if the radio is checked or not.
+    ///
+    /// See events docs to learn more.
     #[prop_or_default]
     pub onchange: Callback<bool>,
 }

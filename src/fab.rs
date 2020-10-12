@@ -13,6 +13,9 @@ extern "C" {
 
 loader_hack!(Fab);
 
+/// Props for [`MatFab`]
+///
+/// [MWC Documentation for properties](https://github.com/material-components/material-components-web-components/tree/master/packages/fab#propertiesattributes)
 #[derive(Debug, Properties, Clone)]
 pub struct Props {
     #[prop_or_default]
@@ -40,4 +43,4 @@ component!(MatFab, Props, |props: &Props| html! {
         extended?=to_option(props.extended)
         showIconAtEnd?=to_option(props.show_icon_at_end)
     >{ props.children.clone() }</mwc-fab>
-}, Fab);
+}, Fab, "fab");

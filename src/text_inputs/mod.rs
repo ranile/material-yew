@@ -1,13 +1,16 @@
 pub mod textfield;
-pub mod validity_state;
-pub mod text_field_type;
-pub mod textarea;
+pub use textfield::{MatTextField};
 
-pub use textfield::{MatTextField, NativeValidityState};
+pub mod validity_state;
 pub use validity_state::{ValidityState};
-pub use validity_state::{ValidityStateJS};
+
+pub mod text_field_type;
 pub use text_field_type::TextFieldType;
+
+pub mod textarea;
 pub use textarea::MatTextArea;
+
+pub use web_sys::ValidityState as NativeValidityState;
 
 use std::rc::Rc;
 pub type ValidityTransformFn = dyn Fn(String, NativeValidityState) -> ValidityState;

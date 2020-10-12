@@ -14,7 +14,10 @@ extern "C" {
 
 loader_hack!(Dialog);
 
-// Actions don't work
+/// The `mwc-dialog` component
+///
+/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/dialog)
+// TODO Actions don't work
 pub struct MatDialog {
     props: Props,
     node_ref: NodeRef,
@@ -26,6 +29,12 @@ pub struct MatDialog {
 
 pub enum Msg {}
 
+/// Props for [`MatDialog`]
+///
+/// MWC Documentation:
+///
+/// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/dialog#propertiesattributes)
+/// - [Events](https://github.com/material-components/material-components-web-components/tree/master/packages/dialog#events)
 #[derive(Debug, Properties, Clone)]
 pub struct Props {
     #[prop_or_default]
@@ -46,12 +55,24 @@ pub struct Props {
     pub action_attribute: String,
     #[prop_or_default]
     pub initial_focus_attribute: String,
+    /// Binds to `opening` event on `mwc-dialog`
+    ///
+    /// See events docs to learn more.
     #[prop_or_default]
     pub onopening: Callback<()>,
+    /// Binds to `opened` event on `mwc-dialog`
+    ///
+    /// See events docs to learn more.
     #[prop_or_default]
     pub onopened: Callback<()>,
+    /// Binds to `closing` event on `mwc-dialog`
+    ///
+    /// See events docs to learn more.
     #[prop_or_default]
     pub onclosing: Callback<()>,
+    /// Binds to `closed` event on `mwc-dialog`
+    ///
+    /// See events docs to learn more.
     #[prop_or_default]
     pub onclosed: Callback<()>,
     pub children: Children,

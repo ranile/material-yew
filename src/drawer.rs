@@ -21,6 +21,9 @@ extern "C" {
 
 loader_hack!(Drawer);
 
+/// The `mwc-drawer` component
+///
+/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/drawer)
 pub struct MatDrawer {
     props: Props,
     node_ref: NodeRef,
@@ -30,6 +33,12 @@ pub struct MatDrawer {
 
 pub enum Msg {}
 
+/// Props for [`MatDrawer`]
+///
+/// MWC Documentation:
+///
+/// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/drawer#propertiesattributes)
+/// - [Events](https://github.com/material-components/material-components-web-components/tree/master/packages/drawer#events)
 #[derive(Debug, Properties, Clone)]
 pub struct Props {
     #[prop_or_default]
@@ -38,8 +47,14 @@ pub struct Props {
     pub has_header: bool,
     #[prop_or_default]
     pub drawer_type: String,
+    /// Binds to `opened` event on `mwc-drawer`
+    ///
+    /// See events docs to learn more.
     #[prop_or_default]
     pub onopened: Callback<()>,
+    /// Binds to `closed` event on `mwc-drawer`
+    ///
+    /// See events docs to learn more.
     #[prop_or_default]
     pub onclosed: Callback<()>,
     pub children: Children,

@@ -18,12 +18,22 @@ extern "C" {
 
 loader_hack!(IconButtonToggle);
 
+/// The `mwc-icon-button-toggle` component
+///
+/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/icon-button-toggle)
 pub struct MatIconButtonToggle {
     props: Props,
     node_ref: NodeRef,
     closure: Option<Closure<dyn FnMut()>>,
 }
 
+
+/// Props for [`MatIconButtonToggle`]
+///
+/// MWC Documentation:
+///
+/// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/icon-button-toggle#propertiesattributes)
+/// - [Events](https://github.com/material-components/material-components-web-components/tree/master/packages/icon-button-toggle#events)
 #[derive(Debug, Properties, Clone)]
 pub struct Props {
     #[prop_or_default]
@@ -36,6 +46,11 @@ pub struct Props {
     pub label: String,
     #[prop_or_default]
     pub disabled: bool,
+    /// Binds to `MDCIconButtonToggle:change`.
+    ///
+    /// Callback's parameter is the `isOn` value passed
+    ///
+    /// See events docs to learn more.
     #[prop_or_default]
     pub onchange: Callback<bool>,
     #[prop_or_default]

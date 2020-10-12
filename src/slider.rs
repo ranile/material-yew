@@ -17,6 +17,9 @@ extern "C" {
 // call the macro with the type
 loader_hack!(Slider);
 
+/// The `mwc-snackbar` component
+///
+/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/slider)
 pub struct MatSlider {
     props: Props,
     node_ref: NodeRef,
@@ -24,6 +27,12 @@ pub struct MatSlider {
     change_closure: Option<Closure<dyn FnMut(JsValue)>>,
 }
 
+/// Props for [`MatSlider`]
+///
+/// MWC Documentation:
+///
+/// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/slider#propertiesattributes)
+/// - [Events](https://github.com/material-components/material-components-web-components/tree/master/packages/slider#events)
 #[derive(Debug, Properties, Clone)]
 pub struct Props {
     #[prop_or(0)]
@@ -38,11 +47,13 @@ pub struct Props {
     pub pin: bool,
     #[prop_or(false)]
     pub markers: bool,
-    /// This is `CustomEvent` because `Slider` is undocumented
+    /// Binds to input on `mwc-slider`
+    /// Type passed to callback is `CustomEvent` because `Slider` is undocumented
     /// See: https://github.com/material-components/material-components-web-components/issues/1848
     #[prop_or_default]
     pub oninput: Callback<CustomEvent>,
-    /// This is `CustomEvent` because `Slider` is undocumented
+    /// Binds to change on `mwc-slider`
+    /// Type passed to callback is `CustomEvent` because `Slider` is undocumented
     /// See: https://github.com/material-components/material-components-web-components/issues/1848
     #[prop_or_default]
     pub onchange: Callback<CustomEvent>,
