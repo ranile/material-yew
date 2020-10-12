@@ -1,0 +1,42 @@
+name: Deploy website
+on:
+    push:
+        branches: [ master ]
+
+jobs:
+    deploy_website:
+        runs-on: ubuntu-latest
+        steps:
+            -   uses: actions/checkout@v2
+            -   uses: actions-rs/toolchain@v1
+                with:
+                    toolchain: stable
+                    target: wasm32-unknown-unknown
+                    override: true
+
+            -   uses: actions/cache@v2
+                with:
+                    path: |
+                        ~/.cargo/registry
+                        ~/.cargo/git
+                        target
+                    key: cargo-${{ runner.os }}-${{ hashFiles('**/Cargo.toml') }}
+                    restore-keys: |
+                        cargo-${{ runner.os }}-
+
+            -   name: Install trunk
+                run: |
+                    brew install trunk
+                    cargo install wasm-bindgen-cli
+
+            -   name: Build website
+                run: |
+                    cd website
+                    trunk build --release
+
+            -   name: Deploy to Firebase Hosting
+                uses: FirebaseExtended/action-hosting-deploy@v0.3-alpha
+                with:
+                    repoToken: "${{ secrets.GITHUB_TOKEN }}"
+                    firebaseToken: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_YEW_MATERIAL }}"
+                    channelId: live

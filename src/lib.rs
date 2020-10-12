@@ -87,13 +87,15 @@ fn to_option_string(s: &str) -> Option<&str> {
 fn add_event_listener(node_ref: &NodeRef, name: &str, func: impl Fn() + 'static, closure_to_store_in: &mut Option<Closure<dyn FnMut()>>) {
     let element = node_ref.cast::<Element>().unwrap();
     *closure_to_store_in = Some(Closure::wrap(Box::new(func) as Box<dyn FnMut()>));
-    element.add_event_listener_with_callback(name, closure_to_store_in.as_ref().unwrap().as_ref().unchecked_ref());
+    element.add_event_listener_with_callback(name, closure_to_store_in.as_ref().unwrap().as_ref().unchecked_ref())
+        .expect(&format!("Failed to add listener to event {}", name))
 }
 
 fn add_event_listener_with_one_param(node_ref: &NodeRef, name: &str, func: impl Fn(JsValue) + 'static, closure_to_store_in: &mut Option<Closure<dyn FnMut(JsValue)>>) {
     let element = node_ref.cast::<Element>().unwrap();
     *closure_to_store_in = Some(Closure::wrap(Box::new(func) as Box<dyn FnMut(JsValue)>));
-    element.add_event_listener_with_callback(name, closure_to_store_in.as_ref().unwrap().as_ref().unchecked_ref());
+    element.add_event_listener_with_callback(name, closure_to_store_in.as_ref().unwrap().as_ref().unchecked_ref())
+        .expect(&format!("Failed to add listener to event {}", name))
 }
 
 
