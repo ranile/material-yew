@@ -2,7 +2,7 @@ use wasm_bindgen::prelude::*;
 use yew::prelude::*;
 use crate::{to_option, add_event_listener};
 
-#[wasm_bindgen(module = "/build/built-js.js")]
+#[wasm_bindgen(module = "/build/mwc-top-app-bar-fixed.js")]
 extern "C" {
     #[derive(Debug)]
     type TopAppBarFixed;

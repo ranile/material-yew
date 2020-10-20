@@ -5,7 +5,7 @@ use web_sys::Node;
 use js_sys::Object;
 use crate::{to_option, add_event_listener, add_event_listener_with_one_param, WeakComponentLink};
 
-#[wasm_bindgen(module = "/build/built-js.js")]
+#[wasm_bindgen(module = "/build/mwc-snackbar.js")]
 extern "C" {
     #[derive(Debug)]
     #[wasm_bindgen(extends = Node)]

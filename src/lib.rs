@@ -10,12 +10,13 @@
 //! }
 //! ```
 //!
-//! More information can be found on the [website]() and in the [GitHub README](https://github.com/hamza1311/yew-material)
+//! More information can be found on the [website](https://yew-material.web.app) and in the [GitHub README](https://github.com/hamza1311/yew-material)
 
 use wasm_bindgen::prelude::Closure;
 use wasm_bindgen::{JsCast, JsValue};
 use yew::{NodeRef};
 use web_sys::Element;
+use wasm_bindgen::prelude::*;
 mod utils;
 
 // this macro is defined here so we can access it in the modules
@@ -98,74 +99,128 @@ fn add_event_listener_with_one_param(node_ref: &NodeRef, name: &str, func: impl 
         .expect(&format!("Failed to add listener to event {}", name))
 }
 
-
+#[cfg(feature = "button")]
 pub mod button;
+#[cfg(feature = "button")]
 pub use button::MatButton;
 
+#[cfg(feature = "circular-progress")]
 pub mod circular_progress;
+#[cfg(feature = "circular-progress")]
 pub use circular_progress::MatCircularProgress;
 
+#[cfg(feature = "checkbox")]
 pub mod checkbox;
+#[cfg(feature = "checkbox")]
 pub use checkbox::MatCheckbox;
 
+#[cfg(feature = "circular-progress-four-color")]
 pub mod circular_progress_four_color;
+#[cfg(feature = "circular-progress-four-color")]
 pub use circular_progress_four_color::MatCircularProgressFourColor;
 
+#[cfg(feature = "drawer")]
 pub mod drawer;
+#[cfg(feature = "drawer")]
 pub use drawer::MatDrawer;
 
+#[cfg(feature = "top-app-bar")]
 pub mod top_app_bar;
+#[cfg(feature = "top-app-bar")]
 pub use top_app_bar::MatTopAppBar;
 
+#[cfg(feature = "icon-button")]
 pub mod icon_button;
+#[cfg(feature = "icon-button")]
 pub use icon_button::MatIconButton;
 
+#[cfg(feature = "fab")]
 pub mod fab;
+#[cfg(feature = "fab")]
 pub use fab::MatFab;
 
+#[cfg(feature = "formfield")]
 pub mod form_field;
+#[cfg(feature = "formfield")]
 pub use form_field::MatFormfield;
 
+#[cfg(feature = "icon")]
 pub mod icon;
+#[cfg(feature = "icon")]
 pub use icon::MatIcon;
 
+#[cfg(feature = "linear-progress")]
 pub mod linear_progress;
+#[cfg(feature = "linear-progress")]
 pub use linear_progress::MatLinearProgress;
 
+#[cfg(feature = "radio")]
 pub mod radio;
+#[cfg(feature = "radio")]
 pub use radio::MatRadio;
 
+#[cfg(feature = "switch")]
 pub mod switch;
+#[cfg(feature = "switch")]
 pub use switch::MatSwitch;
 
+#[cfg(feature = "top-app-bar-fixed")]
 pub mod top_app_bar_fixed;
+#[cfg(feature = "top-app-bar-fixed")]
 pub use top_app_bar_fixed::MatTopAppBarFixed;
 
+#[cfg(feature = "dialog")]
 pub mod dialog;
+#[cfg(feature = "dialog")]
 pub use dialog::MatDialog;
 
+#[cfg(feature = "list")]
 pub mod list;
+#[cfg(feature = "list")]
 pub use list::*;
 
+#[cfg(feature = "icon-button-toggle")]
 pub mod icon_button_toggle;
+#[cfg(feature = "icon-button-toggle")]
 pub use icon_button_toggle::MatIconButtonToggle;
 
+#[cfg(feature = "slider")]
 pub mod slider;
+#[cfg(feature = "slider")]
 pub use slider::MatSlider;
 
+#[cfg(feature = "tabs")]
 pub mod tabs;
+#[cfg(feature = "tabs")]
 pub use tabs::{MatTab, MatTabBar};
 
+#[cfg(feature = "snackbar")]
 pub mod snackbar;
+#[cfg(feature = "snackbar")]
 pub use snackbar::MatSnackbar;
 
 pub mod text_inputs;
 pub use text_inputs::*;
 
+#[cfg(feature = "select")]
 pub mod select;
+#[cfg(feature = "select")]
 pub use select::MatSelect;
 
+#[cfg(feature = "menu")]
 pub mod menu;
+#[cfg(feature = "menu")]
 pub use menu::MatMenu;
 
 pub use utils::WeakComponentLink;
+
+#[wasm_bindgen(module = "/build/core.js")]
+extern "C" {
+    #[derive(Debug)]
+    type Ripple;
+
+    #[wasm_bindgen(getter, static_method_of = Ripple)]
+    fn _dummy_loader() -> JsValue;
+}
+
+loader_hack!(Ripple);

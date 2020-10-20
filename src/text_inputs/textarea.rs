@@ -5,7 +5,7 @@ pub use web_sys::ValidityState as NativeValidityState;
 use crate::{to_option, to_option_string, TextFieldType, ValidityState, ValidityTransform};
 use crate::text_inputs::{validity_state::ValidityStateJS};
 
-#[wasm_bindgen(module = "/build/built-js.js")]
+#[wasm_bindgen(module = "/build/mwc-textarea.js")]
 extern "C" {
     #[derive(Debug)]
     #[wasm_bindgen(extends = Node)]

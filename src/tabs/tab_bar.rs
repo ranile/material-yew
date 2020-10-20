@@ -5,7 +5,7 @@ use wasm_bindgen::JsCast;
 use web_sys::CustomEvent;
 use js_sys::Object;
 
-#[wasm_bindgen(module = "/build/built-js.js")]
+#[wasm_bindgen(module = "/build/mwc-tab-bar.js")]
 extern "C" {
     #[derive(Debug)]
     type TabBar;

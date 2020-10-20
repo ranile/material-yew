@@ -3,7 +3,7 @@ use yew::prelude::*;
 use crate::{add_event_listener};
 use web_sys::Node;
 
-#[wasm_bindgen(module = "/build/built-js.js")]
+#[wasm_bindgen(module = "/build/mwc-drawer.js")]
 extern "C" {
     #[derive(Debug)]
     #[wasm_bindgen(extends = Node)]

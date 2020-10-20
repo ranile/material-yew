@@ -6,7 +6,7 @@ use wasm_bindgen::JsCast;
 use crate::list::{ListIndex, SelectedDetail};
 use crate::menu::{Corner, MenuCorner, DefaultFocusState};
 
-#[wasm_bindgen(module = "/build/built-js.js")]
+#[wasm_bindgen(module = "/build/mwc-menu.js")]
 extern "C" {
     #[derive(Debug)]
     #[wasm_bindgen(extends = Node)]

@@ -19,3 +19,56 @@ features = [
     "Element",
     "HtmlElement"
 ]
+
+[features]
+button = []
+circular-progress = []
+checkbox = []
+circular-progress-four-color = []
+drawer = []
+top-app-bar = []
+icon-button = []
+fab = []
+formfield = []
+linear-progress = []
+icon = []
+radio = []
+switch = []
+top-app-bar-fixed = []
+dialog = []
+list = []
+icon-button-toggle = []
+slider = []
+tabs = []
+snackbar = []
+textfield = []
+textarea = []
+select = []
+menu = []
+full = [
+    "button",
+    "circular-progress",
+    "checkbox",
+    "circular-progress-four-color",
+    "drawer",
+    "top-app-bar",
+    "icon-button",
+    "fab",
+    "formfield",
+    "linear-progress",
+    "icon",
+    "radio",
+    "switch",
+    "top-app-bar-fixed",
+    "dialog",
+    "list",
+    "icon-button-toggle",
+    "slider",
+    "tabs",
+    "snackbar",
+    "textfield",
+    "textarea",
+    "select",
+    "menu",
+]
+default = []

@@ -4,7 +4,7 @@ use crate::list::{GraphicType, RequestSelectedDetail};
 use crate::{to_option, to_option_string};
 use crate::list::request_selected::request_selected_listener;
 
-#[wasm_bindgen(module = "/build/built-js.js")]
+#[wasm_bindgen(module = "/build/mwc-list-item.js")]
 extern "C" {
     #[derive(Debug)]
     type ListItem;

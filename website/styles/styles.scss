@@ -44,12 +44,16 @@ mwc-list a {
     padding: 0 0.6em;
     line-height: 1.5em;
 
-    h3 {
+    h3, h4 {
         padding: 1em 0 0.5em;
     }
 
     span code {
         line-height: 2em;
+    }
+
+    ul {
+        padding: 0 2em;
     }
 }
 

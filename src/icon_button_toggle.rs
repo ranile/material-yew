@@ -3,7 +3,7 @@ use yew::prelude::*;
 use crate::{add_event_listener, to_option};
 use web_sys::Node;
 
-#[wasm_bindgen(module = "/build/built-js.js")]
+#[wasm_bindgen(module = "/build/mwc-icon-button-toggle.js")]
 extern "C" {
     #[derive(Debug)]
     #[wasm_bindgen(extends = Node)]

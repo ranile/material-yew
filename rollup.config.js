@@ -1,41 +1,51 @@
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import { terser } from "rollup-plugin-terser";
-/*
-const generateInput = (component, minify = false) => {
-    const plugins = [nodeResolve()]
-    if (minify) {
-        plugins.push(terser())
-    }
 
-    return {
-        input: `@material/mwc-${component}`,
-        plugins,
-        output: {
-            format: "es",
-            file: `build/${component}.js`,
-            inlineDynamicImports: true,
-        },
-    }
-}
-
-
-export default [
-    'button',
-    'circular-progress',
-    'checkbox',
-    'circular-progress-four-color',
-    'drawer',
-    'top-app-bar',
-    'icon-button',
-    'fab'
-].map((it) => generateInput(it))*/
+const COMPONENTS = [
+    "button",
+    "circular-progress",
+    "checkbox",
+    "circular-progress-four-color",
+    "drawer",
+    "top-app-bar",
+    "icon-button",
+    "fab",
+    "formfield",
+    "linear-progress",
+    "icon",
+    "radio",
+    "switch",
+    "top-app-bar-fixed",
+    "dialog",
+    "list",
+    "list/mwc-list-item",
+    "list/mwc-check-list-item",
+    "list/mwc-radio-list-item",
+    "icon-button-toggle",
+    "slider",
+    "tab",
+    "tab-bar",
+    "snackbar",
+    "textfield",
+    "textarea",
+    "select",
+    "menu",
+];
 
 export default {
-    input: `main.js`,
-    plugins: [nodeResolve(), terser()],
+    input: COMPONENTS.map((component) => `@material/mwc-${component}`),
+    plugins: [nodeResolve(), terser({ format: { comments: false } })],
     output: {
-        format: "es",
-        file: `build/built-js.js`,
-        inlineDynamicImports: true,
+        dir: `build`,
+        chunkFileNames: "[name].js",
+        manualChunks: (id, { getModuleInfo }) => {
+            const info = getModuleInfo(id);
+            if (info.importers.length <= 1) {
+                // This will be inlined anyway
+                return;
+            }
+
+            return "core";
+        },
     },
-}
+};

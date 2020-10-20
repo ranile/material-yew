@@ -16,11 +16,11 @@ html! {
 ## Getting started
 ### Installation
 
-Currently, this library can only be imported via git. In the future, it'll be available from crates.io.  
+Currently, this library can only be imported via git. In the future, it'll be available from [crates.io](https://crates.io/). Cargo features are used to pick the components. See [features](#features)   
 `Cargo.toml`:
 ```toml
 [dependencies]
-material-yew-components = { git = "https://github.com/hamza1311/material-yew-components/", branch = "master" }
+material-yew-components = { git = "https://github.com/hamza1311/material-yew-components/", branch = "master", features = ["full"] }
 ```
 Material icons and a Material font can also be imported for full functionality.  
 `index.html`:
@@ -28,6 +28,36 @@ Material icons and a Material font can also be imported for full functionality.
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Material+Icons&display=block" rel="stylesheet">
 ```
+
+### Features
+
+Following are all the cargo features available:
+
+* `button`
+* `circular-progress`
+* `checkbox`
+* `circular-progress-four-color`
+* `drawer`
+* `top-app-bar`
+* `icon-button`
+* `fab`
+* `formfield`
+* `linear-progress`
+* `icon`
+* `radio`
+* `switch`
+* `top-app-bar-fixed`
+* `dialog`
+* `list`
+* `icon-button-toggle`
+* `slider`
+* `tabs`
+* `snackbar`
+* `textfield`
+* `textarea`
+* `select`
+* `menu`
+`full` feature enables all the components
 
 ## Theming
 

@@ -6,7 +6,7 @@ use crate::utils::WeakComponentLink;
 use wasm_bindgen::JsCast;
 use crate::list::{ActionDetail, SelectedDetail};
 
-#[wasm_bindgen(module = "/build/built-js.js")]
+#[wasm_bindgen(module = "/build/mwc-select.js")]
 extern "C" {
     #[derive(Debug)]
     #[wasm_bindgen(extends = Node)]

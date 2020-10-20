@@ -18,7 +18,7 @@ impl Component for Home {
     fn view(&self) -> Html {
         let getting_started_cargo_code = "
 [dependencies]
-material-yew-components = { git = \"https://github.com/hamza1311/material-yew-components/\", branch = \"master\" }
+material-yew-components = { git = \"https://github.com/hamza1311/material-yew-components/\", branch = \"master\", features = [\"full\"] }
         ".trim();
 
         let getting_started_html_code = "
@@ -49,7 +49,7 @@ html! {
                 <h3>{"Getting started"}</h3>
                 <h4>{"Installation"}</h4>
                 <p>
-                    {"Currently this library can only be imported via git. In the future, it'll be available from "} <a href="crates.io">{"crates.io"}</a> {"."}
+                    {"Currently this library can only be imported via git. In the future, it'll be available from "} <a href="crates.io">{"crates.io"}</a> {". Cargo features are used to pick the components."}
                 </p>
                 <span><code>{"Cargo.toml: "}</code></span>
                 <pre><code>{getting_started_cargo_code}</code></pre>
@@ -57,6 +57,36 @@ html! {
                 <p>{"Material icons and a Material font can also be imported for full functionality"}</p>
                 <span><code>{"index.html: "}</code></span>
                 <pre><code>{getting_started_html_code}</code></pre>
+
+                <h4>{"Features"}</h4>
+                <p>{"Following are all the cargo features available:"}</p>
+                <ul>
+                    <li><code>{"button"}</code></li>
+                    <li><code>{"circular-progress"}</code></li>
+                    <li><code>{"checkbox"}</code></li>
+                    <li><code>{"circular-progress-four-color"}</code></li>
+                    <li><code>{"drawer"}</code></li>
+                    <li><code>{"top-app-bar"}</code></li>
+                    <li><code>{"icon-button"}</code></li>
+                    <li><code>{"fab"}</code></li>
+                    <li><code>{"formfield"}</code></li>
+                    <li><code>{"linear-progress"}</code></li>
+                    <li><code>{"icon"}</code></li>
+                    <li><code>{"radio"}</code></li>
+                    <li><code>{"switch"}</code></li>
+                    <li><code>{"top-app-bar-fixed"}</code></li>
+                    <li><code>{"dialog"}</code></li>
+                    <li><code>{"list"}</code></li>
+                    <li><code>{"icon-button-toggle"}</code></li>
+                    <li><code>{"slider"}</code></li>
+                    <li><code>{"tabs"}</code></li>
+                    <li><code>{"snackbar"}</code></li>
+                    <li><code>{"textfield"}</code></li>
+                    <li><code>{"textarea"}</code></li>
+                    <li><code>{"select"}</code></li>
+                    <li><code>{"menu"}</code></li>
+                </ul>
+                <p><code>{"full"}</code> {" feature enables all the components."}</p>
 
                 <h3>{"Theming"}</h3>
                 <p>

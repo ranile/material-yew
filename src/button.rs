@@ -2,7 +2,7 @@ use wasm_bindgen::prelude::*;
 use yew::prelude::*;
 use crate::to_option;
 
-#[wasm_bindgen(module = "/build/built-js.js")]
+#[wasm_bindgen(module = "/build/mwc-button.js")]
 extern "C" {
     #[derive(Debug)]
     type Button;

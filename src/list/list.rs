@@ -6,7 +6,7 @@ use wasm_bindgen::JsCast;
 use crate::list::list_index::ListIndex;
 use crate::list::SelectedDetail;
 
-#[wasm_bindgen(module = "/build/built-js.js")]
+#[wasm_bindgen(module = "/build/mwc-list.js")]
 extern "C" {
     #[derive(Debug)]
     #[wasm_bindgen(extends = Node)]

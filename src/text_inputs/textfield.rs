@@ -5,7 +5,7 @@ use crate::{to_option, to_option_string, ValidityState, ValidityTransform};
 use crate::text_inputs::{validity_state::ValidityStateJS, TextFieldType};
 use web_sys::Node;
 
-#[wasm_bindgen(module = "/build/built-js.js")]
+#[wasm_bindgen(module = "/build/mwc-textfield.js")]
 extern "C" {
     #[derive(Debug)]
     #[wasm_bindgen(extends = Node)]

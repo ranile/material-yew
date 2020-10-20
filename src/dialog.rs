@@ -3,7 +3,7 @@ use yew::prelude::*;
 use web_sys::Node;
 use crate::{to_option, add_event_listener, WeakComponentLink};
 
-#[wasm_bindgen(module = "/build/built-js.js")]
+#[wasm_bindgen(module = "/build/mwc-dialog.js")]
 extern "C" {
     #[derive(Debug)]
     #[wasm_bindgen(extends = Node)]

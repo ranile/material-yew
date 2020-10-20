@@ -2,7 +2,7 @@ use yew::prelude::*;
 use wasm_bindgen::prelude::*;
 use crate::to_option;
 
-#[wasm_bindgen(module = "/build/built-js.js")]
+#[wasm_bindgen(module = "/build/mwc-formfield.js")]
 extern "C" {
     #[derive(Debug)]
     type Formfield;

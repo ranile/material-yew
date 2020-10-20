@@ -4,7 +4,7 @@ use crate::{to_option, add_event_listener_with_one_param};
 use wasm_bindgen::JsCast;
 use web_sys::CustomEvent;
 
-#[wasm_bindgen(module = "/build/built-js.js")]
+#[wasm_bindgen(module = "/build/mwc-slider.js")]
 extern "C" {
     #[derive(Debug)]
     type Slider;
