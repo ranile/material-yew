@@ -6,9 +6,11 @@
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/example/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/website/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/screenshots/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/build" />
       <excludeFolder url="file://$MODULE_DIR$/example/target" />
       <excludeFolder url="file://$MODULE_DIR$/pkg" />
+      <excludeFolder url="file://$MODULE_DIR$/screenshots/target" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
       <excludeFolder url="file://$MODULE_DIR$/website/dist" />
       <excludeFolder url="file://$MODULE_DIR$/website/target" />

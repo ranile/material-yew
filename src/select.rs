@@ -4,7 +4,7 @@ use web_sys::{Node, CustomEvent};
 use crate::{add_event_listener, add_event_listener_with_one_param, to_option, to_option_string, NativeValidityState, validity_state::ValidityStateJS, ValidityTransform, ValidityState};
 use crate::utils::WeakComponentLink;
 use wasm_bindgen::JsCast;
-use crate::list::{ActionDetail, SelectedDetail};
+pub use crate::list::{ActionDetail, SelectedDetail, ListIndex};
 
 #[wasm_bindgen(module = "/build/mwc-select.js")]
 extern "C" {

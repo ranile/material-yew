@@ -8,14 +8,14 @@ use js_sys::Object;
 /// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/list#mwc-list-2)
 #[derive(Debug)]
 pub struct SelectedDetail {
-    index: ListIndex,
-    diff: Option<IndexDiff>,
+    pub index: ListIndex,
+    pub diff: Option<IndexDiff>,
 }
 
 #[derive(Debug)]
 pub struct IndexDiff {
-    added: Vec<usize>,
-    removed: Vec<usize>,
+    pub added: Vec<usize>,
+    pub removed: Vec<usize>,
 }
 
 impl From<JsValue> for SelectedDetail {
