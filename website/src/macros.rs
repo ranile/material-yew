@@ -18,7 +18,7 @@ pub fn read_until_close(s: &str) -> &str {
 #[macro_export]
 macro_rules! with_raw_code {
     ($key:ident { $expr:expr }) => {{
-        const CODE: &str = include_str!(concat!("../../", file!()));
+        const CODE: &str = include_str!(concat!("../../../", file!()));
 
         let marker_start = CODE
             .find(concat!("with_raw_code!(", stringify!($key)))
