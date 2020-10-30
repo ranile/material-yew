@@ -95,6 +95,7 @@ pub struct Props {
     /// - ```close(&self)```
     ///
     /// See [`WeakComponentLink`] documentation for more information
+    #[prop_or_default]
     pub dialog_link: WeakComponentLink<MatDialog>,
     pub children: Children,
 }

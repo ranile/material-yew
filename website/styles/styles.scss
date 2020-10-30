@@ -20,10 +20,14 @@ mwc-top-app-bar-fixed {
 }
 
 .drawer-content {
-    padding: 1em 16px 0 16px;
+    padding: 1em 0;
     display: flex;
     flex-direction: column;
     gap: 1em;
+
+    mwc-list {
+        padding-left: 16px
+    }
 }
 
 .drawer-title {

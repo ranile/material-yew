@@ -33,6 +33,9 @@ extern "C" {
 
     #[wasm_bindgen(method, js_name = focusItemAtIndex)]
     fn focus_item_at_index(this: &Menu, index: usize);
+
+    #[wasm_bindgen(method, setter)]
+    fn set_anchor(this: &Menu, value: &web_sys::HtmlElement);
 }
 
 loader_hack!(Menu);
@@ -166,6 +169,10 @@ impl Component for MatMenu {
 
     fn rendered(&mut self, first_render: bool) {
         if first_render {
+            let menu = self.node_ref.cast::<Menu>().unwrap();
+            if let Some(anchor) = self.props.anchor.as_ref() {
+                menu.set_anchor(anchor);
+            }
             let onopened = self.props.onopened.clone();
             add_event_listener(&self.node_ref, "opened", move || {
                 onopened.emit(());
@@ -271,5 +278,18 @@ impl WeakComponentLink<MatMenu> {
             .cast::<Menu>()
             .unwrap()
             .close();
+    }
+
+    /// Setter method for `anchor`.
+    pub fn set_anchor(&self, anchor: web_sys::HtmlElement) {
+        (*self.borrow()
+            .as_ref()
+            .unwrap()
+            .get_component()
+            .unwrap())
+            .node_ref
+            .cast::<Menu>()
+            .unwrap()
+            .set_anchor(&anchor);
     }
 }

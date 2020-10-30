@@ -11,3 +11,4 @@ wasm-bindgen = "^0.2"
 yew = { git = "https://github.com/yewstack/yew/", branch = "master" }
 yew-router = { git = "https://github.com/yewstack/yew/", branch = "master" }
 yew-material = { path = "../yew-material", features = ["full"] }
+weblog = "0.3"
