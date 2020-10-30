@@ -4,7 +4,8 @@ use yew_material::{
     MatButton, MatSelect, MatListItem, MatFormfield, select::{SelectedDetail, ListIndex},
     MatCheckbox, MatRadio, MatSwitch, MatFab, MatIconButton, MatIcon, MatCircularProgress,
     MatTextField, TextFieldType, MatLinearProgress, MatList, MatIconButtonToggle, MatSlider,
-    MatSnackbar, MatTextArea, MatDialog, MatMenu, WeakComponentLink, menu::Corner, MatTab, MatTabBar
+    MatSnackbar, MatTextArea, MatDialog, MatMenu, WeakComponentLink, menu::Corner, MatTab, MatTabBar,
+    dialog::{MatDialogAction, ActionType}
 };
 use yew_router::{agent::RouteRequest};
 
@@ -321,12 +322,13 @@ impl App {
             AppRoute::Dialog => html! {
                 <MatDialog open=true>
                     {"Delete item?"}
-                    <span slot="primaryAction" dialogAction="ok">
+                    <MatDialogAction action_type=ActionType::Primary action="ok">
                         <MatButton label="Yes" />
-                    </span>
-                    <span slot="secondaryAction" dialogAction="cancel">
+                    </MatDialogAction>
+
+                    <MatDialogAction action_type=ActionType::Secondary action="cancel">
                         <MatButton label="No" />
-                    </span>
+                    </MatDialogAction>
                 </MatDialog>
             },
         }

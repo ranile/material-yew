@@ -28,9 +28,13 @@ extern "C" {
 
 loader_hack!(Dialog);
 
-/// The `mwc-dialog` component
+/// The `mwc-dialog` component.
 ///
 /// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/dialog)
+///
+/// ## Actions
+///
+/// In order to pass actions, [`MatDialogAction`] component should be used.
 pub struct MatDialog {
     props: Props,
     node_ref: NodeRef,

@@ -172,7 +172,7 @@ pub use top_app_bar_fixed::MatTopAppBarFixed;
 #[cfg(feature = "dialog")]
 pub mod dialog;
 #[cfg(feature = "dialog")]
-pub use dialog::MatDialog;
+pub use dialog::{MatDialog};
 
 #[cfg(feature = "list")]
 pub mod list;

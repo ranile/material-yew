@@ -1,5 +1,5 @@
 use yew::prelude::*;
-use yew_material::{MatDialog, WeakComponentLink, MatButton};
+use yew_material::{MatDialog, WeakComponentLink, MatButton, dialog::{MatDialogAction, ActionType}};
 use crate::with_raw_code;
 use yew_material::menu::{Corner, DefaultFocusState};
 use crate::components::Codeblock;
@@ -61,12 +61,12 @@ impl Component for Dialog {
             </span>
             <MatDialog heading="Dialog header" dialog_link=self.basic_dialog_link.clone()>
                 {"Dialog body text"}
-                <span slot="primaryAction" dialogAction="ok">
+                <MatDialogAction action_type=ActionType::Primary action="ok">
                     <MatButton label="Action 2" />
-                </span>
-                <span slot="secondaryAction" dialogAction="cancel">
+                </MatDialogAction>
+                <MatDialogAction action_type=ActionType::Secondary action="cancel">
                     <MatButton label="Action 1" />
-                </span>
+                </MatDialogAction>
             </MatDialog>
         </section>
         }});
@@ -84,12 +84,12 @@ impl Component for Dialog {
                     \"closed\" event with an event detail of {action: \"my-action\"}
                 "}
 
-                <span slot="primaryAction" dialogAction="customAction">
+                <MatDialogAction action_type=ActionType::Primary action="customAction">
                     <MatButton label="This has action" />
-                </span>
-                <span slot="secondaryAction">
+                </MatDialogAction>
+                <MatDialogAction action_type=ActionType::Secondary>
                     <MatButton label="this does not" />
-                </span>
+                </MatDialogAction>
             </MatDialog>
         </section>
         }});
@@ -104,9 +104,9 @@ impl Component for Dialog {
             </span>
             <MatDialog heading="Scrollable" dialog_link=self.scrollable_dialog_link.clone()>
                 {text}
-                <span slot="primaryAction" dialogAction="close">
+                <MatDialogAction action_type=ActionType::Primary action="close">
                     <MatButton label="Close this!" />
-                </span>
+                </MatDialogAction>
             </MatDialog>
         </section>
         }});
@@ -140,13 +140,12 @@ impl Component for Dialog {
                     This is what happens when you set the stacked property on mwc-dialog.
                     Notice that the primary action is now on top.
                 "}
-                <span slot="primaryAction" dialogAction="close">
+                <MatDialogAction action_type=ActionType::Primary action="close">
                     <MatButton label="Primary" />
-                </span>
-
-                <span slot="secondaryAction" dialogAction="close">
+                </MatDialogAction>
+                <MatDialogAction action_type=ActionType::Secondary action="close">
                     <MatButton label="Secondary" />
-                </span>
+                </MatDialogAction>
             </MatDialog>
         </section>
         }});
