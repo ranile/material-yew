@@ -5,6 +5,7 @@ use yew::prelude::*;
 use yew_router::prelude::*;
 use yew_material::{
     MatDrawer, MatTopAppBarFixed, MatIconButton, MatButton, MatList, MatListItem,
+    drawer::{MatDrawerAppContent, MatDrawerTitle}
 };
 use crate::components::{
     Home, Button, Components, Checkbox, Radio, Switch, Fab, IconButton, Icon,
@@ -125,7 +126,9 @@ impl Component for App {
             onopened=self.link.callback(|_| Msg::Opened)
             onclosed=self.link.callback(|_| Msg::Closed)>
 
-                <span class="drawer-title" slot="title">{"Components"}</span>
+                <MatDrawerTitle>
+                    <span class="drawer-title">{"Components"}</span>
+                </MatDrawerTitle>
 
                 <div class="drawer-content">
                     <MatList>
@@ -151,30 +154,31 @@ impl Component for App {
                         <AppRouterAnchor route=AppRoute::Dialog><MatListItem>{"Dialog"}</MatListItem></AppRouterAnchor>
                     </MatList>
                 </div>
-
-                <div slot="appContent" class="app-content">
-                    <MatTopAppBarFixed onnavigationiconclick=self.link.callback(|_| Msg::NavIconClick)>
-                        <span slot="navigationIcon">
-                            <MatIconButton icon="menu"></MatIconButton>
-                        </span>
-                        <div slot="title" class="app-title">
-                            <AppRouterAnchor route=AppRoute::Home>{"Yew Material"}</AppRouterAnchor>
-                            <span class="action-item">
-                                <AppRouterAnchor route=AppRoute::Components><MatButton label="Components"/></AppRouterAnchor>
+                <MatDrawerAppContent>
+                    <div class="app-content">
+                        <MatTopAppBarFixed onnavigationiconclick=self.link.callback(|_| Msg::NavIconClick)>
+                            <span slot="navigationIcon">
+                                <MatIconButton icon="menu"></MatIconButton>
                             </span>
-                        </div>
-                        <a slot="actionItems" class="action-item" href="https://github.com/hamza1311/material-yew-components"><MatButton label="GitHub"/></a>
-                        <span slot="actionItems" class="action-item"><MatButton label="API Docs"/></span>
-                    </MatTopAppBarFixed>
-                    <main id="router-outlet">
-                    <AppRouter
-                        render=AppRouter::render(Self::switch)
-                        // redirect=AppRouter::redirect(|route: Route| {
-                        //     AppRoute::PageNotFound(Permissive(Some(route.route))).into_public()
-                        // })
-                    />
-                    </main>
-                </div>
+                            <div slot="title" class="app-title">
+                                <AppRouterAnchor route=AppRoute::Home>{"Yew Material"}</AppRouterAnchor>
+                                <span class="action-item">
+                                    <AppRouterAnchor route=AppRoute::Components><MatButton label="Components"/></AppRouterAnchor>
+                                </span>
+                            </div>
+                            <a slot="actionItems" class="action-item" href="https://github.com/hamza1311/material-yew-components"><MatButton label="GitHub"/></a>
+                            <span slot="actionItems" class="action-item"><MatButton label="API Docs"/></span>
+                        </MatTopAppBarFixed>
+                        <main id="router-outlet">
+                        <AppRouter
+                            render=AppRouter::render(Self::switch)
+                            // redirect=AppRouter::redirect(|route: Route| {
+                            //     AppRoute::PageNotFound(Permissive(Some(route.route))).into_public()
+                            // })
+                        />
+                        </main>
+                    </div>
+                </MatDrawerAppContent>
             </MatDrawer>
         </> }
     }
