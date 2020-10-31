@@ -16,12 +16,15 @@ impl Component for Components {
     fn change(&mut self, _props: Self::Properties) -> bool { false }
 
     fn view(&self) -> Html {
-        let component_card = |name, route| html! {
-        <AppRouterAnchor route=route>
-            // TODO make these images from screenshots
-            <img src="https://material.angular.io/assets/screenshots/button.scene.png"/>
-            <h6>{ name }</h6>
-        </AppRouterAnchor>
+        let component_card = |name: &str, route| {
+            let path = join("-", name.split(" ")).to_lowercase();
+
+            html! {
+                <AppRouterAnchor route=route>
+                    <img src=format!("/assets/{}.png", path) />
+                    <h6>{ name }</h6>
+                </AppRouterAnchor>
+            }
         };
         html! {
         <section class="components-grid">
@@ -35,7 +38,7 @@ impl Component for Components {
             { component_card("Circular Progress", AppRoute::CircularProgress) }
             { component_card("Dialog", AppRoute::Dialog) }
             // TODO { component_card("Drawer", AppRoute::Drawer) }
-            { component_card("Form Field", AppRoute::FormField) }
+            { component_card("Formfield", AppRoute::FormField) }
             { component_card("Linear Progress", AppRoute::LinearProgress) }
             { component_card("List", AppRoute::List) }
             { component_card("Icon Button Toggle", AppRoute::IconButtonToggle) }
@@ -49,4 +52,16 @@ impl Component for Components {
         </section>
        }
     }
+}
+
+fn join<'a, T>(separator: &str, collection: T) -> String
+    where T: IntoIterator,
+          T::Item: Into<&'a str> {
+    let mut out = String::new();
+    collection.into_iter().for_each(|it| {
+        out.push_str(it.into());
+        out.push_str(separator);
+    });
+    let out = out.strip_suffix("-");
+    out.unwrap().to_owned()
 }
