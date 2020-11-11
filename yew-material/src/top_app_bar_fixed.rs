@@ -1,6 +1,7 @@
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
 use crate::{to_option, add_event_listener};
+pub use crate::top_app_bar::{MatTopAppBarTitle, MatTopAppBarNavigationIcon, MatTopAppBarActionItems};
 
 #[wasm_bindgen(module = "/../build/mwc-top-app-bar-fixed.js")]
 extern "C" {

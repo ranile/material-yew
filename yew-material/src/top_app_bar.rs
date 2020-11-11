@@ -1,3 +1,11 @@
+pub mod title;
+pub mod navigation_icon;
+pub mod action_items;
+
+pub use title::MatTopAppBarTitle;
+pub use navigation_icon::MatTopAppBarNavigationIcon;
+pub use action_items::MatTopAppBarActionItems;
+
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
 use crate::{to_option, add_event_listener};

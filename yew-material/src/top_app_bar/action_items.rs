@@ -1,21 +1,23 @@
 use yew::prelude::*;
+use crate::{MatTopAppBar, MatTopAppBarFixed};
 
-const SLOT: &'static str = "subtitle";
+const SLOT: &'static str = "actionItems";
 
 #[derive(Properties, Clone)]
 pub struct Props {
     pub children: Children,
 }
 
-/// Defines sub title for [`super::MatDrawer`].
+/// Defines header for [`MatTopAppBar`] or [`MatTopAppBarFixed`].
+/// This is re-exported by both modules.
 ///
 /// If the child passed is an element (a `VTag`), then it is modified to include the appropriate attributes.
 /// Otherwise, the child is wrapped in a `span` containing said attributes.
-pub struct MatDrawerSubtitle {
+pub struct MatTopAppBarActionItems {
     props: Props
 }
 
-impl Component for MatDrawerSubtitle {
+impl Component for MatTopAppBarActionItems {
     type Message = ();
     type Properties = Props;
 
@@ -36,7 +38,7 @@ impl Component for MatDrawerSubtitle {
         let children = self.props.children.iter().map(|child| {
             match child {
                 Html::VTag(mut vtag) => {
-                    vtag.add_attribute("slot", "subtitle");
+                    vtag.add_attribute("slot", SLOT);
                     Html::VTag(vtag)
                 }
                 _ => html! {

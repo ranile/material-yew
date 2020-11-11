@@ -1,5 +1,5 @@
 use yew::prelude::*;
-use yew_material::{MatTab, MatTabBar};
+use yew_material::{MatTab, MatTabBar, tabs::MatTabIcon};
 use crate::with_raw_code;
 use crate::components::Codeblock;
 
@@ -90,13 +90,19 @@ impl Component for Tabs {
         <section>
             <MatTabBar>
                 <MatTab>
-                    <svg slot="icon" width="10px" height="10px"><circle r="5px" cx="5px" cy="5px" color="red"></circle></svg>
+                    <MatTabIcon>
+                        <svg width="10px" height="10px"><circle r="5px" cx="5px" cy="5px" color="red"></circle></svg>
+                    </MatTabIcon>
                 </MatTab>
                 <MatTab>
-                    <svg slot="icon" width="10px" height="10px"><rect width="10px" height="10px" color="green"></rect></svg>
+                    <MatTabIcon>
+                        <svg width="10px" height="10px"><rect width="10px" height="10px" color="green"></rect></svg>
+                    </MatTabIcon>
                 </MatTab>
                 <MatTab>
-                    <svg slot="icon" width="10px" height="10px"><rect width="10px" height="10px" color="green"></rect></svg>
+                    <MatTabIcon>
+                        <svg width="10px" height="10px"><rect width="10px" height="10px" color="green"></rect></svg>
+                    </MatTabIcon>
                 </MatTab>
             </MatTabBar>
         </section>

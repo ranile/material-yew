@@ -5,7 +5,8 @@ use yew::prelude::*;
 use yew_router::prelude::*;
 use yew_material::{
     MatDrawer, MatTopAppBarFixed, MatIconButton, MatButton, MatList, MatListItem,
-    drawer::{MatDrawerAppContent, MatDrawerTitle}
+    drawer::{MatDrawerAppContent, MatDrawerTitle},
+    top_app_bar_fixed::{MatTopAppBarActionItems, MatTopAppBarNavigationIcon, MatTopAppBarTitle},
 };
 use crate::components::{
     Home, Button, Components, Checkbox, Radio, Switch, Fab, IconButton, Icon,
@@ -157,17 +158,27 @@ impl Component for App {
                 <MatDrawerAppContent>
                     <div class="app-content">
                         <MatTopAppBarFixed onnavigationiconclick=self.link.callback(|_| Msg::NavIconClick)>
-                            <span slot="navigationIcon">
+                            <MatTopAppBarNavigationIcon>
                                 <MatIconButton icon="menu"></MatIconButton>
-                            </span>
-                            <div slot="title" class="app-title">
-                                <AppRouterAnchor route=AppRoute::Home>{"Yew Material"}</AppRouterAnchor>
-                                <span class="action-item">
-                                    <AppRouterAnchor route=AppRoute::Components><MatButton label="Components"/></AppRouterAnchor>
-                                </span>
-                            </div>
-                            <a slot="actionItems" class="action-item" href="https://github.com/hamza1311/material-yew-components"><MatButton label="GitHub"/></a>
-                            <span slot="actionItems" class="action-item"><MatButton label="API Docs"/></span>
+                            </MatTopAppBarNavigationIcon>
+
+                            <MatTopAppBarTitle>
+                                <div class="app-title">
+                                    <AppRouterAnchor route=AppRoute::Home>{"Yew Material"}</AppRouterAnchor>
+                                    <span class="action-item">
+                                        <AppRouterAnchor route=AppRoute::Components><MatButton label="Components"/></AppRouterAnchor>
+                                    </span>
+                                </div>
+                            </MatTopAppBarTitle>
+
+                            <MatTopAppBarActionItems>
+                                <a class="action-item" href="https://github.com/hamza1311/material-yew-components"><MatButton label="GitHub"/></a>
+                            </MatTopAppBarActionItems>
+
+                            <MatTopAppBarActionItems>
+                                <span class="action-item"><MatButton label="API Docs"/></span>
+                            </MatTopAppBarActionItems>
+
                         </MatTopAppBarFixed>
                         <main id="router-outlet">
                         <AppRouter

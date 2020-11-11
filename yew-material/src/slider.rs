@@ -49,12 +49,12 @@ pub struct Props {
     pub markers: bool,
     /// Binds to input on `mwc-slider`
     /// Type passed to callback is `CustomEvent` because `Slider` is undocumented
-    /// See: https://github.com/material-components/material-components-web-components/issues/1848
+    /// See: <https://github.com/material-components/material-components-web-components/issues/1848>
     #[prop_or_default]
     pub oninput: Callback<CustomEvent>,
     /// Binds to change on `mwc-slider`
     /// Type passed to callback is `CustomEvent` because `Slider` is undocumented
-    /// See: https://github.com/material-components/material-components-web-components/issues/1848
+    /// See: <https://github.com/material-components/material-components-web-components/issues/1848>
     #[prop_or_default]
     pub onchange: Callback<CustomEvent>,
 }

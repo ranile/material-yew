@@ -1,3 +1,9 @@
+pub mod on_icon;
+pub mod off_icon;
+
+pub use on_icon::MatOnIconButtonToggle;
+pub use off_icon::MatOffIconButtonToggle;
+
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
 use crate::{add_event_listener, to_option};

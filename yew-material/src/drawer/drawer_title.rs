@@ -1,5 +1,7 @@
 use yew::prelude::*;
 
+const SLOT: &'static str = "title";
+
 #[derive(Properties, Clone)]
 pub struct Props {
     pub children: Children,
@@ -38,7 +40,7 @@ impl Component for MatDrawerTitle {
                     Html::VTag(vtag)
                 }
                 _ => html! {
-                    <span slot="title">
+                    <span slot=SLOT>
                         { child }
                     </span>
                 }
