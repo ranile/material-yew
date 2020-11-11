@@ -10,6 +10,9 @@
 //! }
 //! ```
 //!
+//! All the main components from the modules are re-exported.
+//! The specialized components used for populating slots can be accessed from their respective modules.
+//!
 //! More information can be found on the [website](https://yew-material.web.app) and in the [GitHub README](https://github.com/hamza1311/yew-material)
 
 use wasm_bindgen::prelude::Closure;
@@ -102,116 +105,140 @@ fn add_event_listener_with_one_param(node_ref: &NodeRef, name: &str, func: impl 
 #[cfg(feature = "button")]
 pub mod button;
 #[cfg(feature = "button")]
+#[doc(hidden)]
 pub use button::MatButton;
 
 #[cfg(feature = "circular-progress")]
 pub mod circular_progress;
 #[cfg(feature = "circular-progress")]
+#[doc(hidden)]
 pub use circular_progress::MatCircularProgress;
 
 #[cfg(feature = "checkbox")]
 pub mod checkbox;
 #[cfg(feature = "checkbox")]
+#[doc(hidden)]
 pub use checkbox::MatCheckbox;
 
 #[cfg(feature = "circular-progress-four-color")]
 pub mod circular_progress_four_color;
 #[cfg(feature = "circular-progress-four-color")]
+#[doc(hidden)]
 pub use circular_progress_four_color::MatCircularProgressFourColor;
 
 #[cfg(feature = "drawer")]
 pub mod drawer;
 #[cfg(feature = "drawer")]
+#[doc(hidden)]
 pub use drawer::*;
 
 #[cfg(feature = "top-app-bar")]
 pub mod top_app_bar;
 #[cfg(feature = "top-app-bar")]
+#[doc(hidden)]
 pub use top_app_bar::MatTopAppBar;
 
 #[cfg(feature = "icon-button")]
 pub mod icon_button;
 #[cfg(feature = "icon-button")]
+#[doc(hidden)]
 pub use icon_button::MatIconButton;
 
 #[cfg(feature = "fab")]
 pub mod fab;
 #[cfg(feature = "fab")]
+#[doc(hidden)]
 pub use fab::MatFab;
 
 #[cfg(feature = "formfield")]
 pub mod form_field;
 #[cfg(feature = "formfield")]
+#[doc(hidden)]
 pub use form_field::MatFormfield;
 
 #[cfg(feature = "icon")]
 pub mod icon;
 #[cfg(feature = "icon")]
+#[doc(hidden)]
 pub use icon::MatIcon;
 
 #[cfg(feature = "linear-progress")]
 pub mod linear_progress;
 #[cfg(feature = "linear-progress")]
+#[doc(hidden)]
 pub use linear_progress::MatLinearProgress;
 
 #[cfg(feature = "radio")]
 pub mod radio;
 #[cfg(feature = "radio")]
+#[doc(hidden)]
 pub use radio::MatRadio;
 
 #[cfg(feature = "switch")]
 pub mod switch;
 #[cfg(feature = "switch")]
+#[doc(hidden)]
 pub use switch::MatSwitch;
 
 #[cfg(feature = "top-app-bar-fixed")]
 pub mod top_app_bar_fixed;
 #[cfg(feature = "top-app-bar-fixed")]
+#[doc(hidden)]
 pub use top_app_bar_fixed::MatTopAppBarFixed;
 
 #[cfg(feature = "dialog")]
 pub mod dialog;
 #[cfg(feature = "dialog")]
+#[doc(hidden)]
 pub use dialog::{MatDialog};
 
 #[cfg(feature = "list")]
 pub mod list;
 #[cfg(feature = "list")]
+#[doc(hidden)]
 pub use list::*;
 
 #[cfg(feature = "icon-button-toggle")]
 pub mod icon_button_toggle;
 #[cfg(feature = "icon-button-toggle")]
+#[doc(hidden)]
 pub use icon_button_toggle::MatIconButtonToggle;
 
 #[cfg(feature = "slider")]
 pub mod slider;
 #[cfg(feature = "slider")]
+#[doc(hidden)]
 pub use slider::MatSlider;
 
 #[cfg(feature = "tabs")]
 pub mod tabs;
 #[cfg(feature = "tabs")]
+#[doc(hidden)]
 pub use tabs::{MatTab, MatTabBar};
 
 #[cfg(feature = "snackbar")]
 pub mod snackbar;
 #[cfg(feature = "snackbar")]
+#[doc(hidden)]
 pub use snackbar::MatSnackbar;
 
 pub mod text_inputs;
+#[doc(hidden)]
 pub use text_inputs::*;
 
 #[cfg(feature = "select")]
 pub mod select;
 #[cfg(feature = "select")]
+#[doc(hidden)]
 pub use select::MatSelect;
 
 #[cfg(feature = "menu")]
 pub mod menu;
 #[cfg(feature = "menu")]
+#[doc(hidden)]
 pub use menu::MatMenu;
 
+#[doc(hidden)]
 pub use utils::WeakComponentLink;
 
 #[wasm_bindgen(module = "/../build/core.js")]
