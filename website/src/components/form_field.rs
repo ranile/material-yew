@@ -1,7 +1,7 @@
-use yew::prelude::*;
-use yew_material::{MatCheckbox, MatFormfield, MatSwitch, MatRadio};
-use crate::with_raw_code;
 use crate::components::Codeblock;
+use crate::with_raw_code;
+use yew::prelude::*;
+use yew_material::{MatCheckbox, MatFormfield, MatRadio, MatSwitch};
 
 pub struct FormField {}
 
@@ -13,9 +13,13 @@ impl Component for FormField {
         Self {}
     }
 
-    fn update(&mut self, _msg: Self::Message) -> ShouldRender { false }
+    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
+        false
+    }
 
-    fn change(&mut self, _props: Self::Properties) -> bool { false }
+    fn change(&mut self, _props: Self::Properties) -> bool {
+        false
+    }
 
     fn view(&self) -> Html {
         let checkbox = with_raw_code!(checkbox { html! {

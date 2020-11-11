@@ -32,6 +32,7 @@ impl ToString for TextFieldType {
             DatetimeLocal => "datetime-local",
             Number => "number",
             Color => "color",
-        }.to_string()
+        }
+        .to_string()
     }
 }

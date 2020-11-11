@@ -1,7 +1,7 @@
+use crate::add_event_listener;
 use wasm_bindgen::prelude::*;
-use yew::prelude::*;
-use crate::{add_event_listener};
 use web_sys::Node;
+use yew::prelude::*;
 
 #[wasm_bindgen(module = "/../build/mwc-drawer.js")]
 extern "C" {
@@ -66,10 +66,17 @@ impl Component for MatDrawer {
 
     fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
         Drawer::ensure_loaded();
-        Self { props, node_ref: NodeRef::default(), opened_closure: None, closed_closure: None }
+        Self {
+            props,
+            node_ref: NodeRef::default(),
+            opened_closure: None,
+            closed_closure: None,
+        }
     }
 
-    fn update(&mut self, _msg: Self::Message) -> ShouldRender { false }
+    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
+        false
+    }
 
     fn change(&mut self, props: Self::Properties) -> bool {
         self.props = props;
@@ -78,10 +85,10 @@ impl Component for MatDrawer {
 
     fn view(&self) -> Html {
         html! {
-<mwc-drawer hasHeader=self.props.has_header ref=self.node_ref.clone()>
-    { self.props.children.clone() }
-</mwc-drawer>
-        }
+        <mwc-drawer hasHeader=self.props.has_header ref=self.node_ref.clone()>
+            { self.props.children.clone() }
+        </mwc-drawer>
+                }
     }
 
     fn rendered(&mut self, first_render: bool) {
@@ -93,12 +100,22 @@ impl Component for MatDrawer {
             let onopen_callback = self.props.onopened.clone();
             let onclose_callback = self.props.onclosed.clone();
 
-            add_event_listener(&self.node_ref, "MDCDrawer:opened", move || {
-                onopen_callback.emit(());
-            }, &mut self.opened_closure);
-            add_event_listener(&self.node_ref, "MDCDrawer:closed", move || {
-                onclose_callback.emit(());
-            }, &mut self.closed_closure);
+            add_event_listener(
+                &self.node_ref,
+                "MDCDrawer:opened",
+                move || {
+                    onopen_callback.emit(());
+                },
+                &mut self.opened_closure,
+            );
+            add_event_listener(
+                &self.node_ref,
+                "MDCDrawer:closed",
+                move || {
+                    onclose_callback.emit(());
+                },
+                &mut self.closed_closure,
+            );
         }
     }
 }

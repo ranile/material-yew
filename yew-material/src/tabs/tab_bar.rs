@@ -1,9 +1,9 @@
-use wasm_bindgen::prelude::*;
-use yew::prelude::*;
 use crate::add_event_listener_with_one_param;
+use js_sys::Object;
+use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::CustomEvent;
-use js_sys::Object;
+use yew::prelude::*;
 
 #[wasm_bindgen(module = "/../build/mwc-tab-bar.js")]
 extern "C" {
@@ -48,10 +48,16 @@ impl Component for MatTabBar {
 
     fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
         TabBar::ensure_loaded();
-        Self { props, node_ref: NodeRef::default(), activated_closure: None }
+        Self {
+            props,
+            node_ref: NodeRef::default(),
+            activated_closure: None,
+        }
     }
 
-    fn update(&mut self, _msg: Self::Message) -> ShouldRender { false }
+    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
+        false
+    }
 
     fn change(&mut self, props: Self::Properties) -> bool {
         self.props = props;
@@ -70,15 +76,19 @@ impl Component for MatTabBar {
     fn rendered(&mut self, first_render: bool) {
         let on_activated = self.props.onactivated.clone();
         if first_render {
-            add_event_listener_with_one_param(&self.node_ref, "MDCTabBar:activated", move |value| {
-                let event = value.unchecked_into::<CustomEvent>();
-                let detail = event.detail().unchecked_into::<ActivatedDetailJS>();
-                on_activated.emit(detail.index());
-            }, &mut self.activated_closure)
+            add_event_listener_with_one_param(
+                &self.node_ref,
+                "MDCTabBar:activated",
+                move |value| {
+                    let event = value.unchecked_into::<CustomEvent>();
+                    let detail = event.detail().unchecked_into::<ActivatedDetailJS>();
+                    on_activated.emit(detail.index());
+                },
+                &mut self.activated_closure,
+            )
         }
     }
 }
-
 
 #[wasm_bindgen]
 extern "C" {

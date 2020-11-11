@@ -1,14 +1,14 @@
-pub mod title;
-pub mod navigation_icon;
 pub mod action_items;
+pub mod navigation_icon;
+pub mod title;
 
-pub use title::MatTopAppBarTitle;
-pub use navigation_icon::MatTopAppBarNavigationIcon;
 pub use action_items::MatTopAppBarActionItems;
+pub use navigation_icon::MatTopAppBarNavigationIcon;
+pub use title::MatTopAppBarTitle;
 
+use crate::{add_event_listener, to_option};
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
-use crate::{to_option, add_event_listener};
 
 #[wasm_bindgen(module = "/../build/mwc-top-app-bar.js")]
 extern "C" {
@@ -27,7 +27,7 @@ loader_hack!(TopAppBar);
 pub struct MatTopAppBar {
     props: Props,
     node_ref: NodeRef,
-    closure: Option<Closure<dyn FnMut()>>
+    closure: Option<Closure<dyn FnMut()>>,
 }
 
 /// Props for [`MatTopAppBar`]
@@ -58,10 +58,16 @@ impl Component for MatTopAppBar {
 
     fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
         TopAppBar::ensure_loaded();
-        Self { props, node_ref: NodeRef::default(), closure: None }
+        Self {
+            props,
+            node_ref: NodeRef::default(),
+            closure: None,
+        }
     }
 
-    fn update(&mut self, _msg: Self::Message) -> ShouldRender { false }
+    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
+        false
+    }
 
     fn change(&mut self, props: Self::Properties) -> bool {
         self.props = props;
@@ -84,9 +90,14 @@ impl Component for MatTopAppBar {
     fn rendered(&mut self, first_render: bool) {
         if first_render {
             let callback = self.props.onnavigationiconclick.clone();
-            add_event_listener(&self.node_ref, "MDCTopAppBar:nav", move || {
-                callback.emit(());
-            }, &mut self.closure);
+            add_event_listener(
+                &self.node_ref,
+                "MDCTopAppBar:nav",
+                move || {
+                    callback.emit(());
+                },
+                &mut self.closure,
+            );
         }
     }
 }

@@ -1,5 +1,5 @@
-use yew::prelude::*;
 use crate::{MatTopAppBar, MatTopAppBarFixed};
+use yew::prelude::*;
 
 const SLOT: &'static str = "title";
 
@@ -11,10 +11,11 @@ pub struct Props {
 /// Defines header for [`MatTopAppBar`] or [`MatTopAppBarFixed`].
 /// This is re-exported by both modules.
 ///
-/// If the child passed is an element (a `VTag`), then it is modified to include the appropriate attributes.
-/// Otherwise, the child is wrapped in a `span` containing said attributes.
+/// If the child passed is an element (a `VTag`), then it is modified to include
+/// the appropriate attributes. Otherwise, the child is wrapped in a `span`
+/// containing said attributes.
 pub struct MatTopAppBarTitle {
-    props: Props
+    props: Props,
 }
 
 impl Component for MatTopAppBarTitle {
@@ -35,19 +36,26 @@ impl Component for MatTopAppBarTitle {
     }
 
     fn view(&self) -> Html {
-        let children = self.props.children.iter().map(|child| {
-            match child {
-                Html::VTag(mut vtag) => {
-                    vtag.add_attribute("slot", SLOT);
-                    Html::VTag(vtag)
+        let children = self
+            .props
+            .children
+            .iter()
+            .map(|child| {
+                match child {
+                    Html::VTag(mut vtag) => {
+                        vtag.add_attribute("slot", SLOT);
+                        Html::VTag(vtag)
+                    }
+                    _ => {
+                        html! {
+                            <span slot=SLOT>
+                                { child }
+                            </span>
+                        }
+                    }
                 }
-                _ => html! {
-                    <span slot=SLOT>
-                        { child }
-                    </span>
-                }
-            }
-        }).collect::<Html>();
+            })
+            .collect::<Html>();
 
         html! {
             { children }

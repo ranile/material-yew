@@ -1,7 +1,7 @@
-use yew::prelude::*;
-use yew_material::{MatTab, MatTabBar, tabs::MatTabIcon};
-use crate::with_raw_code;
 use crate::components::Codeblock;
+use crate::with_raw_code;
+use yew::prelude::*;
+use yew_material::{tabs::MatTabIcon, MatTab, MatTabBar};
 
 pub struct Tabs {}
 
@@ -13,9 +13,13 @@ impl Component for Tabs {
         Self {}
     }
 
-    fn update(&mut self, _msg: Self::Message) -> ShouldRender { false }
+    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
+        false
+    }
 
-    fn change(&mut self, _props: Self::Properties) -> bool { false }
+    fn change(&mut self, _props: Self::Properties) -> bool {
+        false
+    }
 
     fn view(&self) -> Html {
         let standard = with_raw_code!(standard { html! {

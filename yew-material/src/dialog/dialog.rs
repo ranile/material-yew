@@ -1,7 +1,7 @@
+use crate::{add_event_listener, to_option, WeakComponentLink};
 use wasm_bindgen::prelude::*;
-use yew::prelude::*;
 use web_sys::Node;
-use crate::{to_option, add_event_listener, WeakComponentLink};
+use yew::prelude::*;
 
 #[wasm_bindgen(module = "/../build/mwc-dialog.js")]
 extern "C" {
@@ -25,7 +25,6 @@ extern "C" {
     fn close(this: &Dialog);
 }
 
-
 loader_hack!(Dialog);
 
 /// The `mwc-dialog` component.
@@ -34,7 +33,8 @@ loader_hack!(Dialog);
 ///
 /// ## Actions
 ///
-/// In order to pass actions, [`super::MatDialogAction`] component should be used.
+/// In order to pass actions, [`super::MatDialogAction`] component should be
+/// used.
 pub struct MatDialog {
     props: Props,
     node_ref: NodeRef,
@@ -92,7 +92,8 @@ pub struct Props {
     /// See events docs to learn more.
     #[prop_or_default]
     pub onclosed: Callback<()>,
-    /// [`WeakComponentLink`] for `MatDialog` which provides the following methods
+    /// [`WeakComponentLink`] for `MatDialog` which provides the following
+    /// methods
     /// - ```focus(&self)```
     /// - ```blur(&self)```
     /// - ```show(&self)```
@@ -111,10 +112,19 @@ impl Component for MatDialog {
     fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
         props.dialog_link.borrow_mut().replace(link);
         Dialog::ensure_loaded();
-        Self { props, node_ref: NodeRef::default(), opened_closure: None, opening_closure: None, closing_closure: None, closed_closure: None }
+        Self {
+            props,
+            node_ref: NodeRef::default(),
+            opened_closure: None,
+            opening_closure: None,
+            closing_closure: None,
+            closed_closure: None,
+        }
     }
 
-    fn update(&mut self, _msg: Self::Message) -> ShouldRender { false }
+    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
+        false
+    }
 
     fn change(&mut self, props: Self::Properties) -> bool {
         self.props = props;
@@ -123,20 +133,20 @@ impl Component for MatDialog {
 
     fn view(&self) -> Html {
         html! {
-<mwc-dialog
-    open=self.props.open
-    hideActions?=to_option(self.props.hide_action)
-    stacked?=to_option(self.props.stacked)
-    heading?=self.props.heading.as_ref()
-    scrimClickAction?=self.props.scrim_click_action.as_ref()
-    escapeKeyAction?=self.props.escape_key_action.as_ref()
-    defaultAction?=self.props.default_action.as_ref()
-    actionAttribute?=self.props.action_attribute.as_ref()
-    initialFocusAttribute?=self.props.initial_focus_attribute.as_ref()
-    ref=self.node_ref.clone()>
-    { self.props.children.clone() }
-</mwc-dialog>
-        }
+        <mwc-dialog
+            open=self.props.open
+            hideActions?=to_option(self.props.hide_action)
+            stacked?=to_option(self.props.stacked)
+            heading?=self.props.heading.as_ref()
+            scrimClickAction?=self.props.scrim_click_action.as_ref()
+            escapeKeyAction?=self.props.escape_key_action.as_ref()
+            defaultAction?=self.props.default_action.as_ref()
+            actionAttribute?=self.props.action_attribute.as_ref()
+            initialFocusAttribute?=self.props.initial_focus_attribute.as_ref()
+            ref=self.node_ref.clone()>
+            { self.props.children.clone() }
+        </mwc-dialog>
+                }
     }
 
     fn rendered(&mut self, first_render: bool) {
@@ -146,33 +156,45 @@ impl Component for MatDialog {
             let onclosing = self.props.onclosing.clone();
             let onclosed = self.props.onclosed.clone();
 
-            add_event_listener(&self.node_ref, "opening", move || {
-                onopening.emit(())
-            }, &mut self.opening_closure);
+            add_event_listener(
+                &self.node_ref,
+                "opening",
+                move || onopening.emit(()),
+                &mut self.opening_closure,
+            );
 
             // Doesn't work
-            add_event_listener(&self.node_ref, "opened", move || {
-                onopened.emit(())
-            }, &mut self.opened_closure);
+            add_event_listener(
+                &self.node_ref,
+                "opened",
+                move || onopened.emit(()),
+                &mut self.opened_closure,
+            );
 
-            add_event_listener(&self.node_ref, "closing", move || {
-                onclosing.emit(());
-            }, &mut self.closing_closure);
+            add_event_listener(
+                &self.node_ref,
+                "closing",
+                move || {
+                    onclosing.emit(());
+                },
+                &mut self.closing_closure,
+            );
 
-            add_event_listener(&self.node_ref, "closed", move || {
-                onclosed.emit(());
-            }, &mut self.closed_closure);
+            add_event_listener(
+                &self.node_ref,
+                "closed",
+                move || {
+                    onclosed.emit(());
+                },
+                &mut self.closed_closure,
+            );
         }
     }
 }
 
 impl WeakComponentLink<MatDialog> {
     pub fn focus(&self) {
-        (*self.borrow()
-            .as_ref()
-            .unwrap()
-            .get_component()
-            .unwrap())
+        (*self.borrow().as_ref().unwrap().get_component().unwrap())
             .node_ref
             .cast::<Dialog>()
             .unwrap()
@@ -180,11 +202,7 @@ impl WeakComponentLink<MatDialog> {
     }
 
     pub fn blur(&self) {
-        (*self.borrow()
-            .as_ref()
-            .unwrap()
-            .get_component()
-            .unwrap())
+        (*self.borrow().as_ref().unwrap().get_component().unwrap())
             .node_ref
             .cast::<Dialog>()
             .unwrap()
@@ -192,11 +210,7 @@ impl WeakComponentLink<MatDialog> {
     }
 
     pub fn show(&self) {
-        (*self.borrow()
-            .as_ref()
-            .unwrap()
-            .get_component()
-            .unwrap())
+        (*self.borrow().as_ref().unwrap().get_component().unwrap())
             .node_ref
             .cast::<Dialog>()
             .unwrap()
@@ -204,11 +218,7 @@ impl WeakComponentLink<MatDialog> {
     }
 
     pub fn close(&self) {
-        (*self.borrow()
-            .as_ref()
-            .unwrap()
-            .get_component()
-            .unwrap())
+        (*self.borrow().as_ref().unwrap().get_component().unwrap())
             .node_ref
             .cast::<Dialog>()
             .unwrap()

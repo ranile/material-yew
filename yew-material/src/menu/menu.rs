@@ -1,10 +1,10 @@
-use wasm_bindgen::prelude::*;
-use yew::prelude::*;
-use crate::{add_event_listener, to_option, add_event_listener_with_one_param, WeakComponentLink};
-use web_sys::Node;
-use wasm_bindgen::JsCast;
 use crate::list::{ListIndex, SelectedDetail};
-use crate::menu::{Corner, MenuCorner, DefaultFocusState};
+use crate::menu::{Corner, DefaultFocusState, MenuCorner};
+use crate::{add_event_listener, add_event_listener_with_one_param, to_option, WeakComponentLink};
+use wasm_bindgen::prelude::*;
+use wasm_bindgen::JsCast;
+use web_sys::Node;
+use yew::prelude::*;
 
 #[wasm_bindgen(module = "/../build/mwc-menu.js")]
 extern "C" {
@@ -59,7 +59,8 @@ pub struct MatMenu {
 #[derive(Properties, Clone)]
 pub struct Props {
     /// Changing this prop re-renders the component.
-    /// For general usage, consider using `show` method provided by `WeakComponentLink<MatMenu>` via `menu_link`
+    /// For general usage, consider using `show` method provided by
+    /// `WeakComponentLink<MatMenu>` via `menu_link`
     #[prop_or_default]
     pub open: bool,
     #[prop_or_default]
@@ -119,7 +120,8 @@ pub struct Props {
     /// - `show(&self)`
     /// - `close(&self)`
     ///
-    /// See [`WeakComponentLink`](/yew_material/struct.WeakComponentLink.html) documentation for more information
+    /// See [`WeakComponentLink`](/yew_material/struct.WeakComponentLink.html)
+    /// documentation for more information
     #[prop_or_default]
     pub menu_link: WeakComponentLink<MatMenu>,
     pub children: Children,
@@ -132,10 +134,19 @@ impl Component for MatMenu {
     fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
         props.menu_link.borrow_mut().replace(link);
         Menu::ensure_loaded();
-        Self { props, node_ref: NodeRef::default(), opened_closure: None, closed_closure: None, action_closure: None, selected_closure: None, }
+        Self {
+            props,
+            node_ref: NodeRef::default(),
+            opened_closure: None,
+            closed_closure: None,
+            action_closure: None,
+            selected_closure: None,
+        }
     }
 
-    fn update(&mut self, _msg: Self::Message) -> ShouldRender { false }
+    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
+        false
+    }
 
     fn change(&mut self, props: Self::Properties) -> bool {
         self.props = props;
@@ -174,29 +185,49 @@ impl Component for MatMenu {
                 menu.set_anchor(anchor);
             }
             let onopened = self.props.onopened.clone();
-            add_event_listener(&self.node_ref, "opened", move || {
-                onopened.emit(());
-            }, &mut self.opened_closure);
+            add_event_listener(
+                &self.node_ref,
+                "opened",
+                move || {
+                    onopened.emit(());
+                },
+                &mut self.opened_closure,
+            );
 
             let onclosed = self.props.onclosed.clone();
-            add_event_listener(&self.node_ref, "closed", move || {
-                onclosed.emit(());
-            }, &mut self.closed_closure);
+            add_event_listener(
+                &self.node_ref,
+                "closed",
+                move || {
+                    onclosed.emit(());
+                },
+                &mut self.closed_closure,
+            );
 
             let menu = self.node_ref.cast::<Menu>().unwrap();
             let onaction = self.props.onaction.clone();
-            add_event_listener(&self.node_ref, "action", move || {
-                let val: JsValue = menu.index();
+            add_event_listener(
+                &self.node_ref,
+                "action",
+                move || {
+                    let val: JsValue = menu.index();
 
-                let index = ListIndex::from(val);
-                onaction.emit(index);
-            }, &mut self.action_closure);
+                    let index = ListIndex::from(val);
+                    onaction.emit(index);
+                },
+                &mut self.action_closure,
+            );
 
             let onselected = self.props.onselected.clone();
-            add_event_listener_with_one_param(&self.node_ref, "selected", move |value: JsValue| {
-                let event = value.unchecked_into::<web_sys::CustomEvent>();
-                onselected.emit( SelectedDetail::from(event.detail()));
-            }, &mut self.selected_closure)
+            add_event_listener_with_one_param(
+                &self.node_ref,
+                "selected",
+                move |value: JsValue| {
+                    let event = value.unchecked_into::<web_sys::CustomEvent>();
+                    onselected.emit(SelectedDetail::from(event.detail()));
+                },
+                &mut self.selected_closure,
+            )
         }
     }
 }
@@ -206,27 +237,18 @@ impl WeakComponentLink<MatMenu> {
     ///
     /// See [here](https://github.com/material-components/material-components-web-components/tree/master/packages/menu#methods) for details
     pub fn get_focused_item_index(&self) -> usize {
-        (*self.borrow()
-            .as_ref()
-            .unwrap()
-            .get_component()
-            .unwrap())
+        (*self.borrow().as_ref().unwrap().get_component().unwrap())
             .node_ref
             .cast::<Menu>()
             .unwrap()
             .get_focused_item_index()
-
     }
 
     /// Binds to `focusItemAtIndex` method.
     ///
     /// See [here](https://github.com/material-components/material-components-web-components/tree/master/packages/menu#methods) for details
     pub fn focus_item_at_index(&self, index: usize) {
-        (*self.borrow()
-            .as_ref()
-            .unwrap()
-            .get_component()
-            .unwrap())
+        (*self.borrow().as_ref().unwrap().get_component().unwrap())
             .node_ref
             .cast::<Menu>()
             .unwrap()
@@ -235,15 +257,12 @@ impl WeakComponentLink<MatMenu> {
 
     /// Binds to `select` method.
     ///
-    /// `index` is `JsValue` because `MWCMenuIndex` mentioned in mwc docs is completely undocumented.
+    /// `index` is `JsValue` because `MWCMenuIndex` mentioned in mwc docs is
+    /// completely undocumented.
     ///
     /// See [here](https://github.com/material-components/material-components-web-components/tree/master/packages/menu#methods) for details
     pub fn select(&self, index: &JsValue) {
-        (*self.borrow()
-            .as_ref()
-            .unwrap()
-            .get_component()
-            .unwrap())
+        (*self.borrow().as_ref().unwrap().get_component().unwrap())
             .node_ref
             .cast::<Menu>()
             .unwrap()
@@ -254,11 +273,7 @@ impl WeakComponentLink<MatMenu> {
     ///
     /// See [here](https://github.com/material-components/material-components-web-components/tree/master/packages/menu#methods) for details
     pub fn show(&self) {
-        (*self.borrow()
-            .as_ref()
-            .unwrap()
-            .get_component()
-            .unwrap())
+        (*self.borrow().as_ref().unwrap().get_component().unwrap())
             .node_ref
             .cast::<Menu>()
             .unwrap()
@@ -269,11 +284,7 @@ impl WeakComponentLink<MatMenu> {
     ///
     /// See [here](https://github.com/material-components/material-components-web-components/tree/master/packages/menu#methods) for details
     pub fn close(&self) {
-        (*self.borrow()
-            .as_ref()
-            .unwrap()
-            .get_component()
-            .unwrap())
+        (*self.borrow().as_ref().unwrap().get_component().unwrap())
             .node_ref
             .cast::<Menu>()
             .unwrap()
@@ -282,11 +293,7 @@ impl WeakComponentLink<MatMenu> {
 
     /// Setter method for `anchor`.
     pub fn set_anchor(&self, anchor: web_sys::HtmlElement) {
-        (*self.borrow()
-            .as_ref()
-            .unwrap()
-            .get_component()
-            .unwrap())
+        (*self.borrow().as_ref().unwrap().get_component().unwrap())
             .node_ref
             .cast::<Menu>()
             .unwrap()

@@ -2,8 +2,8 @@
 //!
 //! Example usage:
 //! ```rust
-//! use yew_material::MatButton;
 //! use yew::html;
+//! use yew_material::MatButton;
 //!
 //! html! {
 //!     <MatButton label="Click me!" />
@@ -11,15 +11,16 @@
 //! ```
 //!
 //! All the main components from the modules are re-exported.
-//! The specialized components used for populating slots can be accessed from their respective modules.
+//! The specialized components used for populating slots can be accessed from
+//! their respective modules.
 //!
 //! More information can be found on the [website](https://yew-material.web.app) and in the [GitHub README](https://github.com/hamza1311/yew-material)
 
 use wasm_bindgen::prelude::Closure;
-use wasm_bindgen::{JsCast, JsValue};
-use yew::{NodeRef};
-use web_sys::Element;
 use wasm_bindgen::prelude::*;
+use wasm_bindgen::{JsCast, JsValue};
+use web_sys::Element;
+use yew::NodeRef;
 mod utils;
 
 // this macro is defined here so we can access it in the modules
@@ -75,30 +76,54 @@ macro_rules! component {
 fn to_option(value: bool) -> Option<&'static str> {
     match value {
         true => Some("true"),
-        false => None
+        false => None,
     }
 }
-
 
 fn to_option_string(s: &str) -> Option<&str> {
     match s {
         "" => None,
-        _ => Some(s)
+        _ => Some(s),
     }
 }
 
-
-fn add_event_listener(node_ref: &NodeRef, name: &str, func: impl Fn() + 'static, closure_to_store_in: &mut Option<Closure<dyn FnMut()>>) {
+fn add_event_listener(
+    node_ref: &NodeRef,
+    name: &str,
+    func: impl Fn() + 'static,
+    closure_to_store_in: &mut Option<Closure<dyn FnMut()>>,
+) {
     let element = node_ref.cast::<Element>().unwrap();
     *closure_to_store_in = Some(Closure::wrap(Box::new(func) as Box<dyn FnMut()>));
-    element.add_event_listener_with_callback(name, closure_to_store_in.as_ref().unwrap().as_ref().unchecked_ref())
+    element
+        .add_event_listener_with_callback(
+            name,
+            closure_to_store_in
+                .as_ref()
+                .unwrap()
+                .as_ref()
+                .unchecked_ref(),
+        )
         .expect(&format!("Failed to add listener to event {}", name))
 }
 
-fn add_event_listener_with_one_param(node_ref: &NodeRef, name: &str, func: impl Fn(JsValue) + 'static, closure_to_store_in: &mut Option<Closure<dyn FnMut(JsValue)>>) {
+fn add_event_listener_with_one_param(
+    node_ref: &NodeRef,
+    name: &str,
+    func: impl Fn(JsValue) + 'static,
+    closure_to_store_in: &mut Option<Closure<dyn FnMut(JsValue)>>,
+) {
     let element = node_ref.cast::<Element>().unwrap();
     *closure_to_store_in = Some(Closure::wrap(Box::new(func) as Box<dyn FnMut(JsValue)>));
-    element.add_event_listener_with_callback(name, closure_to_store_in.as_ref().unwrap().as_ref().unchecked_ref())
+    element
+        .add_event_listener_with_callback(
+            name,
+            closure_to_store_in
+                .as_ref()
+                .unwrap()
+                .as_ref()
+                .unchecked_ref(),
+        )
         .expect(&format!("Failed to add listener to event {}", name))
 }
 
@@ -190,7 +215,7 @@ pub use top_app_bar_fixed::MatTopAppBarFixed;
 pub mod dialog;
 #[cfg(feature = "dialog")]
 #[doc(hidden)]
-pub use dialog::{MatDialog};
+pub use dialog::MatDialog;
 
 #[cfg(feature = "list")]
 pub mod list;

@@ -1,7 +1,7 @@
 use crate::list::ListIndex;
+use js_sys::Object;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
-use js_sys::Object;
 
 /// The `ActionDetail` type
 ///
@@ -15,12 +15,9 @@ impl From<JsValue> for ActionDetail {
     fn from(value: JsValue) -> Self {
         let detail = value.unchecked_into::<ActionDetailJs>();
         let index = ListIndex::from(detail.index());
-        Self {
-            index,
-        }
+        Self { index }
     }
 }
-
 
 #[wasm_bindgen]
 extern "C" {
@@ -31,4 +28,3 @@ extern "C" {
     #[wasm_bindgen(method, getter)]
     pub fn index(this: &ActionDetailJs) -> JsValue;
 }
-

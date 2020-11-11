@@ -1,8 +1,8 @@
-use yew::prelude::*;
-use yew_material::{MatSnackbar, MatButton, MatIconButton, WeakComponentLink};
-use yew::services::ConsoleService;
-use crate::with_raw_code;
 use crate::components::Codeblock;
+use crate::with_raw_code;
+use yew::prelude::*;
+use yew::services::ConsoleService;
+use yew_material::{MatButton, MatIconButton, MatSnackbar, WeakComponentLink};
 
 pub struct Snackbar {
     link: ComponentLink<Self>,
@@ -35,17 +35,31 @@ impl Component for Snackbar {
 
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
         match msg {
-            Msg::OpenDefault => { self.default_link.show(); }
-            Msg::OpenLeading => { self.leading_link.show(); }
-            Msg::OpenStacked => { self.stacked_link.show(); }
-            Msg::DefaultClosed(reason) => { ConsoleService::log(&format!("default closed with reason {:?}", reason)) }
-            Msg::LeadingClosed(reason) => { ConsoleService::log(&format!("leading closed with reason {:?}", reason)) }
-            Msg::StackedClosed(reason) => { ConsoleService::log(&format!("stacked closed with reason {:?}", reason)) }
+            Msg::OpenDefault => {
+                self.default_link.show();
+            }
+            Msg::OpenLeading => {
+                self.leading_link.show();
+            }
+            Msg::OpenStacked => {
+                self.stacked_link.show();
+            }
+            Msg::DefaultClosed(reason) => {
+                ConsoleService::log(&format!("default closed with reason {:?}", reason))
+            }
+            Msg::LeadingClosed(reason) => {
+                ConsoleService::log(&format!("leading closed with reason {:?}", reason))
+            }
+            Msg::StackedClosed(reason) => {
+                ConsoleService::log(&format!("stacked closed with reason {:?}", reason))
+            }
         }
         false
     }
 
-    fn change(&mut self, _props: Self::Properties) -> bool { false }
+    fn change(&mut self, _props: Self::Properties) -> bool {
+        false
+    }
 
     fn view(&self) -> Html {
         let default = with_raw_code!(default { html! {

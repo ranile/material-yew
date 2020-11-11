@@ -1,10 +1,13 @@
-use wasm_bindgen::prelude::*;
-use yew::prelude::*;
-use web_sys::{Node, CustomEvent};
-use crate::{add_event_listener, add_event_listener_with_one_param, to_option, to_option_string, NativeValidityState, validity_state::ValidityStateJS, ValidityTransform, ValidityState};
+pub use crate::list::{ActionDetail, ListIndex, SelectedDetail};
 use crate::utils::WeakComponentLink;
+use crate::{
+    add_event_listener, add_event_listener_with_one_param, to_option, to_option_string,
+    validity_state::ValidityStateJS, NativeValidityState, ValidityState, ValidityTransform,
+};
+use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
-pub use crate::list::{ActionDetail, SelectedDetail, ListIndex};
+use web_sys::{CustomEvent, Node};
+use yew::prelude::*;
 
 #[wasm_bindgen(module = "/../build/mwc-select.js")]
 extern "C" {
@@ -19,7 +22,10 @@ extern "C" {
     fn select(this: &Select, index: usize);
 
     #[wasm_bindgen(method, setter = validityTransform)]
-    fn set_validity_transform(this: &Select, val: &Closure<dyn Fn(String, NativeValidityState) -> ValidityStateJS>);
+    fn set_validity_transform(
+        this: &Select,
+        val: &Closure<dyn Fn(String, NativeValidityState) -> ValidityStateJS>,
+    );
 }
 
 loader_hack!(Select);
@@ -30,7 +36,8 @@ loader_hack!(Select);
 pub struct MatSelect {
     props: Props,
     node_ref: NodeRef,
-    validity_transform_closure: Option<Closure<dyn Fn(String, NativeValidityState) -> ValidityStateJS>>,
+    validity_transform_closure:
+        Option<Closure<dyn Fn(String, NativeValidityState) -> ValidityStateJS>>,
     opened_closure: Option<Closure<dyn FnMut()>>,
     closed_closure: Option<Closure<dyn FnMut()>>,
     action_closure: Option<Closure<dyn FnMut(JsValue)>>,
@@ -108,10 +115,20 @@ impl Component for MatSelect {
     fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
         props.select_link.borrow_mut().replace(link);
         Select::ensure_loaded();
-        Self { props, node_ref: NodeRef::default(), validity_transform_closure: None, opened_closure: None, closed_closure: None, action_closure: None, selected_closure: None }
+        Self {
+            props,
+            node_ref: NodeRef::default(),
+            validity_transform_closure: None,
+            opened_closure: None,
+            closed_closure: None,
+            action_closure: None,
+            selected_closure: None,
+        }
     }
 
-    fn update(&mut self, _msg: Self::Message) -> ShouldRender { false }
+    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
+        false
+    }
 
     fn change(&mut self, props: Self::Properties) -> bool {
         self.props = props;
@@ -143,47 +160,65 @@ impl Component for MatSelect {
     //noinspection DuplicatedCode
     fn rendered(&mut self, first_render: bool) {
         if first_render {
-
             let this = self.node_ref.cast::<Select>().unwrap();
             if let Some(transform) = self.props.validity_transform.clone() {
-                self.validity_transform_closure = Some(Closure::wrap(Box::new(move |s: String, v: NativeValidityState| -> ValidityStateJS {
-                    transform.0(s, v).into()
-                }) as Box<dyn Fn(String, NativeValidityState) -> ValidityStateJS>));
+                self.validity_transform_closure = Some(Closure::wrap(Box::new(
+                    move |s: String, v: NativeValidityState| -> ValidityStateJS {
+                        transform.0(s, v).into()
+                    },
+                )
+                    as Box<dyn Fn(String, NativeValidityState) -> ValidityStateJS>));
                 this.set_validity_transform(&self.validity_transform_closure.as_ref().unwrap());
             }
 
             let onopened = self.props.onopened.clone();
-            add_event_listener(&self.node_ref, "opened", move || { onopened.emit(()) }, &mut self.opened_closure);
+            add_event_listener(
+                &self.node_ref,
+                "opened",
+                move || onopened.emit(()),
+                &mut self.opened_closure,
+            );
 
             let onclosed = self.props.onclosed.clone();
-            add_event_listener(&self.node_ref, "closed", move || { onclosed.emit(()) }, &mut self.closed_closure);
+            add_event_listener(
+                &self.node_ref,
+                "closed",
+                move || onclosed.emit(()),
+                &mut self.closed_closure,
+            );
 
             let on_action = self.props.onaction.clone();
-            add_event_listener_with_one_param(&self.node_ref, "action", move |value| {
-                let event = value.unchecked_into::<CustomEvent>();
-                let details = ActionDetail::from(event.detail());
+            add_event_listener_with_one_param(
+                &self.node_ref,
+                "action",
+                move |value| {
+                    let event = value.unchecked_into::<CustomEvent>();
+                    let details = ActionDetail::from(event.detail());
 
-                on_action.emit(details)
-            }, &mut self.action_closure);
+                    on_action.emit(details)
+                },
+                &mut self.action_closure,
+            );
 
             let on_selected = self.props.onselected.clone();
-            add_event_listener_with_one_param(&self.node_ref, "selected", move |value| {
-                let event = value.unchecked_into::<web_sys::CustomEvent>();
-                on_selected.emit(SelectedDetail::from(event.detail()))
-            }, &mut self.selected_closure);
+            add_event_listener_with_one_param(
+                &self.node_ref,
+                "selected",
+                move |value| {
+                    let event = value.unchecked_into::<web_sys::CustomEvent>();
+                    on_selected.emit(SelectedDetail::from(event.detail()))
+                },
+                &mut self.selected_closure,
+            );
         }
     }
 }
 
 impl WeakComponentLink<MatSelect> {
     pub fn select(&self, val: usize) {
-            let c = (*self.borrow()
-                .as_ref()
-                .unwrap()
-                .get_component()
-                .unwrap())
-                .node_ref
-                .clone();
+        let c = (*self.borrow().as_ref().unwrap().get_component().unwrap())
+            .node_ref
+            .clone();
         let select_element = c.cast::<Select>().unwrap();
         select_element.select(val);
     }
@@ -191,7 +226,9 @@ impl WeakComponentLink<MatSelect> {
 
 impl MatSelect {
     /// Returns [`ValidityTransform`] to be passed to `validity_transform` prop
-    pub fn validity_transform<F: Fn(String, NativeValidityState) -> ValidityState + 'static>(func: F) -> ValidityTransform {
+    pub fn validity_transform<F: Fn(String, NativeValidityState) -> ValidityState + 'static>(
+        func: F,
+    ) -> ValidityTransform {
         ValidityTransform::new(func)
     }
 }

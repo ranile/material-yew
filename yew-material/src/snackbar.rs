@@ -1,9 +1,9 @@
+use crate::{add_event_listener, add_event_listener_with_one_param, to_option, WeakComponentLink};
+use js_sys::Object;
 use wasm_bindgen::prelude::*;
-use yew::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Node;
-use js_sys::Object;
-use crate::{to_option, add_event_listener, add_event_listener_with_one_param, WeakComponentLink};
+use yew::prelude::*;
 
 #[wasm_bindgen(module = "/../build/mwc-snackbar.js")]
 extern "C" {
@@ -80,14 +80,16 @@ pub struct Props {
     pub onopened: Callback<()>,
     /// Binds to `MDCSnackbar:` event
     ///
-    /// The argument passed to callback corresponds to `reason` parameter of the event
+    /// The argument passed to callback corresponds to `reason` parameter of the
+    /// event
     ///
     /// See events docs to learn more.
     #[prop_or_default]
     pub onclosing: Callback<Option<String>>,
     /// Binds to `closing` event
     ///
-    /// The argument passed to callback corresponds to `reason` parameter of the event
+    /// The argument passed to callback corresponds to `reason` parameter of the
+    /// event
     ///
     /// See events docs to learn more.
     #[prop_or_default]
@@ -110,10 +112,19 @@ impl Component for MatSnackbar {
     fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
         props.snackbar_link.borrow_mut().replace(link);
         Snackbar::ensure_loaded();
-        Self { props, node_ref: NodeRef::default(), opening_closure: None, opened_closure: None, closing_closure: None, closed_closure: None }
+        Self {
+            props,
+            node_ref: NodeRef::default(),
+            opening_closure: None,
+            opened_closure: None,
+            closing_closure: None,
+            closed_closure: None,
+        }
     }
 
-    fn update(&mut self, _msg: Self::Message) -> ShouldRender { false }
+    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
+        false
+    }
 
     fn change(&mut self, props: Self::Properties) -> bool {
         self.props = props;
@@ -139,35 +150,51 @@ impl Component for MatSnackbar {
 
         if first_render {
             let on_opening = self.props.onopening.clone();
-            add_event_listener(&self.node_ref, "MDCSnackbar:opening", move || {
-                on_opening.emit(());
-            }, &mut self.opening_closure);
+            add_event_listener(
+                &self.node_ref,
+                "MDCSnackbar:opening",
+                move || {
+                    on_opening.emit(());
+                },
+                &mut self.opening_closure,
+            );
 
             let on_opened = self.props.onopened.clone();
-            add_event_listener(&self.node_ref, "MDCSnackbar:opened", move || {
-                on_opened.emit(());
-            }, &mut self.opened_closure);
+            add_event_listener(
+                &self.node_ref,
+                "MDCSnackbar:opened",
+                move || {
+                    on_opened.emit(());
+                },
+                &mut self.opened_closure,
+            );
 
             let on_closing = self.props.onclosing.clone();
-            add_event_listener_with_one_param(&self.node_ref, "MDCSnackbar:closing", move |value| {
-                on_closing.emit(js_value_into_details_reason(value));
-            }, &mut self.closing_closure);
+            add_event_listener_with_one_param(
+                &self.node_ref,
+                "MDCSnackbar:closing",
+                move |value| {
+                    on_closing.emit(js_value_into_details_reason(value));
+                },
+                &mut self.closing_closure,
+            );
 
             let on_closed = self.props.onclosed.clone();
-            add_event_listener_with_one_param(&self.node_ref, "MDCSnackbar:closed", move |value| {
-                on_closed.emit(js_value_into_details_reason(value));
-            }, &mut self.closed_closure);
+            add_event_listener_with_one_param(
+                &self.node_ref,
+                "MDCSnackbar:closed",
+                move |value| {
+                    on_closed.emit(js_value_into_details_reason(value));
+                },
+                &mut self.closed_closure,
+            );
         }
     }
 }
 
 impl WeakComponentLink<MatSnackbar> {
     pub fn show(&self) {
-        (*self.borrow()
-            .as_ref()
-            .unwrap()
-            .get_component()
-            .unwrap())
+        (*self.borrow().as_ref().unwrap().get_component().unwrap())
             .node_ref
             .cast::<Snackbar>()
             .unwrap()
@@ -175,11 +202,7 @@ impl WeakComponentLink<MatSnackbar> {
     }
 
     pub fn close(&self, reason: &str) {
-        (*self.borrow()
-            .as_ref()
-            .unwrap()
-            .get_component()
-            .unwrap())
+        (*self.borrow().as_ref().unwrap().get_component().unwrap())
             .node_ref
             .cast::<Snackbar>()
             .unwrap()
@@ -195,5 +218,4 @@ fn js_value_into_details_reason(value: JsValue) -> Option<String> {
     } else {
         Some(details.unchecked_into::<DetailsReason>().reason())
     }
-
 }

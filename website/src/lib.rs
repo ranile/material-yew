@@ -1,23 +1,23 @@
 mod components;
 pub mod macros;
 
+use crate::components::{
+    Button, Checkbox, CircularProgress, Components, Dialog, Drawer, Fab, FormField, Home, Icon,
+    IconButton, IconButtonToggle, LinearProgress, List, Menu, Radio, Select, Slider, Snackbar,
+    Switch, Tabs, TextArea, Textfield,
+};
 use yew::prelude::*;
-use yew_router::prelude::*;
 use yew_material::{
-    MatDrawer, MatTopAppBarFixed, MatIconButton, MatButton, MatList, MatListItem,
     drawer::{MatDrawerAppContent, MatDrawerTitle},
     top_app_bar_fixed::{MatTopAppBarActionItems, MatTopAppBarNavigationIcon, MatTopAppBarTitle},
+    MatButton, MatDrawer, MatIconButton, MatList, MatListItem, MatTopAppBarFixed,
 };
-use crate::components::{
-    Home, Button, Components, Checkbox, Radio, Switch, Fab, IconButton, Icon,
-    CircularProgress, Drawer, FormField, LinearProgress, List, IconButtonToggle, Slider,
-    Tabs, Snackbar, Textfield, TextArea, Select, Menu, Dialog
-};
+use yew_router::prelude::*;
 
-use wasm_bindgen::prelude::*;
 use std::cell::RefCell;
-use syntect::parsing::SyntaxSet;
 use syntect::highlighting::Theme;
+use syntect::parsing::SyntaxSet;
+use wasm_bindgen::prelude::*;
 
 #[derive(Switch, Clone)]
 pub enum AppRoute {
@@ -94,13 +94,15 @@ thread_local!(pub static SYNTECT_DATA: RefCell<SyntectData> = RefCell::new(Synte
     syntax_set: None,
 }));
 
-
 impl Component for App {
     type Message = Msg;
     type Properties = ();
 
     fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
-        Self { link, drawer_state: false }
+        Self {
+            link,
+            drawer_state: false,
+        }
     }
 
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
@@ -119,7 +121,9 @@ impl Component for App {
             }
         }
     }
-    fn change(&mut self, _props: Self::Properties) -> bool { false }
+    fn change(&mut self, _props: Self::Properties) -> bool {
+        false
+    }
 
     fn view(&self) -> Html {
         html! { <>

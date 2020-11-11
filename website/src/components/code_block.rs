@@ -1,6 +1,6 @@
+use crate::html_to_element;
 use yew::prelude::*;
 use yew_material::MatIconButton;
-use crate::{html_to_element};
 
 pub struct Codeblock {
     link: ComponentLink<Self>,
@@ -19,7 +19,7 @@ pub struct Props {
     pub title: String,
     pub code_and_html: (String, Html),
     #[prop_or(45)]
-    pub max_width: u32
+    pub max_width: u32,
 }
 
 impl Component for Codeblock {
@@ -27,7 +27,11 @@ impl Component for Codeblock {
     type Properties = Props;
 
     fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
-        Self { link, props, showing_code: false }
+        Self {
+            link,
+            props,
+            showing_code: false,
+        }
     }
 
     fn update(&mut self, msg: Self::Message) -> ShouldRender {

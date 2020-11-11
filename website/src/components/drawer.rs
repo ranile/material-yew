@@ -10,9 +10,13 @@ impl Component for Drawer {
         Self {}
     }
 
-    fn update(&mut self, _msg: Self::Message) -> ShouldRender { false }
+    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
+        false
+    }
 
-    fn change(&mut self, _props: Self::Properties) -> bool { false }
+    fn change(&mut self, _props: Self::Properties) -> bool {
+        false
+    }
 
     fn view(&self) -> Html {
         html! {<>

@@ -1,9 +1,9 @@
+use crate::text_inputs::validity_state::ValidityStateJS;
+use crate::{to_option, to_option_string, TextFieldType, ValidityState, ValidityTransform};
 use wasm_bindgen::prelude::*;
-use yew::prelude::*;
 use web_sys::Node;
 pub use web_sys::ValidityState as NativeValidityState;
-use crate::{to_option, to_option_string, TextFieldType, ValidityState, ValidityTransform};
-use crate::text_inputs::{validity_state::ValidityStateJS};
+use yew::prelude::*;
 
 #[wasm_bindgen(module = "/../build/mwc-textarea.js")]
 extern "C" {
@@ -15,7 +15,10 @@ extern "C" {
     fn _dummy_loader() -> JsValue;
 
     #[wasm_bindgen(method, setter = validityTransform)]
-    fn set_validity_transform(this: &TextArea, val: &Closure<dyn Fn(String, NativeValidityState) -> ValidityStateJS>);
+    fn set_validity_transform(
+        this: &TextArea,
+        val: &Closure<dyn Fn(String, NativeValidityState) -> ValidityStateJS>,
+    );
 
     #[wasm_bindgen(method, setter)]
     fn set_type(this: &TextArea, val: &JsValue);
@@ -29,7 +32,8 @@ loader_hack!(TextArea);
 pub struct MatTextArea {
     props: Props,
     node_ref: NodeRef,
-    validity_transform_closure: Option<Closure<dyn Fn(String, NativeValidityState) -> ValidityStateJS>>,
+    validity_transform_closure:
+        Option<Closure<dyn Fn(String, NativeValidityState) -> ValidityStateJS>>,
 }
 
 #[derive(Clone)]
@@ -44,7 +48,8 @@ impl ToString for TextAreaCharCounter {
         match self {
             Internal => "internal",
             External => "external",
-        }.to_string()
+        }
+        .to_string()
     }
 }
 
@@ -74,7 +79,8 @@ pub struct Props {
     #[prop_or_default]
     pub disabled: bool,
     /// For boolean value `true`, `TextAreaCharCounter::External` is to be used.
-    /// Boolean value `false` results in character counter not being shown so `None` should be used
+    /// Boolean value `false` results in character counter not being shown so
+    /// `None` should be used
     #[prop_or_default]
     pub char_counter: Option<TextAreaCharCounter>,
     #[prop_or_default]
@@ -97,7 +103,7 @@ pub struct Props {
     pub max: String,
     #[prop_or_default]
     pub size: Option<i64>, // --|
-    #[prop_or_default]     //   | -- What you doing step size
+    #[prop_or_default] //   | -- What you doing step size
     pub step: Option<i64>, // --|
     #[prop_or_default]
     pub auto_validate: bool,
@@ -115,10 +121,16 @@ impl Component for MatTextArea {
 
     fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
         TextArea::ensure_loaded();
-        Self { props, node_ref: NodeRef::default(), validity_transform_closure: None }
+        Self {
+            props,
+            node_ref: NodeRef::default(),
+            validity_transform_closure: None,
+        }
     }
 
-    fn update(&mut self, _msg: Self::Message) -> ShouldRender { false }
+    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
+        false
+    }
 
     fn change(&mut self, props: Self::Properties) -> bool {
         self.props = props;
@@ -162,9 +174,12 @@ impl Component for MatTextArea {
 
             let this = self.node_ref.cast::<TextArea>().unwrap();
             if let Some(transform) = self.props.validity_transform.clone() {
-                self.validity_transform_closure = Some(Closure::wrap(Box::new(move |s: String, v: NativeValidityState| -> ValidityStateJS {
-                    transform.0(s, v).into()
-                }) as Box<dyn Fn(String, NativeValidityState) -> ValidityStateJS>));
+                self.validity_transform_closure = Some(Closure::wrap(Box::new(
+                    move |s: String, v: NativeValidityState| -> ValidityStateJS {
+                        transform.0(s, v).into()
+                    },
+                )
+                    as Box<dyn Fn(String, NativeValidityState) -> ValidityStateJS>));
                 this.set_validity_transform(&self.validity_transform_closure.as_ref().unwrap());
             }
         }
@@ -172,7 +187,9 @@ impl Component for MatTextArea {
 }
 
 impl MatTextArea {
-    pub fn validity_transform<F: Fn(String, NativeValidityState) -> ValidityState + 'static>(func: F) -> ValidityTransform {
+    pub fn validity_transform<F: Fn(String, NativeValidityState) -> ValidityState + 'static>(
+        func: F,
+    ) -> ValidityTransform {
         ValidityTransform::new(func)
     }
 }

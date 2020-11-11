@@ -1,7 +1,9 @@
+pub use crate::top_app_bar::{
+    MatTopAppBarActionItems, MatTopAppBarNavigationIcon, MatTopAppBarTitle,
+};
+use crate::{add_event_listener, to_option};
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
-use crate::{to_option, add_event_listener};
-pub use crate::top_app_bar::{MatTopAppBarTitle, MatTopAppBarNavigationIcon, MatTopAppBarActionItems};
 
 #[wasm_bindgen(module = "/../build/mwc-top-app-bar-fixed.js")]
 extern "C" {
@@ -20,7 +22,7 @@ loader_hack!(TopAppBarFixed);
 pub struct MatTopAppBarFixed {
     props: Props,
     node_ref: NodeRef,
-    closure: Option<Closure<dyn FnMut()>>
+    closure: Option<Closure<dyn FnMut()>>,
 }
 
 /// Props for [`MatTopAppBarFixed`]
@@ -51,10 +53,16 @@ impl Component for MatTopAppBarFixed {
 
     fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
         TopAppBarFixed::ensure_loaded();
-        Self { props, node_ref: NodeRef::default(), closure: None }
+        Self {
+            props,
+            node_ref: NodeRef::default(),
+            closure: None,
+        }
     }
 
-    fn update(&mut self, _msg: Self::Message) -> ShouldRender { false }
+    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
+        false
+    }
 
     fn change(&mut self, props: Self::Properties) -> bool {
         self.props = props;
@@ -75,9 +83,14 @@ impl Component for MatTopAppBarFixed {
     fn rendered(&mut self, first_render: bool) {
         if first_render {
             let callback = self.props.onnavigationiconclick.clone();
-            add_event_listener(&self.node_ref, "MDCTopAppBar:nav", move || {
-                callback.emit(());
-            }, &mut self.closure);
+            add_event_listener(
+                &self.node_ref,
+                "MDCTopAppBar:nav",
+                move || {
+                    callback.emit(());
+                },
+                &mut self.closure,
+            );
         }
     }
 }

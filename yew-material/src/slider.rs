@@ -1,8 +1,8 @@
+use crate::{add_event_listener_with_one_param, to_option};
 use wasm_bindgen::prelude::*;
-use yew::prelude::*;
-use crate::{to_option, add_event_listener_with_one_param};
 use wasm_bindgen::JsCast;
 use web_sys::CustomEvent;
+use yew::prelude::*;
 
 #[wasm_bindgen(module = "/../build/mwc-slider.js")]
 extern "C" {
@@ -48,13 +48,13 @@ pub struct Props {
     #[prop_or(false)]
     pub markers: bool,
     /// Binds to input on `mwc-slider`
-    /// Type passed to callback is `CustomEvent` because `Slider` is undocumented
-    /// See: <https://github.com/material-components/material-components-web-components/issues/1848>
+    /// Type passed to callback is `CustomEvent` because `Slider` is
+    /// undocumented See: <https://github.com/material-components/material-components-web-components/issues/1848>
     #[prop_or_default]
     pub oninput: Callback<CustomEvent>,
     /// Binds to change on `mwc-slider`
-    /// Type passed to callback is `CustomEvent` because `Slider` is undocumented
-    /// See: <https://github.com/material-components/material-components-web-components/issues/1848>
+    /// Type passed to callback is `CustomEvent` because `Slider` is
+    /// undocumented See: <https://github.com/material-components/material-components-web-components/issues/1848>
     #[prop_or_default]
     pub onchange: Callback<CustomEvent>,
 }
@@ -65,10 +65,17 @@ impl Component for MatSlider {
 
     fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
         Slider::ensure_loaded();
-        Self { props, node_ref: NodeRef::default(), input_closure: None, change_closure: None, }
+        Self {
+            props,
+            node_ref: NodeRef::default(),
+            input_closure: None,
+            change_closure: None,
+        }
     }
 
-    fn update(&mut self, _msg: Self::Message) -> ShouldRender { false }
+    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
+        false
+    }
 
     fn change(&mut self, props: Self::Properties) -> bool {
         self.props = props;
@@ -92,15 +99,20 @@ impl Component for MatSlider {
     fn rendered(&mut self, first_render: bool) {
         if first_render {
             let oninput = self.props.oninput.clone();
-            add_event_listener_with_one_param(&self.node_ref, "input", move |val| {
-                oninput.emit(val.unchecked_into::<CustomEvent>())
-            }, &mut self.input_closure);
+            add_event_listener_with_one_param(
+                &self.node_ref,
+                "input",
+                move |val| oninput.emit(val.unchecked_into::<CustomEvent>()),
+                &mut self.input_closure,
+            );
 
             let onchange = self.props.onchange.clone();
-            add_event_listener_with_one_param(&self.node_ref, "change", move |val| {
-                onchange.emit(val.unchecked_into::<CustomEvent>())
-            }, &mut self.change_closure);
+            add_event_listener_with_one_param(
+                &self.node_ref,
+                "change",
+                move |val| onchange.emit(val.unchecked_into::<CustomEvent>()),
+                &mut self.change_closure,
+            );
         }
     }
 }
-

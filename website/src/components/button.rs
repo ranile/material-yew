@@ -1,7 +1,7 @@
-use yew::prelude::*;
-use yew_material::{MatButton};
-use crate::with_raw_code;
 use crate::components::Codeblock;
+use crate::with_raw_code;
+use yew::prelude::*;
+use yew_material::MatButton;
 
 pub struct Button {}
 
@@ -13,9 +13,13 @@ impl Component for Button {
         Self {}
     }
 
-    fn update(&mut self, _msg: Self::Message) -> ShouldRender { false }
+    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
+        false
+    }
 
-    fn change(&mut self, _props: Self::Properties) -> bool { false }
+    fn change(&mut self, _props: Self::Properties) -> bool {
+        false
+    }
 
     fn view(&self) -> Html {
         let standard_button = with_raw_code!(standard_button { html! {
@@ -72,7 +76,6 @@ impl Component for Button {
             <MatButton label="Click me!" icon="code" dense=true disabled=true />
         </section>
         }});
-
 
         html! {<>
 

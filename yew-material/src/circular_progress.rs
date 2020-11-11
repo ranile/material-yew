@@ -1,6 +1,6 @@
+use crate::to_option;
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
-use crate::to_option;
 
 #[wasm_bindgen(module = "/../build/mwc-circular-progress.js")]
 extern "C" {
@@ -30,11 +30,19 @@ pub struct Props {
     pub closed: bool,
 }
 
-component!(MatCircularProgress, Props, |props: &Props| html! {
-    <mwc-circular-progress
-        indeterminate?=to_option(props.indeterminate)
-        progress=props.progress
-        density=props.density
-        closed?=to_option(props.closed)
-    ></mwc-circular-progress>
-}, CircularProgress, "circular-progress");
+component!(
+    MatCircularProgress,
+    Props,
+    |props: &Props| {
+        html! {
+            <mwc-circular-progress
+                indeterminate?=to_option(props.indeterminate)
+                progress=props.progress
+                density=props.density
+                closed?=to_option(props.closed)
+            ></mwc-circular-progress>
+        }
+    },
+    CircularProgress,
+    "circular-progress"
+);

@@ -1,6 +1,6 @@
+use crate::to_option;
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
-use crate::to_option;
 
 #[wasm_bindgen(module = "/../build/mwc-fab.js")]
 extern "C" {
@@ -34,13 +34,21 @@ pub struct Props {
     pub children: Children,
 }
 
-component!(MatFab, Props, |props: &Props| html! {
-    <mwc-fab
-        label=props.label
-        icon=props.icon
-        mini?=to_option(props.mini)
-        reducedTouchTarget?=to_option(props.reduced_touch_target)
-        extended?=to_option(props.extended)
-        showIconAtEnd?=to_option(props.show_icon_at_end)
-    >{ props.children.clone() }</mwc-fab>
-}, Fab, "fab");
+component!(
+    MatFab,
+    Props,
+    |props: &Props| {
+        html! {
+            <mwc-fab
+                label=props.label
+                icon=props.icon
+                mini?=to_option(props.mini)
+                reducedTouchTarget?=to_option(props.reduced_touch_target)
+                extended?=to_option(props.extended)
+                showIconAtEnd?=to_option(props.show_icon_at_end)
+            >{ props.children.clone() }</mwc-fab>
+        }
+    },
+    Fab,
+    "fab"
+);

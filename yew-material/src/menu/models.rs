@@ -25,7 +25,8 @@ impl ToString for Corner {
             TopEnd => "TOP_END ",
             BottomStart => "BOTTOM_START",
             BottomEnd => "BOTTOM_END",
-        }.to_string()
+        }
+        .to_string()
     }
 }
 
@@ -44,7 +45,8 @@ impl ToString for MenuCorner {
         match self {
             Start => "START",
             End => "END",
-        }.to_string()
+        }
+        .to_string()
     }
 }
 
@@ -67,6 +69,7 @@ impl ToString for DefaultFocusState {
             ListRoot => "LIST_ROOT",
             FirstItem => "FIRST_ITEM",
             LastItem => "LAST_ITEM",
-        }.to_string()
+        }
+        .to_string()
     }
 }

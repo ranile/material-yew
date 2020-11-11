@@ -1,8 +1,8 @@
-use yew::prelude::*;
-use yew_material::{MatTextArea, ValidityState};
-use yew_material::textarea::TextAreaCharCounter;
-use crate::with_raw_code;
 use crate::components::Codeblock;
+use crate::with_raw_code;
+use yew::prelude::*;
+use yew_material::textarea::TextAreaCharCounter;
+use yew_material::{MatTextArea, ValidityState};
 
 pub struct TextArea {}
 
@@ -10,17 +10,22 @@ impl Component for TextArea {
     type Message = ();
     type Properties = ();
 
-    fn create(_: Self::Properties, _: ComponentLink<Self>) -> Self { Self {} }
+    fn create(_: Self::Properties, _: ComponentLink<Self>) -> Self {
+        Self {}
+    }
 
-    fn update(&mut self, _msg: Self::Message) -> ShouldRender { false }
+    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
+        false
+    }
 
-    fn change(&mut self, _props: Self::Properties) -> bool { false }
+    fn change(&mut self, _props: Self::Properties) -> bool {
+        false
+    }
 
     fn view(&self) -> Html {
         let validity_transform = MatTextArea::validity_transform(move |_, _| {
             let mut state = ValidityState::new();
-            state.set_valid(false)
-                .set_bad_input(true);
+            state.set_valid(false).set_bad_input(true);
             state
         });
 

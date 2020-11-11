@@ -1,5 +1,5 @@
-use wasm_bindgen::prelude::*;
 use js_sys::Object;
+use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 
 #[wasm_bindgen]
@@ -39,13 +39,11 @@ extern "C" {
     pub fn set_value_missing(this: &ValidityStateJS, val: bool);
 }
 
-
 impl Default for ValidityStateJS {
     fn default() -> Self {
         Object::new().unchecked_into()
     }
 }
-
 
 pub struct ValidityState {
     bad_input: bool,

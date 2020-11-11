@@ -1,7 +1,7 @@
-use yew::prelude::*;
-use yew_material::{MatSwitch};
-use crate::with_raw_code;
 use crate::components::Codeblock;
+use crate::with_raw_code;
+use yew::prelude::*;
+use yew_material::MatSwitch;
 
 pub struct Switch {}
 
@@ -13,9 +13,13 @@ impl Component for Switch {
         Self {}
     }
 
-    fn update(&mut self, _msg: Self::Message) -> ShouldRender { false }
+    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
+        false
+    }
 
-    fn change(&mut self, _props: Self::Properties) -> bool { false }
+    fn change(&mut self, _props: Self::Properties) -> bool {
+        false
+    }
 
     fn view(&self) -> Html {
         let standard = with_raw_code!(standard { html! {

@@ -1,5 +1,5 @@
 pub mod list;
-pub use list::{MatList};
+pub use list::MatList;
 
 pub mod list_item;
 pub use list_item::MatListItem;
@@ -14,7 +14,7 @@ mod list_index;
 pub use list_index::ListIndex;
 
 mod selected_detail;
-pub use selected_detail::{SelectedDetail, IndexDiff};
+pub use selected_detail::{IndexDiff, SelectedDetail};
 
 mod action_detail;
 pub use action_detail::ActionDetail;

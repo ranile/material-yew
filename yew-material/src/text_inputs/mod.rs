@@ -1,12 +1,12 @@
 #[cfg(feature = "textfield")]
 pub mod textfield;
 #[cfg(feature = "textfield")]
-pub use textfield::{MatTextField};
+pub use textfield::MatTextField;
 
 #[cfg(any(feature = "textfield", feature = "textarea"))]
 pub mod validity_state;
 #[cfg(any(feature = "textfield", feature = "textarea"))]
-pub use validity_state::{ValidityState};
+pub use validity_state::ValidityState;
 
 #[cfg(any(feature = "textfield", feature = "textarea"))]
 pub mod text_field_type;
@@ -28,13 +28,13 @@ pub type ValidityTransformFn = dyn Fn(String, NativeValidityState) -> ValiditySt
 
 #[cfg(any(feature = "textfield", feature = "textarea"))]
 #[derive(Clone)]
-pub struct ValidityTransform(
-    pub Rc<ValidityTransformFn>
-);
+pub struct ValidityTransform(pub Rc<ValidityTransformFn>);
 
 #[cfg(any(feature = "textfield", feature = "textarea"))]
 impl ValidityTransform {
-    pub(crate) fn new<F: Fn(String, NativeValidityState) -> ValidityState + 'static>(func: F) -> ValidityTransform {
+    pub(crate) fn new<F: Fn(String, NativeValidityState) -> ValidityState + 'static>(
+        func: F,
+    ) -> ValidityTransform {
         ValidityTransform(Rc::new(func))
     }
 }

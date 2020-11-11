@@ -1,6 +1,6 @@
+use crate::to_option;
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
-use crate::to_option;
 
 #[wasm_bindgen(module = "/../build/mwc-linear-progress.js")]
 extern "C" {
@@ -30,12 +30,20 @@ pub struct Props {
     pub closed: bool,
 }
 
-component!(MatLinearProgress, Props, |props: &Props| html! {
-    <mwc-linear-progress
-        indeterminate?=to_option(props.indeterminate)
-        progress=props.progress
-        buffer=props.buffer
-        reverse?=to_option(props.reverse)
-        closed?=to_option(props.closed)
-    ></mwc-linear-progress>
-}, LinearProgress, "linear-progress");
+component!(
+    MatLinearProgress,
+    Props,
+    |props: &Props| {
+        html! {
+            <mwc-linear-progress
+                indeterminate?=to_option(props.indeterminate)
+                progress=props.progress
+                buffer=props.buffer
+                reverse?=to_option(props.reverse)
+                closed?=to_option(props.closed)
+            ></mwc-linear-progress>
+        }
+    },
+    LinearProgress,
+    "linear-progress"
+);

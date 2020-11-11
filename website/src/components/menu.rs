@@ -1,8 +1,8 @@
-use yew::prelude::*;
-use yew_material::{MatMenu, WeakComponentLink, MatButton, MatListItem};
-use crate::with_raw_code;
-use yew_material::menu::{Corner, DefaultFocusState};
 use crate::components::Codeblock;
+use crate::with_raw_code;
+use yew::prelude::*;
+use yew_material::menu::{Corner, DefaultFocusState};
+use yew_material::{MatButton, MatListItem, MatMenu, WeakComponentLink};
 
 pub struct Menu {
     link: ComponentLink<Self>,
@@ -63,7 +63,9 @@ impl Component for Menu {
         false
     }
 
-    fn change(&mut self, _props: Self::Properties) -> bool { false }
+    fn change(&mut self, _props: Self::Properties) -> bool {
+        false
+    }
 
     fn view(&self) -> Html {
         let basic_menu = with_raw_code!(basic_menu { html! {
@@ -212,7 +214,6 @@ impl Component for Menu {
             </MatMenu>
         </div>
         }});
-
 
         let default_focus_menu = with_raw_code!(default_focus_menu { html! {
         <div style="position:relative;">

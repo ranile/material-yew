@@ -20,6 +20,14 @@ pub struct Props {
     pub children: Children,
 }
 
-component!(MatIcon, Props, |props: &Props| html! {
-    <mwc-icon>{ props.children.clone() }</mwc-icon>
-}, Icon, "icon");
+component!(
+    MatIcon,
+    Props,
+    |props: &Props| {
+        html! {
+            <mwc-icon>{ props.children.clone() }</mwc-icon>
+        }
+    },
+    Icon,
+    "icon"
+);

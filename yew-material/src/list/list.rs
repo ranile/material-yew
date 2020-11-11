@@ -1,10 +1,10 @@
-use wasm_bindgen::prelude::*;
-use yew::prelude::*;
-use crate::{add_event_listener, to_option, add_event_listener_with_one_param, WeakComponentLink};
-use web_sys::Node;
-use wasm_bindgen::JsCast;
 use crate::list::list_index::ListIndex;
 use crate::list::SelectedDetail;
+use crate::{add_event_listener, add_event_listener_with_one_param, to_option, WeakComponentLink};
+use wasm_bindgen::prelude::*;
+use wasm_bindgen::JsCast;
+use web_sys::Node;
+use yew::prelude::*;
 
 #[wasm_bindgen(module = "/../build/mwc-list.js")]
 extern "C" {
@@ -86,10 +86,17 @@ impl Component for MatList {
     fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
         props.list_link.borrow_mut().replace(link);
         List::ensure_loaded();
-        Self { props, node_ref: NodeRef::default(), action_closure: None, selected_closure: None }
+        Self {
+            props,
+            node_ref: NodeRef::default(),
+            action_closure: None,
+            selected_closure: None,
+        }
     }
 
-    fn update(&mut self, _msg: Self::Message) -> ShouldRender { false }
+    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
+        false
+    }
 
     fn change(&mut self, props: Self::Properties) -> bool {
         self.props = props;
@@ -117,19 +124,29 @@ impl Component for MatList {
         if first_render {
             let list = self.node_ref.cast::<List>().unwrap();
             let onaction = self.props.onaction.clone();
-            add_event_listener(&self.node_ref, "action", move || {
-                let val: JsValue = list.index();
+            add_event_listener(
+                &self.node_ref,
+                "action",
+                move || {
+                    let val: JsValue = list.index();
 
-                let index = ListIndex::from(val);
-                onaction.emit(index);
-            }, &mut self.action_closure);
+                    let index = ListIndex::from(val);
+                    onaction.emit(index);
+                },
+                &mut self.action_closure,
+            );
 
             let onselected = self.props.onselected.clone();
-            add_event_listener_with_one_param(&self.node_ref, "selected", move |value: JsValue| {
-                let event = value.unchecked_into::<web_sys::CustomEvent>();
-                let val = SelectedDetail::from(event.detail());
-                onselected.emit(val);
-            }, &mut self.selected_closure)
+            add_event_listener_with_one_param(
+                &self.node_ref,
+                "selected",
+                move |value: JsValue| {
+                    let event = value.unchecked_into::<web_sys::CustomEvent>();
+                    let val = SelectedDetail::from(event.detail());
+                    onselected.emit(val);
+                },
+                &mut self.selected_closure,
+            )
         }
     }
 }
@@ -139,13 +156,10 @@ impl WeakComponentLink<MatList> {
     ///
     /// See [here](https://github.com/material-components/material-components-web-components/tree/master/packages/list#methods) for details
     pub fn toggle(&self, index: usize, force: bool) {
-        let list = (*self.borrow()
-            .as_ref()
-            .unwrap()
-            .get_component()
-            .unwrap())
+        let list = (*self.borrow().as_ref().unwrap().get_component().unwrap())
             .node_ref
-            .cast::<List>().unwrap();
+            .cast::<List>()
+            .unwrap();
         list.toggle(index, force)
     }
 
@@ -153,27 +167,18 @@ impl WeakComponentLink<MatList> {
     ///
     /// See [here](https://github.com/material-components/material-components-web-components/tree/master/packages/list#methods) for details
     pub fn get_focused_item_index(&self) -> usize {
-        (*self.borrow()
-            .as_ref()
-            .unwrap()
-            .get_component()
-            .unwrap())
+        (*self.borrow().as_ref().unwrap().get_component().unwrap())
             .node_ref
             .cast::<List>()
             .unwrap()
             .get_focused_item_index()
-
     }
 
     /// Binds to `focusItemAtIndex` method.
     ///
     /// See [here](https://github.com/material-components/material-components-web-components/tree/master/packages/list#methods) for details
     pub fn focus_item_at_index(&self, index: usize) {
-        (*self.borrow()
-            .as_ref()
-            .unwrap()
-            .get_component()
-            .unwrap())
+        (*self.borrow().as_ref().unwrap().get_component().unwrap())
             .node_ref
             .cast::<List>()
             .unwrap()

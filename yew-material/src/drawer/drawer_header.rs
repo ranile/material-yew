@@ -9,10 +9,11 @@ pub struct Props {
 
 /// Defines header for [`super::MatDrawer`].
 ///
-/// If the child passed is an element (a `VTag`), then it is modified to include the appropriate attributes.
-/// Otherwise, the child is wrapped in a `span` containing said attributes.
+/// If the child passed is an element (a `VTag`), then it is modified to include
+/// the appropriate attributes. Otherwise, the child is wrapped in a `span`
+/// containing said attributes.
 pub struct MatDrawerHeader {
-    props: Props
+    props: Props,
 }
 
 impl Component for MatDrawerHeader {
@@ -33,19 +34,26 @@ impl Component for MatDrawerHeader {
     }
 
     fn view(&self) -> Html {
-        let children = self.props.children.iter().map(|child| {
-            match child {
-                Html::VTag(mut vtag) => {
-                    vtag.add_attribute("slot", SLOT);
-                    Html::VTag(vtag)
+        let children = self
+            .props
+            .children
+            .iter()
+            .map(|child| {
+                match child {
+                    Html::VTag(mut vtag) => {
+                        vtag.add_attribute("slot", SLOT);
+                        Html::VTag(vtag)
+                    }
+                    _ => {
+                        html! {
+                            <span slot=SLOT>
+                                { child }
+                            </span>
+                        }
+                    }
                 }
-                _ => html! {
-                    <span slot=SLOT>
-                        { child }
-                    </span>
-                }
-            }
-        }).collect::<Html>();
+            })
+            .collect::<Html>();
 
         html! {
             { children }

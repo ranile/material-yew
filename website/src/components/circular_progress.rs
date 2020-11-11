@@ -1,7 +1,7 @@
-use yew::prelude::*;
-use yew_material::{MatCircularProgress, MatCircularProgressFourColor, MatButton};
 use crate::components::Codeblock;
 use crate::with_raw_code;
+use yew::prelude::*;
+use yew_material::{MatButton, MatCircularProgress, MatCircularProgressFourColor};
 
 pub struct CircularProgress {
     link: ComponentLink<Self>,
@@ -19,7 +19,11 @@ impl Component for CircularProgress {
     type Properties = ();
 
     fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
-        Self { closed: false, link, progress: 0.0 }
+        Self {
+            closed: false,
+            link,
+            progress: 0.0,
+        }
     }
 
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
@@ -35,10 +39,11 @@ impl Component for CircularProgress {
         true
     }
 
-    fn change(&mut self, _props: Self::Properties) -> bool { false }
+    fn change(&mut self, _props: Self::Properties) -> bool {
+        false
+    }
 
     fn view(&self) -> Html {
-
         let toggle_example = with_raw_code!(toggle_example { html! {
             <section class="demo">
                 <span onclick=self.link.callback(|_| Msg::Close)>

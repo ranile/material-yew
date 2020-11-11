@@ -1,6 +1,6 @@
+use crate::to_option;
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
-use crate::to_option;
 
 #[wasm_bindgen(module = "/../build/mwc-button.js")]
 extern "C" {
@@ -37,15 +37,23 @@ pub struct Props {
     pub trailing_icon: bool,
 }
 
-component!(MatButton, Props, |props: &Props| html! {
-    <mwc-button
-        label=props.label
-        icon?=props.icon.as_ref()
-        raised?=to_option(props.raised)
-        unelevated?=to_option(props.unelevated)
-        outlined?=to_option(props.outlined)
-        dense?=to_option(props.dense)
-        trailingIcon?=to_option(props.trailing_icon)
-        disabled=props.disabled
-    ></mwc-button>
-}, Button, "button");
+component!(
+    MatButton,
+    Props,
+    |props: &Props| {
+        html! {
+            <mwc-button
+                label=props.label
+                icon?=props.icon.as_ref()
+                raised?=to_option(props.raised)
+                unelevated?=to_option(props.unelevated)
+                outlined?=to_option(props.outlined)
+                dense?=to_option(props.dense)
+                trailingIcon?=to_option(props.trailing_icon)
+                disabled=props.disabled
+            ></mwc-button>
+        }
+    },
+    Button,
+    "button"
+);

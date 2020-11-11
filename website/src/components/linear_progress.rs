@@ -1,7 +1,7 @@
-use yew::prelude::*;
-use yew_material::{MatLinearProgress, MatButton};
-use crate::with_raw_code;
 use crate::components::Codeblock;
+use crate::with_raw_code;
+use yew::prelude::*;
+use yew_material::{MatButton, MatLinearProgress};
 
 pub struct LinearProgress {
     link: ComponentLink<Self>,
@@ -19,7 +19,11 @@ impl Component for LinearProgress {
     type Properties = ();
 
     fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
-        Self { closed: false, link, progress: 0.0 }
+        Self {
+            closed: false,
+            link,
+            progress: 0.0,
+        }
     }
 
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
@@ -34,7 +38,9 @@ impl Component for LinearProgress {
         true
     }
 
-    fn change(&mut self, _props: Self::Properties) -> bool { false }
+    fn change(&mut self, _props: Self::Properties) -> bool {
+        false
+    }
 
     fn view(&self) -> Html {
         let buffer = self.progress - 0.3;

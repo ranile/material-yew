@@ -1,8 +1,11 @@
-use yew::prelude::*;
-use yew_material::{MatDialog, WeakComponentLink, MatButton, dialog::{MatDialogAction, ActionType}};
-use crate::with_raw_code;
-use yew_material::menu::{Corner, DefaultFocusState};
 use crate::components::Codeblock;
+use crate::with_raw_code;
+use yew::prelude::*;
+use yew_material::menu::{Corner, DefaultFocusState};
+use yew_material::{
+    dialog::{ActionType, MatDialogAction},
+    MatButton, MatDialog, WeakComponentLink,
+};
 
 pub struct Dialog {
     link: ComponentLink<Self>,
@@ -41,17 +44,36 @@ impl Component for Dialog {
 
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
         match msg {
-            Msg::ShowBasicDialog => { self.basic_dialog_link.show(); false }
-            Msg::ShowActionDialog => { self.action_dialog_link.show(); false }
-            Msg::ShowScrollableDialog => { self.scrollable_dialog_link.show(); false }
-            Msg::ShowHideActionDialog => { self.hide_action_dialog_link.show(); false }
-            Msg::ShowStackedDialog => { self.stacked_dialog_link.show(); false }
-            Msg::HideActions => { self.hide_actions = !self.hide_actions; true }
+            Msg::ShowBasicDialog => {
+                self.basic_dialog_link.show();
+                false
+            }
+            Msg::ShowActionDialog => {
+                self.action_dialog_link.show();
+                false
+            }
+            Msg::ShowScrollableDialog => {
+                self.scrollable_dialog_link.show();
+                false
+            }
+            Msg::ShowHideActionDialog => {
+                self.hide_action_dialog_link.show();
+                false
+            }
+            Msg::ShowStackedDialog => {
+                self.stacked_dialog_link.show();
+                false
+            }
+            Msg::HideActions => {
+                self.hide_actions = !self.hide_actions;
+                true
+            }
         }
-
     }
 
-    fn change(&mut self, _props: Self::Properties) -> bool { false }
+    fn change(&mut self, _props: Self::Properties) -> bool {
+        false
+    }
 
     fn view(&self) -> Html {
         let basic = with_raw_code!(basic { html! {
@@ -150,13 +172,13 @@ impl Component for Dialog {
         </section>
         }});
         /*
-                let initial_focus = with_raw_code!(initial_focus { html! {
+        let initial_focus = with_raw_code!(initial_focus { html! {
 
-                }});
+        }});
 
-                let form_validation = with_raw_code!(form_validation { html! {
+        let form_validation = with_raw_code!(form_validation { html! {
 
-                }});*/
+        }});*/
 
         html! {
         <main>

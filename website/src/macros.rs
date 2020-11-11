@@ -29,8 +29,18 @@ macro_rules! with_raw_code {
 
         let html_string = crate::SYNTECT_DATA.with(|cell| {
             let data = cell.borrow();
-            let syntax = data.syntax_set.as_ref().unwrap().find_syntax_by_extension("rs").unwrap();
-            syntect::html::highlighted_html_for_string(&code, &data.syntax_set.as_ref().unwrap(), syntax, &data.theme.as_ref().unwrap())
+            let syntax = data
+                .syntax_set
+                .as_ref()
+                .unwrap()
+                .find_syntax_by_extension("rs")
+                .unwrap();
+            syntect::html::highlighted_html_for_string(
+                &code,
+                &data.syntax_set.as_ref().unwrap(),
+                syntax,
+                &data.theme.as_ref().unwrap(),
+            )
         });
 
         (html_string, $expr)

@@ -1,8 +1,8 @@
-use wasm_bindgen::prelude::*;
-use yew::prelude::*;
+use crate::list::request_selected::request_selected_listener;
 use crate::list::{GraphicType, RequestSelectedDetail};
 use crate::{to_option, to_option_string};
-use crate::list::request_selected::request_selected_listener;
+use wasm_bindgen::prelude::*;
+use yew::prelude::*;
 
 #[wasm_bindgen(module = "/../build/mwc-list-item.js")]
 extern "C" {
@@ -64,10 +64,16 @@ impl Component for MatListItem {
 
     fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
         ListItem::ensure_loaded();
-        Self { props, node_ref: NodeRef::default(), closure: None }
+        Self {
+            props,
+            node_ref: NodeRef::default(),
+            closure: None,
+        }
     }
 
-    fn update(&mut self, _msg: Self::Message) -> ShouldRender { false }
+    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
+        false
+    }
 
     fn change(&mut self, props: Self::Properties) -> bool {
         self.props = props;
@@ -95,8 +101,11 @@ impl Component for MatListItem {
 
     fn rendered(&mut self, first_render: bool) {
         if first_render {
-            request_selected_listener(&self.node_ref, self.props.on_request_selected.clone(), &mut self.closure);
+            request_selected_listener(
+                &self.node_ref,
+                self.props.on_request_selected.clone(),
+                &mut self.closure,
+            );
         }
     }
 }
-

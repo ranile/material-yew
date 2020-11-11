@@ -1,7 +1,7 @@
-use yew::prelude::*;
-use yew_material::{MatIcon};
-use crate::with_raw_code;
 use crate::components::Codeblock;
+use crate::with_raw_code;
+use yew::prelude::*;
+use yew_material::MatIcon;
 
 pub struct Icon {}
 
@@ -13,9 +13,13 @@ impl Component for Icon {
         Self {}
     }
 
-    fn update(&mut self, _msg: Self::Message) -> ShouldRender { false }
+    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
+        false
+    }
 
-    fn change(&mut self, _props: Self::Properties) -> bool { false }
+    fn change(&mut self, _props: Self::Properties) -> bool {
+        false
+    }
 
     fn view(&self) -> Html {
         let icons = with_raw_code!(icons { html! {

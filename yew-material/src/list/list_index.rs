@@ -1,5 +1,5 @@
 use std::collections::HashSet;
-use wasm_bindgen::{JsValue, JsCast};
+use wasm_bindgen::{JsCast, JsValue};
 
 /// The `MWCListIndex` type
 ///
@@ -14,11 +14,11 @@ pub enum ListIndex {
     Multi(HashSet<usize>),
 }
 
-
 impl From<JsValue> for ListIndex {
     fn from(val: JsValue) -> Self {
         if let Ok(set) = val.clone().dyn_into::<js_sys::Set>() {
-            let indices = set.values()
+            let indices = set
+                .values()
                 .into_iter()
                 .filter_map(|item| item.ok())
                 .filter_map(|value| value.as_f64())
@@ -26,10 +26,13 @@ impl From<JsValue> for ListIndex {
                 .collect();
             ListIndex::Multi(indices)
         } else if let Some(value) = val.as_f64() {
-            ListIndex::Single(if value != -1.0 { Some(value as usize) } else { None })
+            ListIndex::Single(if value != -1.0 {
+                Some(value as usize)
+            } else {
+                None
+            })
         } else {
             panic!("This should never happen")
         }
     }
 }
-

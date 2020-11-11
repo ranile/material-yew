@@ -1,7 +1,7 @@
+use crate::{add_event_listener, to_option};
 use wasm_bindgen::prelude::*;
-use yew::prelude::*;
-use crate::{to_option, add_event_listener};
 use web_sys::Node;
+use yew::prelude::*;
 
 #[wasm_bindgen(module = "/../build/mwc-radio.js")]
 extern "C" {
@@ -27,7 +27,7 @@ loader_hack!(Radio);
 pub struct MatRadio {
     props: Props,
     node_ref: NodeRef,
-    closure: Option<Closure<dyn FnMut()>>
+    closure: Option<Closure<dyn FnMut()>>,
 }
 
 /// Props for [`MatRadio`]
@@ -65,10 +65,16 @@ impl Component for MatRadio {
 
     fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
         Radio::ensure_loaded();
-        Self { props, node_ref: NodeRef::default(), closure: None }
+        Self {
+            props,
+            node_ref: NodeRef::default(),
+            closure: None,
+        }
     }
 
-    fn update(&mut self, _msg: Self::Message) -> ShouldRender {        false    }
+    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
+        false
+    }
 
     fn change(&mut self, props: Self::Properties) -> bool {
         self.props = props;
@@ -88,16 +94,20 @@ impl Component for MatRadio {
         }
     }
 
-
     fn rendered(&mut self, first_render: bool) {
         let element = self.node_ref.cast::<Radio>().unwrap();
         element.set_checked(self.props.checked);
 
         if first_render {
             let callback = self.props.onchange.clone();
-            add_event_listener(&self.node_ref, "change", move || {
-                callback.emit(element.checked());
-            }, &mut self.closure)
+            add_event_listener(
+                &self.node_ref,
+                "change",
+                move || {
+                    callback.emit(element.checked());
+                },
+                &mut self.closure,
+            )
         }
     }
 }

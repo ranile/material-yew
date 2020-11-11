@@ -1,7 +1,7 @@
+use crate::components::Codeblock;
+use crate::with_raw_code;
 use yew::prelude::*;
 use yew_material::{MatTextField, TextFieldType, ValidityState};
-use crate::with_raw_code;
-use crate::components::Codeblock;
 
 pub struct Textfield {}
 
@@ -13,15 +13,18 @@ impl Component for Textfield {
         Self {}
     }
 
-    fn update(&mut self, _msg: Self::Message) -> ShouldRender { false }
+    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
+        false
+    }
 
-    fn change(&mut self, _props: Self::Properties) -> bool { false }
+    fn change(&mut self, _props: Self::Properties) -> bool {
+        false
+    }
 
     fn view(&self) -> Html {
         let validity_transform = MatTextField::validity_transform(move |_, _| {
             let mut state = ValidityState::new();
-            state.set_valid(false)
-                .set_bad_input(true);
+            state.set_valid(false).set_bad_input(true);
             state
         });
 

@@ -1,7 +1,10 @@
-use yew::prelude::*;
-use yew_material::{MatIconButtonToggle, icon_button_toggle::{MatOnIconButtonToggle, MatOffIconButtonToggle}};
-use crate::with_raw_code;
 use crate::components::Codeblock;
+use crate::with_raw_code;
+use yew::prelude::*;
+use yew_material::{
+    icon_button_toggle::{MatOffIconButtonToggle, MatOnIconButtonToggle},
+    MatIconButtonToggle,
+};
 
 pub struct IconButtonToggle {
     link: ComponentLink<Self>,
@@ -9,7 +12,7 @@ pub struct IconButtonToggle {
 }
 
 pub enum Msg {
-    Change(bool)
+    Change(bool),
 }
 
 impl Component for IconButtonToggle {
@@ -22,12 +25,14 @@ impl Component for IconButtonToggle {
 
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
         match msg {
-            Msg::Change(state) => self.state = state
+            Msg::Change(state) => self.state = state,
         };
         true
     }
 
-    fn change(&mut self, _props: Self::Properties) -> bool { false }
+    fn change(&mut self, _props: Self::Properties) -> bool {
+        false
+    }
 
     fn view(&self) -> Html {
         let icon_button_toggle = with_raw_code!(icon_button_toggle { html! {

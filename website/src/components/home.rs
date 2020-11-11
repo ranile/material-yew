@@ -1,5 +1,5 @@
+use crate::{AppRoute, AppRouterAnchor};
 use yew::prelude::*;
-use crate::{AppRouterAnchor, AppRoute};
 
 pub struct Home {}
 
@@ -11,9 +11,13 @@ impl Component for Home {
         Self {}
     }
 
-    fn update(&mut self, _msg: Self::Message) -> ShouldRender { false }
+    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
+        false
+    }
 
-    fn change(&mut self, _props: Self::Properties) -> bool { false }
+    fn change(&mut self, _props: Self::Properties) -> bool {
+        false
+    }
 
     fn view(&self) -> Html {
         let getting_started_cargo_code = "
@@ -33,8 +37,8 @@ use yew::html;
 html! {
     <MatButton label=\"Click me!\" />
 }
-        ".trim();
-
+        "
+        .trim();
 
         html! {
             <section class="home-content">

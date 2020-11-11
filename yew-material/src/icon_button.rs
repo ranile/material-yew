@@ -27,10 +27,18 @@ pub struct Props {
     pub children: Children,
 }
 
-component!(MatIconButton, Props, |props: &Props| html! {
-    <mwc-icon-button
-        label=props.label
-        icon=props.icon
-        disabled=props.disabled
-    >{ props.children.clone() }</mwc-icon-button>
-}, IconButton, "icon-button");
+component!(
+    MatIconButton,
+    Props,
+    |props: &Props| {
+        html! {
+            <mwc-icon-button
+                label=props.label
+                icon=props.icon
+                disabled=props.disabled
+            >{ props.children.clone() }</mwc-icon-button>
+        }
+    },
+    IconButton,
+    "icon-button"
+);

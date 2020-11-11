@@ -1,8 +1,8 @@
-use yew::prelude::*;
-use yew_material::{MatSelect, MatListItem, MatButton, WeakComponentLink};
-use yew_material::list::GraphicType;
-use crate::with_raw_code;
 use crate::components::Codeblock;
+use crate::with_raw_code;
+use yew::prelude::*;
+use yew_material::list::GraphicType;
+use yew_material::{MatButton, MatListItem, MatSelect, WeakComponentLink};
 
 pub struct Select {
     link: ComponentLink<Self>,
@@ -22,7 +22,12 @@ impl Component for Select {
 
     fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
         let select_link = WeakComponentLink::default();
-        Self { link, selected_index: 0, natural_menu_width: true, select_link }
+        Self {
+            link,
+            selected_index: 0,
+            natural_menu_width: true,
+            select_link,
+        }
     }
 
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
@@ -38,7 +43,9 @@ impl Component for Select {
         }
     }
 
-    fn change(&mut self, _props: Self::Properties) -> bool { false }
+    fn change(&mut self, _props: Self::Properties) -> bool {
+        false
+    }
 
     fn view(&self) -> Html {
         let filled = with_raw_code!(filled { html! {

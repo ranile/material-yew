@@ -1,6 +1,6 @@
-use yew::prelude::*;
-use wasm_bindgen::prelude::*;
 use crate::to_option;
+use wasm_bindgen::prelude::*;
+use yew::prelude::*;
 
 #[wasm_bindgen(module = "/../build/mwc-formfield.js")]
 extern "C" {
@@ -29,12 +29,19 @@ pub struct Props {
     pub nowrap: bool,
 }
 
-component!(MatFormfield, Props, |props: &Props| html! {
-    <mwc-formfield
-        label=props.label
-        alignEnd?=to_option(props.align_end)
-        spaceBetween?=to_option(props.space_between)
-        nowrap?=to_option(props.nowrap)
-    >{ props.children.clone() }</mwc-formfield>
-}, Formfield, "formfield");
-
+component!(
+    MatFormfield,
+    Props,
+    |props: &Props| {
+        html! {
+            <mwc-formfield
+                label=props.label
+                alignEnd?=to_option(props.align_end)
+                spaceBetween?=to_option(props.space_between)
+                nowrap?=to_option(props.nowrap)
+            >{ props.children.clone() }</mwc-formfield>
+        }
+    },
+    Formfield,
+    "formfield"
+);

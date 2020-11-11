@@ -1,4 +1,5 @@
-/// Equivalent to typescript type `'avatar'|'icon'|'medium'|'large'|'control'|null`
+/// Equivalent to typescript type
+/// `'avatar'|'icon'|'medium'|'large'|'control'|null`
 ///
 /// See `GraphicType` [here](https://github.com/material-components/material-components-web-components/tree/master/packages/list#mwc-list-item-1)
 #[derive(Clone, Debug)]
@@ -21,7 +22,7 @@ impl ToString for GraphicType {
             Large => "large",
             Control => "control",
             Null => "null",
-        }.to_string()
+        }
+        .to_string()
     }
 }
-

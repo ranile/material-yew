@@ -13,7 +13,8 @@ impl ToString for ActionType {
         match self {
             ActionType::Primary => "primaryAction",
             ActionType::Secondary => "secondaryAction",
-        }.to_string()
+        }
+        .to_string()
     }
 }
 
@@ -27,10 +28,11 @@ pub struct ActionProps {
 
 /// Defines actions for [`super::MatDialog`].
 ///
-/// If the child passed is an element (a `VTag`), then it is modified to include the appropriate attributes.
-/// Otherwise, the child is wrapped in a `span` containing said attributes.
+/// If the child passed is an element (a `VTag`), then it is modified to include
+/// the appropriate attributes. Otherwise, the child is wrapped in a `span`
+/// containing said attributes.
 pub struct MatDialogAction {
-    props: ActionProps
+    props: ActionProps,
 }
 
 impl Component for MatDialogAction {
