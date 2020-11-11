@@ -5,7 +5,7 @@ pub struct Props {
     pub children: Children,
 }
 
-/// Defines `appContent` for [`MatDrawer`].
+/// Defines `appContent` for [`super::MatDrawer`].
 ///
 /// If the child passed is an element (a `VTag`), then it is modified to include the appropriate attributes.
 /// Otherwise, the child is wrapped in a `span` containing said attributes.

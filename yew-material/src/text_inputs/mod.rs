@@ -32,6 +32,7 @@ pub struct ValidityTransform(
     pub Rc<ValidityTransformFn>
 );
 
+#[cfg(any(feature = "textfield", feature = "textarea"))]
 impl ValidityTransform {
     pub(crate) fn new<F: Fn(String, NativeValidityState) -> ValidityState + 'static>(func: F) -> ValidityTransform {
         ValidityTransform(Rc::new(func))

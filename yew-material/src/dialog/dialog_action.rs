@@ -25,7 +25,7 @@ pub struct ActionProps {
     pub children: Children,
 }
 
-/// Defines actions for [`MatDialog`].
+/// Defines actions for [`super::MatDialog`].
 ///
 /// If the child passed is an element (a `VTag`), then it is modified to include the appropriate attributes.
 /// Otherwise, the child is wrapped in a `span` containing said attributes.

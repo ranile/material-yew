@@ -122,7 +122,7 @@ pub use circular_progress_four_color::MatCircularProgressFourColor;
 #[cfg(feature = "drawer")]
 pub mod drawer;
 #[cfg(feature = "drawer")]
-pub use drawer::MatDrawer;
+pub use drawer::*;
 
 #[cfg(feature = "top-app-bar")]
 pub mod top_app_bar;

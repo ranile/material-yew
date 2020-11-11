@@ -7,7 +7,7 @@ pub struct Props {
     pub children: Children,
 }
 
-/// Defines header for [`MatDrawer`].
+/// Defines header for [`super::MatDrawer`].
 ///
 /// If the child passed is an element (a `VTag`), then it is modified to include the appropriate attributes.
 /// Otherwise, the child is wrapped in a `span` containing said attributes.
