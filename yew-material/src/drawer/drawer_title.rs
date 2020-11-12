@@ -1,5 +1,5 @@
-use yew::prelude::*;
 use crate::MatDrawer;
+use yew::prelude::*;
 
 const SLOT: &str = "title";
 

@@ -1,5 +1,5 @@
-use yew::prelude::*;
 use crate::MatDialog;
+use yew::prelude::*;
 
 #[derive(Clone)]
 pub enum ActionType {

@@ -1,5 +1,5 @@
-use yew::prelude::*;
 use crate::MatIconButtonToggle;
+use yew::prelude::*;
 
 const SLOT: &str = "onIcon";
 
