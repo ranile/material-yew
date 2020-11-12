@@ -15,6 +15,24 @@ pub fn read_until_close(s: &str) -> &str {
     s
 }
 
+pub fn highlight(code: &str, extension: &str) -> String {
+    crate::SYNTECT_DATA.with(|cell| {
+        let data = cell.borrow();
+        let syntax = data
+            .syntax_set
+            .as_ref()
+            .unwrap()
+            .find_syntax_by_extension(extension)
+            .unwrap();
+        syntect::html::highlighted_html_for_string(
+            code,
+            &data.syntax_set.as_ref().unwrap(),
+            syntax,
+            &data.theme.as_ref().unwrap(),
+        )
+    })
+}
+
 #[macro_export]
 macro_rules! with_raw_code {
     ($key:ident { $expr:expr }) => {{
@@ -27,21 +45,7 @@ macro_rules! with_raw_code {
         let code = crate::macros::read_until_close(&CODE[marker_start + body_offset + 9..]);
         let code = unindent::unindent(code);
 
-        let html_string = crate::SYNTECT_DATA.with(|cell| {
-            let data = cell.borrow();
-            let syntax = data
-                .syntax_set
-                .as_ref()
-                .unwrap()
-                .find_syntax_by_extension("rs")
-                .unwrap();
-            syntect::html::highlighted_html_for_string(
-                &code,
-                &data.syntax_set.as_ref().unwrap(),
-                syntax,
-                &data.theme.as_ref().unwrap(),
-            )
-        });
+        let html_string = crate::macros::highlight(&code, "rs");
 
         (html_string, $expr)
     }};

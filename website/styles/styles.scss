@@ -15,27 +15,53 @@ body {
     overflow: hidden;
 }
 
-mwc-top-app-bar-fixed {
-    box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 5px 8px 0 rgba(0, 0, 0, .14), 0 1px 14px 0 rgba(0, 0, 0, .12);
+h2 {
+    font-size: 1.5em;
+    margin-bottom: 1em;
+    margin-top: 1.5em;
+    font-weight: 550;
 }
 
-.drawer-content {
-    padding: 1em 0;
+h3 {
+    font-size: 1.25em;
+    font-weight: 500;
+
+    margin-bottom: 1em;
+    margin-top: 1.5em;
+}
+
+pre {
+    background-color: rgba(0, 0, 0, 0.05) !important;
+    padding: 1.25rem 1.5rem;
+    border-radius: 6px;
+    line-height: 1.5em;
+
+    font-family: "JetBrains Mono", "Monospaced", monospace;
+
+    overflow-x: auto;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
+}
+
+code {
+    font-family: "JetBrains Mono", monospace;
+}
+
+.app-title {
     display: flex;
-    flex-direction: column;
-    gap: 1em;
+    align-items: center;
 
-    mwc-list {
-        padding-left: 16px
+    h1 {
+        font-size: 1em;
+        font-weight: unset;
     }
-}
 
-.drawer-title {
-    padding: 0 16px;
-}
-
-mwc-list a {
-    text-decoration: none;
+    a {
+        text-decoration: none;
+        color: white;
+    }
 }
 
 #router-outlet {
@@ -45,21 +71,18 @@ mwc-list a {
 }
 
 .home-content {
-    padding: 0 0.6em;
+    padding: 0 0.6em 2em;
     line-height: 1.5em;
 
-    h3, h4 {
-        padding: 1em 0 0.5em;
-    }
-
-    span code {
-        line-height: 2em;
-    }
-
-    ul {
-        padding: 0 2em;
+    pre {
+        margin: 1em 0;
     }
 }
+
+.drawer-title {
+    padding: 0 16px;
+}
+
 
 .components-grid {
     display: grid;
@@ -101,31 +124,25 @@ mwc-list a {
     }
 }
 
-pre {
-    background-color: rgba(0, 0, 0, 0.07);
-    padding: 0.75em 0.75em 0.75em 0.3em;
-    border-radius: 0.75em;
-    line-height: 1.8em;
 
-    overflow-x: auto;
-    white-space: pre-wrap;
-    white-space: -moz-pre-wrap;
-    white-space: -o-pre-wrap;
-    word-wrap: break-word;
+
+mwc-top-app-bar-fixed {
+    box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 5px 8px 0 rgba(0, 0, 0, .14), 0 1px 14px 0 rgba(0, 0, 0, .12);
 }
 
-code {
-    font-family: "JetBrains Mono", monospace;
-}
-
-.app-title {
+.drawer-content {
+    padding: 1em 0;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    gap: 1em;
 
-    a {
-        text-decoration: none;
-        color: white;
+    mwc-list {
+        padding-left: 16px
     }
+}
+
+mwc-list a {
+    text-decoration: none;
 }
 
 // Hacking button to make it show in top-app-bar-fixed
@@ -225,17 +242,12 @@ mwc-list-item, mwc-check-list-item, mwc-radio-list-item {
 
         .title {
             font-size: 1.4em;
+            margin: unset;
         }
 
         .right-icon {
             margin-left: auto;
         }
-    }
-
-    pre {
-        margin-bottom: 1em;
-        font-family: "JetBrains Mono", "Monospaced", monospace;
-        padding: 1em;
     }
 
     .demo {
@@ -246,10 +258,10 @@ mwc-list-item, mwc-check-list-item, mwc-radio-list-item {
 }
 
 .four-colored-progress {
-    --mdc-circular-progress-bar-color-1:#2196f3;
-    --mdc-circular-progress-bar-color-2:#e91e63;
-    --mdc-circular-progress-bar-color-3:#ffc107;
-    --mdc-circular-progress-bar-color-4:#03dac5;
+    --mdc-circular-progress-bar-color-1: #2196f3;
+    --mdc-circular-progress-bar-color-2: #e91e63;
+    --mdc-circular-progress-bar-color-3: #ffc107;
+    --mdc-circular-progress-bar-color-4: #03dac5;
 }
 
 #menu-demo {

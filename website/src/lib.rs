@@ -169,7 +169,9 @@ impl Component for App {
 
                             <MatTopAppBarTitle>
                                 <div class="app-title">
-                                    <AppRouterAnchor route=AppRoute::Home>{"Yew Material"}</AppRouterAnchor>
+                                    <AppRouterAnchor route=AppRoute::Home>
+                                        <h1>{"Yew Material"}</h1>
+                                    </AppRouterAnchor>
                                     <span class="action-item">
                                         <AppRouterAnchor route=AppRoute::Components><MatButton label="Components"/></AppRouterAnchor>
                                     </span>
