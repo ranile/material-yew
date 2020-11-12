@@ -36,7 +36,7 @@ loader_hack!(Dialog);
 ///
 /// ## Actions
 ///
-/// In order to pass actions, [`super::MatDialogAction`] component should be
+/// In order to pass actions, [`MatDialogAction`] component should be
 /// used.
 pub struct MatDialog {
     props: Props,

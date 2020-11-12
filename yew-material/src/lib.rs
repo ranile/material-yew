@@ -1,4 +1,4 @@
-//! A Material components library for [Yew](https://yew.rs). It wrpas around [Material Web Components](https://github.com/material-components/material-components-web-components) exposing Yew components
+//! A Material components library for [Yew](https://yew.rs). It wrpas around [Material Web Components](https://github.com/material-components/material-components-web-components) exposing Yew components.
 //!
 //! Example usage:
 //! ```rust
@@ -26,8 +26,10 @@ mod utils;
 // this macro is defined here so we can access it in the modules
 macro_rules! loader_hack {
     ($ty:ty) => {
+        #[allow(dead_code)]
         static LOADED: std::sync::Once = std::sync::Once::new();
         impl $ty {
+            #[allow(dead_code)]
             fn ensure_loaded() {
                 LOADED.call_once(|| {
                     <$ty>::_dummy_loader();
@@ -39,8 +41,7 @@ macro_rules! loader_hack {
 
 macro_rules! component {
     ($comp: ident, $props: ty, $html: expr, $mwc_to_initialize: ident, $mwc_name: literal) => {
-    use paste::paste;
-        paste! {
+        paste::paste! {
             #[doc = "The `mwc-" $mwc_name "` component"]
             #[doc = ""]
             #[doc = "[MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/"$mwc_name")"]

@@ -1,32 +1,39 @@
 name: Lint
 on:
-    push:
-        branches: [ master ]
+  push:
+    branches: [master]
 
 jobs:
-    lint:
-        runs-on: ubuntu-latest
-        steps:
-            -   uses: actions/checkout@v2
-            -   uses: actions-rs/toolchain@v1
-                with:
-                    toolchain: nightly
-                    profile: minimal
-                    components: rustfmt, clippy
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: nightly
+          profile: minimal
+          components: rustfmt, clippy
 
-            -   uses: actions/cache@v2
-                with:
-                    path: |
-                        ~/.cargo/registry
-                        ~/.cargo/git
-                        target
-                    key: cargo-${{ runner.os }}-${{ hashFiles('**/Cargo.toml') }}
-                    restore-keys: |
-                        cargo-${{ runner.os }}-
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: cargo-${{ runner.os }}-${{ hashFiles('**/Cargo.toml') }}
+          restore-keys: |
+            cargo-${{ runner.os }}-
 
-            -   name: Run cargo fmt
-                uses: actions-rs/cargo@v1
-                with:
-                    command: fmt
-                    toolchain: nightly
-                    args: --all -- --check
+      - name: Run cargo fmt
+        uses: actions-rs/cargo@v1
+        with:
+          command: fmt
+          toolchain: nightly
+          args: --all -- --check
+
+      - name: Run clippy
+          uses: actions-rs/cargo@v1
+          with:
+            command: clippy
+            toolchain: nightly
+            args: --all-features -- -D warnings

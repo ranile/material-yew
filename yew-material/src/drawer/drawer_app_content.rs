@@ -1,4 +1,5 @@
 use yew::prelude::*;
+use crate::MatDrawer;
 
 const SLOT: &str = "appContent";
 
@@ -7,7 +8,7 @@ pub struct Props {
     pub children: Children,
 }
 
-/// Defines `appContent` for [`super::MatDrawer`].
+/// Defines `appContent` for [`MatDrawer`].
 ///
 /// If the child passed is an element (a `VTag`), then it is modified to include
 /// the appropriate attributes. Otherwise, the child is wrapped in a `span`

@@ -1,4 +1,5 @@
 use yew::prelude::*;
+use crate::MatDrawer;
 
 const SLOT: &str = "header";
 
@@ -7,7 +8,7 @@ pub struct Props {
     pub children: Children,
 }
 
-/// Defines header for [`super::MatDrawer`].
+/// Defines header for [`MatDrawer`].
 ///
 /// If the child passed is an element (a `VTag`), then it is modified to include
 /// the appropriate attributes. Otherwise, the child is wrapped in a `span`
