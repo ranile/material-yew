@@ -1,3 +1,6 @@
+// https://github.com/rust-lang/rust-clippy/issues/6327
+#![allow(unused_imports)]
+
 //! A Material components library for [Yew](https://yew.rs). It wrpas around [Material Web Components](https://github.com/material-components/material-components-web-components) exposing Yew components.
 //!
 //! Example usage:

@@ -1,3 +1,4 @@
+#![allow(clippy::redundant_closure)]
 mod components;
 pub mod macros;
 

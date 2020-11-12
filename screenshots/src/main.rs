@@ -1,3 +1,5 @@
+#![allow(clippy::redundant_closure)]
+
 use yew::prelude::*;
 use yew_material::{
     dialog::{ActionType, MatDialogAction},

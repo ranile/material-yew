@@ -1,2 +1,0 @@
-# https://github.com/rust-lang/rust-clippy/issues/6327
-unused-imports = true
