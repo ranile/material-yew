@@ -1,12 +1,12 @@
 use yew::prelude::*;
 use yew_material::{
     dialog::{ActionType, MatDialogAction},
+    icon_button_toggle::{MatOffIconButtonToggle, MatOnIconButtonToggle},
     select::{ListIndex, SelectedDetail},
     MatButton, MatCheckbox, MatCircularProgress, MatDialog, MatFab, MatFormfield, MatIcon,
     MatIconButton, MatIconButtonToggle, MatLinearProgress, MatList, MatListItem, MatMenu, MatRadio,
     MatSelect, MatSlider, MatSnackbar, MatSwitch, MatTab, MatTabBar, MatTextArea, MatTextField,
     TextFieldType, WeakComponentLink,
-    icon_button_toggle::{MatOffIconButtonToggle, MatOnIconButtonToggle}
 };
 use yew_router::agent::RouteRequest;
 use yew_router::prelude::*;
