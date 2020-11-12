@@ -1,3 +1,6 @@
+mod dialog_action;
+pub use dialog_action::*;
+
 use crate::{add_event_listener, to_option, WeakComponentLink};
 use wasm_bindgen::prelude::*;
 use web_sys::Node;

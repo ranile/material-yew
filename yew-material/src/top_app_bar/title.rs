@@ -1,7 +1,7 @@
 use crate::{MatTopAppBar, MatTopAppBarFixed};
 use yew::prelude::*;
 
-const SLOT: &'static str = "title";
+const SLOT: &str = "title";
 
 #[derive(Properties, Clone)]
 pub struct Props {

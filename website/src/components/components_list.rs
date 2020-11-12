@@ -21,7 +21,7 @@ impl Component for Components {
 
     fn view(&self) -> Html {
         let component_card = |name: &str, route| {
-            let path = join("-", name.split(" ")).to_lowercase();
+            let path = join("-", name.split(' ')).to_lowercase();
 
             html! {
                 <AppRouterAnchor route=route>

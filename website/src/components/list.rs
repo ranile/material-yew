@@ -40,7 +40,7 @@ impl Component for List {
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
         let transform = |v| {
             match v {
-                ListIndex::Single(o) => o.map(|it| it.to_string()).unwrap_or("none".to_string()),
+                ListIndex::Single(o) => o.map(|it| it.to_string()).unwrap_or_else(|| "none".to_string()),
                 ListIndex::Multi(s) => {
                     let mut out = String::new();
                     s.iter().for_each(|it| {

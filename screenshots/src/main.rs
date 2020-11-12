@@ -1,12 +1,12 @@
 use yew::prelude::*;
 use yew_material::{
     dialog::{ActionType, MatDialogAction},
-    menu::Corner,
     select::{ListIndex, SelectedDetail},
     MatButton, MatCheckbox, MatCircularProgress, MatDialog, MatFab, MatFormfield, MatIcon,
     MatIconButton, MatIconButtonToggle, MatLinearProgress, MatList, MatListItem, MatMenu, MatRadio,
     MatSelect, MatSlider, MatSnackbar, MatSwitch, MatTab, MatTabBar, MatTextArea, MatTextField,
     TextFieldType, WeakComponentLink,
+    icon_button_toggle::{MatOffIconButtonToggle, MatOnIconButtonToggle}
 };
 use yew_router::agent::RouteRequest;
 use yew_router::prelude::*;
@@ -109,7 +109,6 @@ const COMPONENTS: [AppRoute; 20] = [
 ];
 
 type AppRouter = Router<AppRoute>;
-type AppRouterAnchor = RouterAnchor<AppRoute>;
 
 pub struct App {
     link: ComponentLink<Self>,
@@ -160,7 +159,6 @@ impl Component for App {
     }
 
     fn view(&self) -> Html {
-        use AppRoute::*;
         let on_selected = self.link.callback(|details| Msg::Select(details));
         let list_item = |comp: &AppRoute| {
             html! {

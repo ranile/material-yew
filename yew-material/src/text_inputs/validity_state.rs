@@ -166,3 +166,9 @@ impl Into<ValidityStateJS> for ValidityState {
         validity_state_js
     }
 }
+
+impl Default for ValidityState {
+    fn default() -> Self {
+        Self::new()
+    }
+}

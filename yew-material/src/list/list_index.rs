@@ -26,6 +26,7 @@ impl From<JsValue> for ListIndex {
                 .collect();
             ListIndex::Multi(indices)
         } else if let Some(value) = val.as_f64() {
+            #[allow(clippy::float_cmp)]
             ListIndex::Single(if value != -1.0 {
                 Some(value as usize)
             } else {

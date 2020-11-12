@@ -104,7 +104,7 @@ fn add_event_listener(
                 .as_ref()
                 .unchecked_ref(),
         )
-        .expect(&format!("Failed to add listener to event {}", name))
+        .unwrap_or_else(|_| panic!("Failed to add listener to event {}", name))
 }
 
 fn add_event_listener_with_one_param(
@@ -124,7 +124,7 @@ fn add_event_listener_with_one_param(
                 .as_ref()
                 .unchecked_ref(),
         )
-        .expect(&format!("Failed to add listener to event {}", name))
+        .unwrap_or_else(|_| panic!("Failed to add listener to event {}", name))
 }
 
 #[cfg(feature = "button")]

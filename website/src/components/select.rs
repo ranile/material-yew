@@ -6,7 +6,6 @@ use yew_material::{MatButton, MatListItem, MatSelect, WeakComponentLink};
 
 pub struct Select {
     link: ComponentLink<Self>,
-    selected_index: u32,
     natural_menu_width: bool,
     select_link: WeakComponentLink<MatSelect>,
 }
@@ -24,7 +23,6 @@ impl Component for Select {
         let select_link = WeakComponentLink::default();
         Self {
             link,
-            selected_index: 0,
             natural_menu_width: true,
             select_link,
         }

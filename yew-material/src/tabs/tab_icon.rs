@@ -1,7 +1,7 @@
-use super::MatTab;
+use crate::MatTab;
 use yew::prelude::*;
 
-const SLOT: &'static str = "icon";
+const SLOT: &str = "icon";
 
 #[derive(Properties, Clone)]
 pub struct Props {

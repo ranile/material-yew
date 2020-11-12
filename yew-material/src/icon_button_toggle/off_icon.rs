@@ -1,7 +1,7 @@
-use super::super::MatIconButtonToggle;
+use crate::MatIconButtonToggle;
 use yew::prelude::*;
 
-const SLOT: &'static str = "offIcon";
+const SLOT: &str = "offIcon";
 
 #[derive(Properties, Clone)]
 pub struct Props {

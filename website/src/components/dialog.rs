@@ -1,7 +1,6 @@
 use crate::components::Codeblock;
 use crate::with_raw_code;
 use yew::prelude::*;
-use yew_material::menu::{Corner, DefaultFocusState};
 use yew_material::{
     dialog::{ActionType, MatDialogAction},
     MatButton, MatDialog, WeakComponentLink,

@@ -240,5 +240,5 @@ fn html_to_element(html: &str) -> Html {
     let template: web_sys::HtmlTemplateElement = template.into();
     let html = html.trim();
     template.set_inner_html(html);
-    Html::VRef(template.content().first_child().unwrap().into())
+    Html::VRef(template.content().first_child().unwrap())
 }

@@ -1,3 +1,13 @@
+pub mod drawer_app_content;
+pub mod drawer_header;
+pub mod drawer_subtitle;
+pub mod drawer_title;
+
+pub use drawer_app_content::MatDrawerAppContent;
+pub use drawer_header::MatDrawerHeader;
+pub use drawer_subtitle::MatDrawerSubtitle;
+pub use drawer_title::MatDrawerTitle;
+
 use crate::add_event_listener;
 use wasm_bindgen::prelude::*;
 use web_sys::Node;

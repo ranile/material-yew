@@ -1,6 +1,6 @@
 use yew::prelude::*;
 
-const SLOT: &'static str = "appContent";
+const SLOT: &str = "appContent";
 
 #[derive(Properties, Clone)]
 pub struct Props {
