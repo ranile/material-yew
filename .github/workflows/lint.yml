@@ -11,8 +11,8 @@ jobs:
             -   uses: actions-rs/toolchain@v1
                 with:
                     toolchain: nightly
-                    target: wasm32-unknown-unknown
-                    override: true
+                    profile: minimal
+                    components: rustfmt, clippy
 
             -   uses: actions/cache@v2
                 with:
@@ -24,5 +24,9 @@ jobs:
                     restore-keys: |
                         cargo-${{ runner.os }}-
 
-            -   name: Run rustfmt
-                run: cargo fmt -- --check
+            -   name: Run fmt
+                uses: actions-rs/cargo@v1
+                with:
+                    command: fmt
+                    args: --all -- --check
+
