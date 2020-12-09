@@ -1,9 +1,11 @@
 use crate::text_inputs::{validity_state::ValidityStateJS, TextFieldType};
-use crate::{to_option, to_option_string, ValidityState, ValidityTransform};
+use crate::{to_option, to_option_string, ValidityState, ValidityTransform, add_event_listener, add_event_listener_with_one_param};
+use super::set_on_input_handler;
 use wasm_bindgen::prelude::*;
 use web_sys::Node;
 use web_sys::ValidityState as NativeValidityState;
 use yew::prelude::*;
+use wasm_bindgen::JsCast;
 
 #[wasm_bindgen(module = "/../build/mwc-textfield.js")]
 extern "C" {
@@ -22,6 +24,12 @@ extern "C" {
 
     #[wasm_bindgen(method, setter)]
     fn set_type(this: &TextField, val: &JsValue);
+
+    #[wasm_bindgen(method, getter)]
+    fn value(this: &TextField) -> String;
+
+    #[wasm_bindgen(method, setter)]
+    fn set_value(this: &TextField, val: &JsValue);
 }
 
 loader_hack!(TextField);
@@ -34,6 +42,7 @@ pub struct MatTextField {
     node_ref: NodeRef,
     validity_transform_closure:
         Option<Closure<dyn Fn(String, NativeValidityState) -> ValidityStateJS>>,
+    input_closure: Option<Closure<dyn FnMut(JsValue)>>,
 }
 
 /// Props for [`MatTextField`]
@@ -98,6 +107,8 @@ pub struct Props {
     #[prop_or_default]
     pub validate_on_initial_render: bool,
     #[prop_or_default]
+    pub oninput: Callback<InputData>,
+    #[prop_or_default]
     pub name: String,
 }
 
@@ -111,6 +122,7 @@ impl Component for MatTextField {
             props,
             node_ref: NodeRef::default(),
             validity_transform_closure: None,
+            input_closure: None
         }
     }
 
@@ -127,7 +139,6 @@ impl Component for MatTextField {
         html! {
             <mwc-textfield
                 open=self.props.open
-                value?=to_option_string(&self.props.value)
                 label?=to_option_string(&self.props.label)
                 placeholder?=to_option_string(&self.props.placeholder)
                 prefix?=to_option_string(&self.props.prefix)
@@ -157,8 +168,18 @@ impl Component for MatTextField {
 
     fn rendered(&mut self, first_render: bool) {
         if first_render {
+            set_on_input_handler(&self.node_ref, self.props.oninput.clone(),|value| {
+                let input_event = value.clone().dyn_into::<web_sys::InputEvent>().expect("can't convert to `InputEvent`");
+
+                InputData {
+                    value: value.unchecked_into::<MatTextFieldInputEvent>().target().value(),
+                    event: input_event
+                }
+            }, &mut self.input_closure);
+
             let element = self.node_ref.cast::<TextField>().unwrap();
             element.set_type(&JsValue::from(&self.props.field_type.to_string()));
+            element.set_value(&JsValue::from(&self.props.value));
 
             let this = self.node_ref.cast::<TextField>().unwrap();
             if let Some(transform) = self.props.validity_transform.clone() {
@@ -180,4 +201,12 @@ impl MatTextField {
     ) -> ValidityTransform {
         ValidityTransform::new(func)
     }
+}
+
+#[wasm_bindgen]
+extern "C" {
+    type MatTextFieldInputEvent;
+
+    #[wasm_bindgen(method, getter)]
+    fn target(this: &MatTextFieldInputEvent) -> TextField;
 }

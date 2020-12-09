@@ -54,7 +54,7 @@ pub struct Props {
     #[prop_or_default]
     pub open: bool,
     #[prop_or_default]
-    pub has_header: bool,
+    pub has_header: Option<bool>,
     #[prop_or_default]
     pub drawer_type: String,
     /// Binds to `opened` event on `mwc-drawer`
@@ -95,7 +95,7 @@ impl Component for MatDrawer {
 
     fn view(&self) -> Html {
         html! {
-        <mwc-drawer hasHeader=self.props.has_header ref=self.node_ref.clone()>
+        <mwc-drawer hasHeader?=self.props.has_header ref=self.node_ref.clone()>
             { self.props.children.clone() }
         </mwc-drawer>
                 }

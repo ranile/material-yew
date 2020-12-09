@@ -23,6 +23,11 @@ pub use web_sys::ValidityState as NativeValidityState;
 
 use std::rc::Rc;
 
+use yew::{NodeRef, Callback, InputData};
+use wasm_bindgen::closure::Closure;
+use crate::add_event_listener_with_one_param;
+use wasm_bindgen::{JsCast, JsValue};
+
 #[cfg(any(feature = "textfield", feature = "textarea"))]
 pub type ValidityTransformFn = dyn Fn(String, NativeValidityState) -> ValidityState;
 
@@ -37,4 +42,15 @@ impl ValidityTransform {
     ) -> ValidityTransform {
         ValidityTransform(Rc::new(func))
     }
+}
+
+fn set_on_input_handler(
+    node_ref: &NodeRef,
+    callback: Callback<InputData>,
+    convert: impl Fn(JsValue) -> InputData + 'static,
+    closure_to_store_in: &mut Option<Closure<dyn FnMut(JsValue)>>)
+{
+    add_event_listener_with_one_param(node_ref, "input", move |value| {
+        callback.emit(convert(value))
+    }, closure_to_store_in);
 }

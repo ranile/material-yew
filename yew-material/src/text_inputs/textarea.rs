@@ -1,9 +1,11 @@
 use crate::text_inputs::validity_state::ValidityStateJS;
 use crate::{to_option, to_option_string, TextFieldType, ValidityState, ValidityTransform};
+use super::set_on_input_handler;
 use wasm_bindgen::prelude::*;
 use web_sys::Node;
 pub use web_sys::ValidityState as NativeValidityState;
 use yew::prelude::*;
+use wasm_bindgen::JsCast;
 
 #[wasm_bindgen(module = "/../build/mwc-textarea.js")]
 extern "C" {
@@ -22,6 +24,12 @@ extern "C" {
 
     #[wasm_bindgen(method, setter)]
     fn set_type(this: &TextArea, val: &JsValue);
+
+    #[wasm_bindgen(method, getter)]
+    fn value(this: &TextArea) -> String;
+
+    #[wasm_bindgen(method, setter)]
+    fn set_value(this: &TextArea, val: &JsValue);
 }
 
 loader_hack!(TextArea);
@@ -34,6 +42,7 @@ pub struct MatTextArea {
     node_ref: NodeRef,
     validity_transform_closure:
         Option<Closure<dyn Fn(String, NativeValidityState) -> ValidityStateJS>>,
+    input_closure: Option<Closure<dyn FnMut(JsValue)>>,
 }
 
 #[derive(Clone)]
@@ -112,6 +121,8 @@ pub struct Props {
     #[prop_or_default]
     pub validate_on_initial_render: bool,
     #[prop_or_default]
+    pub oninput: Callback<InputData>,
+    #[prop_or_default]
     pub name: String,
 }
 
@@ -125,6 +136,7 @@ impl Component for MatTextArea {
             props,
             node_ref: NodeRef::default(),
             validity_transform_closure: None,
+            input_closure: None
         }
     }
 
@@ -142,7 +154,6 @@ impl Component for MatTextArea {
             <mwc-textarea
                 rows?=self.props.rows
                 cols?=self.props.cols
-                value?=to_option_string(&self.props.value)
                 label?=to_option_string(&self.props.label)
                 placeholder?=to_option_string(&self.props.placeholder)
                 icon?=to_option_string(&self.props.icon)
@@ -168,9 +179,19 @@ impl Component for MatTextArea {
     }
 
     fn rendered(&mut self, first_render: bool) {
+        let element = self.node_ref.cast::<TextArea>().unwrap();
+        element.set_type(&JsValue::from(&self.props.field_type.to_string()));
+        element.set_value(&JsValue::from(&self.props.value));
+
         if first_render {
-            let element = self.node_ref.cast::<TextArea>().unwrap();
-            element.set_type(&JsValue::from(&self.props.field_type.to_string()));
+            set_on_input_handler(&self.node_ref, self.props.oninput.clone(), |value| {
+                let input_event = value.clone().dyn_into::<web_sys::InputEvent>().expect("can't convert to `InputEvent`");
+
+                InputData {
+                    value: value.unchecked_into::<MatTextAreaInputEvent>().target().value(),
+                    event: input_event
+                }
+            }, &mut self.input_closure);
 
             let this = self.node_ref.cast::<TextArea>().unwrap();
             if let Some(transform) = self.props.validity_transform.clone() {
@@ -192,4 +213,12 @@ impl MatTextArea {
     ) -> ValidityTransform {
         ValidityTransform::new(func)
     }
+}
+
+#[wasm_bindgen]
+extern "C" {
+    type MatTextAreaInputEvent;
+
+    #[wasm_bindgen(method, getter)]
+    fn target(this: &MatTextAreaInputEvent) -> TextArea;
 }
