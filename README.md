@@ -20,7 +20,7 @@ Currently, this library can only be imported via git. In the future, it'll be av
 `Cargo.toml`:
 ```toml
 [dependencies]
-material-yew-components = { git = "https://github.com/hamza1311/material-yew-components/", branch = "master", features = ["full"] }
+yew-material = { git = "https://github.com/hamza1311/yew-material/", branch = "master", features = ["full"] }
 ```
 Material icons and a Material font can also be imported for full functionality.  
 `index.html`:
@@ -29,9 +29,14 @@ Material icons and a Material font can also be imported for full functionality.
 <link href="https://fonts.googleapis.com/css?family=Material+Icons&display=block" rel="stylesheet">
 ```
 
+It's also important to note that you need `viewport` `meta` tag for the Material Components to be responsive.
+```html
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+```
+
 ### Features
 
-Following are all the cargo features available:
+Following are all the cargo features available (each feature corresponds to its respective component):
 
 * `button`
 * `circular-progress`
@@ -57,6 +62,7 @@ Following are all the cargo features available:
 * `textarea`
 * `select`
 * `menu`
+
 `full` feature enables all the components
 
 ## Theming
