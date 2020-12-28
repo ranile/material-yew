@@ -38,7 +38,7 @@ impl Component for IconButtonToggle {
         let icon_button_toggle = with_raw_code!(icon_button_toggle { html! {
         <section class="demo">
             <div>
-                <MatIconButtonToggle on_icon="sentiment_very_satisfied" off_icon="sentiment_very_dissatisfied" onchange=self.link.callback(|state| Msg::Change(state)) />
+                <MatIconButtonToggle on_icon="sentiment_very_satisfied" off_icon="sentiment_very_dissatisfied" onchange=self.link.callback(Msg::Change) />
                 <br />
                 <span>{"State: "} {self.state}</span>
             </div>

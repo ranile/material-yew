@@ -68,7 +68,7 @@ impl Component for Snackbar {
                 <MatButton label="Open default snackbar" raised=true  />
              </span>
             <MatSnackbar label_text="Can't send photo. Retry in 5 seconds." snackbar_link=self.default_link.clone()
-                onclosed=self.link.callback(|reason| Msg::DefaultClosed(reason))>
+                onclosed=self.link.callback(Msg::DefaultClosed)>
                 <span slot="action">
                     <MatButton label="RETRY" />
                 </span>
@@ -86,7 +86,7 @@ impl Component for Snackbar {
                 <MatButton label="Open leading snackbar" raised=true  />
              </span>
             <MatSnackbar label_text="Can't send photo. Retry in 5 seconds." snackbar_link=self.leading_link.clone() leading=true
-                onclosed=self.link.callback(|reason| Msg::LeadingClosed(reason))>
+                onclosed=self.link.callback(Msg::LeadingClosed)>
                 <span slot="action">
                     <MatButton label="RETRY" />
                 </span>
@@ -104,7 +104,7 @@ impl Component for Snackbar {
                 <MatButton label="Open stacked snackbar" raised=true  />
              </span>
             <MatSnackbar label_text="Can't send photo. Retry in 5 seconds." snackbar_link=self.stacked_link.clone() stacked=true
-                onclosed=self.link.callback(|reason| Msg::StackedClosed(reason))>
+                onclosed=self.link.callback(Msg::StackedClosed)>
                 <span slot="action">
                     <MatButton label="RETRY" />
                 </span>

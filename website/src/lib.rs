@@ -1,4 +1,3 @@
-#![allow(clippy::redundant_closure)]
 mod components;
 pub mod macros;
 
@@ -127,6 +126,34 @@ impl Component for App {
     }
 
     fn view(&self) -> Html {
+        let is_on_mobile = is_on_mobile();
+
+        let components = if !is_on_mobile {
+            html! { <MatButton label="Components"/> }
+        } else {
+            html! {
+                <MatIconButton label="Components">
+                    <img src="/assets/components.png" alt="Components" />
+                </MatIconButton>
+            }
+        };
+
+        let docs = if !is_on_mobile {
+            html! { <MatButton label="API Docs"/> }
+        } else {
+            html! { <MatIconButton icon="description" label="API Docs" /> }
+        };
+
+        let github = if !is_on_mobile {
+            html! { <MatButton label="GitHub" /> }
+        } else {
+            html! {
+                <MatIconButton label="GitHub">
+                    <img src="/assets/github.png" alt="GitHub logo" />
+                </MatIconButton>
+            }
+        };
+
         html! { <>
         <MatDrawer open=self.drawer_state drawer_type="dismissible"
             onopened=self.link.callback(|_| Msg::Opened)
@@ -173,17 +200,23 @@ impl Component for App {
                                         <h1>{"Yew Material"}</h1>
                                     </AppRouterAnchor>
                                     <span class="action-item">
-                                        <AppRouterAnchor route=AppRoute::Components><MatButton label="Components"/></AppRouterAnchor>
+                                        <AppRouterAnchor route=AppRoute::Components>
+                                            { components }
+                                        </AppRouterAnchor>
                                     </span>
                                 </div>
                             </MatTopAppBarTitle>
 
                             <MatTopAppBarActionItems>
-                                <a class="action-item" href="https://github.com/hamza1311/material-yew-components"><MatButton label="GitHub"/></a>
+                                <a class="action-item" href="https://github.com/hamza1311/yew-material">
+                                    { github }
+                                </a>
                             </MatTopAppBarActionItems>
 
                             <MatTopAppBarActionItems>
-                                <span class="action-item"><MatButton label="API Docs"/></span>
+                                <span class="action-item">
+                                    { docs }
+                                </span>
                             </MatTopAppBarActionItems>
 
                         </MatTopAppBarFixed>
@@ -244,4 +277,12 @@ fn html_to_element(html: &str) -> Html {
     let html = html.trim();
     template.set_inner_html(html);
     Html::VRef(template.content().first_child().unwrap())
+}
+
+pub fn is_on_mobile() -> bool {
+    yew::utils::window()
+        .match_media("(max-width: 600px)")
+        .unwrap()
+        .unwrap()
+        .matches()
 }

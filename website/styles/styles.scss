@@ -121,13 +121,27 @@ code {
         h6 {
             font-size: 1.2em;
         }
+
+        &:hover {
+            background: rgba(0, 0, 0, .03);
+        }
     }
 
-    a:hover {
-        background: rgba(0, 0, 0, .03);
+
+    @media (max-width: 600px) {
+        padding: 1em;
+        grid-template-columns: 1fr;
+        gap: 2em;
+
+        a {
+            img {
+                height: 170px;
+                width: 300px;
+            }
+        }
+
     }
 }
-
 
 
 mwc-top-app-bar-fixed {
@@ -153,6 +167,10 @@ mwc-list a {
 .action-item {
     --mdc-theme-primary: white;
     margin-left: 0.5em;
+
+    mwc-icon-button {
+        color: rgba(0, 0, 0, 0.85);
+    }
 }
 
 .comp-demo {
@@ -237,7 +255,11 @@ mwc-list-item, mwc-check-list-item, mwc-radio-list-item {
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 0.3em;
     padding: 1em;
-    margin: 1em 2em 2em 0;
+    margin: 1em 0.5em 2em 0.5em;
+
+    @media (max-width: 600px) {
+        max-width: unset !important;
+    }
 
     .header {
         display: flex;

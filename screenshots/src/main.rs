@@ -1,5 +1,3 @@
-#![allow(clippy::redundant_closure)]
-
 use yew::prelude::*;
 use yew_material::{
     dialog::{ActionType, MatDialogAction},
@@ -161,7 +159,7 @@ impl Component for App {
     }
 
     fn view(&self) -> Html {
-        let on_selected = self.link.callback(|details| Msg::Select(details));
+        let on_selected = self.link.callback(Msg::Select);
         let list_item = |comp: &AppRoute| {
             html! {
                 <MatListItem value=format!("{:?}", comp)> { comp.to_string() } </MatListItem>
