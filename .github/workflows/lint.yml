@@ -22,7 +22,7 @@ jobs:
             ~/.cargo/registry
             ~/.cargo/git
             target
-          key: cargo-${{ runner.os }}-${{ hashFiles('**/Cargo.toml') }}
+          key: cargo-${{ runner.os }}-lint-${{ hashFiles('**/Cargo.toml') }}
           restore-keys: |
             cargo-${{ runner.os }}-
 

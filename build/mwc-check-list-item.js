@@ -1,4 +1,4 @@
-import{_ as e,q as t,p as s,Q as i,h as c,c as h,U as o,V as r,d as a}from"./core.js";import"./mwc-checkbox.js";class l extends i{constructor(){super(...arguments),this.left=!1,this.graphic="control"}render(){const e={"mdc-list-item__graphic":this.left,"mdc-list-item__meta":!this.left},t=this.renderText(),s=this.graphic&&"control"!==this.graphic&&!this.left?this.renderGraphic():c``,i=this.hasMeta&&this.left?this.renderMeta():c``,o=this.renderRipple();return c`
+import{_ as e,q as t,p as s,P as i,h as c,c as h,Q as o,U as r,d as a}from"./core.js";import"./mwc-checkbox.js";class l extends i{constructor(){super(...arguments),this.left=!1,this.graphic="control"}render(){const e={"mdc-list-item__graphic":this.left,"mdc-list-item__meta":!this.left},t=this.renderText(),s=this.graphic&&"control"!==this.graphic&&!this.left?this.renderGraphic():c``,i=this.hasMeta&&this.left?this.renderMeta():c``,o=this.renderRipple();return c`
       ${o}
       ${s}
       ${this.left?"":t}

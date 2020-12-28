@@ -1,1 +1,1 @@
-export{ag as Icon}from"./core.js";
+export{aj as Icon}from"./core.js";

@@ -11,7 +11,7 @@ jobs:
       - name: Install rust
         uses: actions-rs/toolchain@v1
         with:
-          toolchain: stable
+          toolchain: stable, nightly
           target: wasm32-unknown-unknown
           override: true
 
@@ -21,7 +21,7 @@ jobs:
             ~/.cargo/registry
             ~/.cargo/git
             target
-          key: cargo-${{ runner.os }}-${{ hashFiles('**/Cargo.toml') }}
+          key: cargo-${{ runner.os }}-deploy-${{ hashFiles('**/Cargo.toml') }}
           restore-keys: |
             cargo-${{ runner.os }}-
 
