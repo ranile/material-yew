@@ -8,10 +8,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Install rust
+      - name: Install rust stable
         uses: actions-rs/toolchain@v1
         with:
-          toolchain: stable, nightly
+          toolchain: stable
           target: wasm32-unknown-unknown
           override: true
 
@@ -37,6 +37,13 @@ jobs:
         run: |
           cd website
           trunk build --release
+
+      - name: Install rust (nightly)
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: nightly
+          target: wasm32-unknown-unknown
+          override: true
 
       - name: Build docs
         uses: actions-rs/cargo@v1
