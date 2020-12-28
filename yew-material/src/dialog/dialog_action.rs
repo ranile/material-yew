@@ -1,4 +1,3 @@
-use crate::MatDialog;
 use yew::prelude::*;
 
 #[derive(Clone)]
@@ -27,7 +26,7 @@ pub struct ActionProps {
     pub children: Children,
 }
 
-/// Defines actions for [`MatDialog`].
+/// Defines actions for [`MatDialog`][crate::MatDialog].
 ///
 /// If the child passed is an element (a `VTag`), then it is modified to include
 /// the appropriate attributes. Otherwise, the child is wrapped in a `span`

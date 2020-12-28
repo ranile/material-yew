@@ -71,7 +71,7 @@ These components respect the theming applied to Material Web Components using st
 
 ## Documentation
 
-Full API documentation can be found [here](). Demos of components can be found [here](https://yew-material.web.app/).
+Full API documentation can be found [here](https://yew-material.web.app/docs/yew_material). Demos of components can be found [here](https://yew-material.web.app/).
 
 ## Contributing
 

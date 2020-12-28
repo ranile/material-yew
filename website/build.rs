@@ -7,15 +7,14 @@ use pulldown_cmark::Parser;
 use pulldown_cmark::Tag;
 use pulldown_cmark::{html, CodeBlockKind, CowStr};
 
-
 fn main() {
     println!("cargo:rerun-if-changed=../README.md");
 
     let markdown_input = include_str!("../README.md");
     let markdown_input = markdown_input.replace("# Yew Material", "");
 
-    // Set up options and parser. Strikethroughs are not part of the CommonMark standard
-    // and we therefore must enable it explicitly.
+    // Set up options and parser. Strikethroughs are not part of the CommonMark
+    // standard and we therefore must enable it explicitly.
     let mut options = Options::empty();
     options.insert(Options::ENABLE_STRIKETHROUGH);
     let parser = Parser::new_ext(&markdown_input, options);
@@ -33,8 +32,9 @@ fn main() {
                     let block_lang = block_lang.to_string();
                     lang = if block_lang == *"rust" {
                         "rs".to_string()
-                    } else { block_lang }
-
+                    } else {
+                        block_lang
+                    }
                 };
                 // In actual use you'd probably want to keep track of what language this code is
                 in_code_block = true;
@@ -45,11 +45,16 @@ fn main() {
                     let ext = lang.trim();
                     let syntax_set = match ext {
                         "html" => SyntaxSet::load_defaults_newlines(),
-                        "rs" | "toml" => syntect::dumps::from_binary(include_bytes!("syntect-dumps/syntax-set.syntax")),
-                        _ => panic!("language other than html, toml, rust, used")
+                        "rs" | "toml" => {
+                            syntect::dumps::from_binary(include_bytes!(
+                                "syntect-dumps/syntax-set.syntax"
+                            ))
+                        }
+                        _ => panic!("language other than html, toml, rust, used"),
                     };
 
-                    let syntax = syntax_set.find_syntax_by_extension(ext)
+                    let syntax = syntax_set
+                        .find_syntax_by_extension(ext)
                         .unwrap_or_else(|| panic!("{}", ext));
                     let theme = syntect::dumps::from_binary(include_bytes!(
                         "syntect-dumps/Material-Theme-Lighter.theme"
@@ -85,4 +90,3 @@ fn main() {
     )
     .unwrap();
 }
-

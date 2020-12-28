@@ -1,11 +1,11 @@
-use crate::text_inputs::{validity_state::ValidityStateJS, TextFieldType};
-use crate::{to_option, to_option_string, ValidityState, ValidityTransform, add_event_listener, add_event_listener_with_one_param};
 use super::set_on_input_handler;
+use crate::text_inputs::{validity_state::ValidityStateJS, TextFieldType};
+use crate::{to_option, to_option_string, ValidityState, ValidityTransform};
 use wasm_bindgen::prelude::*;
+use wasm_bindgen::JsCast;
 use web_sys::Node;
 use web_sys::ValidityState as NativeValidityState;
 use yew::prelude::*;
-use wasm_bindgen::JsCast;
 
 #[wasm_bindgen(module = "/../build/mwc-textfield.js")]
 extern "C" {
@@ -122,7 +122,7 @@ impl Component for MatTextField {
             props,
             node_ref: NodeRef::default(),
             validity_transform_closure: None,
-            input_closure: None
+            input_closure: None,
         }
     }
 
@@ -168,14 +168,25 @@ impl Component for MatTextField {
 
     fn rendered(&mut self, first_render: bool) {
         if first_render {
-            set_on_input_handler(&self.node_ref, self.props.oninput.clone(),|value| {
-                let input_event = value.clone().dyn_into::<web_sys::InputEvent>().expect("can't convert to `InputEvent`");
+            set_on_input_handler(
+                &self.node_ref,
+                self.props.oninput.clone(),
+                |value| {
+                    let input_event = value
+                        .clone()
+                        .dyn_into::<web_sys::InputEvent>()
+                        .expect("can't convert to `InputEvent`");
 
-                InputData {
-                    value: value.unchecked_into::<MatTextFieldInputEvent>().target().value(),
-                    event: input_event
-                }
-            }, &mut self.input_closure);
+                    InputData {
+                        value: value
+                            .unchecked_into::<MatTextFieldInputEvent>()
+                            .target()
+                            .value(),
+                        event: input_event,
+                    }
+                },
+                &mut self.input_closure,
+            );
 
             let element = self.node_ref.cast::<TextField>().unwrap();
             element.set_type(&JsValue::from(&self.props.field_type.to_string()));

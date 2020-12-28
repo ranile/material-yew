@@ -1,42 +1,56 @@
 name: Deploy website
 on:
-    push:
-        branches: [ master ]
+  push:
+    branches: [ master ]
 
 jobs:
-    deploy_website:
-        runs-on: ubuntu-latest
-        steps:
-            -   uses: actions/checkout@v2
-            -   uses: actions-rs/toolchain@v1
-                with:
-                    toolchain: stable
-                    target: wasm32-unknown-unknown
-                    override: true
+  deploy_website:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          target: wasm32-unknown-unknown
+          override: true
 
-            -   uses: actions/cache@v2
-                with:
-                    path: |
-                        ~/.cargo/registry
-                        ~/.cargo/git
-                        target
-                    key: cargo-${{ runner.os }}-${{ hashFiles('**/Cargo.toml') }}
-                    restore-keys: |
-                        cargo-${{ runner.os }}-
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: cargo-${{ runner.os }}-${{ hashFiles('**/Cargo.toml') }}
+          restore-keys: |
+            cargo-${{ runner.os }}-
 
-            -   name: Install trunk
-                run: |
-                    brew install trunk
-                    cargo install wasm-bindgen-cli
+      - name: Install trunk
+        run: |
+          TRUNK_VERSION=$(curl -s https://api.github.com/repos/thedodd/trunk/releases/latest | grep -oP '(?<="tag_name": ")[^"]*') && \
+          wget -qO- https://github.com/thedodd/trunk/releases/download/${TRUNK_VERSION}/trunk-x86_64-unknown-linux-gnu.tar.gz | tar -xzf- && \
+          mv trunk ~/.cargo/bin/ && \
+          wget -qO- https://github.com/rustwasm/wasm-bindgen/releases/download/0.2.69/wasm-bindgen-0.2.69-x86_64-unknown-linux-musl.tar.gz | tar -xzf- && \
+          mv wasm-bindgen-0.2.69-x86_64-unknown-linux-musl/wasm-bindgen ~/.cargo/bin/
 
-            -   name: Build website
-                run: |
-                    cd website
-                    trunk build --release
+      - name: Build website
+        run: |
+          cd website
+          trunk build --release
 
-            -   name: Deploy to Firebase Hosting
-                uses: FirebaseExtended/action-hosting-deploy@v0.3-alpha
-                with:
-                    repoToken: "${{ secrets.GITHUB_TOKEN }}"
-                    firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_YEW_MATERIAL }}"
-                    channelId: live
+      - name: Build docs
+        uses: actions-rs/cargo@v1
+        with:
+          command: doc
+          toolchain: nightly
+          args: --no-deps --target wasm32-unknown-unknown --all-features -p yew-material --release
+
+      - name: Copy docs to correct location
+        run: cp -r target/wasm32-unknown-unknown/doc/ website/dist/docs/
+
+      - name: Deploy to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0.3-alpha
+        with:
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_YEW_MATERIAL }}"
+          channelId: live

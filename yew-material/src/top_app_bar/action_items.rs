@@ -1,4 +1,3 @@
-use crate::{MatTopAppBar, MatTopAppBarFixed};
 use yew::prelude::*;
 
 const SLOT: &str = "actionItems";
@@ -8,8 +7,9 @@ pub struct Props {
     pub children: Children,
 }
 
-/// Defines header for [`MatTopAppBar`] or [`MatTopAppBarFixed`].
-/// This is re-exported by both modules.
+/// Defines header for [`MatTopAppBar`][crate::MatTopAppBar] or
+/// [`MatTopAppBarFixed`][crate::MatTopAppBarFixed]. This is re-exported by both
+/// modules.
 ///
 /// If the child passed is an element (a `VTag`), then it is modified to include
 /// the appropriate attributes. Otherwise, the child is wrapped in a `span`

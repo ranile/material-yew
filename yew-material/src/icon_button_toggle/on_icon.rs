@@ -1,4 +1,3 @@
-use crate::MatIconButtonToggle;
 use yew::prelude::*;
 
 const SLOT: &str = "onIcon";
@@ -8,7 +7,7 @@ pub struct Props {
     pub children: Children,
 }
 
-/// Defines header for [`MatIconButtonToggle`].
+/// Defines header for [`MatIconButtonToggle`][crate::MatIconButtonToggle].
 ///
 /// If the child passed is an element (a `VTag`), then it is modified to include
 /// the appropriate attributes. Otherwise, the child is wrapped in a `span`

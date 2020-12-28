@@ -1,4 +1,3 @@
-use crate::MatDrawer;
 use yew::prelude::*;
 
 const SLOT: &str = "subtitle";
@@ -8,7 +7,7 @@ pub struct Props {
     pub children: Children,
 }
 
-/// Defines sub title for [`MatDrawer`].
+/// Defines sub title for [`MatDrawer`][crate::MatDrawer].
 ///
 /// If the child passed is an element (a `VTag`), then it is modified to include
 /// the appropriate attributes. Otherwise, the child is wrapped in a `span`

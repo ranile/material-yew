@@ -1,4 +1,4 @@
-use crate::{html_to_element};
+use crate::html_to_element;
 use yew::prelude::*;
 
 pub struct Home {}
