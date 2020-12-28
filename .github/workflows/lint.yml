@@ -1,4 +1,4 @@
-name: Lint
+name: Lint & Fmt
 on:
   push:
     branches: [master]

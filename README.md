@@ -1,6 +1,6 @@
 # Yew Material
 
-Yew Material is a components library for [Yew framework](https://github.com/yewstack/yew/) which is a wrapper around [Material Web Components](https://github.com/material-components/material-components-web-components) exposing Yew components. All modern browsers are supported. There is no support for polyfills required by Internet Explorer 11.
+Yew Material is a components library for [Yew framework](https://yew.rs/) which is a wrapper around [Material Web Components](https://github.com/material-components/material-components-web-components) exposing Yew components. All modern browsers are supported. There is no support for polyfills required by Internet Explorer 11.
 
 ### Example
 
@@ -67,7 +67,7 @@ Following are all the cargo features available (each feature corresponds to its 
 
 ## Theming
 
-These components respect the theming applied to Material Web Components using stylesheets.Learn about how to theme Material Web Components
+These components respect the theming applied to Material Web Components using stylesheets. [Learn about how to theme Material Web Components.](https://github.com/material-components/material-components-web-components/blob/master/docs/theming.md)
 
 ## Documentation
 
