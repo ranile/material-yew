@@ -1,12 +1,12 @@
-pub mod drawer_app_content;
-pub mod drawer_header;
-pub mod drawer_subtitle;
-pub mod drawer_title;
+mod drawer_app_content;
+mod drawer_header;
+mod drawer_subtitle;
+mod drawer_title;
 
-pub use drawer_app_content::MatDrawerAppContent;
-pub use drawer_header::MatDrawerHeader;
-pub use drawer_subtitle::MatDrawerSubtitle;
-pub use drawer_title::MatDrawerTitle;
+pub use drawer_app_content::*;
+pub use drawer_header::*;
+pub use drawer_subtitle::*;
+pub use drawer_title::*;
 
 use crate::{add_event_listener, WeakComponentLink};
 use wasm_bindgen::prelude::*;
@@ -38,13 +38,11 @@ loader_hack!(Drawer);
 ///
 /// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/drawer)
 pub struct MatDrawer {
-    props: Props,
+    props: DrawerProps,
     node_ref: NodeRef,
     opened_closure: Option<Closure<dyn FnMut()>>,
     closed_closure: Option<Closure<dyn FnMut()>>,
 }
-
-pub enum Msg {}
 
 /// Props for [`MatDrawer`]
 ///
@@ -53,7 +51,7 @@ pub enum Msg {}
 /// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/drawer#propertiesattributes)
 /// - [Events](https://github.com/material-components/material-components-web-components/tree/master/packages/drawer#events)
 #[derive(Properties, Clone)]
-pub struct Props {
+pub struct DrawerProps {
     #[prop_or_default]
     pub open: bool,
     #[prop_or_default]
@@ -76,8 +74,8 @@ pub struct Props {
 }
 
 impl Component for MatDrawer {
-    type Message = Msg;
-    type Properties = Props;
+    type Message = ();
+    type Properties = DrawerProps;
 
     fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
         props.drawer_link.borrow_mut().replace(link);

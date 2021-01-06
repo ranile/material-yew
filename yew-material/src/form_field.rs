@@ -17,7 +17,7 @@ loader_hack!(Formfield);
 ///
 /// [MWC Documentation for properties](https://github.com/material-components/material-components-web-components/tree/master/packages/formfield#propertiesattributes)
 #[derive(Properties, Clone)]
-pub struct Props {
+pub struct FormfieldProps {
     pub children: Children,
     #[prop_or_default]
     pub label: String,
@@ -31,8 +31,8 @@ pub struct Props {
 
 component!(
     MatFormfield,
-    Props,
-    |props: &Props| {
+    FormfieldProps,
+    |props: &FormfieldProps| {
         html! {
             <mwc-formfield
                 label=props.label

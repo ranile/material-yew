@@ -1,10 +1,10 @@
-pub mod action_items;
-pub mod navigation_icon;
-pub mod title;
+mod action_items;
+mod navigation_icon;
+mod title;
 
-pub use action_items::MatTopAppBarActionItems;
-pub use navigation_icon::MatTopAppBarNavigationIcon;
-pub use title::MatTopAppBarTitle;
+pub use action_items::*;
+pub use navigation_icon::*;
+pub use title::*;
 
 use crate::{add_event_listener, to_option};
 use wasm_bindgen::prelude::*;
@@ -25,7 +25,7 @@ loader_hack!(TopAppBar);
 ///
 /// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/top-app-bar)
 pub struct MatTopAppBar {
-    props: Props,
+    props: TopAppBarProps,
     node_ref: NodeRef,
     closure: Option<Closure<dyn FnMut()>>,
 }
@@ -37,7 +37,7 @@ pub struct MatTopAppBar {
 /// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/top-app-bar#propertiesattributes)
 /// - [Events](https://github.com/material-components/material-components-web-components/tree/master/packages/top-app-bar#events)
 #[derive(Debug, Properties, Clone)]
-pub struct Props {
+pub struct TopAppBarProps {
     pub children: Children,
     #[prop_or_default]
     pub center_title: bool,
@@ -54,7 +54,7 @@ pub struct Props {
 
 impl Component for MatTopAppBar {
     type Message = ();
-    type Properties = Props;
+    type Properties = TopAppBarProps;
 
     fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
         TopAppBar::ensure_loaded();

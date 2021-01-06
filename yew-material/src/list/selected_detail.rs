@@ -12,6 +12,9 @@ pub struct SelectedDetail {
     pub diff: Option<IndexDiff>,
 }
 
+/// Type for [`SelectedDetail::diff`]
+///
+/// See `**` [here on MWC documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/list#mwc-list-2).
 #[derive(Debug)]
 pub struct IndexDiff {
     pub added: Vec<usize>,

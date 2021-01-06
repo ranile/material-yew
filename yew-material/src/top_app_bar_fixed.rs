@@ -1,3 +1,4 @@
+#[doc(inline)]
 pub use crate::top_app_bar::{
     MatTopAppBarActionItems, MatTopAppBarNavigationIcon, MatTopAppBarTitle,
 };
@@ -20,7 +21,7 @@ loader_hack!(TopAppBarFixed);
 ///
 /// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/top-app-bar-fixed)
 pub struct MatTopAppBarFixed {
-    props: Props,
+    props: TopAppBarFixedProps,
     node_ref: NodeRef,
     closure: Option<Closure<dyn FnMut()>>,
 }
@@ -32,7 +33,7 @@ pub struct MatTopAppBarFixed {
 /// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/top-app-bar-fixed#propertiesattributes)
 /// - [Events](https://github.com/material-components/material-components-web-components/tree/master/packages/top-app-bar-fixed#events)
 #[derive(Debug, Properties, Clone)]
-pub struct Props {
+pub struct TopAppBarFixedProps {
     pub children: Children,
     #[prop_or_default]
     pub center_title: bool,
@@ -49,7 +50,7 @@ pub struct Props {
 
 impl Component for MatTopAppBarFixed {
     type Message = ();
-    type Properties = Props;
+    type Properties = TopAppBarFixedProps;
 
     fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
         TopAppBarFixed::ensure_loaded();

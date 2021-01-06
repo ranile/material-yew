@@ -17,7 +17,7 @@ loader_hack!(Fab);
 ///
 /// [MWC Documentation for properties](https://github.com/material-components/material-components-web-components/tree/master/packages/fab#propertiesattributes)
 #[derive(Debug, Properties, Clone)]
-pub struct Props {
+pub struct FabProps {
     #[prop_or_default]
     pub icon: String,
     #[prop_or_default]
@@ -36,8 +36,8 @@ pub struct Props {
 
 component!(
     MatFab,
-    Props,
-    |props: &Props| {
+    FabProps,
+    |props: &FabProps| {
         html! {
             <mwc-fab
                 label=props.label

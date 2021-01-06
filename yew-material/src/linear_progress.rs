@@ -17,7 +17,7 @@ loader_hack!(LinearProgress);
 ///
 /// [MWC Documentation for properties](https://github.com/material-components/material-components-web-components/tree/master/packages/linear-progress#propertiesattributes)
 #[derive(Debug, Properties, Clone)]
-pub struct Props {
+pub struct LinearProgressProps {
     #[prop_or_default]
     pub indeterminate: bool,
     #[prop_or_default]
@@ -32,8 +32,8 @@ pub struct Props {
 
 component!(
     MatLinearProgress,
-    Props,
-    |props: &Props| {
+    LinearProgressProps,
+    |props: &LinearProgressProps| {
         html! {
             <mwc-linear-progress
                 indeterminate?=to_option(props.indeterminate)

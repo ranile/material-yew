@@ -5,6 +5,7 @@ use wasm_bindgen::JsCast;
 use web_sys::CustomEvent;
 use yew::prelude::*;
 
+/// Type for [`RequestSelectedDetail::source`]
 pub enum RequestSelectedSource {
     Interaction,
     Property,

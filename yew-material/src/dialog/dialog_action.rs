@@ -1,5 +1,6 @@
 use yew::prelude::*;
 
+/// Dialog action type.
 #[derive(Clone)]
 pub enum ActionType {
     /// Binds `to slot` of `primaryAction`
@@ -18,6 +19,7 @@ impl ToString for ActionType {
     }
 }
 
+/// Props for [`MatDialogAction`]
 #[derive(Properties, Clone)]
 pub struct ActionProps {
     pub action_type: ActionType,

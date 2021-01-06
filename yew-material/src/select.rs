@@ -1,9 +1,11 @@
+#[doc(inline)]
 pub use crate::list::{ActionDetail, ListIndex, SelectedDetail};
-use crate::utils::WeakComponentLink;
-use crate::{
-    add_event_listener, add_event_listener_with_one_param, to_option, to_option_string,
+
+use crate::text_inputs::{
     validity_state::ValidityStateJS, NativeValidityState, ValidityState, ValidityTransform,
 };
+use crate::utils::WeakComponentLink;
+use crate::{add_event_listener, add_event_listener_with_one_param, to_option, to_option_string};
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::{CustomEvent, Node};

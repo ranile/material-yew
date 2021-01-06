@@ -1,7 +1,10 @@
 use crate::components::Codeblock;
 use crate::with_raw_code;
 use yew::prelude::*;
-use yew_material::{MatTextField, TextFieldType, ValidityState};
+use yew_material::{
+    text_inputs::{TextFieldType, ValidityState},
+    MatTextField,
+};
 
 pub struct Textfield {}
 

@@ -1,22 +1,22 @@
 #[cfg(feature = "textfield")]
-pub mod textfield;
+mod textfield;
 #[cfg(feature = "textfield")]
-pub use textfield::MatTextField;
+pub use textfield::*;
 
 #[cfg(any(feature = "textfield", feature = "textarea"))]
-pub mod validity_state;
+pub(crate) mod validity_state;
 #[cfg(any(feature = "textfield", feature = "textarea"))]
 pub use validity_state::ValidityState;
 
 #[cfg(any(feature = "textfield", feature = "textarea"))]
-pub mod text_field_type;
+pub(crate) mod text_field_type;
 #[cfg(any(feature = "textfield", feature = "textarea"))]
-pub use text_field_type::TextFieldType;
+pub use text_field_type::*;
 
 #[cfg(feature = "textarea")]
-pub mod textarea;
+mod textarea;
 #[cfg(feature = "textarea")]
-pub use textarea::MatTextArea;
+pub use textarea::*;
 
 #[cfg(any(feature = "textfield", feature = "textarea"))]
 pub use web_sys::ValidityState as NativeValidityState;
@@ -29,11 +29,12 @@ use wasm_bindgen::JsValue;
 use yew::{Callback, InputData, NodeRef};
 
 #[cfg(any(feature = "textfield", feature = "textarea"))]
-pub type ValidityTransformFn = dyn Fn(String, NativeValidityState) -> ValidityState;
+pub(crate) type ValidityTransformFn = dyn Fn(String, NativeValidityState) -> ValidityState;
 
 #[cfg(any(feature = "textfield", feature = "textarea"))]
 #[derive(Clone)]
-pub struct ValidityTransform(pub Rc<ValidityTransformFn>);
+/// Owned function for validity props
+pub struct ValidityTransform(pub(crate) Rc<ValidityTransformFn>);
 
 #[cfg(any(feature = "textfield", feature = "textarea"))]
 impl ValidityTransform {

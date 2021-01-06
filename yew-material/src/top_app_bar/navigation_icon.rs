@@ -2,25 +2,25 @@ use yew::prelude::*;
 
 const SLOT: &str = "navigationIcon";
 
+/// Props for [`MatTopAppBarNavigationIcon`]
 #[derive(Properties, Clone)]
-pub struct Props {
+pub struct TopAppBarNavigationIconProps {
     pub children: Children,
 }
 
 /// Defines header for [`MatTopAppBar`][crate::MatTopAppBar] or
-/// [`MatTopAppBarFixed`][crate::MatTopAppBarFixed]. This is re-exported by both
-/// modules.
+/// [`MatTopAppBarFixed`][crate::MatTopAppBarFixed].
 ///
 /// If the child passed is an element (a `VTag`), then it is modified to include
 /// the appropriate attributes. Otherwise, the child is wrapped in a `span`
 /// containing said attributes.
 pub struct MatTopAppBarNavigationIcon {
-    props: Props,
+    props: TopAppBarNavigationIconProps,
 }
 
 impl Component for MatTopAppBarNavigationIcon {
     type Message = ();
-    type Properties = Props;
+    type Properties = TopAppBarNavigationIconProps;
 
     fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
         Self { props }

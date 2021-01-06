@@ -25,7 +25,7 @@ loader_hack!(Switch);
 ///
 /// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/switch)
 pub struct MatSwitch {
-    props: Props,
+    props: SwitchProps,
     node_ref: NodeRef,
     closure: Option<Closure<dyn FnMut()>>,
 }
@@ -37,7 +37,7 @@ pub struct MatSwitch {
 /// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/switch#propertiesattributes)
 /// - [Events](https://github.com/material-components/material-components-web-components/tree/master/packages/switch#events)
 #[derive(Debug, Properties, Clone)]
-pub struct Props {
+pub struct SwitchProps {
     #[prop_or_default]
     pub checked: bool,
     #[prop_or_default]
@@ -51,7 +51,7 @@ pub struct Props {
 
 impl Component for MatSwitch {
     type Message = ();
-    type Properties = Props;
+    type Properties = SwitchProps;
 
     fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
         Switch::ensure_loaded();

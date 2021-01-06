@@ -19,7 +19,7 @@ loader_hack!(CheckListItem);
 ///
 /// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/list#checklist)
 pub struct MatCheckListItem {
-    props: Props,
+    props: CheckListItemProps,
     node_ref: NodeRef,
     closure: Option<Closure<dyn FnMut(JsValue)>>,
 }
@@ -29,7 +29,7 @@ pub struct MatCheckListItem {
 /// MWC Documentation for [properties](https://github.com/material-components/material-components-web-components/tree/master/packages/list#mwc-check-list-item)
 /// and [events](https://github.com/material-components/material-components-web-components/tree/master/packages/list#mwc-check-list-item-1)
 #[derive(Debug, Properties, Clone)]
-pub struct Props {
+pub struct CheckListItemProps {
     #[prop_or_default]
     pub left: bool,
     #[prop_or(GraphicType::Control)]
@@ -43,7 +43,7 @@ pub struct Props {
 
 impl Component for MatCheckListItem {
     type Message = ();
-    type Properties = Props;
+    type Properties = CheckListItemProps;
 
     fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
         CheckListItem::ensure_loaded();

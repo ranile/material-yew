@@ -2,8 +2,9 @@ use yew::prelude::*;
 
 const SLOT: &str = "onIcon";
 
+/// Props for [`MatOnIconButtonToggle`]
 #[derive(Properties, Clone)]
-pub struct Props {
+pub struct OnIconButtonToggleProps {
     pub children: Children,
 }
 
@@ -13,12 +14,12 @@ pub struct Props {
 /// the appropriate attributes. Otherwise, the child is wrapped in a `span`
 /// containing said attributes.
 pub struct MatOnIconButtonToggle {
-    props: Props,
+    props: OnIconButtonToggleProps,
 }
 
 impl Component for MatOnIconButtonToggle {
     type Message = ();
-    type Properties = Props;
+    type Properties = OnIconButtonToggleProps;
 
     fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
         Self { props }

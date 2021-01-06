@@ -16,7 +16,7 @@ loader_hack!(IconButton);
 ///
 /// [MWC Documentation for properties](https://github.com/material-components/material-components-web-components/tree/master/packages/icon-button#propertiesattributes)
 #[derive(Debug, Properties, Clone)]
-pub struct Props {
+pub struct IconButtonProps {
     #[prop_or_default]
     pub label: String,
     #[prop_or_default]
@@ -29,8 +29,8 @@ pub struct Props {
 
 component!(
     MatIconButton,
-    Props,
-    |props: &Props| {
+    IconButtonProps,
+    |props: &IconButtonProps| {
         html! {
             <mwc-icon-button
                 label=props.label

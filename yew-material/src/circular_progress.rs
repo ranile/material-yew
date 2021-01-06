@@ -19,7 +19,7 @@ loader_hack!(CircularProgress);
 ///
 /// [MWC Documentation for properties](https://github.com/material-components/material-components-web-components/tree/master/packages/circular-progress#propertiesattributes)
 #[derive(Debug, Properties, Clone)]
-pub struct Props {
+pub struct CircularProgressProps {
     #[prop_or_default]
     pub indeterminate: bool,
     #[prop_or_default]
@@ -32,8 +32,8 @@ pub struct Props {
 
 component!(
     MatCircularProgress,
-    Props,
-    |props: &Props| {
+    CircularProgressProps,
+    |props: &CircularProgressProps| {
         html! {
             <mwc-circular-progress
                 indeterminate?=to_option(props.indeterminate)

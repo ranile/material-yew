@@ -2,25 +2,25 @@ use yew::prelude::*;
 
 const SLOT: &str = "actionItems";
 
+/// Props for [`MatTopAppBarActionItems`]
 #[derive(Properties, Clone)]
-pub struct Props {
+pub struct TopAppBarActionItemsProps {
     pub children: Children,
 }
 
 /// Defines header for [`MatTopAppBar`][crate::MatTopAppBar] or
-/// [`MatTopAppBarFixed`][crate::MatTopAppBarFixed]. This is re-exported by both
-/// modules.
+/// [`MatTopAppBarFixed`][crate::MatTopAppBarFixed].
 ///
 /// If the child passed is an element (a `VTag`), then it is modified to include
 /// the appropriate attributes. Otherwise, the child is wrapped in a `span`
 /// containing said attributes.
 pub struct MatTopAppBarActionItems {
-    props: Props,
+    props: TopAppBarActionItemsProps,
 }
 
 impl Component for MatTopAppBarActionItems {
     type Message = ();
-    type Properties = Props;
+    type Properties = TopAppBarActionItemsProps;
 
     fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
         Self { props }

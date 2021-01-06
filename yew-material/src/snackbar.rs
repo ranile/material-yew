@@ -40,7 +40,7 @@ loader_hack!(Snackbar);
 ///
 /// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/snackbar)
 pub struct MatSnackbar {
-    props: Props,
+    props: SnackbarProps,
     node_ref: NodeRef,
     opening_closure: Option<Closure<dyn FnMut()>>,
     opened_closure: Option<Closure<dyn FnMut()>>,
@@ -55,7 +55,7 @@ pub struct MatSnackbar {
 /// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/snackbar#propertiesattributes)
 /// - [Events](https://github.com/material-components/material-components-web-components/tree/master/packages/snackbar#events)
 #[derive(Properties, Clone)]
-pub struct Props {
+pub struct SnackbarProps {
     #[prop_or_default]
     pub open: bool,
     #[prop_or(5000)]
@@ -107,7 +107,7 @@ pub struct Props {
 
 impl Component for MatSnackbar {
     type Message = ();
-    type Properties = Props;
+    type Properties = SnackbarProps;
 
     fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
         props.snackbar_link.borrow_mut().replace(link);

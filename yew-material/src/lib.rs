@@ -13,8 +13,8 @@
 //! ```
 //!
 //! All the main components from the modules are re-exported.
-//! The specialized components used for populating slots can be accessed from
-//! their respective modules.
+//! The specialized components used for populating slots and models can be
+//! accessed from their respective modules.
 //!
 //! More information can be found on the [website](https://yew-material.web.app) and in the [GitHub README](https://github.com/hamza1311/yew-material)
 
@@ -53,7 +53,7 @@ macro_rules! component {
         }
         impl yew::Component for $comp {
             type Message = ();
-            type Properties = Props;
+            type Properties = $props;
 
             fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
                 $mwc_to_initialize::ensure_loaded();
@@ -158,7 +158,7 @@ pub use circular_progress_four_color::MatCircularProgressFourColor;
 pub mod drawer;
 #[cfg(feature = "drawer")]
 #[doc(hidden)]
-pub use drawer::*;
+pub use drawer::MatDrawer;
 
 #[cfg(feature = "top-app-bar")]
 pub mod top_app_bar;
@@ -223,8 +223,9 @@ pub use dialog::MatDialog;
 #[cfg(feature = "list")]
 pub mod list;
 #[cfg(feature = "list")]
+#[doc(no_inline)]
 #[doc(hidden)]
-pub use list::*;
+pub use list::{MatCheckListItem, MatList, MatListItem, MatRadioListItem};
 
 #[cfg(feature = "icon-button-toggle")]
 pub mod icon_button_toggle;
@@ -241,6 +242,7 @@ pub use slider::MatSlider;
 #[cfg(feature = "tabs")]
 pub mod tabs;
 #[cfg(feature = "tabs")]
+#[doc(no_inline)]
 #[doc(hidden)]
 pub use tabs::{MatTab, MatTabBar};
 
@@ -250,9 +252,16 @@ pub mod snackbar;
 #[doc(hidden)]
 pub use snackbar::MatSnackbar;
 
+#[cfg(any(feature = "textfield", feature = "textarea"))]
 pub mod text_inputs;
+#[cfg(feature = "textarea")]
+#[doc(no_inline)]
 #[doc(hidden)]
-pub use text_inputs::*;
+pub use text_inputs::MatTextArea;
+#[cfg(feature = "textfield")]
+#[doc(no_inline)]
+#[doc(hidden)]
+pub use text_inputs::MatTextField;
 
 #[cfg(feature = "select")]
 pub mod select;

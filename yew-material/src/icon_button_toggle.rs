@@ -1,8 +1,8 @@
-pub mod off_icon;
-pub mod on_icon;
+mod off_icon;
+mod on_icon;
 
-pub use off_icon::MatOffIconButtonToggle;
-pub use on_icon::MatOnIconButtonToggle;
+pub use off_icon::*;
+pub use on_icon::*;
 
 use crate::{add_event_listener, to_option};
 use wasm_bindgen::prelude::*;
@@ -28,7 +28,7 @@ loader_hack!(IconButtonToggle);
 ///
 /// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/icon-button-toggle)
 pub struct MatIconButtonToggle {
-    props: Props,
+    props: IconButtonToggleProps,
     node_ref: NodeRef,
     closure: Option<Closure<dyn FnMut()>>,
 }
@@ -40,7 +40,7 @@ pub struct MatIconButtonToggle {
 /// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/icon-button-toggle#propertiesattributes)
 /// - [Events](https://github.com/material-components/material-components-web-components/tree/master/packages/icon-button-toggle#events)
 #[derive(Debug, Properties, Clone)]
-pub struct Props {
+pub struct IconButtonToggleProps {
     #[prop_or_default]
     pub on: bool,
     #[prop_or_default]
@@ -64,7 +64,7 @@ pub struct Props {
 
 impl Component for MatIconButtonToggle {
     type Message = ();
-    type Properties = Props;
+    type Properties = IconButtonToggleProps;
 
     fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
         IconButtonToggle::ensure_loaded();

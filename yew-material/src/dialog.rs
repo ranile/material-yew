@@ -39,15 +39,13 @@ loader_hack!(Dialog);
 /// In order to pass actions, [`MatDialogAction`] component should be
 /// used.
 pub struct MatDialog {
-    props: Props,
+    props: DialogProps,
     node_ref: NodeRef,
     opening_closure: Option<Closure<dyn FnMut()>>,
     opened_closure: Option<Closure<dyn FnMut()>>,
     closing_closure: Option<Closure<dyn FnMut()>>,
     closed_closure: Option<Closure<dyn FnMut()>>,
 }
-
-pub enum Msg {}
 
 /// Props for [`MatDialog`]
 ///
@@ -56,7 +54,7 @@ pub enum Msg {}
 /// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/dialog#propertiesattributes)
 /// - [Events](https://github.com/material-components/material-components-web-components/tree/master/packages/dialog#events)
 #[derive(Properties, Clone)]
-pub struct Props {
+pub struct DialogProps {
     #[prop_or_default]
     pub open: bool,
     #[prop_or_default]
@@ -109,8 +107,8 @@ pub struct Props {
 }
 
 impl Component for MatDialog {
-    type Message = Msg;
-    type Properties = Props;
+    type Message = ();
+    type Properties = DialogProps;
 
     fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
         props.dialog_link.borrow_mut().replace(link);

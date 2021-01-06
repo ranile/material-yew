@@ -19,7 +19,7 @@ loader_hack!(RadioListItem);
 ///
 /// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/list#mwc-radio-list-item)
 pub struct MatRadioListItem {
-    props: Props,
+    props: RadioListItemProps,
     node_ref: NodeRef,
     closure: Option<Closure<dyn FnMut(JsValue)>>,
 }
@@ -29,7 +29,7 @@ pub struct MatRadioListItem {
 /// MWC Documentation [properties](https://github.com/material-components/material-components-web-components/tree/master/packages/list#mwc-radio-list-item-1)
 /// and [events](https://github.com/material-components/material-components-web-components/tree/master/packages/list#mwc-radio-list-item-2)
 #[derive(Debug, Properties, Clone)]
-pub struct Props {
+pub struct RadioListItemProps {
     #[prop_or_default]
     pub left: bool,
     #[prop_or_default]
@@ -44,7 +44,7 @@ pub struct Props {
 
 impl Component for MatRadioListItem {
     type Message = ();
-    type Properties = Props;
+    type Properties = RadioListItemProps;
 
     fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
         RadioListItem::ensure_loaded();

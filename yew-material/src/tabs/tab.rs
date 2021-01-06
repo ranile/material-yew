@@ -20,7 +20,7 @@ loader_hack!(Tab);
 ///
 /// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/tab)
 pub struct MatTab {
-    props: Props,
+    props: TabProps,
     node_ref: NodeRef,
     interacted_closure: Option<Closure<dyn FnMut(JsValue)>>,
 }
@@ -30,7 +30,7 @@ pub struct MatTab {
 /// MWC Documentation [properties](https://github.com/material-components/material-components-web-components/tree/master/packages/tab#propertiesattributes)
 /// and [events](https://github.com/material-components/material-components-web-components/tree/master/packages/tab#events)
 #[derive(Debug, Properties, Clone)]
-pub struct Props {
+pub struct TabProps {
     #[prop_or_default]
     pub label: String,
     #[prop_or_default]
@@ -58,7 +58,7 @@ pub struct Props {
 
 impl Component for MatTab {
     type Message = ();
-    type Properties = Props;
+    type Properties = TabProps;
 
     fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
         Tab::ensure_loaded();

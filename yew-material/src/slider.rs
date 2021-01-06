@@ -21,7 +21,7 @@ loader_hack!(Slider);
 ///
 /// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/slider)
 pub struct MatSlider {
-    props: Props,
+    props: SliderProps,
     node_ref: NodeRef,
     input_closure: Option<Closure<dyn FnMut(JsValue)>>,
     change_closure: Option<Closure<dyn FnMut(JsValue)>>,
@@ -34,7 +34,7 @@ pub struct MatSlider {
 /// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/slider#propertiesattributes)
 /// - [Events](https://github.com/material-components/material-components-web-components/tree/master/packages/slider#events)
 #[derive(Debug, Properties, Clone)]
-pub struct Props {
+pub struct SliderProps {
     #[prop_or(0)]
     pub value: u32,
     #[prop_or(0)]
@@ -61,7 +61,7 @@ pub struct Props {
 
 impl Component for MatSlider {
     type Message = ();
-    type Properties = Props;
+    type Properties = SliderProps;
 
     fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
         Slider::ensure_loaded();

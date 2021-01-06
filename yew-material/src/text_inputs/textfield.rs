@@ -1,6 +1,8 @@
 use super::set_on_input_handler;
-use crate::text_inputs::{validity_state::ValidityStateJS, TextFieldType};
-use crate::{to_option, to_option_string, ValidityState, ValidityTransform};
+use crate::text_inputs::{
+    validity_state::ValidityStateJS, TextFieldType, ValidityState, ValidityTransform,
+};
+use crate::{to_option, to_option_string};
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Node;
@@ -38,7 +40,7 @@ loader_hack!(TextField);
 ///
 /// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/textfield)
 pub struct MatTextField {
-    props: Props,
+    props: TextFieldProps,
     node_ref: NodeRef,
     validity_transform_closure:
         Option<Closure<dyn Fn(String, NativeValidityState) -> ValidityStateJS>>,
@@ -51,7 +53,7 @@ pub struct MatTextField {
 ///
 /// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/textfield#propertiesattributes)
 #[derive(Properties, Clone)]
-pub struct Props {
+pub struct TextFieldProps {
     #[prop_or_default]
     pub open: bool,
     #[prop_or_default]
@@ -114,7 +116,7 @@ pub struct Props {
 
 impl Component for MatTextField {
     type Message = ();
-    type Properties = Props;
+    type Properties = TextFieldProps;
 
     fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
         TextField::ensure_loaded();

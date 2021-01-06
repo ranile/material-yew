@@ -45,6 +45,7 @@ impl Default for ValidityStateJS {
     }
 }
 
+/// Rust type for validity props
 pub struct ValidityState {
     bad_input: bool,
     custom_error: bool,
@@ -61,7 +62,8 @@ pub struct ValidityState {
 impl ValidityState {
     /// Creates a new `ValidityState`.
     ///
-    /// All the fields except `valid` is set to false. `valid` is set to `true`
+    /// All the fields except `valid` is set to false except `valid`, which is
+    /// set to `true`
     pub fn new() -> Self {
         Self {
             bad_input: false,
@@ -150,19 +152,19 @@ impl ValidityState {
     }
 }
 
-impl Into<ValidityStateJS> for ValidityState {
-    fn into(self) -> ValidityStateJS {
+impl From<ValidityState> for ValidityStateJS {
+    fn from(validity_state: ValidityState) -> Self {
         let validity_state_js = ValidityStateJS::default();
-        validity_state_js.set_bad_input(self.bad_input());
-        validity_state_js.set_custom_error(self.custom_error());
-        validity_state_js.set_pattern_mismatch(self.pattern_mismatch());
-        validity_state_js.set_range_overflow(self.range_overflow());
-        validity_state_js.set_range_underflow(self.range_underflow());
-        validity_state_js.set_too_long(self.too_long());
-        validity_state_js.set_too_short(self.too_short());
-        validity_state_js.set_type_mismatch(self.type_mismatch());
-        validity_state_js.set_valid(self.valid());
-        validity_state_js.set_value_missing(self.value_missing());
+        validity_state_js.set_bad_input(validity_state.bad_input());
+        validity_state_js.set_custom_error(validity_state.custom_error());
+        validity_state_js.set_pattern_mismatch(validity_state.pattern_mismatch());
+        validity_state_js.set_range_overflow(validity_state.range_overflow());
+        validity_state_js.set_range_underflow(validity_state.range_underflow());
+        validity_state_js.set_too_long(validity_state.too_long());
+        validity_state_js.set_too_short(validity_state.too_short());
+        validity_state_js.set_type_mismatch(validity_state.type_mismatch());
+        validity_state_js.set_valid(validity_state.valid());
+        validity_state_js.set_value_missing(validity_state.value_missing());
         validity_state_js
     }
 }

@@ -1,8 +1,8 @@
-pub mod tab;
-pub use tab::MatTab;
+mod tab;
+pub use tab::*;
 
-pub mod tab_bar;
-pub use tab_bar::MatTabBar;
+mod tab_bar;
+pub use tab_bar::*;
 
-pub mod tab_icon;
-pub use tab_icon::MatTabIcon;
+mod tab_icon;
+pub use tab_icon::*;

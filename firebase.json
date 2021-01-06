@@ -11,6 +11,14 @@
         "source": "**",
         "destination": "/index.html"
       }
+    ],
+    "redirects": [
+      {
+        "source": "/docs",
+        "destination": "/docs/yew_material",
+        "type": 301
+      }
     ]
+
   }
 }

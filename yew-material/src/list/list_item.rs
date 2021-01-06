@@ -19,7 +19,7 @@ loader_hack!(ListItem);
 ///
 /// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/list#mwc-list-item)
 pub struct MatListItem {
-    props: Props,
+    props: ListItemProps,
     node_ref: NodeRef,
     closure: Option<Closure<dyn FnMut(JsValue)>>,
 }
@@ -29,7 +29,7 @@ pub struct MatListItem {
 /// MWC Documentation [properties](https://github.com/material-components/material-components-web-components/tree/master/packages/list#mwc-list-item-1)
 /// and [events](https://github.com/material-components/material-components-web-components/tree/master/packages/list#mwc-list-item-2)
 #[derive(Debug, Properties, Clone)]
-pub struct Props {
+pub struct ListItemProps {
     #[prop_or_default]
     pub value: String,
     #[prop_or_default]
@@ -60,7 +60,7 @@ pub struct Props {
 
 impl Component for MatListItem {
     type Message = ();
-    type Properties = Props;
+    type Properties = ListItemProps;
 
     fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
         ListItem::ensure_loaded();

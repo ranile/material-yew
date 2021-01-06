@@ -1,6 +1,7 @@
 use super::set_on_input_handler;
 use crate::text_inputs::validity_state::ValidityStateJS;
-use crate::{to_option, to_option_string, TextFieldType, ValidityState, ValidityTransform};
+use crate::text_inputs::{TextFieldType, ValidityState, ValidityTransform};
+use crate::{to_option, to_option_string};
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Node;
@@ -38,13 +39,17 @@ loader_hack!(TextArea);
 ///
 /// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/textarea)
 pub struct MatTextArea {
-    props: Props,
+    props: TextAreaProps,
     node_ref: NodeRef,
     validity_transform_closure:
         Option<Closure<dyn Fn(String, NativeValidityState) -> ValidityStateJS>>,
     input_closure: Option<Closure<dyn FnMut(JsValue)>>,
 }
 
+/// Type for [`TextAreaProps::char_counter`].
+///
+/// Equivalent to `type TextAreaCharCounter = 'external'|'internal';` Typescript
+/// type.
 #[derive(Clone)]
 pub enum TextAreaCharCounter {
     Internal,
@@ -68,7 +73,7 @@ impl ToString for TextAreaCharCounter {
 ///
 /// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/checkbox#propertiesattributes)
 #[derive(Properties, Clone)]
-pub struct Props {
+pub struct TextAreaProps {
     #[prop_or_default]
     pub rows: Option<i64>,
     #[prop_or_default]
@@ -128,7 +133,7 @@ pub struct Props {
 
 impl Component for MatTextArea {
     type Message = ();
-    type Properties = Props;
+    type Properties = TextAreaProps;
 
     fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
         TextArea::ensure_loaded();

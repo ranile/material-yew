@@ -214,9 +214,9 @@ impl Component for App {
                             </MatTopAppBarActionItems>
 
                             <MatTopAppBarActionItems>
-                                <span class="action-item">
+                                <a class="action-item" href="/docs/yew_material">
                                     { docs }
-                                </span>
+                                </a>
                             </MatTopAppBarActionItems>
 
                         </MatTopAppBarFixed>

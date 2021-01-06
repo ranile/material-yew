@@ -25,7 +25,7 @@ loader_hack!(Checkbox);
 ///
 /// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/checkbox)
 pub struct MatCheckbox {
-    props: Props,
+    props: CheckboxProps,
     node_ref: NodeRef,
     closure: Option<Closure<dyn FnMut()>>,
 }
@@ -37,7 +37,7 @@ pub struct MatCheckbox {
 /// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/checkbox#propertiesattributes)
 /// - [Events](https://github.com/material-components/material-components-web-components/tree/master/packages/checkbox#events)
 #[derive(Debug, Properties, Clone)]
-pub struct Props {
+pub struct CheckboxProps {
     #[prop_or_default]
     pub checked: bool,
     #[prop_or_default]
@@ -57,7 +57,7 @@ pub struct Props {
 
 impl Component for MatCheckbox {
     type Message = ();
-    type Properties = Props;
+    type Properties = CheckboxProps;
 
     fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
         Checkbox::ensure_loaded();

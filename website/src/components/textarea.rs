@@ -1,8 +1,8 @@
 use crate::components::Codeblock;
 use crate::with_raw_code;
 use yew::prelude::*;
-use yew_material::textarea::TextAreaCharCounter;
-use yew_material::{MatTextArea, ValidityState};
+use yew_material::text_inputs::TextAreaCharCounter;
+use yew_material::{text_inputs::ValidityState, MatTextArea};
 
 pub struct TextArea {}
 

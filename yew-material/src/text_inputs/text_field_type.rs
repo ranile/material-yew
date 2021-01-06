@@ -1,3 +1,4 @@
+/// The `TextFieldType` type
 #[derive(Debug, Clone)]
 pub enum TextFieldType {
     Text,

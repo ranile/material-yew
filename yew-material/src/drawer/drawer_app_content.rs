@@ -2,8 +2,9 @@ use yew::prelude::*;
 
 const SLOT: &str = "appContent";
 
+/// Props for [`MatDrawerAppContent`]
 #[derive(Properties, Clone)]
-pub struct Props {
+pub struct DrawerAppContentProps {
     pub children: Children,
 }
 
@@ -13,12 +14,12 @@ pub struct Props {
 /// the appropriate attributes. Otherwise, the child is wrapped in a `span`
 /// containing said attributes.
 pub struct MatDrawerAppContent {
-    props: Props,
+    props: DrawerAppContentProps,
 }
 
 impl Component for MatDrawerAppContent {
     type Message = ();
-    type Properties = Props;
+    type Properties = DrawerAppContentProps;
 
     fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
         Self { props }

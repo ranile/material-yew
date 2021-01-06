@@ -2,8 +2,9 @@ use yew::prelude::*;
 
 const SLOT: &str = "header";
 
+/// Props for [`MatDrawerHeader`]
 #[derive(Properties, Clone)]
-pub struct Props {
+pub struct DrawerHeaderProps {
     pub children: Children,
 }
 
@@ -13,12 +14,12 @@ pub struct Props {
 /// the appropriate attributes. Otherwise, the child is wrapped in a `span`
 /// containing said attributes.
 pub struct MatDrawerHeader {
-    props: Props,
+    props: DrawerHeaderProps,
 }
 
 impl Component for MatDrawerHeader {
     type Message = ();
-    type Properties = Props;
+    type Properties = DrawerHeaderProps;
 
     fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
         Self { props }

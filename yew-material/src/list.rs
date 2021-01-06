@@ -1,11 +1,11 @@
-pub mod list_item;
-pub use list_item::MatListItem;
+mod list_item;
+pub use list_item::*;
 
-pub mod check_list_item;
-pub use check_list_item::MatCheckListItem;
+mod check_list_item;
+pub use check_list_item::*;
 
-pub mod radio_list_item;
-pub use radio_list_item::MatRadioListItem;
+mod radio_list_item;
+pub use radio_list_item::*;
 
 mod list_index;
 pub use list_index::ListIndex;
@@ -56,7 +56,7 @@ loader_hack!(List);
 ///
 /// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/list)
 pub struct MatList {
-    props: Props,
+    props: ListProps,
     node_ref: NodeRef,
     action_closure: Option<Closure<dyn FnMut()>>,
     selected_closure: Option<Closure<dyn FnMut(JsValue)>>,
@@ -69,7 +69,7 @@ pub struct MatList {
 /// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/list#mwc-list-1)
 /// - [Events](https://github.com/material-components/material-components-web-components/tree/master/packages/list#mwc-list-2)
 #[derive(Properties, Clone)]
-pub struct Props {
+pub struct ListProps {
     #[prop_or_default]
     pub activatable: bool,
     #[prop_or_default]
@@ -103,7 +103,7 @@ pub struct Props {
 
 impl Component for MatList {
     type Message = ();
-    type Properties = Props;
+    type Properties = ListProps;
 
     fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
         props.list_link.borrow_mut().replace(link);

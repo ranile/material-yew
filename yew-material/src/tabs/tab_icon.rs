@@ -2,8 +2,9 @@ use yew::prelude::*;
 
 const SLOT: &str = "icon";
 
+/// Props for [`MatTabIcon`]
 #[derive(Properties, Clone)]
-pub struct Props {
+pub struct TabIconProps {
     pub children: Children,
 }
 
@@ -13,12 +14,12 @@ pub struct Props {
 /// the appropriate attributes. Otherwise, the child is wrapped in a `span`
 /// containing said attributes.
 pub struct MatTabIcon {
-    props: Props,
+    props: TabIconProps,
 }
 
 impl Component for MatTabIcon {
     type Message = ();
-    type Properties = Props;
+    type Properties = TabIconProps;
 
     fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
         Self { props }

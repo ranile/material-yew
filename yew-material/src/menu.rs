@@ -46,7 +46,7 @@ loader_hack!(Menu);
 ///
 /// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/menu)
 pub struct MatMenu {
-    props: Props,
+    props: MenuProps,
     node_ref: NodeRef,
     opened_closure: Option<Closure<dyn FnMut()>>,
     closed_closure: Option<Closure<dyn FnMut()>>,
@@ -59,7 +59,7 @@ pub struct MatMenu {
 /// MWC Documentation [properties](https://github.com/material-components/material-components-web-components/tree/master/packages/menu#propertiesattributes)
 /// and [events](https://github.com/material-components/material-components-web-components/tree/master/packages/menu#events)
 #[derive(Properties, Clone)]
-pub struct Props {
+pub struct MenuProps {
     /// Changing this prop re-renders the component.
     /// For general usage, consider using `show` method provided by
     /// `WeakComponentLink<MatMenu>` via `menu_link`
@@ -131,7 +131,7 @@ pub struct Props {
 
 impl Component for MatMenu {
     type Message = ();
-    type Properties = Props;
+    type Properties = MenuProps;
 
     fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
         props.menu_link.borrow_mut().replace(link);
