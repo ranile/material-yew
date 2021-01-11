@@ -1,8 +1,9 @@
-use crate::add_event_listener_with_one_param;
+use crate::event_details_into;
+use gloo::events::EventListener;
 use js_sys::Object;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
-use web_sys::CustomEvent;
+use web_sys::{CustomEvent, Element};
 use yew::prelude::*;
 
 /// Type for [`RequestSelectedDetail::source`]
@@ -35,29 +36,23 @@ extern "C" {
 pub fn request_selected_listener(
     node_ref: &NodeRef,
     callback: Callback<RequestSelectedDetail>,
-    closure_to_store_in: &mut Option<Closure<dyn FnMut(JsValue)>>,
-) {
-    add_event_listener_with_one_param(
-        node_ref,
-        "request-selected",
-        move |val: JsValue| {
-            let event = val.unchecked_into::<CustomEvent>();
-            let selected_detail = event.detail().unchecked_into::<RequestSelectedDetailJS>();
-            let selected_detail = RequestSelectedDetail {
-                selected: selected_detail.selected(),
-                source: match selected_detail.source().as_str() {
-                    "interaction" => RequestSelectedSource::Interaction,
-                    "property" => RequestSelectedSource::Property,
-                    val => {
-                        panic!(format!(
-                            "Invalid `source` value {} received. This should never happen",
-                            val
-                        ))
-                    }
-                },
-            };
-            callback.emit(selected_detail);
-        },
-        closure_to_store_in,
-    )
+) -> EventListener {
+    let element = node_ref.cast::<Element>().unwrap();
+    EventListener::new(&element, "request-selected", move |event| {
+        let selected_detail = event_details_into::<RequestSelectedDetailJS>(event);
+        let selected_detail = RequestSelectedDetail {
+            selected: selected_detail.selected(),
+            source: match selected_detail.source().as_str() {
+                "interaction" => RequestSelectedSource::Interaction,
+                "property" => RequestSelectedSource::Property,
+                val => {
+                    panic!(format!(
+                        "Invalid `source` value {} received. This should never happen",
+                        val
+                    ))
+                }
+            },
+        };
+        callback.emit(selected_detail);
+    })
 }

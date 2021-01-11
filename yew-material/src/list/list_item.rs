@@ -1,7 +1,9 @@
 use crate::list::request_selected::request_selected_listener;
 use crate::list::{GraphicType, RequestSelectedDetail};
 use crate::{to_option, to_option_string};
+use gloo::events::EventListener;
 use wasm_bindgen::prelude::*;
+use web_sys::Element;
 use yew::prelude::*;
 
 #[wasm_bindgen(module = "/../build/mwc-list-item.js")]
@@ -21,7 +23,7 @@ loader_hack!(ListItem);
 pub struct MatListItem {
     props: ListItemProps,
     node_ref: NodeRef,
-    closure: Option<Closure<dyn FnMut(JsValue)>>,
+    request_selected_listener: Option<EventListener>,
 }
 
 /// Props for [`MatListItem`]
@@ -67,7 +69,7 @@ impl Component for MatListItem {
         Self {
             props,
             node_ref: NodeRef::default(),
-            closure: None,
+            request_selected_listener: None,
         }
     }
 
@@ -101,11 +103,10 @@ impl Component for MatListItem {
 
     fn rendered(&mut self, first_render: bool) {
         if first_render {
-            request_selected_listener(
+            self.request_selected_listener = Some(request_selected_listener(
                 &self.node_ref,
                 self.props.on_request_selected.clone(),
-                &mut self.closure,
-            );
+            ));
         }
     }
 }

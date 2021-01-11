@@ -1,6 +1,7 @@
-use crate::{add_event_listener, to_option};
+use crate::to_option;
+use gloo::events::EventListener;
 use wasm_bindgen::prelude::*;
-use web_sys::Node;
+use web_sys::{Element, EventTarget, Node};
 use yew::prelude::*;
 
 #[wasm_bindgen(module = "/../build/mwc-checkbox.js")]
@@ -27,7 +28,7 @@ loader_hack!(Checkbox);
 pub struct MatCheckbox {
     props: CheckboxProps,
     node_ref: NodeRef,
-    closure: Option<Closure<dyn FnMut()>>,
+    change_listener: Option<EventListener>,
 }
 
 /// Props for [`MatCheckbox`]
@@ -64,7 +65,7 @@ impl Component for MatCheckbox {
         Self {
             props,
             node_ref: NodeRef::default(),
-            closure: None,
+            change_listener: None,
         }
     }
 
@@ -96,14 +97,10 @@ impl Component for MatCheckbox {
         }
         if first_render {
             let callback = self.props.onchange.clone();
-            add_event_listener(
-                &self.node_ref,
-                "change",
-                move || {
-                    callback.emit(element.checked());
-                },
-                &mut self.closure,
-            )
+            let target = self.node_ref.cast::<Element>().unwrap();
+            self.change_listener = Some(EventListener::new(&target, "change", move |_| {
+                callback.emit(element.checked());
+            }));
         }
     }
 }

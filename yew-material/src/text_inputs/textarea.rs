@@ -2,6 +2,7 @@ use super::set_on_input_handler;
 use crate::text_inputs::validity_state::ValidityStateJS;
 use crate::text_inputs::{TextFieldType, ValidityState, ValidityTransform};
 use crate::{to_option, to_option_string};
+use gloo::events::EventListener;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Node;
@@ -43,7 +44,7 @@ pub struct MatTextArea {
     node_ref: NodeRef,
     validity_transform_closure:
         Option<Closure<dyn Fn(String, NativeValidityState) -> ValidityStateJS>>,
-    input_closure: Option<Closure<dyn FnMut(JsValue)>>,
+    input_listener: Option<EventListener>,
 }
 
 /// Type for [`TextAreaProps::char_counter`].
@@ -141,7 +142,7 @@ impl Component for MatTextArea {
             props,
             node_ref: NodeRef::default(),
             validity_transform_closure: None,
-            input_closure: None,
+            input_listener: None,
         }
     }
 
@@ -189,25 +190,19 @@ impl Component for MatTextArea {
         element.set_value(&JsValue::from(&self.props.value));
 
         if first_render {
-            set_on_input_handler(
+            self.input_listener = Some(set_on_input_handler(
                 &self.node_ref,
                 self.props.oninput.clone(),
-                |value| {
-                    let input_event = value
-                        .clone()
-                        .dyn_into::<web_sys::InputEvent>()
-                        .expect("can't convert to `InputEvent`");
-
+                |(input_event, detail)| {
                     InputData {
-                        value: value
+                        value: detail
                             .unchecked_into::<MatTextAreaInputEvent>()
                             .target()
                             .value(),
                         event: input_event,
                     }
                 },
-                &mut self.input_closure,
-            );
+            ));
 
             let this = self.node_ref.cast::<TextArea>().unwrap();
             if let Some(transform) = self.props.validity_transform.clone() {

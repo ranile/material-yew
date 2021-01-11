@@ -3,6 +3,7 @@ use crate::text_inputs::{
     validity_state::ValidityStateJS, TextFieldType, ValidityState, ValidityTransform,
 };
 use crate::{to_option, to_option_string};
+use gloo::events::EventListener;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Node;
@@ -44,7 +45,7 @@ pub struct MatTextField {
     node_ref: NodeRef,
     validity_transform_closure:
         Option<Closure<dyn Fn(String, NativeValidityState) -> ValidityStateJS>>,
-    input_closure: Option<Closure<dyn FnMut(JsValue)>>,
+    input_listener: Option<EventListener>,
 }
 
 /// Props for [`MatTextField`]
@@ -124,7 +125,7 @@ impl Component for MatTextField {
             props,
             node_ref: NodeRef::default(),
             validity_transform_closure: None,
-            input_closure: None,
+            input_listener: None,
         }
     }
 
@@ -170,25 +171,19 @@ impl Component for MatTextField {
 
     fn rendered(&mut self, first_render: bool) {
         if first_render {
-            set_on_input_handler(
+            self.input_listener = Some(set_on_input_handler(
                 &self.node_ref,
                 self.props.oninput.clone(),
-                |value| {
-                    let input_event = value
-                        .clone()
-                        .dyn_into::<web_sys::InputEvent>()
-                        .expect("can't convert to `InputEvent`");
-
+                |(input_event, detail)| {
                     InputData {
-                        value: value
+                        value: detail
                             .unchecked_into::<MatTextFieldInputEvent>()
                             .target()
                             .value(),
                         event: input_event,
                     }
                 },
-                &mut self.input_closure,
-            );
+            ));
 
             let element = self.node_ref.cast::<TextField>().unwrap();
             element.set_type(&JsValue::from(&self.props.field_type.to_string()));

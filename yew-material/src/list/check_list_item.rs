@@ -1,6 +1,7 @@
 use crate::list::request_selected::request_selected_listener;
 use crate::list::{GraphicType, RequestSelectedDetail};
 use crate::to_option;
+use gloo::events::EventListener;
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
 
@@ -21,7 +22,7 @@ loader_hack!(CheckListItem);
 pub struct MatCheckListItem {
     props: CheckListItemProps,
     node_ref: NodeRef,
-    closure: Option<Closure<dyn FnMut(JsValue)>>,
+    request_selected_listener: Option<EventListener>,
 }
 
 /// Props for [`MatCheckListItem`]
@@ -50,7 +51,7 @@ impl Component for MatCheckListItem {
         Self {
             props,
             node_ref: NodeRef::default(),
-            closure: None,
+            request_selected_listener: None,
         }
     }
 
@@ -76,11 +77,10 @@ impl Component for MatCheckListItem {
 
     fn rendered(&mut self, first_render: bool) {
         if first_render {
-            request_selected_listener(
+            self.request_selected_listener = Some(request_selected_listener(
                 &self.node_ref,
                 self.props.on_request_selected.clone(),
-                &mut self.closure,
-            );
+            ));
         }
     }
 }

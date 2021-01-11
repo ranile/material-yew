@@ -6,8 +6,10 @@ pub use action_items::*;
 pub use navigation_icon::*;
 pub use title::*;
 
-use crate::{add_event_listener, to_option};
+use crate::to_option;
+use gloo::events::EventListener;
 use wasm_bindgen::prelude::*;
+use web_sys::Element;
 use yew::prelude::*;
 
 #[wasm_bindgen(module = "/../build/mwc-top-app-bar.js")]
@@ -27,7 +29,7 @@ loader_hack!(TopAppBar);
 pub struct MatTopAppBar {
     props: TopAppBarProps,
     node_ref: NodeRef,
-    closure: Option<Closure<dyn FnMut()>>,
+    nav_listener: Option<EventListener>,
 }
 
 /// Props for [`MatTopAppBar`]
@@ -61,7 +63,7 @@ impl Component for MatTopAppBar {
         Self {
             props,
             node_ref: NodeRef::default(),
-            closure: None,
+            nav_listener: None,
         }
     }
 
@@ -90,14 +92,15 @@ impl Component for MatTopAppBar {
     fn rendered(&mut self, first_render: bool) {
         if first_render {
             let callback = self.props.onnavigationiconclick.clone();
-            add_event_listener(
-                &self.node_ref,
+            let element = self.node_ref.cast::<Element>().unwrap();
+
+            self.nav_listener = Some(EventListener::new(
+                &element,
                 "MDCTopAppBar:nav",
-                move || {
+                move |_| {
                     callback.emit(());
                 },
-                &mut self.closure,
-            );
+            ));
         }
     }
 }

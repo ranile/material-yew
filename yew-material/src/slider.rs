@@ -1,7 +1,8 @@
-use crate::{add_event_listener_with_one_param, to_option};
+use crate::to_option;
+use gloo::events::EventListener;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
-use web_sys::CustomEvent;
+use web_sys::{CustomEvent, Element};
 use yew::prelude::*;
 
 #[wasm_bindgen(module = "/../build/mwc-slider.js")]
@@ -23,8 +24,8 @@ loader_hack!(Slider);
 pub struct MatSlider {
     props: SliderProps,
     node_ref: NodeRef,
-    input_closure: Option<Closure<dyn FnMut(JsValue)>>,
-    change_closure: Option<Closure<dyn FnMut(JsValue)>>,
+    input_listener: Option<EventListener>,
+    change_listener: Option<EventListener>,
 }
 
 /// Props for [`MatSlider`]
@@ -68,8 +69,8 @@ impl Component for MatSlider {
         Self {
             props,
             node_ref: NodeRef::default(),
-            input_closure: None,
-            change_closure: None,
+            input_listener: None,
+            change_listener: None,
         }
     }
 
@@ -98,21 +99,17 @@ impl Component for MatSlider {
 
     fn rendered(&mut self, first_render: bool) {
         if first_render {
+            let element = self.node_ref.cast::<Element>().unwrap();
+
             let oninput = self.props.oninput.clone();
-            add_event_listener_with_one_param(
-                &self.node_ref,
-                "input",
-                move |val| oninput.emit(val.unchecked_into::<CustomEvent>()),
-                &mut self.input_closure,
-            );
+            self.input_listener = Some(EventListener::new(&element, "input", move |event| {
+                oninput.emit(JsValue::from(event).unchecked_into::<CustomEvent>())
+            }));
 
             let onchange = self.props.onchange.clone();
-            add_event_listener_with_one_param(
-                &self.node_ref,
-                "change",
-                move |val| onchange.emit(val.unchecked_into::<CustomEvent>()),
-                &mut self.change_closure,
-            );
+            self.change_listener = Some(EventListener::new(&element, "change", move |event| {
+                onchange.emit(JsValue::from(event).unchecked_into::<CustomEvent>())
+            }));
         }
     }
 }

@@ -23,9 +23,11 @@ pub use web_sys::ValidityState as NativeValidityState;
 
 use std::rc::Rc;
 
-use crate::add_event_listener_with_one_param;
+use crate::{event_details_into, event_into_details};
+use gloo::events::EventListener;
 use wasm_bindgen::closure::Closure;
-use wasm_bindgen::JsValue;
+use wasm_bindgen::{JsCast, JsValue};
+use web_sys::{CustomEvent, Element, Event, InputEvent};
 use yew::{Callback, InputData, NodeRef};
 
 #[cfg(any(feature = "textfield", feature = "textarea"))]
@@ -48,13 +50,17 @@ impl ValidityTransform {
 fn set_on_input_handler(
     node_ref: &NodeRef,
     callback: Callback<InputData>,
-    convert: impl Fn(JsValue) -> InputData + 'static,
-    closure_to_store_in: &mut Option<Closure<dyn FnMut(JsValue)>>,
-) {
-    add_event_listener_with_one_param(
-        node_ref,
-        "input",
-        move |value| callback.emit(convert(value)),
-        closure_to_store_in,
-    );
+    convert: impl Fn((InputEvent, JsValue)) -> InputData + 'static,
+) -> EventListener {
+    let element = node_ref.cast::<Element>().unwrap();
+    EventListener::new(&element, "input", move |event: &Event| {
+        let js_value = JsValue::from(event);
+
+        let input_event = js_value
+            .clone()
+            .dyn_into::<web_sys::InputEvent>()
+            .expect("could not convert to `InputEvent`");
+
+        callback.emit(convert((input_event, js_value)))
+    })
 }

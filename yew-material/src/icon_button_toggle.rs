@@ -4,7 +4,8 @@ mod on_icon;
 pub use off_icon::*;
 pub use on_icon::*;
 
-use crate::{add_event_listener, to_option};
+use crate::to_option;
+use gloo::events::EventListener;
 use wasm_bindgen::prelude::*;
 use web_sys::Node;
 use yew::prelude::*;
@@ -30,7 +31,7 @@ loader_hack!(IconButtonToggle);
 pub struct MatIconButtonToggle {
     props: IconButtonToggleProps,
     node_ref: NodeRef,
-    closure: Option<Closure<dyn FnMut()>>,
+    change_listener: Option<EventListener>,
 }
 
 /// Props for [`MatIconButtonToggle`]
@@ -71,7 +72,7 @@ impl Component for MatIconButtonToggle {
         Self {
             props,
             node_ref: NodeRef::default(),
-            closure: None,
+            change_listener: None,
         }
     }
 
@@ -102,12 +103,11 @@ impl Component for MatIconButtonToggle {
             let element = self.node_ref.cast::<IconButtonToggle>().unwrap();
 
             let callback = self.props.onchange.clone();
-            add_event_listener(
-                &self.node_ref,
+            self.change_listener = Some(EventListener::new(
+                &element.clone(),
                 "MDCIconButtonToggle:change",
-                move || callback.emit(element.on()),
-                &mut self.closure,
-            );
+                move |_| callback.emit(element.on()),
+            ));
         }
     }
 }

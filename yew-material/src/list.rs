@@ -22,7 +22,8 @@ pub use request_selected::{RequestSelectedDetail, RequestSelectedSource};
 mod graphic_type;
 pub use graphic_type::GraphicType;
 
-use crate::{add_event_listener, add_event_listener_with_one_param, to_option, WeakComponentLink};
+use crate::{event_details_into, event_into_details, to_option, WeakComponentLink};
+use gloo::events::EventListener;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Node;
@@ -58,8 +59,8 @@ loader_hack!(List);
 pub struct MatList {
     props: ListProps,
     node_ref: NodeRef,
-    action_closure: Option<Closure<dyn FnMut()>>,
-    selected_closure: Option<Closure<dyn FnMut(JsValue)>>,
+    action_listener: Option<EventListener>,
+    selected_listener: Option<EventListener>,
 }
 
 /// Props for [`MatList`]
@@ -111,8 +112,8 @@ impl Component for MatList {
         Self {
             props,
             node_ref: NodeRef::default(),
-            action_closure: None,
-            selected_closure: None,
+            action_listener: None,
+            selected_listener: None,
         }
     }
 
@@ -145,30 +146,19 @@ impl Component for MatList {
     fn rendered(&mut self, first_render: bool) {
         if first_render {
             let list = self.node_ref.cast::<List>().unwrap();
-            let onaction = self.props.onaction.clone();
-            add_event_listener(
-                &self.node_ref,
-                "action",
-                move || {
-                    let val: JsValue = list.index();
-
-                    let index = ListIndex::from(val);
-                    onaction.emit(index);
-                },
-                &mut self.action_closure,
-            );
 
             let onselected = self.props.onselected.clone();
-            add_event_listener_with_one_param(
-                &self.node_ref,
-                "selected",
-                move |value: JsValue| {
-                    let event = value.unchecked_into::<web_sys::CustomEvent>();
-                    let val = SelectedDetail::from(event.detail());
-                    onselected.emit(val);
-                },
-                &mut self.selected_closure,
-            )
+            self.selected_listener = Some(EventListener::new(&list, "selected", move |event| {
+                let val = SelectedDetail::from(event_into_details(event));
+                onselected.emit(val);
+            }));
+
+            let onaction = self.props.onaction.clone();
+            self.action_listener = Some(EventListener::new(&list.clone(), "action", move |_| {
+                let val: JsValue = list.index();
+                let index = ListIndex::from(val);
+                onaction.emit(index);
+            }));
         }
     }
 }

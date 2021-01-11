@@ -1,9 +1,11 @@
+use crate::to_option;
 #[doc(inline)]
 pub use crate::top_app_bar::{
     MatTopAppBarActionItems, MatTopAppBarNavigationIcon, MatTopAppBarTitle,
 };
-use crate::{add_event_listener, to_option};
+use gloo::events::EventListener;
 use wasm_bindgen::prelude::*;
+use web_sys::Element;
 use yew::prelude::*;
 
 #[wasm_bindgen(module = "/../build/mwc-top-app-bar-fixed.js")]
@@ -23,7 +25,7 @@ loader_hack!(TopAppBarFixed);
 pub struct MatTopAppBarFixed {
     props: TopAppBarFixedProps,
     node_ref: NodeRef,
-    closure: Option<Closure<dyn FnMut()>>,
+    nav_listener: Option<EventListener>,
 }
 
 /// Props for [`MatTopAppBarFixed`]
@@ -57,7 +59,7 @@ impl Component for MatTopAppBarFixed {
         Self {
             props,
             node_ref: NodeRef::default(),
-            closure: None,
+            nav_listener: None,
         }
     }
 
@@ -84,14 +86,15 @@ impl Component for MatTopAppBarFixed {
     fn rendered(&mut self, first_render: bool) {
         if first_render {
             let callback = self.props.onnavigationiconclick.clone();
-            add_event_listener(
-                &self.node_ref,
+            let element = self.node_ref.cast::<Element>().unwrap();
+
+            self.nav_listener = Some(EventListener::new(
+                &element,
                 "MDCTopAppBar:nav",
-                move || {
+                move |_| {
                     callback.emit(());
                 },
-                &mut self.closure,
-            );
+            ));
         }
     }
 }

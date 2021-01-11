@@ -5,7 +5,8 @@ use crate::text_inputs::{
     validity_state::ValidityStateJS, NativeValidityState, ValidityState, ValidityTransform,
 };
 use crate::utils::WeakComponentLink;
-use crate::{add_event_listener, add_event_listener_with_one_param, to_option, to_option_string};
+use crate::{event_into_details, to_option, to_option_string};
+use gloo::events::EventListener;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::{CustomEvent, Node};
@@ -40,10 +41,10 @@ pub struct MatSelect {
     node_ref: NodeRef,
     validity_transform_closure:
         Option<Closure<dyn Fn(String, NativeValidityState) -> ValidityStateJS>>,
-    opened_closure: Option<Closure<dyn FnMut()>>,
-    closed_closure: Option<Closure<dyn FnMut()>>,
-    action_closure: Option<Closure<dyn FnMut(JsValue)>>,
-    selected_closure: Option<Closure<dyn FnMut(JsValue)>>,
+    opened_listener: Option<EventListener>,
+    closed_listener: Option<EventListener>,
+    action_listener: Option<EventListener>,
+    selected_listener: Option<EventListener>,
 }
 
 /// Props for [`MatSelect`]
@@ -121,10 +122,10 @@ impl Component for MatSelect {
             props,
             node_ref: NodeRef::default(),
             validity_transform_closure: None,
-            opened_closure: None,
-            closed_closure: None,
-            action_closure: None,
-            selected_closure: None,
+            opened_listener: None,
+            closed_listener: None,
+            action_listener: None,
+            selected_listener: None,
         }
     }
 
@@ -162,7 +163,7 @@ impl Component for MatSelect {
     //noinspection DuplicatedCode
     fn rendered(&mut self, first_render: bool) {
         if first_render {
-            let this = self.node_ref.cast::<Select>().unwrap();
+            let element = self.node_ref.cast::<Select>().unwrap();
             if let Some(transform) = self.props.validity_transform.clone() {
                 self.validity_transform_closure = Some(Closure::wrap(Box::new(
                     move |s: String, v: NativeValidityState| -> ValidityStateJS {
@@ -170,48 +171,28 @@ impl Component for MatSelect {
                     },
                 )
                     as Box<dyn Fn(String, NativeValidityState) -> ValidityStateJS>));
-                this.set_validity_transform(&self.validity_transform_closure.as_ref().unwrap());
+                element.set_validity_transform(&self.validity_transform_closure.as_ref().unwrap());
             }
 
             let onopened = self.props.onopened.clone();
-            add_event_listener(
-                &self.node_ref,
-                "opened",
-                move || onopened.emit(()),
-                &mut self.opened_closure,
-            );
+            self.opened_listener = Some(EventListener::new(&element, "opened", move |_| {
+                onopened.emit(())
+            }));
 
             let onclosed = self.props.onclosed.clone();
-            add_event_listener(
-                &self.node_ref,
-                "closed",
-                move || onclosed.emit(()),
-                &mut self.closed_closure,
-            );
+            self.closed_listener = Some(EventListener::new(&element, "closed", move |_| {
+                onclosed.emit(())
+            }));
 
             let on_action = self.props.onaction.clone();
-            add_event_listener_with_one_param(
-                &self.node_ref,
-                "action",
-                move |value| {
-                    let event = value.unchecked_into::<CustomEvent>();
-                    let details = ActionDetail::from(event.detail());
-
-                    on_action.emit(details)
-                },
-                &mut self.action_closure,
-            );
+            self.action_listener = Some(EventListener::new(&element, "action", move |event| {
+                on_action.emit(ActionDetail::from(event_into_details(event)))
+            }));
 
             let on_selected = self.props.onselected.clone();
-            add_event_listener_with_one_param(
-                &self.node_ref,
-                "selected",
-                move |value| {
-                    let event = value.unchecked_into::<web_sys::CustomEvent>();
-                    on_selected.emit(SelectedDetail::from(event.detail()))
-                },
-                &mut self.selected_closure,
-            );
+            self.selected_listener = Some(EventListener::new(&element, "selected", move |event| {
+                on_selected.emit(SelectedDetail::from(event_into_details(event)))
+            }));
         }
     }
 }

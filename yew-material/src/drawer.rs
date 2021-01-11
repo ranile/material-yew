@@ -8,9 +8,10 @@ pub use drawer_header::*;
 pub use drawer_subtitle::*;
 pub use drawer_title::*;
 
-use crate::{add_event_listener, WeakComponentLink};
+use crate::WeakComponentLink;
+use gloo::events::EventListener;
 use wasm_bindgen::prelude::*;
-use web_sys::Node;
+use web_sys::{Element, Node};
 use yew::prelude::*;
 
 #[wasm_bindgen(module = "/../build/mwc-drawer.js")]
@@ -40,8 +41,8 @@ loader_hack!(Drawer);
 pub struct MatDrawer {
     props: DrawerProps,
     node_ref: NodeRef,
-    opened_closure: Option<Closure<dyn FnMut()>>,
-    closed_closure: Option<Closure<dyn FnMut()>>,
+    opened_listener: Option<EventListener>,
+    closed_listener: Option<EventListener>,
 }
 
 /// Props for [`MatDrawer`]
@@ -83,8 +84,8 @@ impl Component for MatDrawer {
         Self {
             props,
             node_ref: NodeRef::default(),
-            opened_closure: None,
-            closed_closure: None,
+            opened_listener: None,
+            closed_listener: None,
         }
     }
 
@@ -114,22 +115,23 @@ impl Component for MatDrawer {
             let onopen_callback = self.props.onopened.clone();
             let onclose_callback = self.props.onclosed.clone();
 
-            add_event_listener(
-                &self.node_ref,
+            let element = self.node_ref.cast::<Element>().unwrap();
+
+            self.opened_listener = Some(EventListener::new(
+                &element,
                 "MDCDrawer:opened",
-                move || {
+                move |_| {
                     onopen_callback.emit(());
                 },
-                &mut self.opened_closure,
-            );
-            add_event_listener(
-                &self.node_ref,
+            ));
+
+            self.closed_listener = Some(EventListener::new(
+                &element,
                 "MDCDrawer:closed",
-                move || {
+                move |_| {
                     onclose_callback.emit(());
                 },
-                &mut self.closed_closure,
-            );
+            ));
         }
     }
 }

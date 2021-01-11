@@ -1,4 +1,4 @@
-use crate::add_event_listener;
+use gloo::events::EventListener;
 use wasm_bindgen::prelude::*;
 use web_sys::Node;
 use yew::prelude::*;
@@ -27,7 +27,7 @@ loader_hack!(Switch);
 pub struct MatSwitch {
     props: SwitchProps,
     node_ref: NodeRef,
-    closure: Option<Closure<dyn FnMut()>>,
+    change_listener: Option<EventListener>,
 }
 
 /// Props for [`MatSwitch`]
@@ -58,7 +58,7 @@ impl Component for MatSwitch {
         Self {
             props,
             node_ref: NodeRef::default(),
-            closure: None,
+            change_listener: None,
         }
     }
 
@@ -86,14 +86,10 @@ impl Component for MatSwitch {
 
         if first_render {
             let callback = self.props.onchange.clone();
-            add_event_listener(
-                &self.node_ref,
-                "change",
-                move || {
+            self.change_listener =
+                Some(EventListener::new(&element.clone(), "change", move |_| {
                     callback.emit(element.checked());
-                },
-                &mut self.closure,
-            )
+                }));
         }
     }
 }

@@ -1,6 +1,7 @@
 use crate::components::Codeblock;
 use crate::with_raw_code;
 use yew::prelude::*;
+use yew::services::ConsoleService;
 use yew_material::{
     dialog::{ActionType, MatDialogAction},
     MatButton, MatDialog, WeakComponentLink,
@@ -80,7 +81,9 @@ impl Component for Dialog {
             <span onclick=self.link.callback(|_| Msg::ShowBasicDialog)>
                 <MatButton raised=true label="Basic" />
             </span>
-            <MatDialog heading="Dialog header" dialog_link=self.basic_dialog_link.clone()>
+            <MatDialog heading="Dialog header" dialog_link=self.basic_dialog_link.clone()
+                onclosing=Callback::from(|action| ConsoleService::log(&format!("onclosing action: {}", action)))
+                onclosed=Callback::from(|action| ConsoleService::log(&format!("closed action: {}", action)))>
                 {"Dialog body text"}
                 <MatDialogAction action_type=ActionType::Primary action="ok">
                     <MatButton label="Action 2" />

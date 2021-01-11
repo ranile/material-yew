@@ -2,10 +2,11 @@ mod models;
 pub use models::*;
 
 use crate::list::{ListIndex, SelectedDetail};
-use crate::{add_event_listener, add_event_listener_with_one_param, to_option, WeakComponentLink};
+use crate::{event_details_into, event_into_details, to_option, WeakComponentLink};
+use gloo::events::EventListener;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
-use web_sys::Node;
+use web_sys::{CustomEvent, Node};
 use yew::prelude::*;
 
 #[wasm_bindgen(module = "/../build/mwc-menu.js")]
@@ -48,10 +49,10 @@ loader_hack!(Menu);
 pub struct MatMenu {
     props: MenuProps,
     node_ref: NodeRef,
-    opened_closure: Option<Closure<dyn FnMut()>>,
-    closed_closure: Option<Closure<dyn FnMut()>>,
-    action_closure: Option<Closure<dyn FnMut()>>,
-    selected_closure: Option<Closure<dyn FnMut(JsValue)>>,
+    opened_listener: Option<EventListener>,
+    closed_listener: Option<EventListener>,
+    action_listener: Option<EventListener>,
+    selected_listener: Option<EventListener>,
 }
 
 /// Props for `MatMenu`
@@ -139,10 +140,10 @@ impl Component for MatMenu {
         Self {
             props,
             node_ref: NodeRef::default(),
-            opened_closure: None,
-            closed_closure: None,
-            action_closure: None,
-            selected_closure: None,
+            opened_listener: None,
+            closed_listener: None,
+            action_listener: None,
+            selected_listener: None,
         }
     }
 
@@ -187,49 +188,27 @@ impl Component for MatMenu {
                 menu.set_anchor(anchor);
             }
             let onopened = self.props.onopened.clone();
-            add_event_listener(
-                &self.node_ref,
-                "opened",
-                move || {
-                    onopened.emit(());
-                },
-                &mut self.opened_closure,
-            );
+            self.opened_listener = Some(EventListener::new(&menu, "opened", move |_| {
+                onopened.emit(());
+            }));
 
             let onclosed = self.props.onclosed.clone();
-            add_event_listener(
-                &self.node_ref,
-                "closed",
-                move || {
-                    onclosed.emit(());
-                },
-                &mut self.closed_closure,
-            );
-
-            let menu = self.node_ref.cast::<Menu>().unwrap();
-            let onaction = self.props.onaction.clone();
-            add_event_listener(
-                &self.node_ref,
-                "action",
-                move || {
-                    let val: JsValue = menu.index();
-
-                    let index = ListIndex::from(val);
-                    onaction.emit(index);
-                },
-                &mut self.action_closure,
-            );
+            self.closed_listener = Some(EventListener::new(&menu, "closed", move |_| {
+                onclosed.emit(());
+            }));
 
             let onselected = self.props.onselected.clone();
-            add_event_listener_with_one_param(
-                &self.node_ref,
-                "selected",
-                move |value: JsValue| {
-                    let event = value.unchecked_into::<web_sys::CustomEvent>();
-                    onselected.emit(SelectedDetail::from(event.detail()));
-                },
-                &mut self.selected_closure,
-            )
+            self.selected_listener = Some(EventListener::new(&menu, "selected", move |event| {
+                onselected.emit(SelectedDetail::from(event_into_details(event)));
+            }));
+
+            let onaction = self.props.onaction.clone();
+            self.action_listener = Some(EventListener::new(&menu.clone(), "action", move |_| {
+                let val: JsValue = menu.index();
+
+                let index = ListIndex::from(val);
+                onaction.emit(index);
+            }));
         }
     }
 }

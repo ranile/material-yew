@@ -1,9 +1,11 @@
 mod dialog_action;
 pub use dialog_action::*;
 
-use crate::{add_event_listener, to_option, WeakComponentLink};
+use crate::{event_details_into, to_option, WeakComponentLink};
+use gloo::events::EventListener;
 use wasm_bindgen::prelude::*;
-use web_sys::Node;
+use wasm_bindgen::JsCast;
+use web_sys::{CustomEvent, Element, Node};
 use yew::prelude::*;
 
 #[wasm_bindgen(module = "/../build/mwc-dialog.js")]
@@ -41,10 +43,10 @@ loader_hack!(Dialog);
 pub struct MatDialog {
     props: DialogProps,
     node_ref: NodeRef,
-    opening_closure: Option<Closure<dyn FnMut()>>,
-    opened_closure: Option<Closure<dyn FnMut()>>,
-    closing_closure: Option<Closure<dyn FnMut()>>,
-    closed_closure: Option<Closure<dyn FnMut()>>,
+    opening_listener: Option<EventListener>,
+    opened_listener: Option<EventListener>,
+    closing_listener: Option<EventListener>,
+    closed_listener: Option<EventListener>,
 }
 
 /// Props for [`MatDialog`]
@@ -87,14 +89,14 @@ pub struct DialogProps {
     ///
     /// See events docs to learn more.
     #[prop_or_default]
-    pub onclosing: Callback<()>,
+    pub onclosing: Callback<String>,
     /// Binds to `closed` event on `mwc-dialog`
     ///
     /// See events docs to learn more.
     #[prop_or_default]
-    pub onclosed: Callback<()>,
+    pub onclosed: Callback<String>,
     /// [`WeakComponentLink`] for `MatDialog` which provides the following
-    /// methods
+    /// methods:
     /// - ```focus(&self)```
     /// - ```blur(&self)```
     /// - ```show(&self)```
@@ -116,10 +118,10 @@ impl Component for MatDialog {
         Self {
             props,
             node_ref: NodeRef::default(),
-            opened_closure: None,
-            opening_closure: None,
-            closing_closure: None,
-            closed_closure: None,
+            opening_listener: None,
+            opened_listener: None,
+            closing_listener: None,
+            closed_listener: None,
         }
     }
 
@@ -157,38 +159,23 @@ impl Component for MatDialog {
             let onclosing = self.props.onclosing.clone();
             let onclosed = self.props.onclosed.clone();
 
-            add_event_listener(
-                &self.node_ref,
-                "opening",
-                move || onopening.emit(()),
-                &mut self.opening_closure,
-            );
+            let element = self.node_ref.cast::<Element>().unwrap();
 
-            // Doesn't work
-            add_event_listener(
-                &self.node_ref,
-                "opened",
-                move || onopened.emit(()),
-                &mut self.opened_closure,
-            );
+            self.opening_listener = Some(EventListener::new(&element, "opening", move |_| {
+                onopening.emit(())
+            }));
 
-            add_event_listener(
-                &self.node_ref,
-                "closing",
-                move || {
-                    onclosing.emit(());
-                },
-                &mut self.closing_closure,
-            );
+            self.opened_listener = Some(EventListener::new(&element, "opened", move |_| {
+                onopened.emit(())
+            }));
 
-            add_event_listener(
-                &self.node_ref,
-                "closed",
-                move || {
-                    onclosed.emit(());
-                },
-                &mut self.closed_closure,
-            );
+            self.closing_listener = Some(EventListener::new(&element, "closing", move |event| {
+                onclosing.emit(action_from_event(event))
+            }));
+
+            self.closed_listener = Some(EventListener::new(&element, "closed", move |event| {
+                onclosed.emit(action_from_event(event))
+            }));
         }
     }
 }
@@ -225,4 +212,16 @@ impl WeakComponentLink<MatDialog> {
             .unwrap()
             .close()
     }
+}
+
+#[wasm_bindgen]
+extern "C" {
+    type DialogActionType;
+
+    #[wasm_bindgen(method, getter)]
+    fn action(this: &DialogActionType) -> String;
+}
+
+fn action_from_event(event: &Event) -> String {
+    event_details_into::<DialogActionType>(event).action()
 }
