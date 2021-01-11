@@ -1,7 +1,7 @@
 use crate::to_option;
 use gloo::events::EventListener;
 use wasm_bindgen::prelude::*;
-use web_sys::{Element, EventTarget, Node};
+use web_sys::{Element, Node};
 use yew::prelude::*;
 
 #[wasm_bindgen(module = "/../build/mwc-checkbox.js")]

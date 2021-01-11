@@ -4,8 +4,7 @@ pub use dialog_action::*;
 use crate::{event_details_into, to_option, WeakComponentLink};
 use gloo::events::EventListener;
 use wasm_bindgen::prelude::*;
-use wasm_bindgen::JsCast;
-use web_sys::{CustomEvent, Element, Node};
+use web_sys::{Element, Node};
 use yew::prelude::*;
 
 #[wasm_bindgen(module = "/../build/mwc-dialog.js")]

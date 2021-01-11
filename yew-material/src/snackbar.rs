@@ -1,4 +1,4 @@
-use crate::{event_details_into, to_option, WeakComponentLink, event_into_details};
+use crate::{event_into_details, to_option, WeakComponentLink};
 use gloo::events::EventListener;
 use js_sys::Object;
 use wasm_bindgen::prelude::*;

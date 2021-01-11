@@ -22,10 +22,9 @@ pub use request_selected::{RequestSelectedDetail, RequestSelectedSource};
 mod graphic_type;
 pub use graphic_type::GraphicType;
 
-use crate::{event_details_into, event_into_details, to_option, WeakComponentLink};
+use crate::{event_into_details, to_option, WeakComponentLink};
 use gloo::events::EventListener;
 use wasm_bindgen::prelude::*;
-use wasm_bindgen::JsCast;
 use web_sys::Node;
 use yew::prelude::*;
 

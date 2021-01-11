@@ -23,11 +23,9 @@ pub use web_sys::ValidityState as NativeValidityState;
 
 use std::rc::Rc;
 
-use crate::{event_details_into, event_into_details};
 use gloo::events::EventListener;
-use wasm_bindgen::closure::Closure;
 use wasm_bindgen::{JsCast, JsValue};
-use web_sys::{CustomEvent, Element, Event, InputEvent};
+use web_sys::{Element, Event, InputEvent};
 use yew::{Callback, InputData, NodeRef};
 
 #[cfg(any(feature = "textfield", feature = "textarea"))]

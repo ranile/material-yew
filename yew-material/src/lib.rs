@@ -18,11 +18,9 @@
 //!
 //! More information can be found on the [website](https://yew-material.web.app) and in the [GitHub README](https://github.com/hamza1311/yew-material)
 
-use wasm_bindgen::prelude::Closure;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::{JsCast, JsValue};
-use web_sys::{CustomEvent, Element, Event};
-use yew::NodeRef;
+use web_sys::{CustomEvent, Event};
 mod utils;
 
 // this macro is defined here so we can access it in the modules

@@ -2,8 +2,7 @@ use crate::event_details_into;
 use gloo::events::EventListener;
 use js_sys::Object;
 use wasm_bindgen::prelude::*;
-use wasm_bindgen::JsCast;
-use web_sys::{CustomEvent, Element};
+use web_sys::Element;
 use yew::prelude::*;
 
 #[wasm_bindgen(module = "/../build/mwc-tab-bar.js")]

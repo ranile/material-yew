@@ -8,8 +8,7 @@ use crate::utils::WeakComponentLink;
 use crate::{event_into_details, to_option, to_option_string};
 use gloo::events::EventListener;
 use wasm_bindgen::prelude::*;
-use wasm_bindgen::JsCast;
-use web_sys::{CustomEvent, Node};
+use web_sys::Node;
 use yew::prelude::*;
 
 #[wasm_bindgen(module = "/../build/mwc-select.js")]

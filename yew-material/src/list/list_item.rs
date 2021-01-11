@@ -3,7 +3,6 @@ use crate::list::{GraphicType, RequestSelectedDetail};
 use crate::{to_option, to_option_string};
 use gloo::events::EventListener;
 use wasm_bindgen::prelude::*;
-use web_sys::Element;
 use yew::prelude::*;
 
 #[wasm_bindgen(module = "/../build/mwc-list-item.js")]
