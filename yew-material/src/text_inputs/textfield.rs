@@ -170,6 +170,10 @@ impl Component for MatTextField {
     }
 
     fn rendered(&mut self, first_render: bool) {
+        let element = self.node_ref.cast::<TextField>().unwrap();
+        element.set_type(&JsValue::from(&self.props.field_type.to_string()));
+        element.set_value(&JsValue::from(&self.props.value));
+
         if first_render {
             self.input_listener = Some(set_on_input_handler(
                 &self.node_ref,
@@ -184,10 +188,6 @@ impl Component for MatTextField {
                     }
                 },
             ));
-
-            let element = self.node_ref.cast::<TextField>().unwrap();
-            element.set_type(&JsValue::from(&self.props.field_type.to_string()));
-            element.set_value(&JsValue::from(&self.props.value));
 
             let this = self.node_ref.cast::<TextField>().unwrap();
             if let Some(transform) = self.props.validity_transform.clone() {
