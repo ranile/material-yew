@@ -32,7 +32,7 @@ impl Component for CircularProgress {
                 self.progress += 0.1;
             }
             Msg::Close => {
-                yew::services::ConsoleService::log("test");
+                yew_services::ConsoleService::log("test");
                 self.closed = !self.closed;
             }
         }
