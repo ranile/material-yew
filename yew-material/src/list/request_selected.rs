@@ -45,10 +45,10 @@ pub fn request_selected_listener(
                 "interaction" => RequestSelectedSource::Interaction,
                 "property" => RequestSelectedSource::Property,
                 val => {
-                    panic!(format!(
-                        "Invalid `source` value {} received. This should never happen",
+                    panic!(
+                        "invalid `source` value {} received. This should never happen",
                         val
-                    ))
+                    )
                 }
             },
         };

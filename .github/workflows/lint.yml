@@ -14,7 +14,7 @@ jobs:
         with:
           toolchain: nightly
           profile: minimal
-          components: rustfmt, clippy
+          components: rustfmt
 
       - uses: actions/cache@v2
         with:
@@ -33,9 +33,15 @@ jobs:
           toolchain: nightly
           args: --all -- --check
 
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          profile: minimal
+          components: clippy
+
       - name: Run clippy
         uses: actions-rs/cargo@v1
         with:
           command: clippy
-          toolchain: nightly
+          toolchain: stable
           args: --all-features -- -D warnings
