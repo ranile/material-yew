@@ -1,7 +1,8 @@
+use crate::bool_to_option;
 use crate::list::request_selected::request_selected_listener;
 use crate::list::{GraphicType, RequestSelectedDetail};
-use crate::to_option;
 use gloo::events::EventListener;
+use std::borrow::Cow;
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
 
@@ -34,7 +35,7 @@ pub struct RadioListItemProps {
     #[prop_or_default]
     pub left: bool,
     #[prop_or_default]
-    pub group: Option<String>,
+    pub group: Option<Cow<'static, str>>,
     #[prop_or(GraphicType::Control)]
     pub graphic: GraphicType,
     /// Binds to `request-selected` event on `mwc-list-item`.
@@ -68,9 +69,9 @@ impl Component for MatRadioListItem {
     fn view(&self) -> Html {
         html! {
             <mwc-radio-list-item
-                left?=to_option(self.props.left)
+                left=bool_to_option(self.props.left)
                 graphic=self.props.graphic.to_string()
-                group=self.props.group.as_ref().unwrap_or(&"null".to_string())
+                group=self.props.group.as_ref().unwrap_or(&Cow::from("null"))
                 ref=self.node_ref.clone()
             >{ self.props.children.clone() }</mwc-radio-list-item>
         }

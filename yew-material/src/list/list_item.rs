@@ -1,7 +1,8 @@
 use crate::list::request_selected::request_selected_listener;
 use crate::list::{GraphicType, RequestSelectedDetail};
-use crate::{to_option, to_option_string};
+use crate::{bool_to_option, to_option_string};
 use gloo::events::EventListener;
+use std::borrow::Cow;
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
 
@@ -32,7 +33,7 @@ pub struct MatListItem {
 #[derive(Debug, Properties, Clone)]
 pub struct ListItemProps {
     #[prop_or_default]
-    pub value: String,
+    pub value: Cow<'static, str>,
     #[prop_or_default]
     pub group: bool,
     #[prop_or(- 1)]
@@ -84,16 +85,16 @@ impl Component for MatListItem {
     fn view(&self) -> Html {
         html! {
             <mwc-list-item
-                value?=to_option_string(&self.props.value)
-                group?=to_option(self.props.group)
-                tabindex=self.props.tabindex
+                value=self.props.value.clone()
+                group=bool_to_option(self.props.group)
+                tabindex=to_option_string(self.props.tabindex)
                 disabled=self.props.disabled
-                twoline?=to_option(self.props.twoline)
-                activated?=to_option(self.props.activated)
-                graphic=self.props.graphic.to_string()
-                multipleGraphics?=to_option(self.props.multiple_graphics)
-                hasMeta?=to_option(self.props.has_meta)
-                noninteractive?=to_option(self.props.noninteractive)
+                twoline=bool_to_option(self.props.twoline)
+                activated=bool_to_option(self.props.activated)
+                graphic=to_option_string(self.props.graphic.to_string())
+                multipleGraphics=bool_to_option(self.props.multiple_graphics)
+                hasMeta=bool_to_option(self.props.has_meta)
+                noninteractive=bool_to_option(self.props.noninteractive)
                 selected=self.props.selected
                 ref=self.node_ref.clone()
             >{ self.props.children.clone() }</mwc-list-item>

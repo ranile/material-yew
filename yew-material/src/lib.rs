@@ -74,17 +74,15 @@ macro_rules! component {
     };
 }
 
-fn to_option(value: bool) -> Option<&'static str> {
-    match value {
-        true => Some("true"),
-        false => None,
-    }
+fn bool_to_option(value: bool) -> Option<Cow<'static, str>> {
+    value.then(|| Cow::from("true"))
 }
 
-fn to_option_string(s: &str) -> Option<&str> {
-    match s {
+fn to_option_string(s: impl Display) -> Option<Cow<'static, str>> {
+    let s = s.to_string();
+    match s.as_str() {
         "" => None,
-        _ => Some(s),
+        _ => Some(Cow::from(s)),
     }
 }
 
@@ -243,6 +241,8 @@ pub mod menu;
 #[doc(hidden)]
 pub use menu::MatMenu;
 
+use std::borrow::Cow;
+use std::fmt::Display;
 #[doc(hidden)]
 pub use utils::WeakComponentLink;
 

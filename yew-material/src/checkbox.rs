@@ -1,5 +1,6 @@
-use crate::to_option;
+use crate::bool_to_option;
 use gloo::events::EventListener;
+use std::borrow::Cow;
 use wasm_bindgen::prelude::*;
 use web_sys::{Element, Node};
 use yew::prelude::*;
@@ -46,7 +47,7 @@ pub struct CheckboxProps {
     #[prop_or_default]
     pub disabled: bool,
     #[prop_or_default]
-    pub value: String,
+    pub value: Cow<'static, str>,
     #[prop_or_default]
     pub reduced_touch_target: bool,
     /// Binds to `change` event on `mwc-checkbox`
@@ -81,10 +82,10 @@ impl Component for MatCheckbox {
     fn view(&self) -> Html {
         html! {
               <mwc-checkbox
-                  indeterminate?=to_option(self.props.indeterminate)
+                  indeterminate=bool_to_option(self.props.indeterminate)
                   disabled=self.props.disabled
-                  value=self.props.value
-                  reducedTouchTarget?=to_option(self.props.reduced_touch_target)
+                  value=self.props.value.clone()
+                  reducedTouchTarget=bool_to_option(self.props.reduced_touch_target)
                   ref=self.node_ref.clone()
               ></mwc-checkbox>
         }

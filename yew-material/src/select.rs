@@ -5,8 +5,9 @@ use crate::text_inputs::{
     validity_state::ValidityStateJS, NativeValidityState, ValidityState, ValidityTransform,
 };
 use crate::utils::WeakComponentLink;
-use crate::{event_into_details, to_option, to_option_string};
+use crate::{bool_to_option, event_into_details, to_option_string};
 use gloo::events::EventListener;
+use std::borrow::Cow;
 use wasm_bindgen::prelude::*;
 use web_sys::Node;
 use yew::prelude::*;
@@ -55,25 +56,25 @@ pub struct MatSelect {
 #[derive(Properties, Clone)]
 pub struct Props {
     #[prop_or_default]
-    pub value: String,
+    pub value: Cow<'static, str>,
     #[prop_or_default]
-    pub label: String,
+    pub label: Cow<'static, str>,
     #[prop_or_default]
     pub natural_menu_width: bool,
     #[prop_or_default]
-    pub icon: String,
+    pub icon: Cow<'static, str>,
     #[prop_or_default]
     pub disabled: bool,
     #[prop_or_default]
     pub outlined: bool,
     #[prop_or_default]
-    pub helper: String,
+    pub helper: Cow<'static, str>,
     #[prop_or_default]
     pub required: bool,
     #[prop_or_default]
-    pub validation_message: String,
+    pub validation_message: Cow<'static, str>,
     #[prop_or_default]
-    pub items: String,
+    pub items: Cow<'static, str>,
     #[prop_or(- 1)]
     pub index: i64,
     #[prop_or_default]
@@ -140,18 +141,18 @@ impl Component for MatSelect {
     fn view(&self) -> Html {
         html! {
             <mwc-select
-                value?=to_option_string(&self.props.value)
-                label?=to_option_string(&self.props.label)
-                naturalMenuWidth?=to_option(self.props.natural_menu_width)
-                icon?=to_option_string(&self.props.icon)
+                value=self.props.value.clone()
+                label=self.props.label.clone()
+                naturalMenuWidth=bool_to_option(self.props.natural_menu_width)
+                icon=self.props.icon.clone()
                 disabled=self.props.disabled
-                outlined?=to_option(self.props.outlined)
-                helper?=to_option_string(&self.props.helper)
+                outlined=bool_to_option(self.props.outlined)
+                helper=self.props.helper.clone()
                 required=self.props.required
-                validationMessage?=to_option_string(&self.props.validation_message)
-                items?=to_option_string(&self.props.items)
-                index=self.props.index
-                validateOnInitialRender?=to_option(self.props.validate_on_initial_render)
+                validationMessage=self.props.validation_message.clone()
+                items=self.props.items.clone()
+                index=to_option_string(self.props.index)
+                validateOnInitialRender=bool_to_option(self.props.validate_on_initial_render)
                 ref=self.node_ref.clone()
             >
               { self.props.children.clone() }

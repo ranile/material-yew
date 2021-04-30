@@ -1,11 +1,12 @@
 use crate::components::Codeblock;
 use crate::with_raw_code;
+use std::borrow::Cow;
 use yew::prelude::*;
+use yew::services::ConsoleService;
 use yew_material::{
     dialog::{ActionType, MatDialogAction},
     MatButton, MatDialog, WeakComponentLink,
 };
-use yew_services::ConsoleService;
 
 pub struct Dialog {
     link: ComponentLink<Self>,
@@ -81,14 +82,14 @@ impl Component for Dialog {
             <span onclick=self.link.callback(|_| Msg::ShowBasicDialog)>
                 <MatButton raised=true label="Basic" />
             </span>
-            <MatDialog heading="Dialog header" dialog_link=self.basic_dialog_link.clone()
+            <MatDialog heading=Cow::from("Dialog header") dialog_link=self.basic_dialog_link.clone()
                 onclosing=Callback::from(|action| ConsoleService::log(&format!("onclosing action: {}", action)))
                 onclosed=Callback::from(|action| ConsoleService::log(&format!("closed action: {}", action)))>
                 {"Dialog body text"}
-                <MatDialogAction action_type=ActionType::Primary action="ok">
+                <MatDialogAction action_type=ActionType::Primary action=Cow::from("ok")>
                     <MatButton label="Action 2" />
                 </MatDialogAction>
-                <MatDialogAction action_type=ActionType::Secondary action="cancel">
+                <MatDialogAction action_type=ActionType::Secondary action=Cow::from("cancel")>
                     <MatButton label="Action 1" />
                 </MatDialogAction>
             </MatDialog>
@@ -100,7 +101,7 @@ impl Component for Dialog {
             <span onclick=self.link.callback(|_| Msg::ShowActionDialog)>
                 <MatButton raised=true label="Actions" />
             </span>
-            <MatDialog heading="Actions" dialog_link=self.action_dialog_link.clone()>
+            <MatDialog heading=Cow::from("Actions") dialog_link=self.action_dialog_link.clone()>
                 {"
                     By setting the dialog_action=\"my-action\" attribute on any element projected
                     into MatDialog, you can close the dialog by clicking on that element. The
@@ -108,7 +109,7 @@ impl Component for Dialog {
                     \"closed\" event with an event detail of {action: \"my-action\"}
                 "}
 
-                <MatDialogAction action_type=ActionType::Primary action="customAction">
+                <MatDialogAction action_type=ActionType::Primary action=Cow::from("customAction")>
                     <MatButton label="This has action" />
                 </MatDialogAction>
                 <MatDialogAction action_type=ActionType::Secondary>
@@ -126,9 +127,9 @@ impl Component for Dialog {
             <span onclick=self.link.callback(|_| Msg::ShowScrollableDialog)>
                 <MatButton raised=true label="Scrollable" />
             </span>
-            <MatDialog heading="Scrollable" dialog_link=self.scrollable_dialog_link.clone()>
+            <MatDialog heading=Cow::from("Scrollable") dialog_link=self.scrollable_dialog_link.clone()>
                 {text}
-                <MatDialogAction action_type=ActionType::Primary action="close">
+                <MatDialogAction action_type=ActionType::Primary action=Cow::from("close")>
                     <MatButton label="Close this!" />
                 </MatDialogAction>
             </MatDialog>
@@ -140,7 +141,7 @@ impl Component for Dialog {
             <span onclick=self.link.callback(|_| Msg::ShowHideActionDialog)>
                 <MatButton raised=true label="Hide Actions" />
             </span>
-            <MatDialog heading="Hide Actions" dialog_link=self.hide_action_dialog_link.clone() hide_action=self.hide_actions>
+            <MatDialog heading=Cow::from("Hide Actions") dialog_link=self.hide_action_dialog_link.clone() hide_action=self.hide_actions>
                 <p>{"
                     If you don't have actions, you may want to set the \"hideActions\" property.
                     This property will remove extra whitespace at the bottom of this dialog.
@@ -159,15 +160,15 @@ impl Component for Dialog {
             <span onclick=self.link.callback(|_| Msg::ShowStackedDialog)>
                 <MatButton raised=true label="Stacked" />
             </span>
-            <MatDialog heading="Stacked" dialog_link=self.stacked_dialog_link.clone() stacked=true>
+            <MatDialog heading=Cow::from("Stacked") dialog_link=self.stacked_dialog_link.clone() stacked=true>
                 {"
                     This is what happens when you set the stacked property on mwc-dialog.
                     Notice that the primary action is now on top.
                 "}
-                <MatDialogAction action_type=ActionType::Primary action="close">
+                <MatDialogAction action_type=ActionType::Primary action=Cow::from("close")>
                     <MatButton label="Primary" />
                 </MatDialogAction>
-                <MatDialogAction action_type=ActionType::Secondary action="close">
+                <MatDialogAction action_type=ActionType::Secondary action=Cow::from("close")>
                     <MatButton label="Secondary" />
                 </MatDialogAction>
             </MatDialog>

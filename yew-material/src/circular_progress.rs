@@ -1,4 +1,4 @@
-use crate::to_option;
+use crate::{bool_to_option, to_option_string};
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
 
@@ -36,10 +36,10 @@ component!(
     |props: &CircularProgressProps| {
         html! {
             <mwc-circular-progress
-                indeterminate?=to_option(props.indeterminate)
-                progress=props.progress
-                density=props.density
-                closed?=to_option(props.closed)
+                indeterminate=bool_to_option(props.indeterminate)
+                progress=to_option_string(props.progress)
+                density=to_option_string(props.density)
+                closed=bool_to_option(props.closed)
             ></mwc-circular-progress>
         }
     },

@@ -8,8 +8,9 @@ pub use drawer_header::*;
 pub use drawer_subtitle::*;
 pub use drawer_title::*;
 
-use crate::WeakComponentLink;
+use crate::{bool_to_option, WeakComponentLink};
 use gloo::events::EventListener;
+use std::borrow::Cow;
 use wasm_bindgen::prelude::*;
 use web_sys::{Element, Node};
 use yew::prelude::*;
@@ -56,9 +57,9 @@ pub struct DrawerProps {
     #[prop_or_default]
     pub open: bool,
     #[prop_or_default]
-    pub has_header: Option<bool>,
+    pub has_header: bool,
     #[prop_or_default]
-    pub drawer_type: String,
+    pub drawer_type: Cow<'static, str>,
     /// Binds to `opened` event on `mwc-drawer`
     ///
     /// See events docs to learn more.
@@ -100,7 +101,7 @@ impl Component for MatDrawer {
 
     fn view(&self) -> Html {
         html! {
-        <mwc-drawer hasHeader?=self.props.has_header ref=self.node_ref.clone()>
+        <mwc-drawer hasHeader=bool_to_option(self.props.has_header) ref=self.node_ref.clone()>
             { self.props.children.clone() }
         </mwc-drawer>
                 }
@@ -108,7 +109,7 @@ impl Component for MatDrawer {
 
     fn rendered(&mut self, first_render: bool) {
         let element = self.node_ref.cast::<Drawer>().unwrap();
-        element.set_type(&JsValue::from(&self.props.drawer_type));
+        element.set_type(&JsValue::from(self.props.drawer_type.as_ref()));
         element.set_open(self.props.open);
 
         if first_render {

@@ -1,6 +1,7 @@
-use crate::{event_into_details, to_option, WeakComponentLink};
+use crate::{bool_to_option, event_into_details, to_option_string, WeakComponentLink};
 use gloo::events::EventListener;
 use js_sys::Object;
+use std::borrow::Cow;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Node;
@@ -64,7 +65,7 @@ pub struct SnackbarProps {
     #[prop_or_default]
     pub close_on_escape: bool,
     #[prop_or_default]
-    pub label_text: String,
+    pub label_text: Cow<'static, str>,
     #[prop_or_default]
     pub stacked: bool,
     #[prop_or_default]
@@ -135,11 +136,11 @@ impl Component for MatSnackbar {
     fn view(&self) -> Html {
         html! {
             <mwc-snackbar
-                timeoutMs=self.props.timeout_ms
-                closeOnEscape=self.props.close_on_escape
-                labelText=self.props.label_text
-                stacked?=to_option(self.props.stacked)
-                leading?=to_option(self.props.leading)
+                timeoutMs=to_option_string(self.props.timeout_ms)
+                closeOnEscape=to_option_string(self.props.close_on_escape)
+                labelText=self.props.label_text.clone()
+                stacked=bool_to_option(self.props.stacked)
+                leading=bool_to_option(self.props.leading)
                 ref=self.node_ref.clone()
             >{ self.props.children.clone() }</mwc-snackbar>
         }

@@ -1,4 +1,4 @@
-use crate::to_option;
+use crate::{bool_to_option, to_option_string};
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
 
@@ -36,11 +36,11 @@ component!(
     |props: &LinearProgressProps| {
         html! {
             <mwc-linear-progress
-                indeterminate?=to_option(props.indeterminate)
-                progress=props.progress
-                buffer=props.buffer
-                reverse?=to_option(props.reverse)
-                closed?=to_option(props.closed)
+                indeterminate=bool_to_option(props.indeterminate)
+                progress=to_option_string(props.progress)
+                buffer=to_option_string(props.buffer)
+                reverse=bool_to_option(props.reverse)
+                closed=bool_to_option(props.closed)
             ></mwc-linear-progress>
         }
     },

@@ -1,4 +1,4 @@
-use crate::event_details_into;
+use crate::{event_details_into, to_option_string};
 use gloo::events::EventListener;
 use js_sys::Object;
 use wasm_bindgen::prelude::*;
@@ -67,7 +67,7 @@ impl Component for MatTabBar {
     fn view(&self) -> Html {
         html! {
             <mwc-tab-bar
-                activeIndex=self.props.active_index
+                activeIndex=to_option_string(self.props.active_index)
                 ref=self.node_ref.clone()
             >{ self.props.children.clone() }</mwc-tab-bar>
         }

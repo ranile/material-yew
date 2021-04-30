@@ -6,7 +6,7 @@ pub use action_items::*;
 pub use navigation_icon::*;
 pub use title::*;
 
-use crate::to_option;
+use crate::bool_to_option;
 use gloo::events::EventListener;
 use wasm_bindgen::prelude::*;
 use web_sys::Element;
@@ -79,9 +79,9 @@ impl Component for MatTopAppBar {
     fn view(&self) -> Html {
         html! {
             <mwc-top-app-bar
-                centerTitle?=to_option(self.props.center_title)
-                dense?=to_option(self.props.dense)
-                prominent?=to_option(self.props.prominent)
+                centerTitle=bool_to_option(self.props.center_title)
+                dense=bool_to_option(self.props.dense)
+                prominent=bool_to_option(self.props.prominent)
                 ref=self.node_ref.clone()
             >
                 { self.props.children.clone() }

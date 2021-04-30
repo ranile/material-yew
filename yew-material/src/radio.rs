@@ -1,5 +1,6 @@
-use crate::to_option;
+use crate::bool_to_option;
 use gloo::events::EventListener;
+use std::borrow::Cow;
 use wasm_bindgen::prelude::*;
 use web_sys::Node;
 use yew::prelude::*;
@@ -44,9 +45,9 @@ pub struct RadioProps {
     #[prop_or_default]
     pub disabled: bool,
     #[prop_or_default]
-    pub name: String,
+    pub name: Cow<'static, str>,
     #[prop_or_default]
-    pub value: String,
+    pub value: Cow<'static, str>,
     #[prop_or_default]
     pub global: bool,
     #[prop_or_default]
@@ -86,10 +87,10 @@ impl Component for MatRadio {
         html! {
               <mwc-radio
                   disabled=self.props.disabled
-                  name=self.props.name
-                  value=self.props.value
-                  global?=to_option(self.props.global)
-                  reducedTouchTarget?=to_option(self.props.reduced_touch_target)
+                  name=self.props.name.clone()
+                  value=self.props.value.clone()
+                  global=bool_to_option(self.props.global)
+                  reducedTouchTarget=bool_to_option(self.props.reduced_touch_target)
                   ref=self.node_ref.clone()
               ></mwc-radio>
         }

@@ -4,8 +4,9 @@ mod on_icon;
 pub use off_icon::*;
 pub use on_icon::*;
 
-use crate::to_option;
+use crate::bool_to_option;
 use gloo::events::EventListener;
+use std::borrow::Cow;
 use wasm_bindgen::prelude::*;
 use web_sys::Node;
 use yew::prelude::*;
@@ -45,11 +46,11 @@ pub struct IconButtonToggleProps {
     #[prop_or_default]
     pub on: bool,
     #[prop_or_default]
-    pub on_icon: String,
+    pub on_icon: Cow<'static, str>,
     #[prop_or_default]
-    pub off_icon: String,
+    pub off_icon: Cow<'static, str>,
     #[prop_or_default]
-    pub label: String,
+    pub label: Cow<'static, str>,
     #[prop_or_default]
     pub disabled: bool,
     /// Binds to `MDCIconButtonToggle:change`.
@@ -88,10 +89,10 @@ impl Component for MatIconButtonToggle {
     fn view(&self) -> Html {
         html! {
             <mwc-icon-button-toggle
-                on?=to_option(self.props.on)
-                onIcon=self.props.on_icon
-                offIcon=self.props.off_icon
-                label=self.props.label
+                on=bool_to_option(self.props.on)
+                onIcon=self.props.on_icon.clone()
+                offIcon=self.props.off_icon.clone()
+                label=self.props.label.clone()
                 disabled=self.props.disabled
                 ref=self.node_ref.clone()
             > { self.props.children.clone() }</mwc-icon-button-toggle>

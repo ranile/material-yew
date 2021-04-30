@@ -78,7 +78,7 @@ impl Component for Menu {
                 <MatListItem>{"two"}</MatListItem>
                 <MatListItem>{"three"}</MatListItem>
                 <MatListItem disabled=true><div>{"four"}</div></MatListItem>
-                <li divider=true></li>
+                <li divider="true"></li>
                 <MatListItem>{"aaa"}</MatListItem>
                 <MatListItem>{"bbb"}</MatListItem>
             </MatMenu>
@@ -99,7 +99,7 @@ impl Component for Menu {
                 <MatListItem>{"two"}</MatListItem>
                 <MatListItem>{"three"}</MatListItem>
                 <MatListItem disabled=true><div>{"four"}</div></MatListItem>
-                <li divider=true></li>
+                <li divider="true"></li>
                 <MatListItem>{"aaa"}</MatListItem>
                 <MatListItem>{"bbb"}</MatListItem>
             </MatMenu>
@@ -116,7 +116,7 @@ impl Component for Menu {
                 <MatListItem>{"two"}</MatListItem>
                 <MatListItem>{"three"}</MatListItem>
                 <MatListItem disabled=true><div>{"four"}</div></MatListItem>
-                <li divider=true></li>
+                <li divider="true"></li>
                 <MatListItem>{"aaa"}</MatListItem>
                 <MatListItem>{"bbb"}</MatListItem>
             </MatMenu>
@@ -134,7 +134,7 @@ impl Component for Menu {
                     <MatListItem>{"two"}</MatListItem>
                     <MatListItem>{"three"}</MatListItem>
                     <MatListItem disabled=true><div>{"four"}</div></MatListItem>
-                    <li divider=true></li>
+                    <li divider="true"></li>
                     <MatListItem>{"aaa"}</MatListItem>
                     <MatListItem>{"bbb"}</MatListItem>
                 </MatMenu>
@@ -149,7 +149,7 @@ impl Component for Menu {
                     <MatListItem>{"two"}</MatListItem>
                     <MatListItem>{"three"}</MatListItem>
                     <MatListItem disabled=true><div>{"four"}</div></MatListItem>
-                    <li divider=true></li>
+                    <li divider="true"></li>
                     <MatListItem>{"aaa"}</MatListItem>
                     <MatListItem>{"bbb"}</MatListItem>
                 </MatMenu>
@@ -174,7 +174,7 @@ impl Component for Menu {
                 <MatListItem>{"two"}</MatListItem>
                 <MatListItem>{"three"}</MatListItem>
                 <MatListItem disabled=true><div>{"four"}</div></MatListItem>
-                <li divider=true></li>
+                <li divider="true"></li>
                 <MatListItem>{"aaa"}</MatListItem>
                 <MatListItem>{"bbb"}</MatListItem>
             </MatMenu>
@@ -191,7 +191,7 @@ impl Component for Menu {
                 <MatListItem>{"two"}</MatListItem>
                 <MatListItem>{"three"}</MatListItem>
                 <MatListItem disabled=true><div>{"four"}</div></MatListItem>
-                <li divider=true></li>
+                <li divider="true"></li>
                 <MatListItem>{"aaa"}</MatListItem>
                 <MatListItem>{"bbb"}</MatListItem>
             </MatMenu>
@@ -208,7 +208,7 @@ impl Component for Menu {
                 <MatListItem>{"two"}</MatListItem>
                 <MatListItem selected=true activated=true>{"three"}</MatListItem>
                 <MatListItem disabled=true><div>{"four"}</div></MatListItem>
-                <li divider=true></li>
+                <li divider="true"></li>
                 <MatListItem>{"aaa"}</MatListItem>
                 <MatListItem>{"bbb"}</MatListItem>
             </MatMenu>
@@ -229,7 +229,7 @@ impl Component for Menu {
                 <MatListItem>{"two"}</MatListItem>
                 <MatListItem>{"three"}</MatListItem>
                 <MatListItem disabled=true><div>{"four"}</div></MatListItem>
-                <li divider=true></li>
+                <li divider="true"></li>
                 <MatListItem>{"aaa"}</MatListItem>
                 <MatListItem>{"bbb"}</MatListItem>
             </MatMenu>

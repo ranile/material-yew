@@ -1,4 +1,5 @@
-use crate::to_option;
+use crate::bool_to_option;
+use std::borrow::Cow;
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
 
@@ -22,7 +23,7 @@ loader_hack!(Button);
 pub struct ButtonProps {
     pub label: String,
     #[prop_or_default]
-    pub icon: Option<String>,
+    pub icon: Option<Cow<'static, str>>,
     #[prop_or_default]
     pub raised: bool,
     #[prop_or_default]
@@ -43,14 +44,14 @@ component!(
     |props: &ButtonProps| {
         html! {
             <mwc-button
-                label=props.label
-                icon?=props.icon.as_ref()
-                raised?=to_option(props.raised)
-                unelevated?=to_option(props.unelevated)
-                outlined?=to_option(props.outlined)
-                dense?=to_option(props.dense)
-                trailingIcon?=to_option(props.trailing_icon)
-                disabled=props.disabled
+            icon=props.icon.clone()
+            label=props.label.clone()
+            disabled=props.disabled
+            raised=bool_to_option(props.raised)
+            unelevated=bool_to_option(props.unelevated)
+            outlined=bool_to_option(props.outlined)
+            dense=bool_to_option(props.dense)
+            trailingIcon=bool_to_option(props.trailing_icon)
             ></mwc-button>
         }
     },

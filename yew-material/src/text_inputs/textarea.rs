@@ -1,8 +1,9 @@
 use super::set_on_input_handler;
+use crate::bool_to_option;
 use crate::text_inputs::validity_state::ValidityStateJS;
 use crate::text_inputs::{TextFieldType, ValidityState, ValidityTransform};
-use crate::{to_option, to_option_string};
 use gloo::events::EventListener;
+use std::borrow::Cow;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Node;
@@ -51,20 +52,19 @@ pub struct MatTextArea {
 ///
 /// Equivalent to `type TextAreaCharCounter = 'external'|'internal';` Typescript
 /// type.
-#[derive(Clone)]
+#[derive(Clone, Copy)]
 pub enum TextAreaCharCounter {
     Internal,
     External,
 }
 
-impl ToString for TextAreaCharCounter {
-    fn to_string(&self) -> String {
-        use TextAreaCharCounter::*;
-        match self {
-            Internal => "internal",
-            External => "external",
-        }
-        .to_string()
+impl TextAreaCharCounter {
+    pub fn to_cow_string(&self) -> Cow<'static, str> {
+        let s = match self {
+            TextAreaCharCounter::Internal => "internal",
+            TextAreaCharCounter::External => "external",
+        };
+        Cow::from(s)
     }
 }
 
@@ -80,17 +80,17 @@ pub struct TextAreaProps {
     #[prop_or_default]
     pub cols: Option<i64>,
     #[prop_or_default]
-    pub value: String,
+    pub value: Cow<'static, str>,
     #[prop_or(TextFieldType::Text)]
     pub field_type: TextFieldType,
     #[prop_or_default]
-    pub label: String,
+    pub label: Cow<'static, str>,
     #[prop_or_default]
-    pub placeholder: String,
+    pub placeholder: Cow<'static, str>,
     #[prop_or_default]
-    pub icon: String,
+    pub icon: Cow<'static, str>,
     #[prop_or_default]
-    pub icon_trailing: String,
+    pub icon_trailing: Cow<'static, str>,
     #[prop_or_default]
     pub disabled: bool,
     /// For boolean value `true`, `TextAreaCharCounter::External` is to be used.
@@ -101,21 +101,21 @@ pub struct TextAreaProps {
     #[prop_or_default]
     pub outlined: bool,
     #[prop_or_default]
-    pub helper: String,
+    pub helper: Cow<'static, str>,
     #[prop_or_default]
     pub helper_persistent: bool,
     #[prop_or_default]
     pub required: bool,
     #[prop_or_default]
-    pub max_length: String,
+    pub max_length: Cow<'static, str>,
     #[prop_or_default]
-    pub validation_message: String,
+    pub validation_message: Cow<'static, str>,
     /// Type: `number | string` so I'll leave it as a string
     #[prop_or_default]
-    pub min: String,
+    pub min: Cow<'static, str>,
     /// Type: `number | string`  so I'll leave it as a string
     #[prop_or_default]
-    pub max: String,
+    pub max: Cow<'static, str>,
     #[prop_or_default]
     pub size: Option<i64>, // --|
     #[prop_or_default] //   | -- What you doing step size
@@ -129,7 +129,7 @@ pub struct TextAreaProps {
     #[prop_or_default]
     pub oninput: Callback<InputData>,
     #[prop_or_default]
-    pub name: String,
+    pub name: Cow<'static, str>,
 }
 
 impl Component for MatTextArea {
@@ -158,27 +158,27 @@ impl Component for MatTextArea {
     fn view(&self) -> Html {
         html! {
             <mwc-textarea
-                rows?=self.props.rows
-                cols?=self.props.cols
-                label?=to_option_string(&self.props.label)
-                placeholder?=to_option_string(&self.props.placeholder)
-                icon?=to_option_string(&self.props.icon)
-                iconTrailing?=to_option_string(&self.props.icon_trailing)
+                rows=self.props.rows.map(|v| Cow::from(v.to_string()))
+                cols=self.props.cols.map(|v| Cow::from(v.to_string()))
+                label=self.props.label.clone()
+                placeholder=self.props.placeholder.clone()
+                icon=self.props.icon.clone()
+                iconTrailing=self.props.icon_trailing.clone()
                 disabled=self.props.disabled
-                charCounter?=self.props.char_counter.as_ref().map(|it| it.to_string())
-                outlined?=to_option(self.props.outlined)
-                helper?=to_option_string(&self.props.helper)
-                helperPersistent?=to_option(self.props.helper_persistent)
+                charCounter=self.props.char_counter.map(|it| it.to_cow_string())
+                outlined=bool_to_option(self.props.outlined)
+                helper=self.props.helper.clone()
+                helperPersistent=bool_to_option(self.props.helper_persistent)
                 required=self.props.required
-                maxLength?=to_option_string(&self.props.max_length)
-                validationMessage?=to_option_string(&self.props.validation_message)
-                min?=to_option_string(&self.props.min)
-                max?=to_option_string(&self.props.max)
-                size?=self.props.size
-                step?=self.props.step
-                autoValidate?=to_option(self.props.auto_validate)
-                validateOnInitialRender?=to_option(self.props.validate_on_initial_render)
-                name?=to_option_string(&self.props.name)
+                maxLength=self.props.max_length.clone()
+                validationMessage=self.props.validation_message.clone()
+                min=self.props.min.clone()
+                max=self.props.max.clone()
+                size=self.props.size.map(|v| Cow::from(v.to_string()))
+                step=self.props.step.map(|v| Cow::from(v.to_string()))
+                autoValidate=bool_to_option(self.props.auto_validate)
+                validateOnInitialRender=bool_to_option(self.props.validate_on_initial_render)
+                name=self.props.name.clone()
                 ref=self.node_ref.clone()
             ></mwc-textarea>
         }
@@ -186,8 +186,10 @@ impl Component for MatTextArea {
 
     fn rendered(&mut self, first_render: bool) {
         let element = self.node_ref.cast::<TextArea>().unwrap();
-        element.set_type(&JsValue::from(&self.props.field_type.to_string()));
-        element.set_value(&JsValue::from(&self.props.value));
+        element.set_type(&JsValue::from(
+            self.props.field_type.to_cow_string().as_ref(),
+        ));
+        element.set_value(&JsValue::from(self.props.value.as_ref()));
 
         if first_render {
             self.input_listener = Some(set_on_input_handler(

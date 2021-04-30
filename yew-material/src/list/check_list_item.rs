@@ -1,6 +1,6 @@
+use crate::bool_to_option;
 use crate::list::request_selected::request_selected_listener;
 use crate::list::{GraphicType, RequestSelectedDetail};
-use crate::to_option;
 use gloo::events::EventListener;
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
@@ -67,8 +67,8 @@ impl Component for MatCheckListItem {
     fn view(&self) -> Html {
         html! {
             <mwc-check-list-item
-                left?=to_option(self.props.left)
-                graphic=self.props.graphic.to_string()
+                left=bool_to_option(self.props.left)
+                graphic=self.props.graphic.to_cow_string()
                 disabled=self.props.disabled
                 ref=self.node_ref.clone()
             >{ self.props.children.clone() }</mwc-check-list-item>

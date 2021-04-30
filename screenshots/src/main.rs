@@ -1,3 +1,4 @@
+use std::borrow::Cow;
 use yew::prelude::*;
 use yew_material::{
     dialog::{ActionType, MatDialogAction},
@@ -377,11 +378,11 @@ impl App {
                 html! {
                     <MatDialog open=true>
                         {"Delete item?"}
-                        <MatDialogAction action_type=ActionType::Primary action="ok">
+                        <MatDialogAction action_type=ActionType::Primary action=Cow::from("ok")>
                             <MatButton label="Yes" />
                         </MatDialogAction>
 
-                        <MatDialogAction action_type=ActionType::Secondary action="cancel">
+                        <MatDialogAction action_type=ActionType::Secondary action=Cow::from("cancel")>
                             <MatButton label="No" />
                         </MatDialogAction>
                     </MatDialog>

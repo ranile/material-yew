@@ -1,4 +1,5 @@
-use crate::to_option;
+use crate::bool_to_option;
+use std::borrow::Cow;
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
 
@@ -20,7 +21,7 @@ loader_hack!(Formfield);
 pub struct FormfieldProps {
     pub children: Children,
     #[prop_or_default]
-    pub label: String,
+    pub label: Cow<'static, str>,
     #[prop_or_default]
     pub align_end: bool,
     #[prop_or_default]
@@ -35,10 +36,10 @@ component!(
     |props: &FormfieldProps| {
         html! {
             <mwc-formfield
-                label=props.label
-                alignEnd?=to_option(props.align_end)
-                spaceBetween?=to_option(props.space_between)
-                nowrap?=to_option(props.nowrap)
+                label=props.label.clone()
+                alignEnd=bool_to_option(props.align_end)
+                spaceBetween=bool_to_option(props.space_between)
+                nowrap=bool_to_option(props.nowrap)
             >{ props.children.clone() }</mwc-formfield>
         }
     },

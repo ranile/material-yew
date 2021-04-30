@@ -1,6 +1,7 @@
-use crate::{event_details_into, to_option};
+use crate::{bool_to_option, event_details_into};
 use gloo::events::EventListener;
 use js_sys::Object;
+use std::borrow::Cow;
 use wasm_bindgen::prelude::*;
 use web_sys::Element;
 use yew::prelude::*;
@@ -32,13 +33,13 @@ pub struct MatTab {
 #[derive(Debug, Properties, Clone)]
 pub struct TabProps {
     #[prop_or_default]
-    pub label: String,
+    pub label: Cow<'static, str>,
     #[prop_or_default]
-    pub icon: String,
+    pub icon: Cow<'static, str>,
     #[prop_or_default]
     pub has_image_icon: bool,
     #[prop_or_default]
-    pub indicator_icon: String,
+    pub indicator_icon: Cow<'static, str>,
     #[prop_or_default]
     pub is_fading_indicator: bool,
     #[prop_or_default]
@@ -81,14 +82,14 @@ impl Component for MatTab {
     fn view(&self) -> Html {
         html! {
             <mwc-tab
-                label=self.props.label
-                icon=self.props.icon
-                hasImageIcon?=to_option(self.props.has_image_icon)
-                indicatorIcon=self.props.indicator_icon
-                isFadingIndicator?=to_option(self.props.is_fading_indicator)
-                minWidth?=to_option(self.props.min_width)
-                isMinWidthIndicator?=to_option(self.props.is_min_width_indicator)
-                stacked?=to_option(self.props.stacked)
+                label=self.props.label.clone()
+                icon=self.props.icon.clone()
+                hasImageIcon=bool_to_option(self.props.has_image_icon)
+                indicatorIcon=self.props.indicator_icon.clone()
+                isFadingIndicator=bool_to_option(self.props.is_fading_indicator)
+                minWidth=bool_to_option(self.props.min_width)
+                isMinWidthIndicator=bool_to_option(self.props.is_min_width_indicator)
+                stacked=bool_to_option(self.props.stacked)
                 ref=self.node_ref.clone()
             >{ self.props.children.clone() }</mwc-tab>
         }

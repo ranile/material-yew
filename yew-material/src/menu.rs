@@ -2,8 +2,9 @@ mod models;
 pub use models::*;
 
 use crate::list::{ListIndex, SelectedDetail};
-use crate::{event_into_details, to_option, WeakComponentLink};
+use crate::{bool_to_option, event_into_details, to_option_string, WeakComponentLink};
 use gloo::events::EventListener;
+use std::borrow::Cow;
 use wasm_bindgen::prelude::*;
 use web_sys::Node;
 use yew::prelude::*;
@@ -90,7 +91,7 @@ pub struct MenuProps {
     #[prop_or_default]
     pub wrap_focus: bool,
     #[prop_or_default]
-    pub inner_role: String,
+    pub inner_role: Cow<'static, str>,
     #[prop_or_default]
     pub multi: bool,
     #[prop_or_default]
@@ -159,20 +160,20 @@ impl Component for MatMenu {
         html! {
             <mwc-menu
                 open=self.props.open
-                corner=self.props.corner.to_string()
-                menuCorner=self.props.menu_corner.to_string()
-                quick?=to_option(self.props.quick)
-                absolute?=to_option(self.props.absolute)
-                fixed?=to_option(self.props.fixed)
-                x?=self.props.x
-                y?=self.props.y
-                forceGroupSelection?=to_option(self.props.force_group_selection)
-                defaultFocus=self.props.default_focus.to_string()
-                fullwidth?=to_option(self.props.fullwidth)
-                wrapFocus?=to_option(self.props.wrap_focus)
-                innerRole=self.props.inner_role
-                multi?=to_option(self.props.multi)
-                activatable?=to_option(self.props.activatable)
+                corner=to_option_string(self.props.corner.to_string())
+                menuCorner=to_option_string(self.props.menu_corner.to_string())
+                quick=bool_to_option(self.props.quick)
+                absolute=bool_to_option(self.props.absolute)
+                fixed=bool_to_option(self.props.fixed)
+                x=self.props.x.map(|it| Cow::from(it.to_string()))
+                y=self.props.y.map(|it| Cow::from(it.to_string()))
+                forceGroupSelection=bool_to_option(self.props.force_group_selection)
+                defaultFocus=to_option_string(self.props.default_focus.to_string())
+                fullwidth=bool_to_option(self.props.fullwidth)
+                wrapFocus=bool_to_option(self.props.wrap_focus)
+                innerRole=self.props.inner_role.clone()
+                multi=bool_to_option(self.props.multi)
+                activatable=bool_to_option(self.props.activatable)
                 ref=self.node_ref.clone()
             >
               { self.props.children.clone() }

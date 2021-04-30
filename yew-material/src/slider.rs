@@ -1,4 +1,4 @@
-use crate::to_option;
+use crate::{bool_to_option, to_option_string};
 use gloo::events::EventListener;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
@@ -86,12 +86,12 @@ impl Component for MatSlider {
     fn view(&self) -> Html {
         html! {
             <mwc-slider
-                value=self.props.value
-                min=self.props.min
-                max=self.props.max
-                step=self.props.step
-                pin?=to_option(self.props.pin)
-                markers?=to_option(self.props.markers)
+                value=to_option_string(self.props.value)
+                min=to_option_string(self.props.min)
+                max=to_option_string(self.props.max)
+                step=to_option_string(self.props.step)
+                pin=bool_to_option(self.props.pin)
+                markers=bool_to_option(self.props.markers)
                 ref=self.node_ref.clone()
             ></mwc-slider>
         }

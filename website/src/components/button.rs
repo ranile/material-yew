@@ -1,5 +1,6 @@
 use crate::components::Codeblock;
 use crate::with_raw_code;
+use std::borrow::Cow;
 use yew::prelude::*;
 use yew_material::MatButton;
 
@@ -25,55 +26,55 @@ impl Component for Button {
         let standard_button = with_raw_code!(standard_button { html! {
         <section class="demo">
             <MatButton label="Click me!" />
-            <MatButton label="Click me!" icon="code" />
+            <MatButton label="Click me!" icon=Cow::from("code") />
         </section>
         }});
 
         let outlined_button = with_raw_code!(outlined_button { html! {
         <section class="demo">
             <MatButton label="Click me!" outlined=true />
-            <MatButton label="Click me!" icon="code" outlined=true />
+            <MatButton label="Click me!" icon=Cow::from("code") outlined=true />
         </section>
         }});
 
         let raised_button = with_raw_code!(raised_button { html! {
         <section class="demo">
             <MatButton label="Click me!" raised=true/>
-            <MatButton label="Click me!" icon="code" raised=true/>
+            <MatButton label="Click me!" icon=Cow::from("code") raised=true/>
         </section>
         }});
 
         let unelevated_button = with_raw_code!(unelevated_button { html! {
         <section class="demo">
             <MatButton label="Click me!" unelevated=true />
-            <MatButton label="Click me!" icon="code" unelevated=true />
+            <MatButton label="Click me!" icon=Cow::from("code") unelevated=true />
         </section>
         }});
 
         let dense_button = with_raw_code!(dense_button { html! {
         <section class="demo">
                 <MatButton label="Click me!" dense=true />
-                <MatButton label="Click me!" icon="code" dense=true />
+                <MatButton label="Click me!" icon=Cow::from("code") dense=true />
             </section>
         }});
 
         let trailing_icon_button = with_raw_code!(trailing_icon_button { html! {
         <section class="demo">
-            <MatButton label="Click me!" icon="code" trailing_icon=true />
-            <MatButton label="Click me!" icon="code" outlined=true trailing_icon=true />
-            <MatButton label="Click me!" icon="code" raised=true trailing_icon=true />
-            <MatButton label="Click me!" icon="code" unelevated=true trailing_icon=true />
-            <MatButton label="Click me!" icon="code" dense=true trailing_icon=true />
+            <MatButton label="Click me!" icon=Cow::from("code") trailing_icon=true />
+            <MatButton label="Click me!" icon=Cow::from("code") outlined=true trailing_icon=true />
+            <MatButton label="Click me!" icon=Cow::from("code") raised=true trailing_icon=true />
+            <MatButton label="Click me!" icon=Cow::from("code") unelevated=true trailing_icon=true />
+            <MatButton label="Click me!" icon=Cow::from("code") dense=true trailing_icon=true />
         </section>
         }});
 
         let disabled_button = with_raw_code!(disabled_button { html! {
         <section class="demo">
-            <MatButton label="Click me!" icon="code" disabled=true />
-            <MatButton label="Click me!" icon="code" outlined=true disabled=true />
-            <MatButton label="Click me!" icon="code" raised=true disabled=true />
-            <MatButton label="Click me!" icon="code" unelevated=true disabled=true />
-            <MatButton label="Click me!" icon="code" dense=true disabled=true />
+            <MatButton label="Click me!" icon=Cow::from("code") disabled=true />
+            <MatButton label="Click me!" icon=Cow::from("code") outlined=true disabled=true />
+            <MatButton label="Click me!" icon=Cow::from("code") raised=true disabled=true />
+            <MatButton label="Click me!" icon=Cow::from("code") unelevated=true disabled=true />
+            <MatButton label="Click me!" icon=Cow::from("code") dense=true disabled=true />
         </section>
         }});
 

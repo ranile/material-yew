@@ -1,3 +1,6 @@
+use std::borrow::Cow;
+use std::fmt;
+
 /// Equivalent to typescript type
 /// `'avatar'|'icon'|'medium'|'large'|'control'|null`
 ///
@@ -12,17 +15,23 @@ pub enum GraphicType {
     Null,
 }
 
-impl ToString for GraphicType {
-    fn to_string(&self) -> String {
+impl GraphicType {
+    pub fn to_cow_string(&self) -> Cow<'static, str> {
         use GraphicType::*;
-        match self {
+        let s = match self {
             Avatar => "avatar",
             Icon => "icon",
             Medium => "medium",
             Large => "large",
             Control => "control",
             Null => "null",
-        }
-        .to_string()
+        };
+        Cow::from(s)
+    }
+}
+
+impl fmt::Display for GraphicType {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{}", self.to_cow_string())
     }
 }

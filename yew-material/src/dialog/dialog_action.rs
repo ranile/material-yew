@@ -1,3 +1,5 @@
+use std::borrow::Cow;
+use std::fmt;
 use yew::prelude::*;
 
 /// Dialog action type.
@@ -9,13 +11,19 @@ pub enum ActionType {
     Secondary,
 }
 
-impl ToString for ActionType {
-    fn to_string(&self) -> String {
-        match self {
+impl ActionType {
+    fn to_cow_string(&self) -> Cow<'static, str> {
+        let s = match self {
             ActionType::Primary => "primaryAction",
             ActionType::Secondary => "secondaryAction",
-        }
-        .to_string()
+        };
+        Cow::from(s)
+    }
+}
+
+impl fmt::Display for ActionType {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{}", self.to_cow_string())
     }
 }
 
@@ -24,7 +32,7 @@ impl ToString for ActionType {
 pub struct ActionProps {
     pub action_type: ActionType,
     #[prop_or_default]
-    pub action: Option<String>,
+    pub action: Option<Cow<'static, str>>,
     pub children: Children,
 }
 
@@ -65,7 +73,7 @@ impl Component for MatDialogAction {
                     Html::VTag(vtag)
                 }
                 _ => html! {
-                    <span slot=self.props.action_type.to_string() dialogAction?=self.props.action.as_ref()>
+                    <span slot=self.props.action_type.to_string() dialogAction=self.props.action.clone()>
                         { child }
                     </span>
                 }

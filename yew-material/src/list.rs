@@ -22,8 +22,9 @@ pub use request_selected::{RequestSelectedDetail, RequestSelectedSource};
 mod graphic_type;
 pub use graphic_type::GraphicType;
 
-use crate::{event_into_details, to_option, WeakComponentLink};
+use crate::{bool_to_option, event_into_details, WeakComponentLink};
 use gloo::events::EventListener;
+use std::borrow::Cow;
 use wasm_bindgen::prelude::*;
 use web_sys::Node;
 use yew::prelude::*;
@@ -79,9 +80,9 @@ pub struct ListProps {
     #[prop_or_default]
     pub wrap_focus: bool,
     #[prop_or_default]
-    pub item_roles: Option<String>,
+    pub item_roles: Option<Cow<'static, str>>,
     #[prop_or_default]
-    pub inner_role: Option<String>,
+    pub inner_role: Option<Cow<'static, str>>,
     #[prop_or_default]
     pub noninteractive: bool,
     /// Binds to `action` event on `mwc-list`
@@ -128,13 +129,13 @@ impl Component for MatList {
     fn view(&self) -> Html {
         html! {
             <mwc-list
-                activatable?=to_option(self.props.activatable)
-                rootTabbable?=to_option(self.props.root_tabbable)
-                multi?=to_option(self.props.multi)
-                wrapFocus?=to_option(self.props.wrap_focus)
-                itemRoles=self.props.item_roles.as_ref().unwrap_or(&"null".to_string())
-                innerRole=self.props.inner_role.as_ref().unwrap_or(&"null".to_string())
-                noninteractive?=to_option(self.props.noninteractive)
+                activatable=bool_to_option(self.props.activatable)
+                rootTabbable=bool_to_option(self.props.root_tabbable)
+                multi=bool_to_option(self.props.multi)
+                wrapFocus=bool_to_option(self.props.wrap_focus)
+                itemRoles=self.props.item_roles.clone()
+                innerRole=self.props.inner_role.clone()
+                noninteractive=bool_to_option(self.props.noninteractive)
                 ref=self.node_ref.clone()
             >
               { self.props.children.clone() }

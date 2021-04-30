@@ -1,8 +1,9 @@
 mod dialog_action;
 pub use dialog_action::*;
 
-use crate::{event_details_into, to_option, WeakComponentLink};
+use crate::{bool_to_option, event_details_into, WeakComponentLink};
 use gloo::events::EventListener;
+use std::borrow::Cow;
 use wasm_bindgen::prelude::*;
 use web_sys::{Element, Node};
 use yew::prelude::*;
@@ -63,17 +64,17 @@ pub struct DialogProps {
     #[prop_or_default]
     pub stacked: bool,
     #[prop_or_default]
-    pub heading: Option<String>,
+    pub heading: Option<Cow<'static, str>>,
     #[prop_or_default]
-    pub scrim_click_action: Option<String>,
+    pub scrim_click_action: Option<Cow<'static, str>>,
     #[prop_or_default]
-    pub escape_key_action: Option<String>,
+    pub escape_key_action: Option<Cow<'static, str>>,
     #[prop_or_default]
-    pub default_action: Option<String>,
+    pub default_action: Option<Cow<'static, str>>,
     #[prop_or_default]
-    pub action_attribute: Option<String>,
+    pub action_attribute: Option<Cow<'static, str>>,
     #[prop_or_default]
-    pub initial_focus_attribute: Option<String>,
+    pub initial_focus_attribute: Option<Cow<'static, str>>,
     /// Binds to `opening` event on `mwc-dialog`
     ///
     /// See events docs to learn more.
@@ -137,14 +138,14 @@ impl Component for MatDialog {
         html! {
         <mwc-dialog
             open=self.props.open
-            hideActions?=to_option(self.props.hide_action)
-            stacked?=to_option(self.props.stacked)
-            heading?=self.props.heading.as_ref()
-            scrimClickAction?=self.props.scrim_click_action.as_ref()
-            escapeKeyAction?=self.props.escape_key_action.as_ref()
-            defaultAction?=self.props.default_action.as_ref()
-            actionAttribute?=self.props.action_attribute.as_ref()
-            initialFocusAttribute?=self.props.initial_focus_attribute.as_ref()
+            hideActions=bool_to_option(self.props.hide_action)
+            stacked=bool_to_option(self.props.stacked)
+            heading=self.props.heading.clone()
+            scrimClickAction=self.props.scrim_click_action.clone()
+            escapeKeyAction=self.props.escape_key_action.clone()
+            defaultAction=self.props.default_action.clone()
+            actionAttribute=self.props.action_attribute.clone()
+            initialFocusAttribute=self.props.initial_focus_attribute.clone()
             ref=self.node_ref.clone()>
             { self.props.children.clone() }
         </mwc-dialog>

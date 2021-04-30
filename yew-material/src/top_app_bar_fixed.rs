@@ -1,4 +1,4 @@
-use crate::to_option;
+use crate::bool_to_option;
 #[doc(inline)]
 pub use crate::top_app_bar::{
     MatTopAppBarActionItems, MatTopAppBarNavigationIcon, MatTopAppBarTitle,
@@ -75,9 +75,9 @@ impl Component for MatTopAppBarFixed {
     fn view(&self) -> Html {
         html! {
             <mwc-top-app-bar-fixed
-                centerTitle?=to_option(self.props.center_title)
-                dense?=to_option(self.props.dense)
-                prominent?=to_option(self.props.prominent)
+                centerTitle=bool_to_option(self.props.center_title)
+                dense=bool_to_option(self.props.dense)
+                prominent=bool_to_option(self.props.prominent)
                 ref=self.node_ref.clone()
             >{ self.props.children.clone() }</mwc-top-app-bar-fixed>
         }
