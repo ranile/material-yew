@@ -246,7 +246,7 @@ use std::fmt::Display;
 #[doc(hidden)]
 pub use utils::WeakComponentLink;
 
-#[wasm_bindgen(module = "/../build/core.js")]
+#[wasm_bindgen(module = "/build/core.js")]
 extern "C" {
     #[derive(Debug)]
     type Ripple;

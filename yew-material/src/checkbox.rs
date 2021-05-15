@@ -5,7 +5,7 @@ use wasm_bindgen::prelude::*;
 use web_sys::{Element, Node};
 use yew::prelude::*;
 
-#[wasm_bindgen(module = "/../build/mwc-checkbox.js")]
+#[wasm_bindgen(module = "/build/mwc-checkbox.js")]
 extern "C" {
     #[derive(Debug)]
     #[wasm_bindgen(extends = Node)]

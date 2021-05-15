@@ -3,7 +3,7 @@ use std::borrow::Cow;
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
 
-#[wasm_bindgen(module = "/../build/mwc-fab.js")]
+#[wasm_bindgen(module = "/build/mwc-fab.js")]
 extern "C" {
     #[derive(Debug)]
     type Fab;

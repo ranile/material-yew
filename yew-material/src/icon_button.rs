@@ -2,7 +2,7 @@ use std::borrow::Cow;
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
 
-#[wasm_bindgen(module = "/../build/mwc-icon-button.js")]
+#[wasm_bindgen(module = "/build/mwc-icon-button.js")]
 extern "C" {
     #[derive(Debug)]
     type IconButton;

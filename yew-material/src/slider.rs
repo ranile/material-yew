@@ -5,7 +5,7 @@ use wasm_bindgen::JsCast;
 use web_sys::{CustomEvent, Element};
 use yew::prelude::*;
 
-#[wasm_bindgen(module = "/../build/mwc-slider.js")]
+#[wasm_bindgen(module = "/build/mwc-slider.js")]
 extern "C" {
     #[derive(Debug)]
     type Slider;

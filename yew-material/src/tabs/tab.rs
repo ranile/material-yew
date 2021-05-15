@@ -6,7 +6,7 @@ use wasm_bindgen::prelude::*;
 use web_sys::Element;
 use yew::prelude::*;
 
-#[wasm_bindgen(module = "/../build/mwc-tab.js")]
+#[wasm_bindgen(module = "/build/mwc-tab.js")]
 extern "C" {
     #[derive(Debug)]
     type Tab;

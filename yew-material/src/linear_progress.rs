@@ -2,7 +2,7 @@ use crate::{bool_to_option, to_option_string};
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
 
-#[wasm_bindgen(module = "/../build/mwc-linear-progress.js")]
+#[wasm_bindgen(module = "/build/mwc-linear-progress.js")]
 extern "C" {
     #[derive(Debug)]
     type LinearProgress;

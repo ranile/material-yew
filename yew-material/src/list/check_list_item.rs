@@ -5,7 +5,7 @@ use gloo::events::EventListener;
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
 
-#[wasm_bindgen(module = "/../build/mwc-check-list-item.js")]
+#[wasm_bindgen(module = "/build/mwc-check-list-item.js")]
 extern "C" {
     #[derive(Debug)]
     type CheckListItem;

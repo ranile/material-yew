@@ -36,7 +36,7 @@ export default {
     input: COMPONENTS.map((component) => `@material/mwc-${component}`),
     plugins: [nodeResolve(), terser({ format: { comments: false } })],
     output: {
-        dir: `build`,
+        dir: `yew-material/build`,
         chunkFileNames: "[name].js",
         manualChunks: (id, { getModuleInfo }) => {
             const info = getModuleInfo(id);

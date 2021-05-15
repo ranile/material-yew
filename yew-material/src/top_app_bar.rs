@@ -12,7 +12,7 @@ use wasm_bindgen::prelude::*;
 use web_sys::Element;
 use yew::prelude::*;
 
-#[wasm_bindgen(module = "/../build/mwc-top-app-bar.js")]
+#[wasm_bindgen(module = "/build/mwc-top-app-bar.js")]
 extern "C" {
     #[derive(Debug)]
     type TopAppBar;

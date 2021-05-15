@@ -10,7 +10,7 @@ use web_sys::Node;
 pub use web_sys::ValidityState as NativeValidityState;
 use yew::prelude::*;
 
-#[wasm_bindgen(module = "/../build/mwc-textarea.js")]
+#[wasm_bindgen(module = "/build/mwc-textarea.js")]
 extern "C" {
     #[derive(Debug)]
     #[wasm_bindgen(extends = Node)]

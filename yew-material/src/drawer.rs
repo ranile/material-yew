@@ -15,7 +15,7 @@ use wasm_bindgen::prelude::*;
 use web_sys::{Element, Node};
 use yew::prelude::*;
 
-#[wasm_bindgen(module = "/../build/mwc-drawer.js")]
+#[wasm_bindgen(module = "/build/mwc-drawer.js")]
 extern "C" {
     #[derive(Debug)]
     #[wasm_bindgen(extends = Node)]

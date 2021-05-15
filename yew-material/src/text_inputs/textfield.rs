@@ -11,7 +11,7 @@ use web_sys::Node;
 use web_sys::ValidityState as NativeValidityState;
 use yew::prelude::*;
 
-#[wasm_bindgen(module = "/../build/mwc-textfield.js")]
+#[wasm_bindgen(module = "/build/mwc-textfield.js")]
 extern "C" {
     #[derive(Debug)]
     #[wasm_bindgen(extends = Node)]

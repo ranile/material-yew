@@ -29,7 +29,7 @@ use wasm_bindgen::prelude::*;
 use web_sys::Node;
 use yew::prelude::*;
 
-#[wasm_bindgen(module = "/../build/mwc-list.js")]
+#[wasm_bindgen(module = "/build/mwc-list.js")]
 extern "C" {
     #[derive(Debug)]
     #[wasm_bindgen(extends = Node)]
