@@ -59,7 +59,7 @@ pub enum TextAreaCharCounter {
 }
 
 impl TextAreaCharCounter {
-    pub fn to_cow_string(&self) -> Cow<'static, str> {
+    pub fn as_cow_string(&self) -> Cow<'static, str> {
         let s = match self {
             TextAreaCharCounter::Internal => "internal",
             TextAreaCharCounter::External => "external",
@@ -165,7 +165,7 @@ impl Component for MatTextArea {
                 icon=self.props.icon.clone()
                 iconTrailing=self.props.icon_trailing.clone()
                 disabled=self.props.disabled
-                charCounter=self.props.char_counter.map(|it| it.to_cow_string())
+                charCounter=self.props.char_counter.map(|it| it.as_cow_string())
                 outlined=bool_to_option(self.props.outlined)
                 helper=self.props.helper.clone()
                 helperPersistent=bool_to_option(self.props.helper_persistent)
@@ -191,7 +191,7 @@ impl Component for MatTextArea {
         ));
         element.set_value(&JsValue::from(self.props.value.as_ref()));
 
-        if first_render {
+        if self.input_listener.is_none() {
             self.input_listener = Some(set_on_input_handler(
                 &self.node_ref,
                 self.props.oninput.clone(),
@@ -205,7 +205,9 @@ impl Component for MatTextArea {
                     }
                 },
             ));
+        };
 
+        if first_render {
             let this = self.node_ref.cast::<TextArea>().unwrap();
             if let Some(transform) = self.props.validity_transform.clone() {
                 self.validity_transform_closure = Some(Closure::wrap(Box::new(

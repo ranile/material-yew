@@ -143,16 +143,17 @@ impl Component for MatList {
         }
     }
 
-    fn rendered(&mut self, first_render: bool) {
-        if first_render {
-            let list = self.node_ref.cast::<List>().unwrap();
-
+    fn rendered(&mut self, _first_render: bool) {
+        let list = self.node_ref.cast::<List>().unwrap();
+        if self.selected_listener.is_none() {
             let onselected = self.props.onselected.clone();
             self.selected_listener = Some(EventListener::new(&list, "selected", move |event| {
                 let val = SelectedDetail::from(event_into_details(event));
                 onselected.emit(val);
             }));
+        }
 
+        if self.action_listener.is_none() {
             let onaction = self.props.onaction.clone();
             self.action_listener = Some(EventListener::new(&list.clone(), "action", move |_| {
                 let val: JsValue = list.index();

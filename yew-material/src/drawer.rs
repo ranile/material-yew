@@ -12,7 +12,7 @@ use crate::{bool_to_option, WeakComponentLink};
 use gloo::events::EventListener;
 use std::borrow::Cow;
 use wasm_bindgen::prelude::*;
-use web_sys::{Element, Node};
+use web_sys::Node;
 use yew::prelude::*;
 
 #[wasm_bindgen(module = "/build/mwc-drawer.js")]
@@ -107,17 +107,13 @@ impl Component for MatDrawer {
                 }
     }
 
-    fn rendered(&mut self, first_render: bool) {
+    fn rendered(&mut self, _first_render: bool) {
         let element = self.node_ref.cast::<Drawer>().unwrap();
         element.set_type(&JsValue::from(self.props.drawer_type.as_ref()));
         element.set_open(self.props.open);
 
-        if first_render {
+        if self.opened_listener.is_none() {
             let onopen_callback = self.props.onopened.clone();
-            let onclose_callback = self.props.onclosed.clone();
-
-            let element = self.node_ref.cast::<Element>().unwrap();
-
             self.opened_listener = Some(EventListener::new(
                 &element,
                 "MDCDrawer:opened",
@@ -125,7 +121,10 @@ impl Component for MatDrawer {
                     onopen_callback.emit(());
                 },
             ));
+        }
 
+        if self.closed_listener.is_none() {
+            let onclose_callback = self.props.onclosed.clone();
             self.closed_listener = Some(EventListener::new(
                 &element,
                 "MDCDrawer:closed",

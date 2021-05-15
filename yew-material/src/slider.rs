@@ -97,15 +97,16 @@ impl Component for MatSlider {
         }
     }
 
-    fn rendered(&mut self, first_render: bool) {
-        if first_render {
-            let element = self.node_ref.cast::<Element>().unwrap();
-
+    fn rendered(&mut self, _first_render: bool) {
+        let element = self.node_ref.cast::<Element>().unwrap();
+        if self.input_listener.is_none() {
             let oninput = self.props.oninput.clone();
             self.input_listener = Some(EventListener::new(&element, "input", move |event| {
                 oninput.emit(JsValue::from(event).unchecked_into::<CustomEvent>())
             }));
+        };
 
+        if self.change_listener.is_none() {
             let onchange = self.props.onchange.clone();
             self.change_listener = Some(EventListener::new(&element, "change", move |event| {
                 onchange.emit(JsValue::from(event).unchecked_into::<CustomEvent>())

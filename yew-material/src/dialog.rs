@@ -1,4 +1,5 @@
 mod dialog_action;
+
 pub use dialog_action::*;
 
 use crate::{bool_to_option, event_details_into, WeakComponentLink};
@@ -152,27 +153,31 @@ impl Component for MatDialog {
                 }
     }
 
-    fn rendered(&mut self, first_render: bool) {
-        if first_render {
+    fn rendered(&mut self, _first_render: bool) {
+        let element = self.node_ref.cast::<Element>().unwrap();
+        if self.opening_listener.is_none() {
             let onopening = self.props.onopening.clone();
-            let onopened = self.props.onopened.clone();
-            let onclosing = self.props.onclosing.clone();
-            let onclosed = self.props.onclosed.clone();
-
-            let element = self.node_ref.cast::<Element>().unwrap();
-
             self.opening_listener = Some(EventListener::new(&element, "opening", move |_| {
                 onopening.emit(())
             }));
+        }
 
+        if self.opened_listener.is_none() {
+            let onopened = self.props.onopened.clone();
             self.opened_listener = Some(EventListener::new(&element, "opened", move |_| {
                 onopened.emit(())
             }));
+        }
 
+        if self.closing_listener.is_none() {
+            let onclosing = self.props.onclosing.clone();
             self.closing_listener = Some(EventListener::new(&element, "closing", move |event| {
                 onclosing.emit(action_from_event(event))
             }));
+        }
 
+        if self.closed_listener.is_none() {
+            let onclosed = self.props.onclosed.clone();
             self.closed_listener = Some(EventListener::new(&element, "closed", move |event| {
                 onclosed.emit(action_from_event(event))
             }));

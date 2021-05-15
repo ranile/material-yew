@@ -83,8 +83,8 @@ impl Component for MatTopAppBarFixed {
         }
     }
 
-    fn rendered(&mut self, first_render: bool) {
-        if first_render {
+    fn rendered(&mut self, _first_render: bool) {
+        if self.nav_listener.is_none() {
             let callback = self.props.onnavigationiconclick.clone();
             let element = self.node_ref.cast::<Element>().unwrap();
 

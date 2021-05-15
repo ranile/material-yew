@@ -99,8 +99,8 @@ impl Component for MatIconButtonToggle {
         }
     }
 
-    fn rendered(&mut self, first_render: bool) {
-        if first_render {
+    fn rendered(&mut self, _first_render: bool) {
+        if self.change_listener.is_none() {
             let element = self.node_ref.cast::<IconButtonToggle>().unwrap();
 
             let callback = self.props.onchange.clone();

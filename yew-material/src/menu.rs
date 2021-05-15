@@ -1,4 +1,5 @@
 mod models;
+
 pub use models::*;
 
 use crate::list::{ListIndex, SelectedDetail};
@@ -182,26 +183,34 @@ impl Component for MatMenu {
     }
 
     fn rendered(&mut self, first_render: bool) {
+        let menu = self.node_ref.cast::<Menu>().unwrap();
         if first_render {
-            let menu = self.node_ref.cast::<Menu>().unwrap();
             if let Some(anchor) = self.props.anchor.as_ref() {
                 menu.set_anchor(anchor);
             }
+        }
+        if self.opened_listener.is_none() {
             let onopened = self.props.onopened.clone();
             self.opened_listener = Some(EventListener::new(&menu, "opened", move |_| {
                 onopened.emit(());
             }));
+        }
 
+        if self.closed_listener.is_none() {
             let onclosed = self.props.onclosed.clone();
             self.closed_listener = Some(EventListener::new(&menu, "closed", move |_| {
                 onclosed.emit(());
             }));
+        }
 
+        if self.selected_listener.is_none() {
             let onselected = self.props.onselected.clone();
             self.selected_listener = Some(EventListener::new(&menu, "selected", move |event| {
                 onselected.emit(SelectedDetail::from(event_into_details(event)));
             }));
+        }
 
+        if self.action_listener.is_none() {
             let onaction = self.props.onaction.clone();
             self.action_listener = Some(EventListener::new(&menu.clone(), "action", move |_| {
                 let val: JsValue = menu.index();

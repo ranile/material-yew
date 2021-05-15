@@ -162,8 +162,8 @@ impl Component for MatSelect {
 
     //noinspection DuplicatedCode
     fn rendered(&mut self, first_render: bool) {
+        let element = self.node_ref.cast::<Select>().unwrap();
         if first_render {
-            let element = self.node_ref.cast::<Select>().unwrap();
             if let Some(transform) = self.props.validity_transform.clone() {
                 self.validity_transform_closure = Some(Closure::wrap(Box::new(
                     move |s: String, v: NativeValidityState| -> ValidityStateJS {
@@ -173,22 +173,30 @@ impl Component for MatSelect {
                     as Box<dyn Fn(String, NativeValidityState) -> ValidityStateJS>));
                 element.set_validity_transform(&self.validity_transform_closure.as_ref().unwrap());
             }
+        }
 
+        if self.opened_listener.is_none() {
             let onopened = self.props.onopened.clone();
             self.opened_listener = Some(EventListener::new(&element, "opened", move |_| {
                 onopened.emit(())
             }));
+        }
 
+        if self.closed_listener.is_none() {
             let onclosed = self.props.onclosed.clone();
             self.closed_listener = Some(EventListener::new(&element, "closed", move |_| {
                 onclosed.emit(())
             }));
+        }
 
+        if self.action_listener.is_none() {
             let on_action = self.props.onaction.clone();
             self.action_listener = Some(EventListener::new(&element, "action", move |event| {
                 on_action.emit(ActionDetail::from(event_into_details(event)))
             }));
+        }
 
+        if self.selected_listener.is_none() {
             let on_selected = self.props.onselected.clone();
             self.selected_listener = Some(EventListener::new(&element, "selected", move |event| {
                 on_selected.emit(SelectedDetail::from(event_into_details(event)))

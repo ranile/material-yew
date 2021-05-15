@@ -96,11 +96,11 @@ impl Component for MatRadio {
         }
     }
 
-    fn rendered(&mut self, first_render: bool) {
+    fn rendered(&mut self, _first_render: bool) {
         let element = self.node_ref.cast::<Radio>().unwrap();
         element.set_checked(self.props.checked);
 
-        if first_render {
+        if self.change_listener.is_none() {
             let callback = self.props.onchange.clone();
             self.change_listener =
                 Some(EventListener::new(&element.clone(), "change", move |_| {

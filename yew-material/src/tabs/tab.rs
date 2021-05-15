@@ -95,8 +95,8 @@ impl Component for MatTab {
         }
     }
 
-    fn rendered(&mut self, first_render: bool) {
-        if first_render {
+    fn rendered(&mut self, _first_render: bool) {
+        if self.interacted_listener.is_none() {
             let element = self.node_ref.cast::<Element>().unwrap();
 
             let on_interacted = self.props.oninteracted.clone();

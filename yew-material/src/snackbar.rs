@@ -146,11 +146,11 @@ impl Component for MatSnackbar {
         }
     }
 
-    fn rendered(&mut self, first_render: bool) {
+    fn rendered(&mut self, _first_render: bool) {
         let element = self.node_ref.cast::<Snackbar>().unwrap();
         element.set_open(self.props.open);
 
-        if first_render {
+        if self.opening_listener.is_none() {
             let on_opening = self.props.onopening.clone();
             self.opening_listener = Some(EventListener::new(
                 &element,
@@ -159,7 +159,9 @@ impl Component for MatSnackbar {
                     on_opening.emit(());
                 },
             ));
+        };
 
+        if self.opened_listener.is_none() {
             let on_opened = self.props.onopened.clone();
             self.opened_listener = Some(EventListener::new(
                 &element,
@@ -168,7 +170,9 @@ impl Component for MatSnackbar {
                     on_opened.emit(());
                 },
             ));
+        };
 
+        if self.closing_listener.is_none() {
             let on_closing = self.props.onclosing.clone();
             self.closing_listener = Some(EventListener::new(
                 &element,
@@ -177,7 +181,9 @@ impl Component for MatSnackbar {
                     on_closing.emit(event_into_details_reason(event));
                 },
             ));
+        }
 
+        if self.closed_listener.is_none() {
             let on_closed = self.props.onclosed.clone();
             self.closed_listener = Some(EventListener::new(
                 &element,

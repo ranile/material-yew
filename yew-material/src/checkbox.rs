@@ -91,12 +91,11 @@ impl Component for MatCheckbox {
         }
     }
 
-    fn rendered(&mut self, first_render: bool) {
+    fn rendered(&mut self, _first_render: bool) {
         let element = self.node_ref.cast::<Checkbox>().unwrap();
-        if self.props.checked {
-            element.set_checked(self.props.checked);
-        }
-        if first_render {
+        element.set_checked(self.props.checked);
+
+        if self.change_listener.is_none() {
             let callback = self.props.onchange.clone();
             let target = self.node_ref.cast::<Element>().unwrap();
             self.change_listener = Some(EventListener::new(&target, "change", move |_| {

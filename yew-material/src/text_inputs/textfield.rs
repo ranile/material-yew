@@ -177,7 +177,7 @@ impl Component for MatTextField {
         ));
         element.set_value(&JsValue::from(self.props.value.as_ref()));
 
-        if first_render {
+        if self.input_listener.is_none() {
             self.input_listener = Some(set_on_input_handler(
                 &self.node_ref,
                 self.props.oninput.clone(),
@@ -191,7 +191,8 @@ impl Component for MatTextField {
                     }
                 },
             ));
-
+        }
+        if first_render {
             let this = self.node_ref.cast::<TextField>().unwrap();
             if let Some(transform) = self.props.validity_transform.clone() {
                 self.validity_transform_closure = Some(Closure::wrap(Box::new(

@@ -101,8 +101,8 @@ impl Component for MatListItem {
         }
     }
 
-    fn rendered(&mut self, first_render: bool) {
-        if first_render {
+    fn rendered(&mut self, _first_render: bool) {
+        if self.request_selected_listener.is_none() {
             self.request_selected_listener = Some(request_selected_listener(
                 &self.node_ref,
                 self.props.on_request_selected.clone(),
