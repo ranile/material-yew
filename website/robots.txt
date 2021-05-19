@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: /assets/
 Disallow: /docs/*
-Allow: /docs/yew_material/*
+Allow: /docs/material_yew/*

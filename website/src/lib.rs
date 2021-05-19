@@ -6,12 +6,12 @@ use crate::components::{
     IconButton, IconButtonToggle, LinearProgress, List, Menu, Radio, Select, Slider, Snackbar,
     Switch, Tabs, TextArea, Textfield,
 };
-use yew::prelude::*;
-use yew_material::{
+use material_yew::{
     drawer::{MatDrawerAppContent, MatDrawerTitle},
     top_app_bar_fixed::{MatTopAppBarActionItems, MatTopAppBarNavigationIcon, MatTopAppBarTitle},
     MatButton, MatDrawer, MatIconButton, MatList, MatListItem, MatTopAppBarFixed,
 };
+use yew::prelude::*;
 use yew_router::prelude::*;
 
 use std::cell::RefCell;
@@ -197,7 +197,7 @@ impl Component for App {
                             <MatTopAppBarTitle>
                                 <div class="app-title">
                                     <AppRouterAnchor route=AppRoute::Home>
-                                        <h1>{"Yew Material"}</h1>
+                                        <h1>{"Material Yew"}</h1>
                                     </AppRouterAnchor>
                                     <span class="action-item">
                                         <AppRouterAnchor route=AppRoute::Components>
@@ -214,7 +214,7 @@ impl Component for App {
                             </MatTopAppBarActionItems>
 
                             <MatTopAppBarActionItems>
-                                <a class="action-item" href="/docs/yew_material">
+                                <a class="action-item" href="/docs/material_yew">
                                     { docs }
                                 </a>
                             </MatTopAppBarActionItems>

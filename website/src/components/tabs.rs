@@ -1,7 +1,7 @@
 use crate::components::Codeblock;
 use crate::with_raw_code;
+use material_yew::{tabs::MatTabIcon, MatTab, MatTabBar};
 use yew::prelude::*;
-use yew_material::{tabs::MatTabIcon, MatTab, MatTabBar};
 
 pub struct Tabs {}
 

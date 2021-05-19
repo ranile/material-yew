@@ -1,7 +1,7 @@
 use crate::components::Codeblock;
 use crate::with_raw_code;
+use material_yew::MatFab;
 use yew::prelude::*;
-use yew_material::MatFab;
 
 pub struct Fab {}
 

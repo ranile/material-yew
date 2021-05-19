@@ -1,12 +1,12 @@
 use crate::components::Codeblock;
 use crate::with_raw_code;
-use std::borrow::Cow;
-use yew::prelude::*;
-use yew::services::ConsoleService;
-use yew_material::{
+use material_yew::{
     dialog::{ActionType, MatDialogAction},
     MatButton, MatDialog, WeakComponentLink,
 };
+use std::borrow::Cow;
+use yew::prelude::*;
+use yew::services::ConsoleService;
 
 pub struct Dialog {
     link: ComponentLink<Self>,

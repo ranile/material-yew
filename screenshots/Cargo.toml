@@ -10,5 +10,5 @@ edition = "2018"
 wasm-bindgen = "0.2"
 yew = "0.18"
 yew-router = "0.15"
-yew-material = { path = "../yew-material", features = ["full"] }
+material-yew = { path = "../material-yew", features = ["full"] }
 weblog = "0.3"

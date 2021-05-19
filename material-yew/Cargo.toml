@@ -1,5 +1,5 @@
 [package]
-name = "yew-material"
+name = "material-yew"
 version = "0.1.0"
 authors = ["Hamza <muhammadhamza1311@gmail.com>"]
 edition = "2018"

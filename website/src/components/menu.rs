@@ -1,8 +1,8 @@
 use crate::components::Codeblock;
 use crate::with_raw_code;
+use material_yew::menu::{Corner, DefaultFocusState};
+use material_yew::{MatButton, MatListItem, MatMenu, WeakComponentLink};
 use yew::prelude::*;
-use yew_material::menu::{Corner, DefaultFocusState};
-use yew_material::{MatButton, MatListItem, MatMenu, WeakComponentLink};
 
 pub struct Menu {
     link: ComponentLink<Self>,

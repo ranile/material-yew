@@ -1,7 +1,7 @@
 use crate::components::Codeblock;
 use crate::with_raw_code;
+use material_yew::MatIcon;
 use yew::prelude::*;
-use yew_material::MatIcon;
 
 pub struct Icon {}
 

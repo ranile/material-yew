@@ -1,6 +1,6 @@
 use crate::html_to_element;
+use material_yew::MatIconButton;
 use yew::prelude::*;
-use yew_material::MatIconButton;
 
 pub struct Codeblock {
     link: ComponentLink<Self>,

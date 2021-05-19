@@ -1,8 +1,8 @@
 use crate::components::Codeblock;
 use crate::with_raw_code;
+use material_yew::{MatButton, MatIconButton, MatSnackbar, WeakComponentLink};
 use yew::prelude::*;
 use yew::services::ConsoleService;
-use yew_material::{MatButton, MatIconButton, MatSnackbar, WeakComponentLink};
 
 pub struct Snackbar {
     link: ComponentLink<Self>,

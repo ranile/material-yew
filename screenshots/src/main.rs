@@ -1,6 +1,4 @@
-use std::borrow::Cow;
-use yew::prelude::*;
-use yew_material::{
+use material_yew::{
     dialog::{ActionType, MatDialogAction},
     icon_button_toggle::{MatOffIconButtonToggle, MatOnIconButtonToggle},
     select::{ListIndex, SelectedDetail},
@@ -10,6 +8,8 @@ use yew_material::{
     MatSelect, MatSlider, MatSnackbar, MatSwitch, MatTab, MatTabBar, MatTextArea, MatTextField,
     WeakComponentLink,
 };
+use std::borrow::Cow;
+use yew::prelude::*;
 use yew_router::agent::RouteRequest;
 use yew_router::prelude::*;
 

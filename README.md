@@ -1,11 +1,11 @@
-# Yew Material
+# Material Yew
 
-Yew Material is a components library for [Yew framework](https://yew.rs/) which is a wrapper around [Material Web Components](https://github.com/material-components/material-components-web-components) exposing Yew components. All modern browsers are supported. There is no support for polyfills required by Internet Explorer 11.
+*Material Yew* is a components library for [Yew framework](https://yew.rs/) which is a wrapper around [Material Web Components](https://github.com/material-components/material-components-web-components) exposing Yew components. All modern browsers are supported. There is no support for polyfills required by Internet Explorer 11.
 
 ### Example
 
 ```rust
-use yew_material::MatButton;
+use material_yew::MatButton;
 use yew::html;
 
 html! {
@@ -14,14 +14,15 @@ html! {
 ```
 
 ## Getting started
+
 ### Installation
 
-Currently, this library can only be imported via git. In the future, it'll be available from [crates.io](https://crates.io/). Cargo features are used to pick the components. See [features](#features)   
 `Cargo.toml`:
 ```toml
 [dependencies]
-yew-material = { git = "https://github.com/hamza1311/yew-material/", branch = "master", features = ["full"] }
+material-yew = "0.1"
 ```
+
 Material icons and a Material font can also be imported for full functionality.  
 `index.html`:
 ```html
@@ -34,7 +35,7 @@ It's also important to note that you need `viewport` `meta` tag for the Material
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 ```
 
-### Features
+### Feature flags
 
 Following are all the cargo features available (each feature corresponds to its respective component):
 
@@ -71,7 +72,7 @@ These components respect the theming applied to Material Web Components using st
 
 ## Documentation
 
-Full API documentation can be found [here](https://yew-material.web.app/docs/yew_material). Demos of components can be found [here](https://yew-material.web.app/components).
+Full API documentation can be found [here](https://yew-material.web.app/docs/material_yew). Demos of components can be found [here](https://yew-material.web.app/components).
 
 ## Contributing
 

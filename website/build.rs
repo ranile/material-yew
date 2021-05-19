@@ -11,7 +11,7 @@ fn main() {
     println!("cargo:rerun-if-changed=../README.md");
 
     let markdown_input = include_str!("../README.md");
-    let markdown_input = markdown_input.replace("# Yew Material", "");
+    let markdown_input = markdown_input.replace("# Material Yew", "");
 
     // Set up options and parser. Strikethroughs are not part of the CommonMark
     // standard and we therefore must enable it explicitly.

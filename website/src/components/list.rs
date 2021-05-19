@@ -1,10 +1,10 @@
 use crate::components::Codeblock;
 use crate::with_raw_code;
-use yew::prelude::*;
-use yew_material::list::ListIndex;
-use yew_material::{
+use material_yew::list::ListIndex;
+use material_yew::{
     MatButton, MatCheckListItem, MatList, MatListItem, MatRadioListItem, WeakComponentLink,
 };
+use yew::prelude::*;
 
 pub struct List {
     link: ComponentLink<Self>,

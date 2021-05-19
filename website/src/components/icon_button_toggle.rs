@@ -1,10 +1,10 @@
 use crate::components::Codeblock;
 use crate::with_raw_code;
-use yew::prelude::*;
-use yew_material::{
+use material_yew::{
     icon_button_toggle::{MatOffIconButtonToggle, MatOnIconButtonToggle},
     MatIconButtonToggle,
 };
+use yew::prelude::*;
 
 pub struct IconButtonToggle {
     link: ComponentLink<Self>,

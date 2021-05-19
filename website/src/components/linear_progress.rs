@@ -1,7 +1,7 @@
 use crate::components::Codeblock;
 use crate::with_raw_code;
+use material_yew::{MatButton, MatLinearProgress};
 use yew::prelude::*;
-use yew_material::{MatButton, MatLinearProgress};
 
 pub struct LinearProgress {
     link: ComponentLink<Self>,

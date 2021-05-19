@@ -1,8 +1,8 @@
 use crate::components::Codeblock;
 use crate::with_raw_code;
+use material_yew::list::GraphicType;
+use material_yew::{MatButton, MatListItem, MatSelect, WeakComponentLink};
 use yew::prelude::*;
-use yew_material::list::GraphicType;
-use yew_material::{MatButton, MatListItem, MatSelect, WeakComponentLink};
 
 pub struct Select {
     link: ComponentLink<Self>,

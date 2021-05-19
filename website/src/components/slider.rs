@@ -1,7 +1,7 @@
 use crate::components::Codeblock;
 use crate::with_raw_code;
+use material_yew::MatSlider;
 use yew::prelude::*;
-use yew_material::MatSlider;
 
 pub struct Slider {}
 

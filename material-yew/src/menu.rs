@@ -124,7 +124,7 @@ pub struct MenuProps {
     /// - `show(&self)`
     /// - `close(&self)`
     ///
-    /// See [`WeakComponentLink`](/yew_material/struct.WeakComponentLink.html)
+    /// See [`WeakComponentLink`](/material_yew/struct.WeakComponentLink.html)
     /// documentation for more information
     #[prop_or_default]
     pub menu_link: WeakComponentLink<MatMenu>,

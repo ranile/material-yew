@@ -4,8 +4,8 @@
 //!
 //! Example usage:
 //! ```rust
+//! use material_yew::MatButton;
 //! use yew::html;
-//! use yew_material::MatButton;
 //!
 //! html! {
 //!     <MatButton label="Click me!" />

@@ -1,7 +1,7 @@
 use crate::components::Codeblock;
 use crate::with_raw_code;
+use material_yew::{MatButton, MatCircularProgress, MatCircularProgressFourColor};
 use yew::prelude::*;
-use yew_material::{MatButton, MatCircularProgress, MatCircularProgressFourColor};
 
 pub struct CircularProgress {
     link: ComponentLink<Self>,

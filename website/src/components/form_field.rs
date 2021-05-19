@@ -1,7 +1,7 @@
 use crate::components::Codeblock;
 use crate::with_raw_code;
+use material_yew::{MatCheckbox, MatFormfield, MatRadio, MatSwitch};
 use yew::prelude::*;
-use yew_material::{MatCheckbox, MatFormfield, MatRadio, MatSwitch};
 
 pub struct FormField {}
 
