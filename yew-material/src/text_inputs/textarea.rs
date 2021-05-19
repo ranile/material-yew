@@ -107,7 +107,7 @@ pub struct TextAreaProps {
     #[prop_or_default]
     pub required: bool,
     #[prop_or_default]
-    pub max_length: Cow<'static, str>,
+    pub max_length: Option<u64>,
     #[prop_or_default]
     pub validation_message: Cow<'static, str>,
     /// Type: `number | string` so I'll leave it as a string
@@ -170,7 +170,7 @@ impl Component for MatTextArea {
                 helper=self.props.helper.clone()
                 helperPersistent=bool_to_option(self.props.helper_persistent)
                 required=self.props.required
-                maxLength=self.props.max_length.clone()
+                maxLength=self.props.max_length.map(|v| Cow::from(v.to_string()))
                 validationMessage=self.props.validation_message.clone()
                 min=self.props.min.clone()
                 max=self.props.max.clone()

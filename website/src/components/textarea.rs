@@ -40,8 +40,8 @@ impl Component for TextArea {
 
         let with_char_counter = with_raw_code!(with_char_counter { html! {
         <section class="demo-group-spaced">
-            <MatTextArea label="Standard" max_length="18" char_counter=TextAreaCharCounter::External />
-            <MatTextArea outlined=true label="Standard" max_length="18" char_counter=TextAreaCharCounter::Internal />
+            <MatTextArea label="Standard" max_length=18 char_counter=TextAreaCharCounter::External />
+            <MatTextArea outlined=true label="Standard" max_length=18 char_counter=TextAreaCharCounter::Internal />
         </section>
         }});
 

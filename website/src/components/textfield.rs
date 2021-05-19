@@ -59,10 +59,10 @@ impl Component for Textfield {
 
         let with_char_counter = with_raw_code!(with_char_counter { html! {
         <div class="demo-group-spaced">
-            <MatTextField label="Standard" helper="Helper Text" helper_persistent=true max_length="18" char_counter=true />
-            <MatTextField outlined=true label="Standard" helper="Helper Text" helper_persistent=true max_length="18" char_counter=true />
+            <MatTextField label="Standard" helper="Helper Text" helper_persistent=true max_length=18 char_counter=true />
+            <MatTextField outlined=true label="Standard" helper="Helper Text" helper_persistent=true max_length=18 char_counter=true />
             <span class="shaped-outlined">
-                <MatTextField outlined=true label="Standard" helper="Helper Text" helper_persistent=true max_length="18" char_counter=true />
+                <MatTextField outlined=true label="Standard" helper="Helper Text" helper_persistent=true max_length=18 char_counter=true />
             </span>
         </div>
         }});
