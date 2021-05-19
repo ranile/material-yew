@@ -51,7 +51,7 @@ jobs:
         with:
           command: doc
           toolchain: nightly
-          args: --no-deps --target wasm32-unknown-unknown --all-features -p yew-material --release
+          args: --no-deps --target wasm32-unknown-unknown --all-features -p material-yew --release
 
       - name: Copy docs to correct location
         run: cp -r target/wasm32-unknown-unknown/doc/ website/dist/docs/
