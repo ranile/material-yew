@@ -16,6 +16,7 @@ pub struct Menu {
     multi_activatable_menu_link: WeakComponentLink<MatMenu>,
 }
 
+#[allow(clippy::enum_variant_names)]
 pub enum Msg {
     ShowBasicMenu,
     ShowCornerMenu,

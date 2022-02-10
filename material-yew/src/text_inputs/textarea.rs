@@ -183,12 +183,10 @@ impl Component for MatTextArea {
                 &self.node_ref,
                 props.oninput.clone(),
                 |(_, detail)| {
-                    let value = detail
+                    detail
                         .unchecked_into::<MatTextAreaInputEvent>()
                         .target()
-                        .value();
-
-                    value.to_string()
+                        .value()
                 },
             ));
         };
@@ -202,7 +200,7 @@ impl Component for MatTextArea {
                     },
                 )
                     as Box<dyn Fn(String, NativeValidityState) -> ValidityStateJS>));
-                this.set_validity_transform(&self.validity_transform_closure.as_ref().unwrap());
+                this.set_validity_transform(self.validity_transform_closure.as_ref().unwrap());
             }
         }
     }

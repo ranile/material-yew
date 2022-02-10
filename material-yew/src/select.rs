@@ -164,7 +164,7 @@ impl Component for MatSelect {
                     },
                 )
                     as Box<dyn Fn(String, NativeValidityState) -> ValidityStateJS>));
-                element.set_validity_transform(&self.validity_transform_closure.as_ref().unwrap());
+                element.set_validity_transform(self.validity_transform_closure.as_ref().unwrap());
             }
         }
 

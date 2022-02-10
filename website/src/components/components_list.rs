@@ -60,6 +60,6 @@ where
         out.push_str(it.into());
         out.push_str(separator);
     });
-    let out = out.strip_suffix("-");
+    let out = out.strip_suffix('-');
     out.unwrap().to_owned()
 }

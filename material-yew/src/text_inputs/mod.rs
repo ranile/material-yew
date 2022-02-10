@@ -46,6 +46,7 @@ impl ValidityTransform {
 }
 
 impl PartialEq for ValidityTransform {
+    #[allow(clippy::vtable_address_comparisons)]
     fn eq(&self, other: &Self) -> bool {
         Rc::ptr_eq(&self.0, &other.0)
     }

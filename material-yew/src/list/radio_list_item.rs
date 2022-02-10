@@ -60,7 +60,7 @@ impl Component for MatRadioListItem {
              <mwc-radio-list-item
                  left={bool_to_option(props.left)}
                  graphic={props.graphic.to_string()}
-                 group={props.group.clone().unwrap_or(String::from("null"))}
+                 group={props.group.clone().unwrap_or_else(|| String::from("null"))}
                  ref={self.node_ref.clone()}
              >{props.children.clone()}</mwc-radio-list-item>
         }

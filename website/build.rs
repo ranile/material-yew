@@ -60,7 +60,7 @@ fn main() {
                         "syntect-dumps/Material-Theme-Lighter.theme"
                     ));
                     let html =
-                        highlighted_html_for_string(&to_highlight, &syntax_set, &syntax, &theme);
+                        highlighted_html_for_string(&to_highlight, &syntax_set, syntax, &theme);
                     // And put it into the vector
                     new_parser.push(Event::Html(CowStr::from(html)));
                     to_highlight = String::new();

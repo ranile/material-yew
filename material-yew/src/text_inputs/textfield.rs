@@ -170,13 +170,10 @@ impl Component for MatTextField {
                 &self.node_ref,
                 props.oninput.clone(),
                 |(_, detail)| {
-                    // TODO: figure out what's going on here...
-                    let value = detail
+                    detail
                         .unchecked_into::<MatTextFieldInputEvent>()
                         .target()
-                        .value();
-
-                    value.to_string()
+                        .value()
                 },
             ));
         }
@@ -189,7 +186,7 @@ impl Component for MatTextField {
                     },
                 )
                     as Box<dyn Fn(String, NativeValidityState) -> ValidityStateJS>));
-                this.set_validity_transform(&self.validity_transform_closure.as_ref().unwrap());
+                this.set_validity_transform(self.validity_transform_closure.as_ref().unwrap());
             }
         }
     }

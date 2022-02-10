@@ -1,5 +1,7 @@
 #![doc(html_root_url = "/docs")]
-
+// See: https://github.com/rustwasm/wasm-bindgen/issues/2774
+// Can remove when wasm-bindgen is updated.
+#![allow(clippy::unused_unit)]
 //! A Material components library for [Yew](https://yew.rs). It wrpas around [Material Web Components](https://github.com/material-components/material-components-web-components) exposing Yew components.
 //!
 //! Example usage:
@@ -9,7 +11,7 @@
 //!
 //! html! {
 //!     <MatButton label="Click me!" />
-//! }
+//! };
 //! ```
 //!
 //! All the main components from the modules are re-exported.

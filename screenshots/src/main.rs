@@ -134,10 +134,9 @@ impl Component for App {
                     ListIndex::Single(Some(index)) => index,
                     _ => panic!("Unreachable executed"),
                 };
-                let component = COMPONENTS
+                let component = *COMPONENTS
                     .get(index)
-                    .expect("index too high. This should never happen")
-                    .clone();
+                    .expect("index too high. This should never happen");
                 use_history().unwrap().push(component);
                 true
             }
