@@ -5,7 +5,6 @@ use material_yew::{MatButton, MatListItem, MatSelect, WeakComponentLink};
 use yew::prelude::*;
 
 pub struct Select {
-    link: ComponentLink<Self>,
     natural_menu_width: bool,
     select_link: WeakComponentLink<MatSelect>,
 }
@@ -19,16 +18,15 @@ impl Component for Select {
     type Message = Msg;
     type Properties = ();
 
-    fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
+    fn create(_: &Context<Self>) -> Self {
         let select_link = WeakComponentLink::default();
         Self {
-            link,
             natural_menu_width: true,
             select_link,
         }
     }
 
-    fn update(&mut self, msg: Self::Message) -> ShouldRender {
+    fn update(&mut self, _: &Context<Self>, msg: Self::Message) -> bool {
         match msg {
             Msg::ToggleNaturalMenuWidth => {
                 self.natural_menu_width = !self.natural_menu_width;
@@ -41,131 +39,128 @@ impl Component for Select {
         }
     }
 
-    fn change(&mut self, _props: Self::Properties) -> bool {
-        false
-    }
-
-    fn view(&self) -> Html {
+    fn view(&self, ctx: &Context<Self>) -> Html {
+        let link = ctx.link();
         let filled = with_raw_code!(filled { html! {
-        <section>
-            <MatSelect label="Filled" select_link=self.select_link.clone()>
-                <MatListItem>{""}</MatListItem>
-                <MatListItem value="0">{"Option 0"}</MatListItem>
-                <MatListItem value="1">{"Option 1"}</MatListItem>
-                <MatListItem value="2">{"Option 2"}</MatListItem>
-                <MatListItem value="3">{"Option 3"}</MatListItem>
-            </MatSelect>
-            <span onclick=self.link.callback(|_| Msg::SelectIndex2)>
-                <MatButton label="Select 'Option 1'"/>
-            </span>
-        </section>
+         <section>
+             <MatSelect label="Filled" select_link={self.select_link.clone()}>
+                 <MatListItem>{""}</MatListItem>
+                 <MatListItem value="0">{"Option 0"}</MatListItem>
+                 <MatListItem value="1">{"Option 1"}</MatListItem>
+                 <MatListItem value="2">{"Option 2"}</MatListItem>
+                 <MatListItem value="3">{"Option 3"}</MatListItem>
+             </MatSelect>
+             <span onclick={link.callback(|_| Msg::SelectIndex2)}>
+                 <MatButton label="Select 'Option 1'"/>
+             </span>
+         </section>
         }});
 
         let outlined = with_raw_code!(outlined { html! {
-        <section>
-            <MatSelect label="Outlined" outlined=true>
-                <MatListItem>{""}</MatListItem>
-                <MatListItem value="0">{"Option 0"}</MatListItem>
-                <MatListItem value="1">{"Option 1"}</MatListItem>
-                <MatListItem value="2">{"Option 2"}</MatListItem>
-                <MatListItem value="3">{"Option 3"}</MatListItem>
-            </MatSelect>
-        </section>
+         <section>
+             <MatSelect label="Outlined" outlined=true>
+                 <MatListItem>{""}</MatListItem>
+                 <MatListItem value="0">{"Option 0"}</MatListItem>
+                 <MatListItem value="1">{"Option 1"}</MatListItem>
+                 <MatListItem value="2">{"Option 2"}</MatListItem>
+                 <MatListItem value="3">{"Option 3"}</MatListItem>
+             </MatSelect>
+         </section>
         }});
 
         let preselected = with_raw_code!(preselected { html! {
-        <section>
-            <MatSelect label="Preselected">
-                <MatListItem>{""}</MatListItem>
-                <MatListItem value="0">{"Option 0"}</MatListItem>
-                <MatListItem value="1">{"Option 1"}</MatListItem>
-                <MatListItem value="2" selected=true>{"Option 2"}</MatListItem>
-                <MatListItem value="3">{"Option 3"}</MatListItem>
-            </MatSelect>
-        </section>
+         <section>
+             <MatSelect label="Preselected">
+                 <MatListItem>{""}</MatListItem>
+                 <MatListItem value="0">{"Option 0"}</MatListItem>
+                 <MatListItem value="1">{"Option 1"}</MatListItem>
+                 <MatListItem value="2" selected=true>{"Option 2"}</MatListItem>
+                 <MatListItem value="3">{"Option 3"}</MatListItem>
+             </MatSelect>
+         </section>
         }});
 
         let has_icon = with_raw_code!(has_icon { html! {
-        <section>
-            <MatSelect label="Has Icon" outlined=true icon="event">
-                <MatListItem>{""}</MatListItem>
-                <MatListItem value="0" graphic=GraphicType::Icon>{"Option 0"}</MatListItem>
-                <MatListItem value="1" graphic=GraphicType::Icon>{"Option 1"}</MatListItem>
-                <MatListItem value="2" graphic=GraphicType::Icon>{"Option 2"}</MatListItem>
-                <MatListItem value="3" graphic=GraphicType::Icon>{"Option 3"}</MatListItem>
-            </MatSelect>
-        </section>
+         <section>
+             <MatSelect label="Has Icon" outlined=true icon="event">
+                 <MatListItem>{""}</MatListItem>
+                 <MatListItem value="0" graphic={GraphicType::Icon}>{"Option 0"}</MatListItem>
+                 <MatListItem value="1" graphic={GraphicType::Icon}>{"Option 1"}</MatListItem>
+                 <MatListItem value="2" graphic={GraphicType::Icon}>{"Option 2"}</MatListItem>
+                 <MatListItem value="3" graphic={GraphicType::Icon}>{"Option 3"}</MatListItem>
+             </MatSelect>
+         </section>
         }});
 
         let required = with_raw_code!(required { html! {
-        <section>
-            <MatSelect label="Required filled" required=true>
-                <MatListItem>{""}</MatListItem>
-                <MatListItem value="0">{"Option 0"}</MatListItem>
-                <MatListItem value="1">{"Option 1"}</MatListItem>
-                <MatListItem value="2">{"Option 2"}</MatListItem>
-                <MatListItem value="3">{"Option 3"}</MatListItem>
-            </MatSelect>
-        </section>
+         <section>
+             <MatSelect label="Required filled" required=true>
+                 <MatListItem>{""}</MatListItem>
+                 <MatListItem value="0">{"Option 0"}</MatListItem>
+                 <MatListItem value="1">{"Option 1"}</MatListItem>
+                 <MatListItem value="2">{"Option 2"}</MatListItem>
+                 <MatListItem value="3">{"Option 3"}</MatListItem>
+             </MatSelect>
+         </section>
         }});
 
         let required_outlined = with_raw_code!(required_outlined { html! {
-        <section>
-            <MatSelect label="Required outlined" required=true outlined=true>
-                <MatListItem>{""}</MatListItem>
-                <MatListItem value="0">{"Option 0"}</MatListItem>
-                <MatListItem value="1">{"Option 1"}</MatListItem>
-                <MatListItem value="2">{"Option 2"}</MatListItem>
-                <MatListItem value="3">{"Option 3"}</MatListItem>
-            </MatSelect>
-        </section>
+         <section>
+             <MatSelect label="Required outlined" required=true outlined=true>
+                 <MatListItem>{""}</MatListItem>
+                 <MatListItem value="0">{"Option 0"}</MatListItem>
+                 <MatListItem value="1">{"Option 1"}</MatListItem>
+                 <MatListItem value="2">{"Option 2"}</MatListItem>
+                 <MatListItem value="3">{"Option 3"}</MatListItem>
+             </MatSelect>
+         </section>
         }});
 
         let disabled = with_raw_code!(disabled { html! {
-        <section>
-            <MatSelect label="Disabled" disabled=true>
-                <MatListItem>{""}</MatListItem>
-                <MatListItem value="0">{"Option 0"}</MatListItem>
-                <MatListItem value="1" disabled=true>{"Option 1"}</MatListItem>
-                <MatListItem value="2">{"Option 2"}</MatListItem>
-                <MatListItem value="3">{"Option 3"}</MatListItem>
-            </MatSelect>
-        </section>
+         <section>
+             <MatSelect label="Disabled" disabled=true>
+                 <MatListItem>{""}</MatListItem>
+                 <MatListItem value="0">{"Option 0"}</MatListItem>
+                 <MatListItem value="1" disabled=true>{"Option 1"}</MatListItem>
+                 <MatListItem value="2">{"Option 2"}</MatListItem>
+                 <MatListItem value="3">{"Option 3"}</MatListItem>
+             </MatSelect>
+         </section>
         }});
 
         let natural_width = with_raw_code!(natural_width { html! {
-        <section>
-            <MatSelect label="Natural width" natural_menu_width=self.natural_menu_width>
-                <MatListItem>{""}</MatListItem>
-                <MatListItem value="0">{"Option 0"}</MatListItem>
-                <MatListItem value="1">{"Option 1"}</MatListItem>
-                <MatListItem value="2">{"Option 2"}</MatListItem>
-                <MatListItem value="3">{"Option 3"}</MatListItem>
-            </MatSelect>
-            <div onclick=self.link.callback(|_| Msg::ToggleNaturalMenuWidth)>
-                <MatButton label="Toggle natural menu width" raised=true />
-            </div>
-        </section>
+         <section>
+             <MatSelect label="Natural width" natural_menu_width={self.natural_menu_width}>
+                 <MatListItem>{""}</MatListItem>
+                 <MatListItem value="0">{"Option 0"}</MatListItem>
+                 <MatListItem value="1">{"Option 1"}</MatListItem>
+                 <MatListItem value="2">{"Option 2"}</MatListItem>
+                 <MatListItem value="3">{"Option 3"}</MatListItem>
+             </MatSelect>
+             <div onclick={link.callback(|_| Msg::ToggleNaturalMenuWidth)}>
+                 <MatButton label="Toggle natural menu width" raised=true />
+             </div>
+         </section>
         }});
 
         html! {
         <main class="list-demo">
 
-            <Codeblock title="Filled" code_and_html=filled />
+            <Codeblock title="Filled" code_and_html={filled} />
 
-            <Codeblock title="Outlined" code_and_html=outlined />
+            <Codeblock title="Outlined" code_and_html={outlined} />
 
-            <Codeblock title="Preselected" code_and_html=preselected />
+            <Codeblock title="Preselected" code_and_html={preselected} />
 
-            <Codeblock title="Has Icon" code_and_html=has_icon />
+            <Codeblock title="Has Icon" code_and_html={has_icon} />
 
-            <Codeblock title="Required" code_and_html=required />
+            <Codeblock title="Required" code_and_html={required} />
 
-            <Codeblock title="Required outlined" code_and_html=required_outlined />
+            <Codeblock title="Required outlined" code_and_html={required_outlined} />
 
-            <Codeblock title="Disabled" code_and_html=disabled />
+            <Codeblock title="Disabled" code_and_html={disabled} />
 
-            <Codeblock title="Natural width" code_and_html=natural_width />
+            <Codeblock title="Natural width" code_and_html={natural_width} />
 
         </main>}
     }

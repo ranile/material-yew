@@ -26,7 +26,7 @@ use std::rc::Rc;
 use gloo::events::EventListener;
 use wasm_bindgen::{JsCast, JsValue};
 use web_sys::{Element, Event, InputEvent};
-use yew::{Callback, InputData, NodeRef};
+use yew::{Callback, NodeRef};
 
 #[cfg(any(feature = "textfield", feature = "textarea"))]
 pub(crate) type ValidityTransformFn = dyn Fn(String, NativeValidityState) -> ValidityState;
@@ -45,20 +45,25 @@ impl ValidityTransform {
     }
 }
 
+impl PartialEq for ValidityTransform {
+    fn eq(&self, other: &Self) -> bool {
+        Rc::ptr_eq(&self.0, &other.0)
+    }
+}
+
 fn set_on_input_handler(
     node_ref: &NodeRef,
-    callback: Callback<InputData>,
-    convert: impl Fn((InputEvent, JsValue)) -> InputData + 'static,
+    callback: Callback<String>,
+    convert: impl Fn((InputEvent, JsValue)) -> String + 'static,
 ) -> EventListener {
     let element = node_ref.cast::<Element>().unwrap();
     EventListener::new(&element, "input", move |event: &Event| {
         let js_value = JsValue::from(event);
 
-        let input_event = js_value
-            .clone()
-            .dyn_into::<web_sys::InputEvent>()
-            .expect("could not convert to `InputEvent`");
-
-        callback.emit(convert((input_event, js_value)))
+        if let Some(input_event) = JsCast::dyn_ref::<web_sys::InputEvent>(&js_value) {
+            callback.emit(convert((input_event.clone(), js_value)))
+        } else {
+            panic!("could not convert to `InputEvent`");
+        }
     })
 }

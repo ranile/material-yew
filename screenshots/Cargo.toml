@@ -8,7 +8,7 @@ edition = "2018"
 
 [dependencies]
 wasm-bindgen = "0.2"
-yew = "0.18"
-yew-router = "0.15"
+yew = "0.19"
+yew-router = "0.16"
 material-yew = { path = "../material-yew", features = ["full"] }
 weblog = "0.3"

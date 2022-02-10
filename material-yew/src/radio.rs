@@ -1,6 +1,5 @@
 use crate::bool_to_option;
 use gloo::events::EventListener;
-use std::borrow::Cow;
 use wasm_bindgen::prelude::*;
 use web_sys::Node;
 use yew::prelude::*;
@@ -27,7 +26,6 @@ loader_hack!(Radio);
 ///
 /// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/radio)
 pub struct MatRadio {
-    props: RadioProps,
     node_ref: NodeRef,
     change_listener: Option<EventListener>,
 }
@@ -38,16 +36,16 @@ pub struct MatRadio {
 ///
 /// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/radio#propertiesattributes)
 /// - [Events](https://github.com/material-components/material-components-web-components/tree/master/packages/radio#events)
-#[derive(Debug, Properties, Clone)]
+#[derive(Debug, Properties, PartialEq, Clone)]
 pub struct RadioProps {
     #[prop_or_default]
     pub checked: bool,
     #[prop_or_default]
     pub disabled: bool,
     #[prop_or_default]
-    pub name: Cow<'static, str>,
+    pub name: String,
     #[prop_or_default]
-    pub value: Cow<'static, str>,
+    pub value: String,
     #[prop_or_default]
     pub global: bool,
     #[prop_or_default]
@@ -65,43 +63,35 @@ impl Component for MatRadio {
     type Message = ();
     type Properties = RadioProps;
 
-    fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
+    fn create(_: &Context<Self>) -> Self {
         Radio::ensure_loaded();
         Self {
-            props,
             node_ref: NodeRef::default(),
             change_listener: None,
         }
     }
 
-    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
-        false
-    }
-
-    fn change(&mut self, props: Self::Properties) -> bool {
-        self.props = props;
-        true
-    }
-
-    fn view(&self) -> Html {
+    fn view(&self, ctx: &Context<Self>) -> Html {
+        let props = ctx.props();
         html! {
-              <mwc-radio
-                  disabled=self.props.disabled
-                  name=self.props.name.clone()
-                  value=self.props.value.clone()
-                  global=bool_to_option(self.props.global)
-                  reducedTouchTarget=bool_to_option(self.props.reduced_touch_target)
-                  ref=self.node_ref.clone()
-              ></mwc-radio>
+               <mwc-radio
+                   disabled={props.disabled}
+                   name={props.name.clone()}
+                   value={props.value.clone()}
+                   global={bool_to_option(props.global)}
+                   reducedTouchTarget={bool_to_option(props.reduced_touch_target)}
+                   ref={self.node_ref.clone()}
+               ></mwc-radio>
         }
     }
 
-    fn rendered(&mut self, _first_render: bool) {
+    fn rendered(&mut self, ctx: &Context<Self>, _first_render: bool) {
+        let props = ctx.props();
         let element = self.node_ref.cast::<Radio>().unwrap();
-        element.set_checked(self.props.checked);
+        element.set_checked(props.checked);
 
         if self.change_listener.is_none() {
-            let callback = self.props.onchange.clone();
+            let callback = props.onchange.clone();
             self.change_listener =
                 Some(EventListener::new(&element.clone(), "change", move |_| {
                     callback.emit(element.checked());

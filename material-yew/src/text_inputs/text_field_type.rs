@@ -1,7 +1,5 @@
-use std::borrow::Cow;
-
 /// The `TextFieldType` type
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq)]
 pub enum TextFieldType {
     Text,
     Search,
@@ -19,9 +17,9 @@ pub enum TextFieldType {
 }
 
 impl TextFieldType {
-    pub fn to_cow_string(&self) -> Cow<'static, str> {
+    pub fn as_str(&self) -> &'static str {
         use TextFieldType::*;
-        let s = match self {
+        match self {
             Text => "text",
             Search => "search",
             Tel => "tel",
@@ -35,7 +33,6 @@ impl TextFieldType {
             DatetimeLocal => "datetime-local",
             Number => "number",
             Color => "color",
-        };
-        Cow::from(s)
+        }
     }
 }

@@ -4,7 +4,6 @@ use crate::text_inputs::{
     validity_state::ValidityStateJS, TextFieldType, ValidityState, ValidityTransform,
 };
 use gloo::events::EventListener;
-use std::borrow::Cow;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Node;
@@ -42,7 +41,6 @@ loader_hack!(TextField);
 ///
 /// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/textfield)
 pub struct MatTextField {
-    props: TextFieldProps,
     node_ref: NodeRef,
     validity_transform_closure:
         Option<Closure<dyn Fn(String, NativeValidityState) -> ValidityStateJS>>,
@@ -54,26 +52,26 @@ pub struct MatTextField {
 /// MWC Documentation:
 ///
 /// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/textfield#propertiesattributes)
-#[derive(Properties, Clone)]
+#[derive(Properties, PartialEq, Clone)]
 pub struct TextFieldProps {
     #[prop_or_default]
     pub open: bool,
     #[prop_or_default]
-    pub value: Cow<'static, str>,
+    pub value: String,
     #[prop_or(TextFieldType::Text)]
     pub field_type: TextFieldType,
     #[prop_or_default]
-    pub label: Cow<'static, str>,
+    pub label: String,
     #[prop_or_default]
-    pub placeholder: Cow<'static, str>,
+    pub placeholder: String,
     #[prop_or_default]
-    pub prefix: Cow<'static, str>,
+    pub prefix: String,
     #[prop_or_default]
-    pub suffix: Cow<'static, str>,
+    pub suffix: String,
     #[prop_or_default]
-    pub icon: Cow<'static, str>,
+    pub icon: String,
     #[prop_or_default]
-    pub icon_trailing: Cow<'static, str>,
+    pub icon_trailing: String,
     #[prop_or_default]
     pub disabled: bool,
     #[prop_or_default]
@@ -81,7 +79,7 @@ pub struct TextFieldProps {
     #[prop_or_default]
     pub outlined: bool,
     #[prop_or_default]
-    pub helper: Cow<'static, str>,
+    pub helper: String,
     #[prop_or_default]
     pub helper_persistent: bool,
     #[prop_or_default]
@@ -89,15 +87,15 @@ pub struct TextFieldProps {
     #[prop_or_default]
     pub max_length: Option<u64>,
     #[prop_or_default]
-    pub validation_message: Cow<'static, str>,
+    pub validation_message: String,
     #[prop_or_default]
-    pub pattern: Cow<'static, str>,
+    pub pattern: String,
     /// Type: `number | string` so I'll leave it as a string
     #[prop_or_default]
-    pub min: Cow<'static, str>,
+    pub min: String,
     /// Type: `number | string`  so I'll leave it as a string
     #[prop_or_default]
-    pub max: Cow<'static, str>,
+    pub max: String,
     // What you doing...
     #[prop_or_default]
     pub size: Option<i64>,
@@ -111,90 +109,80 @@ pub struct TextFieldProps {
     #[prop_or_default]
     pub validate_on_initial_render: bool,
     #[prop_or_default]
-    pub oninput: Callback<InputData>,
+    pub oninput: Callback<String>,
     #[prop_or_default]
-    pub name: Cow<'static, str>,
+    pub name: String,
 }
 
 impl Component for MatTextField {
     type Message = ();
     type Properties = TextFieldProps;
 
-    fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
+    fn create(_: &Context<Self>) -> Self {
         TextField::ensure_loaded();
         Self {
-            props,
             node_ref: NodeRef::default(),
             validity_transform_closure: None,
             input_listener: None,
         }
     }
 
-    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
-        false
-    }
-
-    fn change(&mut self, props: Self::Properties) -> bool {
-        self.props = props;
-        true
-    }
-
-    fn view(&self) -> Html {
+    fn view(&self, ctx: &Context<Self>) -> Html {
+        let props = ctx.props();
         html! {
-            <mwc-textfield
-                open=self.props.open
-                label=self.props.label.clone()
-                placeholder=self.props.placeholder.clone()
-                prefix=self.props.prefix.clone()
-                suffix=self.props.suffix.clone()
-                icon=self.props.icon.clone()
-                iconTrailing=self.props.icon_trailing.clone()
-                disabled=self.props.disabled
-                charCounter=bool_to_option(self.props.char_counter)
-                outlined=bool_to_option(self.props.outlined)
-                helper=self.props.helper.clone()
-                helperPersistent=bool_to_option(self.props.helper_persistent)
-                required=self.props.required
-                maxLength=self.props.max_length.map(|v| Cow::from(v.to_string()))
-                validationMessage=self.props.validation_message.clone()
-                pattern=self.props.pattern.clone()
-                min=self.props.min.clone()
-                max=self.props.max.clone()
-                size=self.props.size.map(|v| Cow::from(v.to_string()))
-                step=self.props.step.map(|v| Cow::from(v.to_string()))
-                autoValidate=bool_to_option(self.props.auto_validate)
-                validateOnInitialRender=bool_to_option(self.props.validate_on_initial_render)
-                name=self.props.name.clone()
-                ref=self.node_ref.clone()
-            ></mwc-textfield>
+             <mwc-textfield
+                 open={props.open}
+                 label={props.label.clone()}
+                 placeholder={props.placeholder.clone()}
+                 prefix={props.prefix.clone()}
+                 suffix={props.suffix.clone()}
+                 icon={props.icon.clone()}
+                 iconTrailing={props.icon_trailing.clone()}
+                 disabled={props.disabled}
+                 charCounter={bool_to_option(props.char_counter)}
+                 outlined={bool_to_option(props.outlined)}
+                 helper={props.helper.clone()}
+                 helperPersistent={bool_to_option(props.helper_persistent)}
+                 required={props.required}
+                 maxLength={props.max_length.map(|v| v.to_string())}
+                 validationMessage={props.validation_message.clone()}
+                 pattern={props.pattern.clone()}
+                 min={props.min.clone()}
+                 max={props.max.clone()}
+                 size={props.size.map(|v| v.to_string())}
+                 step={props.step.map(|v| v.to_string())}
+                 autoValidate={bool_to_option(props.auto_validate)}
+                 validateOnInitialRender={bool_to_option(props.validate_on_initial_render)}
+                 name={props.name.clone()}
+                 ref={self.node_ref.clone()}
+             ></mwc-textfield>
         }
     }
 
-    fn rendered(&mut self, first_render: bool) {
+    fn rendered(&mut self, ctx: &Context<Self>, first_render: bool) {
+        let props = ctx.props();
         let element = self.node_ref.cast::<TextField>().unwrap();
-        element.set_type(&JsValue::from(
-            self.props.field_type.to_cow_string().as_ref(),
-        ));
-        element.set_value(&JsValue::from(self.props.value.as_ref()));
+        element.set_type(&JsValue::from(props.field_type.as_str()));
+        element.set_value(&JsValue::from_str(props.value.as_ref()));
 
         if self.input_listener.is_none() {
             self.input_listener = Some(set_on_input_handler(
                 &self.node_ref,
-                self.props.oninput.clone(),
-                |(input_event, detail)| {
-                    InputData {
-                        value: detail
-                            .unchecked_into::<MatTextFieldInputEvent>()
-                            .target()
-                            .value(),
-                        event: input_event,
-                    }
+                props.oninput.clone(),
+                |(_, detail)| {
+                    // TODO: figure out what's going on here...
+                    let value = detail
+                        .unchecked_into::<MatTextFieldInputEvent>()
+                        .target()
+                        .value();
+
+                    value.to_string()
                 },
             ));
         }
         if first_render {
             let this = self.node_ref.cast::<TextField>().unwrap();
-            if let Some(transform) = self.props.validity_transform.clone() {
+            if let Some(transform) = props.validity_transform.clone() {
                 self.validity_transform_closure = Some(Closure::wrap(Box::new(
                     move |s: String, v: NativeValidityState| -> ValidityStateJS {
                         transform.0(s, v).into()

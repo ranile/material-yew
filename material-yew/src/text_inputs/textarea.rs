@@ -3,7 +3,6 @@ use crate::bool_to_option;
 use crate::text_inputs::validity_state::ValidityStateJS;
 use crate::text_inputs::{TextFieldType, ValidityState, ValidityTransform};
 use gloo::events::EventListener;
-use std::borrow::Cow;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Node;
@@ -41,7 +40,6 @@ loader_hack!(TextArea);
 ///
 /// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/textarea)
 pub struct MatTextArea {
-    props: TextAreaProps,
     node_ref: NodeRef,
     validity_transform_closure:
         Option<Closure<dyn Fn(String, NativeValidityState) -> ValidityStateJS>>,
@@ -52,19 +50,18 @@ pub struct MatTextArea {
 ///
 /// Equivalent to `type TextAreaCharCounter = 'external'|'internal';` Typescript
 /// type.
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, PartialEq)]
 pub enum TextAreaCharCounter {
     Internal,
     External,
 }
 
 impl TextAreaCharCounter {
-    pub fn as_cow_string(&self) -> Cow<'static, str> {
-        let s = match self {
+    pub fn as_str(&self) -> &'static str {
+        match self {
             TextAreaCharCounter::Internal => "internal",
             TextAreaCharCounter::External => "external",
-        };
-        Cow::from(s)
+        }
     }
 }
 
@@ -73,24 +70,24 @@ impl TextAreaCharCounter {
 /// MWC Documentation:
 ///
 /// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/checkbox#propertiesattributes)
-#[derive(Properties, Clone)]
+#[derive(Properties, PartialEq, Clone)]
 pub struct TextAreaProps {
     #[prop_or_default]
     pub rows: Option<i64>,
     #[prop_or_default]
     pub cols: Option<i64>,
     #[prop_or_default]
-    pub value: Cow<'static, str>,
+    pub value: String,
     #[prop_or(TextFieldType::Text)]
     pub field_type: TextFieldType,
     #[prop_or_default]
-    pub label: Cow<'static, str>,
+    pub label: String,
     #[prop_or_default]
-    pub placeholder: Cow<'static, str>,
+    pub placeholder: String,
     #[prop_or_default]
-    pub icon: Cow<'static, str>,
+    pub icon: String,
     #[prop_or_default]
-    pub icon_trailing: Cow<'static, str>,
+    pub icon_trailing: String,
     #[prop_or_default]
     pub disabled: bool,
     /// For boolean value `true`, `TextAreaCharCounter::External` is to be used.
@@ -101,7 +98,7 @@ pub struct TextAreaProps {
     #[prop_or_default]
     pub outlined: bool,
     #[prop_or_default]
-    pub helper: Cow<'static, str>,
+    pub helper: String,
     #[prop_or_default]
     pub helper_persistent: bool,
     #[prop_or_default]
@@ -109,13 +106,13 @@ pub struct TextAreaProps {
     #[prop_or_default]
     pub max_length: Option<u64>,
     #[prop_or_default]
-    pub validation_message: Cow<'static, str>,
+    pub validation_message: String,
     /// Type: `number | string` so I'll leave it as a string
     #[prop_or_default]
-    pub min: Cow<'static, str>,
+    pub min: String,
     /// Type: `number | string`  so I'll leave it as a string
     #[prop_or_default]
-    pub max: Cow<'static, str>,
+    pub max: String,
     #[prop_or_default]
     pub size: Option<i64>, // --|
     #[prop_or_default] //   | -- What you doing step size
@@ -127,89 +124,78 @@ pub struct TextAreaProps {
     #[prop_or_default]
     pub validate_on_initial_render: bool,
     #[prop_or_default]
-    pub oninput: Callback<InputData>,
+    pub oninput: Callback<String>,
     #[prop_or_default]
-    pub name: Cow<'static, str>,
+    pub name: String,
 }
 
 impl Component for MatTextArea {
     type Message = ();
     type Properties = TextAreaProps;
 
-    fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
+    fn create(_: &Context<Self>) -> Self {
         TextArea::ensure_loaded();
         Self {
-            props,
             node_ref: NodeRef::default(),
             validity_transform_closure: None,
             input_listener: None,
         }
     }
 
-    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
-        false
-    }
-
-    fn change(&mut self, props: Self::Properties) -> bool {
-        self.props = props;
-        true
-    }
-
-    fn view(&self) -> Html {
+    fn view(&self, ctx: &Context<Self>) -> Html {
+        let props = ctx.props();
         html! {
-            <mwc-textarea
-                rows=self.props.rows.map(|v| Cow::from(v.to_string()))
-                cols=self.props.cols.map(|v| Cow::from(v.to_string()))
-                label=self.props.label.clone()
-                placeholder=self.props.placeholder.clone()
-                icon=self.props.icon.clone()
-                iconTrailing=self.props.icon_trailing.clone()
-                disabled=self.props.disabled
-                charCounter=self.props.char_counter.map(|it| it.as_cow_string())
-                outlined=bool_to_option(self.props.outlined)
-                helper=self.props.helper.clone()
-                helperPersistent=bool_to_option(self.props.helper_persistent)
-                required=self.props.required
-                maxLength=self.props.max_length.map(|v| Cow::from(v.to_string()))
-                validationMessage=self.props.validation_message.clone()
-                min=self.props.min.clone()
-                max=self.props.max.clone()
-                size=self.props.size.map(|v| Cow::from(v.to_string()))
-                step=self.props.step.map(|v| Cow::from(v.to_string()))
-                autoValidate=bool_to_option(self.props.auto_validate)
-                validateOnInitialRender=bool_to_option(self.props.validate_on_initial_render)
-                name=self.props.name.clone()
-                ref=self.node_ref.clone()
-            ></mwc-textarea>
+             <mwc-textarea
+                 rows={props.rows.map(|v| v.to_string())}
+                 cols={props.cols.map(|v| v.to_string())}
+                 label={props.label.clone()}
+                 placeholder={props.placeholder.clone()}
+                 icon={props.icon.clone()}
+                 iconTrailing={props.icon_trailing.clone()}
+                 disabled={props.disabled}
+                 charCounter={props.char_counter.map(|it| it.as_str())}
+                 outlined={bool_to_option(props.outlined)}
+                 helper={props.helper.clone()}
+                 helperPersistent={bool_to_option(props.helper_persistent)}
+                 required={props.required}
+                 maxLength={props.max_length.map(|v| v.to_string())}
+                 validationMessage={props.validation_message.clone()}
+                 min={props.min.clone()}
+                 max={props.max.clone()}
+                 size={props.size.map(|v| v.to_string())}
+                 step={props.step.map(|v| v.to_string())}
+                 autoValidate={bool_to_option(props.auto_validate)}
+                 validateOnInitialRender={bool_to_option(props.validate_on_initial_render)}
+                 name={props.name.clone()}
+                 ref={self.node_ref.clone()}
+             ></mwc-textarea>
         }
     }
 
-    fn rendered(&mut self, first_render: bool) {
+    fn rendered(&mut self, ctx: &Context<Self>, first_render: bool) {
+        let props = ctx.props();
         let element = self.node_ref.cast::<TextArea>().unwrap();
-        element.set_type(&JsValue::from(
-            self.props.field_type.to_cow_string().as_ref(),
-        ));
-        element.set_value(&JsValue::from(self.props.value.as_ref()));
+        element.set_type(&JsValue::from(props.field_type.as_str()));
+        element.set_value(&JsValue::from_str(props.value.as_ref()));
 
         if self.input_listener.is_none() {
             self.input_listener = Some(set_on_input_handler(
                 &self.node_ref,
-                self.props.oninput.clone(),
-                |(input_event, detail)| {
-                    InputData {
-                        value: detail
-                            .unchecked_into::<MatTextAreaInputEvent>()
-                            .target()
-                            .value(),
-                        event: input_event,
-                    }
+                props.oninput.clone(),
+                |(_, detail)| {
+                    let value = detail
+                        .unchecked_into::<MatTextAreaInputEvent>()
+                        .target()
+                        .value();
+
+                    value.to_string()
                 },
             ));
         };
 
         if first_render {
             let this = self.node_ref.cast::<TextArea>().unwrap();
-            if let Some(transform) = self.props.validity_transform.clone() {
+            if let Some(transform) = props.validity_transform.clone() {
                 self.validity_transform_closure = Some(Closure::wrap(Box::new(
                     move |s: String, v: NativeValidityState| -> ValidityStateJS {
                         transform.0(s, v).into()

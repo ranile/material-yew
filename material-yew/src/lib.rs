@@ -45,44 +45,35 @@ macro_rules! component {
             #[doc = "The `mwc-" $mwc_name "` component"]
             #[doc = ""]
             #[doc = "[MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/"$mwc_name")"]
-            pub struct $comp {
-                props: $props
-            }
-        }
+            pub struct $comp;
+       }
         impl yew::Component for $comp {
             type Message = ();
             type Properties = $props;
 
-            fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
+            fn create(_: &Context<Self>) -> Self {
                 $mwc_to_initialize::ensure_loaded();
-                Self { props }
-            }
+                Self
+           }
 
-            fn update(&mut self, _msg: Self::Message) -> ShouldRender {
-                false
-            }
-
-            fn change(&mut self, props: Self::Properties) -> bool {
-                self.props = props;
-                true
-            }
-
-            fn view(&self) -> Html {
-                $html(&self.props)
-            }
-        }
-    };
+            fn view(&self, ctx: &Context<Self>) -> Html {
+                let props = ctx.props();
+                $html(props)
+           }
+       }
+   };
 }
 
-fn bool_to_option(value: bool) -> Option<Cow<'static, str>> {
-    value.then(|| Cow::from("true"))
+fn bool_to_option(value: bool) -> Option<String> {
+    value.then(|| String::from("true"))
 }
 
-fn to_option_string(s: impl Display) -> Option<Cow<'static, str>> {
+fn to_option_string(s: impl Display) -> Option<String> {
     let s = s.to_string();
-    match s.as_str() {
-        "" => None,
-        _ => Some(Cow::from(s)),
+    if s.is_empty() {
+        None
+    } else {
+        Some(s)
     }
 }
 
@@ -241,7 +232,6 @@ pub mod menu;
 #[doc(hidden)]
 pub use menu::MatMenu;
 
-use std::borrow::Cow;
 use std::fmt::Display;
 #[doc(hidden)]
 pub use utils::WeakComponentLink;

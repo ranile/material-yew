@@ -4,7 +4,6 @@ pub use dialog_action::*;
 
 use crate::{bool_to_option, event_details_into, WeakComponentLink};
 use gloo::events::EventListener;
-use std::borrow::Cow;
 use wasm_bindgen::prelude::*;
 use web_sys::{Element, Node};
 use yew::prelude::*;
@@ -42,7 +41,6 @@ loader_hack!(Dialog);
 /// In order to pass actions, [`MatDialogAction`] component should be
 /// used.
 pub struct MatDialog {
-    props: DialogProps,
     node_ref: NodeRef,
     opening_listener: Option<EventListener>,
     opened_listener: Option<EventListener>,
@@ -56,7 +54,7 @@ pub struct MatDialog {
 ///
 /// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/dialog#propertiesattributes)
 /// - [Events](https://github.com/material-components/material-components-web-components/tree/master/packages/dialog#events)
-#[derive(Properties, Clone)]
+#[derive(Properties, PartialEq, Clone)]
 pub struct DialogProps {
     #[prop_or_default]
     pub open: bool,
@@ -65,17 +63,17 @@ pub struct DialogProps {
     #[prop_or_default]
     pub stacked: bool,
     #[prop_or_default]
-    pub heading: Option<Cow<'static, str>>,
+    pub heading: Option<String>,
     #[prop_or_default]
-    pub scrim_click_action: Option<Cow<'static, str>>,
+    pub scrim_click_action: Option<String>,
     #[prop_or_default]
-    pub escape_key_action: Option<Cow<'static, str>>,
+    pub escape_key_action: Option<String>,
     #[prop_or_default]
-    pub default_action: Option<Cow<'static, str>>,
+    pub default_action: Option<String>,
     #[prop_or_default]
-    pub action_attribute: Option<Cow<'static, str>>,
+    pub action_attribute: Option<String>,
     #[prop_or_default]
-    pub initial_focus_attribute: Option<Cow<'static, str>>,
+    pub initial_focus_attribute: Option<String>,
     /// Binds to `opening` event on `mwc-dialog`
     ///
     /// See events docs to learn more.
@@ -113,11 +111,13 @@ impl Component for MatDialog {
     type Message = ();
     type Properties = DialogProps;
 
-    fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
-        props.dialog_link.borrow_mut().replace(link);
+    fn create(ctx: &Context<Self>) -> Self {
+        ctx.props()
+            .dialog_link
+            .borrow_mut()
+            .replace(ctx.link().clone());
         Dialog::ensure_loaded();
         Self {
-            props,
             node_ref: NodeRef::default(),
             opening_listener: None,
             opened_listener: None,
@@ -126,58 +126,52 @@ impl Component for MatDialog {
         }
     }
 
-    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
-        false
-    }
-
-    fn change(&mut self, props: Self::Properties) -> bool {
-        self.props = props;
-        true
-    }
-
-    fn view(&self) -> Html {
+    fn view(&self, ctx: &Context<Self>) -> Html {
+        let props = ctx.props();
         html! {
         <mwc-dialog
-            open=self.props.open
-            hideActions=bool_to_option(self.props.hide_action)
-            stacked=bool_to_option(self.props.stacked)
-            heading=self.props.heading.clone()
-            scrimClickAction=self.props.scrim_click_action.clone()
-            escapeKeyAction=self.props.escape_key_action.clone()
-            defaultAction=self.props.default_action.clone()
-            actionAttribute=self.props.action_attribute.clone()
-            initialFocusAttribute=self.props.initial_focus_attribute.clone()
-            ref=self.node_ref.clone()>
-            { self.props.children.clone() }
+            open={props.open}
+            hideActions={bool_to_option(props.hide_action)}
+            stacked={bool_to_option(props.stacked)}
+            heading={props.heading.clone()}
+            scrimClickAction={props.scrim_click_action.clone()}
+            escapeKeyAction={props.escape_key_action.clone()}
+            defaultAction={props.default_action.clone()}
+            actionAttribute={props.action_attribute.clone()}
+            initialFocusAttribute={props.initial_focus_attribute.clone()}
+            ref={self.node_ref.clone()}
+            >
+            {props.children.clone()}
         </mwc-dialog>
-                }
+               }
     }
 
-    fn rendered(&mut self, _first_render: bool) {
+    fn rendered(&mut self, ctx: &Context<Self>, _first_render: bool) {
+        let props = ctx.props();
         let element = self.node_ref.cast::<Element>().unwrap();
         if self.opening_listener.is_none() {
-            let onopening = self.props.onopening.clone();
+            let onopening = props.onopening.clone();
             self.opening_listener = Some(EventListener::new(&element, "opening", move |_| {
                 onopening.emit(())
             }));
         }
 
         if self.opened_listener.is_none() {
-            let onopened = self.props.onopened.clone();
+            let onopened = props.onopened.clone();
             self.opened_listener = Some(EventListener::new(&element, "opened", move |_| {
                 onopened.emit(())
             }));
         }
 
         if self.closing_listener.is_none() {
-            let onclosing = self.props.onclosing.clone();
+            let onclosing = props.onclosing.clone();
             self.closing_listener = Some(EventListener::new(&element, "closing", move |event| {
                 onclosing.emit(action_from_event(event))
             }));
         }
 
         if self.closed_listener.is_none() {
-            let onclosed = self.props.onclosed.clone();
+            let onclosed = props.onclosed.clone();
             self.closed_listener = Some(EventListener::new(&element, "closed", move |event| {
                 onclosed.emit(action_from_event(event))
             }));

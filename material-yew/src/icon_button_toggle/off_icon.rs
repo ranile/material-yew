@@ -3,7 +3,7 @@ use yew::prelude::*;
 const SLOT: &str = "offIcon";
 
 /// Props for [`MatOffIconButtonToggle`]
-#[derive(Properties, Clone)]
+#[derive(Properties, PartialEq, Clone)]
 pub struct OffIconButtonToggleProps {
     pub children: Children,
 }
@@ -13,30 +13,19 @@ pub struct OffIconButtonToggleProps {
 /// If the child passed is an element (a `VTag`), then it is modified to include
 /// the appropriate attributes. Otherwise, the child is wrapped in a `span`
 /// containing said attributes.
-pub struct MatOffIconButtonToggle {
-    props: OffIconButtonToggleProps,
-}
+pub struct MatOffIconButtonToggle;
 
 impl Component for MatOffIconButtonToggle {
     type Message = ();
     type Properties = OffIconButtonToggleProps;
 
-    fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
-        Self { props }
+    fn create(_: &Context<Self>) -> Self {
+        Self
     }
 
-    fn update(&mut self, _msg: Self::Message) -> bool {
-        false
-    }
-
-    fn change(&mut self, props: Self::Properties) -> bool {
-        self.props = props;
-        true
-    }
-
-    fn view(&self) -> Html {
-        let children = self
-            .props
+    fn view(&self, ctx: &Context<Self>) -> Html {
+        let props = ctx.props();
+        let children = props
             .children
             .iter()
             .map(|child| {
@@ -47,9 +36,9 @@ impl Component for MatOffIconButtonToggle {
                     }
                     _ => {
                         html! {
-                            <span slot=SLOT>
-                                { child }
-                            </span>
+                             <span slot={SLOT}>
+                                 {child}
+                             </span>
                         }
                     }
                 }
@@ -57,7 +46,7 @@ impl Component for MatOffIconButtonToggle {
             .collect::<Html>();
 
         html! {
-            { children }
+             {children}
         }
     }
 }

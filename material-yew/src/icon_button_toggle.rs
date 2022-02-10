@@ -6,7 +6,6 @@ pub use on_icon::*;
 
 use crate::bool_to_option;
 use gloo::events::EventListener;
-use std::borrow::Cow;
 use wasm_bindgen::prelude::*;
 use web_sys::Node;
 use yew::prelude::*;
@@ -30,7 +29,6 @@ loader_hack!(IconButtonToggle);
 ///
 /// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/icon-button-toggle)
 pub struct MatIconButtonToggle {
-    props: IconButtonToggleProps,
     node_ref: NodeRef,
     change_listener: Option<EventListener>,
 }
@@ -41,16 +39,16 @@ pub struct MatIconButtonToggle {
 ///
 /// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/icon-button-toggle#propertiesattributes)
 /// - [Events](https://github.com/material-components/material-components-web-components/tree/master/packages/icon-button-toggle#events)
-#[derive(Debug, Properties, Clone)]
+#[derive(Debug, Properties, PartialEq, Clone)]
 pub struct IconButtonToggleProps {
     #[prop_or_default]
     pub on: bool,
     #[prop_or_default]
-    pub on_icon: Cow<'static, str>,
+    pub on_icon: String,
     #[prop_or_default]
-    pub off_icon: Cow<'static, str>,
+    pub off_icon: String,
     #[prop_or_default]
-    pub label: Cow<'static, str>,
+    pub label: String,
     #[prop_or_default]
     pub disabled: bool,
     /// Binds to `MDCIconButtonToggle:change`.
@@ -68,42 +66,34 @@ impl Component for MatIconButtonToggle {
     type Message = ();
     type Properties = IconButtonToggleProps;
 
-    fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
+    fn create(_: &Context<Self>) -> Self {
         IconButtonToggle::ensure_loaded();
         Self {
-            props,
             node_ref: NodeRef::default(),
             change_listener: None,
         }
     }
 
-    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
-        false
-    }
-
-    fn change(&mut self, props: Self::Properties) -> bool {
-        self.props = props;
-        true
-    }
-
-    fn view(&self) -> Html {
+    fn view(&self, ctx: &Context<Self>) -> Html {
+        let props = ctx.props();
         html! {
-            <mwc-icon-button-toggle
-                on=bool_to_option(self.props.on)
-                onIcon=self.props.on_icon.clone()
-                offIcon=self.props.off_icon.clone()
-                label=self.props.label.clone()
-                disabled=self.props.disabled
-                ref=self.node_ref.clone()
-            > { self.props.children.clone() }</mwc-icon-button-toggle>
+             <mwc-icon-button-toggle
+                 on={bool_to_option(props.on)}
+                 onIcon={props.on_icon.clone()}
+                 offIcon={props.off_icon.clone()}
+                 label={props.label.clone()}
+                 disabled={props.disabled}
+                 ref={self.node_ref.clone()}
+             > {props.children.clone()}</mwc-icon-button-toggle>
         }
     }
 
-    fn rendered(&mut self, _first_render: bool) {
+    fn rendered(&mut self, ctx: &Context<Self>, _first_render: bool) {
+        let props = ctx.props();
         if self.change_listener.is_none() {
             let element = self.node_ref.cast::<IconButtonToggle>().unwrap();
 
-            let callback = self.props.onchange.clone();
+            let callback = props.onchange.clone();
             self.change_listener = Some(EventListener::new(
                 &element.clone(),
                 "MDCIconButtonToggle:change",
