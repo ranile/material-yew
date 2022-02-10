@@ -170,14 +170,14 @@ impl Component for App {
         </>};
 
         html! { <>
-        <main id="screenshots">
-            <MatSelect label="Components" outlined=true onselected={on_selected} >
-                { for COMPONENTS.iter().map(list_item)}
-            </MatSelect>
-            <BrowserRouter>
+        <BrowserRouter>
+            <main id="screenshots">
+                <MatSelect label="Components" outlined=true onselected={on_selected} >
+                    { for COMPONENTS.iter().map(list_item)}
+                </MatSelect>
                 <Switch<AppRoute> render={Switch::render(move |switch| Self::switch(*switch, menu.clone()))} />
-            </BrowserRouter>
-        </main>
+            </main>
+        </BrowserRouter>
         </>}
     }
 }

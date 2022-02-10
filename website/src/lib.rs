@@ -150,79 +150,79 @@ impl Component for App {
         };
 
         html! { <>
-        <MatDrawer open={self.drawer_state} drawer_type="dismissible"
-            onopened={link.callback(|_| Msg::Opened)}
-            onclosed={link.callback(|_| Msg::Closed)}>
+        <BrowserRouter>
+            <MatDrawer open={self.drawer_state} drawer_type="dismissible"
+                onopened={link.callback(|_| Msg::Opened)}
+                onclosed={link.callback(|_| Msg::Closed)}>
 
-                <MatDrawerTitle>
-                    <span class="drawer-title">{"Components"}</span>
-                </MatDrawerTitle>
+                    <MatDrawerTitle>
+                        <span class="drawer-title">{"Components"}</span>
+                    </MatDrawerTitle>
 
-                <div class="drawer-content">
-                    <MatList>
-                        <AppLink to={AppRoute::Button}><MatListItem>{"Button"}</MatListItem></AppLink>
-                        <AppLink to={AppRoute::Checkbox}><MatListItem>{"Checkbox"}</MatListItem></AppLink>
-                        <AppLink to={AppRoute::Radio}><MatListItem>{"Radio"}</MatListItem></AppLink>
-                        <AppLink to={AppRoute::Switch}><MatListItem>{"Switch"}</MatListItem></AppLink>
-                        <AppLink to={AppRoute::Fab}><MatListItem>{"Floating Action Button"}</MatListItem></AppLink>
-                        <AppLink to={AppRoute::IconButton}><MatListItem>{"Icon Button"}</MatListItem></AppLink>
-                        <AppLink to={AppRoute::Icon}><MatListItem>{"Icon"}</MatListItem></AppLink>
-                        <AppLink to={AppRoute::CircularProgress}><MatListItem>{"Circular Progress"}</MatListItem></AppLink>
-                        <AppLink to={AppRoute::FormField}><MatListItem>{"Form Field"}</MatListItem></AppLink>
-                        <AppLink to={AppRoute::LinearProgress}><MatListItem>{"Linear Progress"}</MatListItem></AppLink>
-                        <AppLink to={AppRoute::List}><MatListItem>{"List"}</MatListItem></AppLink>
-                        <AppLink to={AppRoute::IconButtonToggle}><MatListItem>{"Icon Button Toggle"}</MatListItem></AppLink>
-                        <AppLink to={AppRoute::Slider}><MatListItem>{"Slider"}</MatListItem></AppLink>
-                        <AppLink to={AppRoute::Tabs}><MatListItem>{"Tabs"}</MatListItem></AppLink>
-                        <AppLink to={AppRoute::Snackbar}><MatListItem>{"Snackbar"}</MatListItem></AppLink>
-                        <AppLink to={AppRoute::Textfield}><MatListItem>{"Textfield"}</MatListItem></AppLink>
-                        <AppLink to={AppRoute::TextArea}><MatListItem>{"TextArea"}</MatListItem></AppLink>
-                        <AppLink to={AppRoute::Select}><MatListItem>{"Select"}</MatListItem></AppLink>
-                        <AppLink to={AppRoute::Menu}><MatListItem>{"Menu"}</MatListItem></AppLink>
-                        <AppLink to={AppRoute::Dialog}><MatListItem>{"Dialog"}</MatListItem></AppLink>
-                    </MatList>
-                </div>
-                <MatDrawerAppContent>
-                    <div class="app-content">
-                        <MatTopAppBarFixed onnavigationiconclick={link.callback(|_| Msg::NavIconClick)}>
-                            <MatTopAppBarNavigationIcon>
-                                <MatIconButton icon="menu"></MatIconButton>
-                            </MatTopAppBarNavigationIcon>
-
-                            <MatTopAppBarTitle>
-                                <div class="app-title">
-                                    <AppLink to={AppRoute::Home}>
-                                        <h1>{"Material Yew"}</h1>
-                                    </AppLink>
-                                    <span class="action-item">
-                                        <AppLink to={AppRoute::Components}>
-                                            {components}
-                                        </AppLink>
-                                    </span>
-                                </div>
-                            </MatTopAppBarTitle>
-
-                            <MatTopAppBarActionItems>
-                                <a class="action-item" href="https://github.com/hamza1311/yew-material">
-                                    {github}
-                                </a>
-                            </MatTopAppBarActionItems>
-
-                            <MatTopAppBarActionItems>
-                                <a class="action-item" href="/docs/material_yew">
-                                    {docs}
-                                </a>
-                            </MatTopAppBarActionItems>
-
-                        </MatTopAppBarFixed>
-                        <main id="router-outlet">
-                        <BrowserRouter>
-                            <yew_router::Switch<AppRoute> render={yew_router::Switch::render(Self::switch)} />
-                        </BrowserRouter>
-                        </main>
+                    <div class="drawer-content">
+                        <MatList>
+                            <AppLink to={AppRoute::Button}><MatListItem>{"Button"}</MatListItem></AppLink>
+                            <AppLink to={AppRoute::Checkbox}><MatListItem>{"Checkbox"}</MatListItem></AppLink>
+                            <AppLink to={AppRoute::Radio}><MatListItem>{"Radio"}</MatListItem></AppLink>
+                            <AppLink to={AppRoute::Switch}><MatListItem>{"Switch"}</MatListItem></AppLink>
+                            <AppLink to={AppRoute::Fab}><MatListItem>{"Floating Action Button"}</MatListItem></AppLink>
+                            <AppLink to={AppRoute::IconButton}><MatListItem>{"Icon Button"}</MatListItem></AppLink>
+                            <AppLink to={AppRoute::Icon}><MatListItem>{"Icon"}</MatListItem></AppLink>
+                            <AppLink to={AppRoute::CircularProgress}><MatListItem>{"Circular Progress"}</MatListItem></AppLink>
+                            <AppLink to={AppRoute::FormField}><MatListItem>{"Form Field"}</MatListItem></AppLink>
+                            <AppLink to={AppRoute::LinearProgress}><MatListItem>{"Linear Progress"}</MatListItem></AppLink>
+                            <AppLink to={AppRoute::List}><MatListItem>{"List"}</MatListItem></AppLink>
+                            <AppLink to={AppRoute::IconButtonToggle}><MatListItem>{"Icon Button Toggle"}</MatListItem></AppLink>
+                            <AppLink to={AppRoute::Slider}><MatListItem>{"Slider"}</MatListItem></AppLink>
+                            <AppLink to={AppRoute::Tabs}><MatListItem>{"Tabs"}</MatListItem></AppLink>
+                            <AppLink to={AppRoute::Snackbar}><MatListItem>{"Snackbar"}</MatListItem></AppLink>
+                            <AppLink to={AppRoute::Textfield}><MatListItem>{"Textfield"}</MatListItem></AppLink>
+                            <AppLink to={AppRoute::TextArea}><MatListItem>{"TextArea"}</MatListItem></AppLink>
+                            <AppLink to={AppRoute::Select}><MatListItem>{"Select"}</MatListItem></AppLink>
+                            <AppLink to={AppRoute::Menu}><MatListItem>{"Menu"}</MatListItem></AppLink>
+                            <AppLink to={AppRoute::Dialog}><MatListItem>{"Dialog"}</MatListItem></AppLink>
+                        </MatList>
                     </div>
-                </MatDrawerAppContent>
-            </MatDrawer>
+                    <MatDrawerAppContent>
+                        <div class="app-content">
+                            <MatTopAppBarFixed onnavigationiconclick={link.callback(|_| Msg::NavIconClick)}>
+                                <MatTopAppBarNavigationIcon>
+                                    <MatIconButton icon="menu"></MatIconButton>
+                                </MatTopAppBarNavigationIcon>
+
+                                <MatTopAppBarTitle>
+                                    <div class="app-title">
+                                        <AppLink to={AppRoute::Home}>
+                                            <h1>{"Material Yew"}</h1>
+                                        </AppLink>
+                                        <span class="action-item">
+                                            <AppLink to={AppRoute::Components}>
+                                                {components}
+                                            </AppLink>
+                                        </span>
+                                    </div>
+                                </MatTopAppBarTitle>
+
+                                <MatTopAppBarActionItems>
+                                    <a class="action-item" href="https://github.com/hamza1311/yew-material">
+                                        {github}
+                                    </a>
+                                </MatTopAppBarActionItems>
+
+                                <MatTopAppBarActionItems>
+                                    <a class="action-item" href="/docs/material_yew">
+                                        {docs}
+                                    </a>
+                                </MatTopAppBarActionItems>
+
+                            </MatTopAppBarFixed>
+                            <main id="router-outlet">
+                                <yew_router::Switch<AppRoute> render={yew_router::Switch::render(Self::switch)} />
+                            </main>
+                        </div>
+                    </MatDrawerAppContent>
+                </MatDrawer>
+            </BrowserRouter>
         </>}
     }
 }
