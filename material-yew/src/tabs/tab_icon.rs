@@ -13,14 +13,14 @@ pub struct TabIconProps {
 /// If the child passed is an element (a `VTag`), then it is modified to include
 /// the appropriate attributes. Otherwise, the child is wrapped in a `span`
 /// containing said attributes.
-pub struct MatTabIcon;
+pub struct MatTabIcon {}
 
 impl Component for MatTabIcon {
     type Message = ();
     type Properties = TabIconProps;
 
     fn create(_: &Context<Self>) -> Self {
-        Self
+        Self {}
     }
 
     fn view(&self, ctx: &Context<Self>) -> Html {

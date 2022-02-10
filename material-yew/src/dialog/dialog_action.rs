@@ -40,14 +40,14 @@ pub struct ActionProps {
 /// If the child passed is an element (a `VTag`), then it is modified to include
 /// the appropriate attributes. Otherwise, the child is wrapped in a `span`
 /// containing said attributes.
-pub struct MatDialogAction;
+pub struct MatDialogAction {}
 
 impl Component for MatDialogAction {
     type Message = ();
     type Properties = ActionProps;
 
     fn create(_: &Context<Self>) -> Self {
-        Self
+        Self {}
     }
 
     fn view(&self, ctx: &Context<Self>) -> Html {

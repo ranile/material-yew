@@ -14,14 +14,14 @@ pub struct TopAppBarTitleProps {
 /// If the child passed is an element (a `VTag`), then it is modified to include
 /// the appropriate attributes. Otherwise, the child is wrapped in a `span`
 /// containing said attributes.
-pub struct MatTopAppBarTitle;
+pub struct MatTopAppBarTitle {}
 
 impl Component for MatTopAppBarTitle {
     type Message = ();
     type Properties = TopAppBarTitleProps;
 
     fn create(_: &Context<Self>) -> Self {
-        Self
+        Self {}
     }
 
     fn view(&self, ctx: &Context<Self>) -> Html {

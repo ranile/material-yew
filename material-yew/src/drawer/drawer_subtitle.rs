@@ -13,14 +13,14 @@ pub struct DrawerSubtitleProps {
 /// If the child passed is an element (a `VTag`), then it is modified to include
 /// the appropriate attributes. Otherwise, the child is wrapped in a `span`
 /// containing said attributes.
-pub struct MatDrawerSubtitle;
+pub struct MatDrawerSubtitle {}
 
 impl Component for MatDrawerSubtitle {
     type Message = ();
     type Properties = DrawerSubtitleProps;
 
     fn create(_: &Context<Self>) -> Self {
-        Self
+        Self {}
     }
 
     fn view(&self, ctx: &Context<Self>) -> Html {

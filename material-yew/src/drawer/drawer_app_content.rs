@@ -13,14 +13,14 @@ pub struct DrawerAppContentProps {
 /// If the child passed is an element (a `VTag`), then it is modified to include
 /// the appropriate attributes. Otherwise, the child is wrapped in a `span`
 /// containing said attributes.
-pub struct MatDrawerAppContent;
+pub struct MatDrawerAppContent {}
 
 impl Component for MatDrawerAppContent {
     type Message = ();
     type Properties = DrawerAppContentProps;
 
     fn create(_: &Context<Self>) -> Self {
-        Self
+        Self {}
     }
 
     fn view(&self, ctx: &Context<Self>) -> Html {
