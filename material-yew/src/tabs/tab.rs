@@ -4,6 +4,7 @@ use js_sys::Object;
 use wasm_bindgen::prelude::*;
 use web_sys::Element;
 use yew::prelude::*;
+use yew::virtual_dom::AttrValue;
 
 #[wasm_bindgen(module = "/build/mwc-tab.js")]
 extern "C" {
@@ -31,13 +32,13 @@ pub struct MatTab {
 #[derive(Debug, Properties, PartialEq, Clone)]
 pub struct TabProps {
     #[prop_or_default]
-    pub label: String,
+    pub label: Option<AttrValue>,
     #[prop_or_default]
-    pub icon: String,
+    pub icon: Option<AttrValue>,
     #[prop_or_default]
     pub has_image_icon: bool,
     #[prop_or_default]
-    pub indicator_icon: String,
+    pub indicator_icon: Option<AttrValue>,
     #[prop_or_default]
     pub is_fading_indicator: bool,
     #[prop_or_default]

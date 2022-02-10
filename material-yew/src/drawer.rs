@@ -13,6 +13,7 @@ use gloo::events::EventListener;
 use wasm_bindgen::prelude::*;
 use web_sys::Node;
 use yew::prelude::*;
+use yew::virtual_dom::AttrValue;
 
 #[wasm_bindgen(module = "/build/mwc-drawer.js")]
 extern "C" {
@@ -57,7 +58,7 @@ pub struct DrawerProps {
     #[prop_or_default]
     pub has_header: bool,
     #[prop_or_default]
-    pub drawer_type: String,
+    pub drawer_type: Option<AttrValue>,
     /// Binds to `opened` event on `mwc-drawer`
     ///
     /// See events docs to learn more.
@@ -102,7 +103,13 @@ impl Component for MatDrawer {
     fn rendered(&mut self, ctx: &Context<Self>, _first_render: bool) {
         let props = ctx.props();
         let element = self.node_ref.cast::<Drawer>().unwrap();
-        element.set_type(&JsValue::from_str(props.drawer_type.as_ref()));
+        element.set_type(&JsValue::from(
+            props
+                .drawer_type
+                .as_ref()
+                .map(|s| s.as_ref())
+                .unwrap_or_default(),
+        ));
         element.set_open(props.open);
 
         if self.opened_listener.is_none() {

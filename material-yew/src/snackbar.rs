@@ -5,6 +5,7 @@ use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Node;
 use yew::prelude::*;
+use yew::virtual_dom::AttrValue;
 
 #[wasm_bindgen(module = "/build/mwc-snackbar.js")]
 extern "C" {
@@ -63,7 +64,7 @@ pub struct SnackbarProps {
     #[prop_or_default]
     pub close_on_escape: bool,
     #[prop_or_default]
-    pub label_text: String,
+    pub label_text: Option<AttrValue>,
     #[prop_or_default]
     pub stacked: bool,
     #[prop_or_default]

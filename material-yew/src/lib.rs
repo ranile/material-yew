@@ -66,16 +66,16 @@ macro_rules! component {
    };
 }
 
-fn bool_to_option(value: bool) -> Option<String> {
-    value.then(|| String::from("true"))
+fn bool_to_option(value: bool) -> Option<AttrValue> {
+    value.then(|| AttrValue::Static("true"))
 }
 
-fn to_option_string(s: impl Display) -> Option<String> {
+fn to_option_string(s: impl Display) -> Option<AttrValue> {
     let s = s.to_string();
     if s.is_empty() {
         None
     } else {
-        Some(s)
+        Some(AttrValue::Owned(s))
     }
 }
 
@@ -237,6 +237,7 @@ pub use menu::MatMenu;
 use std::fmt::Display;
 #[doc(hidden)]
 pub use utils::WeakComponentLink;
+use yew::virtual_dom::AttrValue;
 
 #[wasm_bindgen(module = "/build/core.js")]
 extern "C" {

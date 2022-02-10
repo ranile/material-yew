@@ -9,6 +9,7 @@ use material_yew::{
     WeakComponentLink,
 };
 use yew::prelude::*;
+use yew::virtual_dom::AttrValue;
 use yew_router::prelude::*;
 
 #[derive(Debug, Clone, Copy, PartialEq, Routable)]
@@ -367,11 +368,11 @@ impl App {
                 html! {
                      <MatDialog open=true>
                          {"Delete item?"}
-                         <MatDialogAction action_type={ActionType::Primary} action={String::from("ok")}>
+                         <MatDialogAction action_type={ActionType::Primary} action={AttrValue::from("ok")}>
                              <MatButton label="Yes" />
                          </MatDialogAction>
 
-                         <MatDialogAction action_type={ActionType::Secondary} action={String::from("cancel")}>
+                         <MatDialogAction action_type={ActionType::Secondary} action={AttrValue::from("cancel")}>
                              <MatButton label="No" />
                          </MatDialogAction>
                      </MatDialog>

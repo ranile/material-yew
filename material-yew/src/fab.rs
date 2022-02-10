@@ -1,6 +1,7 @@
 use crate::bool_to_option;
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
+use yew::virtual_dom::AttrValue;
 
 #[wasm_bindgen(module = "/build/mwc-fab.js")]
 extern "C" {
@@ -19,9 +20,9 @@ loader_hack!(Fab);
 #[derive(Debug, Properties, PartialEq, Clone)]
 pub struct FabProps {
     #[prop_or_default]
-    pub icon: String,
+    pub icon: Option<AttrValue>,
     #[prop_or_default]
-    pub label: String,
+    pub label: Option<AttrValue>,
     #[prop_or_default]
     pub mini: bool,
     #[prop_or_default]

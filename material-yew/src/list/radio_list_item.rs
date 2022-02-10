@@ -4,6 +4,7 @@ use crate::list::{GraphicType, RequestSelectedDetail};
 use gloo::events::EventListener;
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
+use yew::virtual_dom::AttrValue;
 
 #[wasm_bindgen(module = "/build/mwc-radio-list-item.js")]
 extern "C" {
@@ -33,7 +34,7 @@ pub struct RadioListItemProps {
     #[prop_or_default]
     pub left: bool,
     #[prop_or_default]
-    pub group: Option<String>,
+    pub group: Option<AttrValue>,
     #[prop_or(GraphicType::Control)]
     pub graphic: GraphicType,
     /// Binds to `request-selected` event on `mwc-list-item`.
@@ -60,7 +61,7 @@ impl Component for MatRadioListItem {
              <mwc-radio-list-item
                  left={bool_to_option(props.left)}
                  graphic={props.graphic.to_string()}
-                 group={props.group.clone().unwrap_or_else(|| String::from("null"))}
+                 group={props.group.clone().unwrap_or_else(|| AttrValue::from("null"))}
                  ref={self.node_ref.clone()}
              >{props.children.clone()}</mwc-radio-list-item>
         }

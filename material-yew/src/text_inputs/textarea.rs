@@ -8,6 +8,7 @@ use wasm_bindgen::JsCast;
 use web_sys::Node;
 pub use web_sys::ValidityState as NativeValidityState;
 use yew::prelude::*;
+use yew::virtual_dom::AttrValue;
 
 #[wasm_bindgen(module = "/build/mwc-textarea.js")]
 extern "C" {
@@ -77,17 +78,17 @@ pub struct TextAreaProps {
     #[prop_or_default]
     pub cols: Option<i64>,
     #[prop_or_default]
-    pub value: String,
+    pub value: Option<AttrValue>,
     #[prop_or(TextFieldType::Text)]
     pub field_type: TextFieldType,
     #[prop_or_default]
-    pub label: String,
+    pub label: Option<AttrValue>,
     #[prop_or_default]
-    pub placeholder: String,
+    pub placeholder: Option<AttrValue>,
     #[prop_or_default]
-    pub icon: String,
+    pub icon: Option<AttrValue>,
     #[prop_or_default]
-    pub icon_trailing: String,
+    pub icon_trailing: Option<AttrValue>,
     #[prop_or_default]
     pub disabled: bool,
     /// For boolean value `true`, `TextAreaCharCounter::External` is to be used.
@@ -98,7 +99,7 @@ pub struct TextAreaProps {
     #[prop_or_default]
     pub outlined: bool,
     #[prop_or_default]
-    pub helper: String,
+    pub helper: Option<AttrValue>,
     #[prop_or_default]
     pub helper_persistent: bool,
     #[prop_or_default]
@@ -106,13 +107,13 @@ pub struct TextAreaProps {
     #[prop_or_default]
     pub max_length: Option<u64>,
     #[prop_or_default]
-    pub validation_message: String,
+    pub validation_message: Option<AttrValue>,
     /// Type: `number | string` so I'll leave it as a string
     #[prop_or_default]
-    pub min: String,
+    pub min: Option<AttrValue>,
     /// Type: `number | string`  so I'll leave it as a string
     #[prop_or_default]
-    pub max: String,
+    pub max: Option<AttrValue>,
     #[prop_or_default]
     pub size: Option<i64>, // --|
     #[prop_or_default] //   | -- What you doing step size
@@ -126,7 +127,7 @@ pub struct TextAreaProps {
     #[prop_or_default]
     pub oninput: Callback<String>,
     #[prop_or_default]
-    pub name: String,
+    pub name: Option<AttrValue>,
 }
 
 impl Component for MatTextArea {
@@ -176,7 +177,9 @@ impl Component for MatTextArea {
         let props = ctx.props();
         let element = self.node_ref.cast::<TextArea>().unwrap();
         element.set_type(&JsValue::from(props.field_type.as_str()));
-        element.set_value(&JsValue::from_str(props.value.as_ref()));
+        element.set_value(&JsValue::from_str(
+            props.value.as_ref().map(|s| s.as_ref()).unwrap_or_default(),
+        ));
 
         if self.input_listener.is_none() {
             self.input_listener = Some(set_on_input_handler(

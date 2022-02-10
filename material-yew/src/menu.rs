@@ -8,6 +8,7 @@ use gloo::events::EventListener;
 use wasm_bindgen::prelude::*;
 use web_sys::Node;
 use yew::prelude::*;
+use yew::virtual_dom::AttrValue;
 
 #[wasm_bindgen(module = "/build/mwc-menu.js")]
 extern "C" {
@@ -90,7 +91,7 @@ pub struct MenuProps {
     #[prop_or_default]
     pub wrap_focus: bool,
     #[prop_or_default]
-    pub inner_role: String,
+    pub inner_role: Option<AttrValue>,
     #[prop_or_default]
     pub multi: bool,
     #[prop_or_default]

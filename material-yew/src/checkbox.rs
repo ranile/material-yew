@@ -3,6 +3,7 @@ use gloo::events::EventListener;
 use wasm_bindgen::prelude::*;
 use web_sys::{Element, Node};
 use yew::prelude::*;
+use yew::virtual_dom::AttrValue;
 
 #[wasm_bindgen(module = "/build/mwc-checkbox.js")]
 extern "C" {
@@ -45,7 +46,7 @@ pub struct CheckboxProps {
     #[prop_or_default]
     pub disabled: bool,
     #[prop_or_default]
-    pub value: String,
+    pub value: Option<AttrValue>,
     #[prop_or_default]
     pub reduced_touch_target: bool,
     /// Binds to `change` event on `mwc-checkbox`

@@ -10,6 +10,7 @@ use gloo::events::EventListener;
 use wasm_bindgen::prelude::*;
 use web_sys::Node;
 use yew::prelude::*;
+use yew::virtual_dom::AttrValue;
 
 #[wasm_bindgen(module = "/build/mwc-select.js")]
 extern "C" {
@@ -54,25 +55,25 @@ pub struct MatSelect {
 #[derive(Properties, PartialEq, Clone)]
 pub struct Props {
     #[prop_or_default]
-    pub value: String,
+    pub value: Option<AttrValue>,
     #[prop_or_default]
-    pub label: String,
+    pub label: Option<AttrValue>,
     #[prop_or_default]
     pub natural_menu_width: bool,
     #[prop_or_default]
-    pub icon: String,
+    pub icon: Option<AttrValue>,
     #[prop_or_default]
     pub disabled: bool,
     #[prop_or_default]
     pub outlined: bool,
     #[prop_or_default]
-    pub helper: String,
+    pub helper: Option<AttrValue>,
     #[prop_or_default]
     pub required: bool,
     #[prop_or_default]
-    pub validation_message: String,
+    pub validation_message: Option<AttrValue>,
     #[prop_or_default]
-    pub items: String,
+    pub items: Option<AttrValue>,
     #[prop_or(- 1)]
     pub index: i64,
     #[prop_or_default]

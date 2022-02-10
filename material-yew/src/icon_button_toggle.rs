@@ -9,6 +9,7 @@ use gloo::events::EventListener;
 use wasm_bindgen::prelude::*;
 use web_sys::Node;
 use yew::prelude::*;
+use yew::virtual_dom::AttrValue;
 
 #[wasm_bindgen(module = "/build/mwc-icon-button-toggle.js")]
 extern "C" {
@@ -44,11 +45,11 @@ pub struct IconButtonToggleProps {
     #[prop_or_default]
     pub on: bool,
     #[prop_or_default]
-    pub on_icon: String,
+    pub on_icon: Option<AttrValue>,
     #[prop_or_default]
-    pub off_icon: String,
+    pub off_icon: Option<AttrValue>,
     #[prop_or_default]
-    pub label: String,
+    pub label: Option<AttrValue>,
     #[prop_or_default]
     pub disabled: bool,
     /// Binds to `MDCIconButtonToggle:change`.

@@ -1,5 +1,6 @@
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
+use yew::virtual_dom::AttrValue;
 
 #[wasm_bindgen(module = "/build/mwc-icon-button.js")]
 extern "C" {
@@ -18,9 +19,9 @@ loader_hack!(IconButton);
 #[derive(Debug, Properties, PartialEq, Clone)]
 pub struct IconButtonProps {
     #[prop_or_default]
-    pub label: String,
+    pub label: Option<AttrValue>,
     #[prop_or_default]
-    pub icon: String,
+    pub icon: Option<AttrValue>,
     #[prop_or_default]
     pub disabled: bool,
     #[prop_or_default]

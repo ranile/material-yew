@@ -3,6 +3,7 @@ use gloo::events::EventListener;
 use wasm_bindgen::prelude::*;
 use web_sys::Node;
 use yew::prelude::*;
+use yew::virtual_dom::AttrValue;
 
 #[wasm_bindgen(module = "/build/mwc-radio.js")]
 extern "C" {
@@ -43,9 +44,9 @@ pub struct RadioProps {
     #[prop_or_default]
     pub disabled: bool,
     #[prop_or_default]
-    pub name: String,
+    pub name: Option<AttrValue>,
     #[prop_or_default]
-    pub value: String,
+    pub value: Option<AttrValue>,
     #[prop_or_default]
     pub global: bool,
     #[prop_or_default]

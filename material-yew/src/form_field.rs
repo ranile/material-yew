@@ -1,6 +1,7 @@
 use crate::bool_to_option;
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
+use yew::virtual_dom::AttrValue;
 
 #[wasm_bindgen(module = "/build/mwc-formfield.js")]
 extern "C" {
@@ -20,7 +21,7 @@ loader_hack!(Formfield);
 pub struct FormfieldProps {
     pub children: Children,
     #[prop_or_default]
-    pub label: String,
+    pub label: Option<AttrValue>,
     #[prop_or_default]
     pub align_end: bool,
     #[prop_or_default]

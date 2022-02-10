@@ -27,6 +27,7 @@ use gloo::events::EventListener;
 use wasm_bindgen::prelude::*;
 use web_sys::Node;
 use yew::prelude::*;
+use yew::virtual_dom::AttrValue;
 
 #[wasm_bindgen(module = "/build/mwc-list.js")]
 extern "C" {
@@ -78,9 +79,9 @@ pub struct ListProps {
     #[prop_or_default]
     pub wrap_focus: bool,
     #[prop_or_default]
-    pub item_roles: Option<String>,
+    pub item_roles: Option<AttrValue>,
     #[prop_or_default]
-    pub inner_role: Option<String>,
+    pub inner_role: Option<AttrValue>,
     #[prop_or_default]
     pub noninteractive: bool,
     /// Binds to `action` event on `mwc-list`

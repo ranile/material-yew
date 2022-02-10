@@ -1,5 +1,6 @@
 use std::fmt;
 use yew::prelude::*;
+use yew::virtual_dom::AttrValue;
 
 /// Dialog action type.
 #[derive(Clone, PartialEq)]
@@ -30,7 +31,7 @@ impl fmt::Display for ActionType {
 pub struct ActionProps {
     pub action_type: ActionType,
     #[prop_or_default]
-    pub action: Option<String>,
+    pub action: Option<AttrValue>,
     pub children: Children,
 }
 

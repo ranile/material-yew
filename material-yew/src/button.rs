@@ -1,6 +1,7 @@
 use crate::bool_to_option;
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
+use yew::virtual_dom::AttrValue;
 
 #[wasm_bindgen(module = "/build/mwc-button.js")]
 extern "C" {
@@ -22,7 +23,7 @@ loader_hack!(Button);
 pub struct ButtonProps {
     pub label: String,
     #[prop_or_default]
-    pub icon: Option<String>,
+    pub icon: Option<AttrValue>,
     #[prop_or_default]
     pub raised: bool,
     #[prop_or_default]

@@ -7,6 +7,7 @@ use gloo::events::EventListener;
 use wasm_bindgen::prelude::*;
 use web_sys::{Element, Node};
 use yew::prelude::*;
+use yew::virtual_dom::AttrValue;
 
 #[wasm_bindgen(module = "/build/mwc-dialog.js")]
 extern "C" {
@@ -63,17 +64,17 @@ pub struct DialogProps {
     #[prop_or_default]
     pub stacked: bool,
     #[prop_or_default]
-    pub heading: Option<String>,
+    pub heading: Option<AttrValue>,
     #[prop_or_default]
-    pub scrim_click_action: Option<String>,
+    pub scrim_click_action: Option<AttrValue>,
     #[prop_or_default]
-    pub escape_key_action: Option<String>,
+    pub escape_key_action: Option<AttrValue>,
     #[prop_or_default]
-    pub default_action: Option<String>,
+    pub default_action: Option<AttrValue>,
     #[prop_or_default]
-    pub action_attribute: Option<String>,
+    pub action_attribute: Option<AttrValue>,
     #[prop_or_default]
-    pub initial_focus_attribute: Option<String>,
+    pub initial_focus_attribute: Option<AttrValue>,
     /// Binds to `opening` event on `mwc-dialog`
     ///
     /// See events docs to learn more.

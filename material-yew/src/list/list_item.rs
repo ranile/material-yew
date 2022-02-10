@@ -4,6 +4,7 @@ use crate::{bool_to_option, to_option_string};
 use gloo::events::EventListener;
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
+use yew::virtual_dom::AttrValue;
 
 #[wasm_bindgen(module = "/build/mwc-list-item.js")]
 extern "C" {
@@ -31,7 +32,7 @@ pub struct MatListItem {
 #[derive(Debug, Properties, PartialEq, Clone)]
 pub struct ListItemProps {
     #[prop_or_default]
-    pub value: String,
+    pub value: Option<AttrValue>,
     #[prop_or_default]
     pub group: bool,
     #[prop_or(- 1)]
