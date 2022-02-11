@@ -24,10 +24,10 @@ pub use graphic_type::GraphicType;
 
 use crate::{bool_to_option, event_into_details, WeakComponentLink};
 use gloo::events::EventListener;
-use std::borrow::Cow;
 use wasm_bindgen::prelude::*;
 use web_sys::Node;
 use yew::prelude::*;
+use yew::virtual_dom::AttrValue;
 
 #[wasm_bindgen(module = "/build/mwc-list.js")]
 extern "C" {
@@ -57,7 +57,6 @@ loader_hack!(List);
 ///
 /// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/list)
 pub struct MatList {
-    props: ListProps,
     node_ref: NodeRef,
     action_listener: Option<EventListener>,
     selected_listener: Option<EventListener>,
@@ -69,7 +68,7 @@ pub struct MatList {
 ///
 /// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/list#mwc-list-1)
 /// - [Events](https://github.com/material-components/material-components-web-components/tree/master/packages/list#mwc-list-2)
-#[derive(Properties, Clone)]
+#[derive(Properties, PartialEq, Clone)]
 pub struct ListProps {
     #[prop_or_default]
     pub activatable: bool,
@@ -80,9 +79,9 @@ pub struct ListProps {
     #[prop_or_default]
     pub wrap_focus: bool,
     #[prop_or_default]
-    pub item_roles: Option<Cow<'static, str>>,
+    pub item_roles: Option<AttrValue>,
     #[prop_or_default]
-    pub inner_role: Option<Cow<'static, str>>,
+    pub inner_role: Option<AttrValue>,
     #[prop_or_default]
     pub noninteractive: bool,
     /// Binds to `action` event on `mwc-list`
@@ -106,47 +105,42 @@ impl Component for MatList {
     type Message = ();
     type Properties = ListProps;
 
-    fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
-        props.list_link.borrow_mut().replace(link);
+    fn create(ctx: &Context<Self>) -> Self {
+        ctx.props()
+            .list_link
+            .borrow_mut()
+            .replace(ctx.link().clone());
         List::ensure_loaded();
         Self {
-            props,
             node_ref: NodeRef::default(),
             action_listener: None,
             selected_listener: None,
         }
     }
 
-    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
-        false
-    }
-
-    fn change(&mut self, props: Self::Properties) -> bool {
-        self.props = props;
-        true
-    }
-
-    fn view(&self) -> Html {
+    fn view(&self, ctx: &Context<Self>) -> Html {
+        let props = ctx.props();
         html! {
-            <mwc-list
-                activatable=bool_to_option(self.props.activatable)
-                rootTabbable=bool_to_option(self.props.root_tabbable)
-                multi=bool_to_option(self.props.multi)
-                wrapFocus=bool_to_option(self.props.wrap_focus)
-                itemRoles=self.props.item_roles.clone()
-                innerRole=self.props.inner_role.clone()
-                noninteractive=bool_to_option(self.props.noninteractive)
-                ref=self.node_ref.clone()
-            >
-              { self.props.children.clone() }
-            </mwc-list>
+             <mwc-list
+                 activatable={bool_to_option(props.activatable) }
+                 rootTabbable={bool_to_option(props.root_tabbable)}
+                 multi={bool_to_option(props.multi)}
+                 wrapFocus={bool_to_option(props.wrap_focus)}
+                 itemRoles={props.item_roles.clone()}
+                 innerRole={props.inner_role.clone()}
+                 noninteractive={bool_to_option(props.noninteractive)}
+                 ref={self.node_ref.clone()}
+             >
+               {props.children.clone()}
+             </mwc-list>
         }
     }
 
-    fn rendered(&mut self, _first_render: bool) {
+    fn rendered(&mut self, ctx: &Context<Self>, _first_render: bool) {
+        let props = ctx.props();
         let list = self.node_ref.cast::<List>().unwrap();
         if self.selected_listener.is_none() {
-            let onselected = self.props.onselected.clone();
+            let onselected = props.onselected.clone();
             self.selected_listener = Some(EventListener::new(&list, "selected", move |event| {
                 let val = SelectedDetail::from(event_into_details(event));
                 onselected.emit(val);
@@ -154,7 +148,7 @@ impl Component for MatList {
         }
 
         if self.action_listener.is_none() {
-            let onaction = self.props.onaction.clone();
+            let onaction = props.onaction.clone();
             self.action_listener = Some(EventListener::new(&list.clone(), "action", move |_| {
                 let val: JsValue = list.index();
                 let index = ListIndex::from(val);

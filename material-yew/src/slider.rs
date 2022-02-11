@@ -22,7 +22,6 @@ loader_hack!(Slider);
 ///
 /// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/slider)
 pub struct MatSlider {
-    props: SliderProps,
     node_ref: NodeRef,
     input_listener: Option<EventListener>,
     change_listener: Option<EventListener>,
@@ -34,7 +33,7 @@ pub struct MatSlider {
 ///
 /// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/slider#propertiesattributes)
 /// - [Events](https://github.com/material-components/material-components-web-components/tree/master/packages/slider#events)
-#[derive(Debug, Properties, Clone)]
+#[derive(Debug, Properties, PartialEq, Clone)]
 pub struct SliderProps {
     #[prop_or(0)]
     pub value: u32,
@@ -64,50 +63,42 @@ impl Component for MatSlider {
     type Message = ();
     type Properties = SliderProps;
 
-    fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
+    fn create(_: &Context<Self>) -> Self {
         Slider::ensure_loaded();
         Self {
-            props,
             node_ref: NodeRef::default(),
             input_listener: None,
             change_listener: None,
         }
     }
 
-    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
-        false
-    }
-
-    fn change(&mut self, props: Self::Properties) -> bool {
-        self.props = props;
-        true
-    }
-
-    fn view(&self) -> Html {
+    fn view(&self, ctx: &Context<Self>) -> Html {
+        let props = ctx.props();
         html! {
-            <mwc-slider
-                value=to_option_string(self.props.value)
-                min=to_option_string(self.props.min)
-                max=to_option_string(self.props.max)
-                step=to_option_string(self.props.step)
-                pin=bool_to_option(self.props.pin)
-                markers=bool_to_option(self.props.markers)
-                ref=self.node_ref.clone()
-            ></mwc-slider>
+             <mwc-slider
+                 value={to_option_string(props.value)}
+                 min={to_option_string(props.min)}
+                 max={to_option_string(props.max)}
+                 step={to_option_string(props.step)}
+                 pin={bool_to_option(props.pin)}
+                 markers={bool_to_option(props.markers)}
+                 ref={self.node_ref.clone()}
+             ></mwc-slider>
         }
     }
 
-    fn rendered(&mut self, _first_render: bool) {
+    fn rendered(&mut self, ctx: &Context<Self>, _first_render: bool) {
+        let props = ctx.props();
         let element = self.node_ref.cast::<Element>().unwrap();
         if self.input_listener.is_none() {
-            let oninput = self.props.oninput.clone();
+            let oninput = props.oninput.clone();
             self.input_listener = Some(EventListener::new(&element, "input", move |event| {
                 oninput.emit(JsValue::from(event).unchecked_into::<CustomEvent>())
             }));
         };
 
         if self.change_listener.is_none() {
-            let onchange = self.props.onchange.clone();
+            let onchange = props.onchange.clone();
             self.change_listener = Some(EventListener::new(&element, "change", move |event| {
                 onchange.emit(JsValue::from(event).unchecked_into::<CustomEvent>())
             }));

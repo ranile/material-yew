@@ -7,10 +7,10 @@ use crate::text_inputs::{
 use crate::utils::WeakComponentLink;
 use crate::{bool_to_option, event_into_details, to_option_string};
 use gloo::events::EventListener;
-use std::borrow::Cow;
 use wasm_bindgen::prelude::*;
 use web_sys::Node;
 use yew::prelude::*;
+use yew::virtual_dom::AttrValue;
 
 #[wasm_bindgen(module = "/build/mwc-select.js")]
 extern "C" {
@@ -37,7 +37,6 @@ loader_hack!(Select);
 ///
 /// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/select)
 pub struct MatSelect {
-    props: Props,
     node_ref: NodeRef,
     validity_transform_closure:
         Option<Closure<dyn Fn(String, NativeValidityState) -> ValidityStateJS>>,
@@ -53,28 +52,28 @@ pub struct MatSelect {
 ///
 /// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/select#propertiesattributes)
 /// - [Events](https://github.com/material-components/material-components-web-components/tree/master/packages/select#events)
-#[derive(Properties, Clone)]
+#[derive(Properties, PartialEq, Clone)]
 pub struct Props {
     #[prop_or_default]
-    pub value: Cow<'static, str>,
+    pub value: Option<AttrValue>,
     #[prop_or_default]
-    pub label: Cow<'static, str>,
+    pub label: Option<AttrValue>,
     #[prop_or_default]
     pub natural_menu_width: bool,
     #[prop_or_default]
-    pub icon: Cow<'static, str>,
+    pub icon: Option<AttrValue>,
     #[prop_or_default]
     pub disabled: bool,
     #[prop_or_default]
     pub outlined: bool,
     #[prop_or_default]
-    pub helper: Cow<'static, str>,
+    pub helper: Option<AttrValue>,
     #[prop_or_default]
     pub required: bool,
     #[prop_or_default]
-    pub validation_message: Cow<'static, str>,
+    pub validation_message: Option<AttrValue>,
     #[prop_or_default]
-    pub items: Cow<'static, str>,
+    pub items: Option<AttrValue>,
     #[prop_or(- 1)]
     pub index: i64,
     #[prop_or_default]
@@ -115,11 +114,13 @@ impl Component for MatSelect {
     type Message = ();
     type Properties = Props;
 
-    fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
-        props.select_link.borrow_mut().replace(link);
+    fn create(ctx: &Context<Self>) -> Self {
+        ctx.props()
+            .select_link
+            .borrow_mut()
+            .replace(ctx.link().clone());
         Select::ensure_loaded();
         Self {
-            props,
             node_ref: NodeRef::default(),
             validity_transform_closure: None,
             opened_listener: None,
@@ -129,75 +130,68 @@ impl Component for MatSelect {
         }
     }
 
-    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
-        false
-    }
-
-    fn change(&mut self, props: Self::Properties) -> bool {
-        self.props = props;
-        true
-    }
-
-    fn view(&self) -> Html {
+    fn view(&self, ctx: &Context<Self>) -> Html {
+        let props = ctx.props();
         html! {
-            <mwc-select
-                value=self.props.value.clone()
-                label=self.props.label.clone()
-                naturalMenuWidth=bool_to_option(self.props.natural_menu_width)
-                icon=self.props.icon.clone()
-                disabled=self.props.disabled
-                outlined=bool_to_option(self.props.outlined)
-                helper=self.props.helper.clone()
-                required=self.props.required
-                validationMessage=self.props.validation_message.clone()
-                items=self.props.items.clone()
-                index=to_option_string(self.props.index)
-                validateOnInitialRender=bool_to_option(self.props.validate_on_initial_render)
-                ref=self.node_ref.clone()
-            >
-              { self.props.children.clone() }
-            </mwc-select>
+             <mwc-select
+                 value={props.value.clone()}
+                 label={props.label.clone()}
+                 naturalMenuWidth={bool_to_option(props.natural_menu_width)}
+                 icon={props.icon.clone()}
+                 disabled={props.disabled}
+                 outlined={bool_to_option(props.outlined)}
+                 helper={props.helper.clone()}
+                 required={props.required}
+                 validationMessage={props.validation_message.clone()}
+                 items={props.items.clone()}
+                 index={to_option_string(props.index)}
+                 validateOnInitialRender={bool_to_option(props.validate_on_initial_render)}
+                 ref={self.node_ref.clone()}
+             >
+               {props.children.clone()}
+             </mwc-select>
         }
     }
 
     //noinspection DuplicatedCode
-    fn rendered(&mut self, first_render: bool) {
+    fn rendered(&mut self, ctx: &Context<Self>, first_render: bool) {
+        let props = ctx.props();
         let element = self.node_ref.cast::<Select>().unwrap();
         if first_render {
-            if let Some(transform) = self.props.validity_transform.clone() {
+            if let Some(transform) = props.validity_transform.clone() {
                 self.validity_transform_closure = Some(Closure::wrap(Box::new(
                     move |s: String, v: NativeValidityState| -> ValidityStateJS {
                         transform.0(s, v).into()
                     },
                 )
                     as Box<dyn Fn(String, NativeValidityState) -> ValidityStateJS>));
-                element.set_validity_transform(&self.validity_transform_closure.as_ref().unwrap());
+                element.set_validity_transform(self.validity_transform_closure.as_ref().unwrap());
             }
         }
 
         if self.opened_listener.is_none() {
-            let onopened = self.props.onopened.clone();
+            let onopened = props.onopened.clone();
             self.opened_listener = Some(EventListener::new(&element, "opened", move |_| {
                 onopened.emit(())
             }));
         }
 
         if self.closed_listener.is_none() {
-            let onclosed = self.props.onclosed.clone();
+            let onclosed = props.onclosed.clone();
             self.closed_listener = Some(EventListener::new(&element, "closed", move |_| {
                 onclosed.emit(())
             }));
         }
 
         if self.action_listener.is_none() {
-            let on_action = self.props.onaction.clone();
+            let on_action = props.onaction.clone();
             self.action_listener = Some(EventListener::new(&element, "action", move |event| {
                 on_action.emit(ActionDetail::from(event_into_details(event)))
             }));
         }
 
         if self.selected_listener.is_none() {
-            let on_selected = self.props.onselected.clone();
+            let on_selected = props.onselected.clone();
             self.selected_listener = Some(EventListener::new(&element, "selected", move |event| {
                 on_selected.emit(SelectedDetail::from(event_into_details(event)))
             }));

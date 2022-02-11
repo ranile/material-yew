@@ -18,7 +18,7 @@ loader_hack!(CircularProgressFourColor);
 /// Props for [`MatCircularProgressFourColor`]
 ///
 /// [MWC Documentation for properties](https://github.com/material-components/material-components-web-components/tree/master/packages/circular-progress-four-color#propertiesattributes)
-#[derive(Debug, Properties, Clone)]
+#[derive(Debug, Properties, PartialEq, Clone)]
 pub struct CircularProgressFourColorProps {
     #[prop_or_default]
     pub indeterminate: bool,
@@ -35,12 +35,12 @@ component!(
     CircularProgressFourColorProps,
     |props: &CircularProgressFourColorProps| {
         html! {
-        <mwc-circular-progress-four-color
-            indeterminate=bool_to_option(props.indeterminate)
-            progress=to_option_string(props.progress)
-            density=to_option_string(props.density)
-            closed=bool_to_option(props.closed)
-        ></mwc-circular-progress-four-color>
+         <mwc-circular-progress-four-color
+             indeterminate={bool_to_option(props.indeterminate)}
+             progress={to_option_string(props.progress)}
+             density={to_option_string(props.density)}
+             closed={bool_to_option(props.closed)}
+         ></mwc-circular-progress-four-color>
         }
     },
     CircularProgressFourColor,

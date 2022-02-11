@@ -25,7 +25,6 @@ loader_hack!(Switch);
 ///
 /// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/switch)
 pub struct MatSwitch {
-    props: SwitchProps,
     node_ref: NodeRef,
     change_listener: Option<EventListener>,
 }
@@ -36,7 +35,7 @@ pub struct MatSwitch {
 ///
 /// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/switch#propertiesattributes)
 /// - [Events](https://github.com/material-components/material-components-web-components/tree/master/packages/switch#events)
-#[derive(Debug, Properties, Clone)]
+#[derive(Debug, Properties, PartialEq, Clone)]
 pub struct SwitchProps {
     #[prop_or_default]
     pub checked: bool,
@@ -53,39 +52,31 @@ impl Component for MatSwitch {
     type Message = ();
     type Properties = SwitchProps;
 
-    fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
+    fn create(_: &Context<Self>) -> Self {
         Switch::ensure_loaded();
         Self {
-            props,
             node_ref: NodeRef::default(),
             change_listener: None,
         }
     }
 
-    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
-        false
-    }
-
-    fn change(&mut self, props: Self::Properties) -> bool {
-        self.props = props;
-        true
-    }
-
-    fn view(&self) -> Html {
+    fn view(&self, ctx: &Context<Self>) -> Html {
+        let props = ctx.props();
         html! {
-              <mwc-switch
-                  disabled=self.props.disabled
-                  ref=self.node_ref.clone()
-              ></mwc-switch>
+               <mwc-switch
+                   disabled={props.disabled}
+                   ref={self.node_ref.clone()}
+               ></mwc-switch>
         }
     }
 
-    fn rendered(&mut self, _first_render: bool) {
+    fn rendered(&mut self, ctx: &Context<Self>, _first_render: bool) {
+        let props = ctx.props();
         let element = self.node_ref.cast::<Switch>().unwrap();
-        element.set_checked(self.props.checked);
+        element.set_checked(props.checked);
 
         if self.change_listener.is_none() {
-            let callback = self.props.onchange.clone();
+            let callback = props.onchange.clone();
             self.change_listener =
                 Some(EventListener::new(&element.clone(), "change", move |_| {
                     callback.emit(element.checked());

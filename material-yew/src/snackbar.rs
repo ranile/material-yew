@@ -1,11 +1,11 @@
 use crate::{bool_to_option, event_into_details, to_option_string, WeakComponentLink};
 use gloo::events::EventListener;
 use js_sys::Object;
-use std::borrow::Cow;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::Node;
 use yew::prelude::*;
+use yew::virtual_dom::AttrValue;
 
 #[wasm_bindgen(module = "/build/mwc-snackbar.js")]
 extern "C" {
@@ -42,7 +42,6 @@ loader_hack!(Snackbar);
 ///
 /// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/snackbar)
 pub struct MatSnackbar {
-    props: SnackbarProps,
     node_ref: NodeRef,
     opening_listener: Option<EventListener>,
     opened_listener: Option<EventListener>,
@@ -56,7 +55,7 @@ pub struct MatSnackbar {
 ///
 /// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/snackbar#propertiesattributes)
 /// - [Events](https://github.com/material-components/material-components-web-components/tree/master/packages/snackbar#events)
-#[derive(Properties, Clone)]
+#[derive(Properties, PartialEq, Clone)]
 pub struct SnackbarProps {
     #[prop_or_default]
     pub open: bool,
@@ -65,7 +64,7 @@ pub struct SnackbarProps {
     #[prop_or_default]
     pub close_on_escape: bool,
     #[prop_or_default]
-    pub label_text: Cow<'static, str>,
+    pub label_text: Option<AttrValue>,
     #[prop_or_default]
     pub stacked: bool,
     #[prop_or_default]
@@ -111,11 +110,13 @@ impl Component for MatSnackbar {
     type Message = ();
     type Properties = SnackbarProps;
 
-    fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
-        props.snackbar_link.borrow_mut().replace(link);
+    fn create(ctx: &Context<Self>) -> Self {
+        ctx.props()
+            .snackbar_link
+            .borrow_mut()
+            .replace(ctx.link().clone());
         Snackbar::ensure_loaded();
         Self {
-            props,
             node_ref: NodeRef::default(),
             opening_listener: None,
             opened_listener: None,
@@ -124,34 +125,27 @@ impl Component for MatSnackbar {
         }
     }
 
-    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
-        false
-    }
-
-    fn change(&mut self, props: Self::Properties) -> bool {
-        self.props = props;
-        true
-    }
-
-    fn view(&self) -> Html {
+    fn view(&self, ctx: &Context<Self>) -> Html {
+        let props = ctx.props();
         html! {
-            <mwc-snackbar
-                timeoutMs=to_option_string(self.props.timeout_ms)
-                closeOnEscape=to_option_string(self.props.close_on_escape)
-                labelText=self.props.label_text.clone()
-                stacked=bool_to_option(self.props.stacked)
-                leading=bool_to_option(self.props.leading)
-                ref=self.node_ref.clone()
-            >{ self.props.children.clone() }</mwc-snackbar>
+             <mwc-snackbar
+                 timeoutMs={to_option_string(props.timeout_ms)}
+                 closeOnEscape={to_option_string(props.close_on_escape)}
+                 labelText={props.label_text.clone()}
+                 stacked={bool_to_option(props.stacked)}
+                 leading={bool_to_option(props.leading)}
+                 ref={self.node_ref.clone()}
+             >{props.children.clone()}</mwc-snackbar>
         }
     }
 
-    fn rendered(&mut self, _first_render: bool) {
+    fn rendered(&mut self, ctx: &Context<Self>, _first_render: bool) {
+        let props = ctx.props();
         let element = self.node_ref.cast::<Snackbar>().unwrap();
-        element.set_open(self.props.open);
+        element.set_open(props.open);
 
         if self.opening_listener.is_none() {
-            let on_opening = self.props.onopening.clone();
+            let on_opening = props.onopening.clone();
             self.opening_listener = Some(EventListener::new(
                 &element,
                 "MDCSnackbar:opening",
@@ -162,7 +156,7 @@ impl Component for MatSnackbar {
         };
 
         if self.opened_listener.is_none() {
-            let on_opened = self.props.onopened.clone();
+            let on_opened = props.onopened.clone();
             self.opened_listener = Some(EventListener::new(
                 &element,
                 "MDCSnackbar:opened",
@@ -173,7 +167,7 @@ impl Component for MatSnackbar {
         };
 
         if self.closing_listener.is_none() {
-            let on_closing = self.props.onclosing.clone();
+            let on_closing = props.onclosing.clone();
             self.closing_listener = Some(EventListener::new(
                 &element,
                 "MDCSnackbar:closing",
@@ -184,7 +178,7 @@ impl Component for MatSnackbar {
         }
 
         if self.closed_listener.is_none() {
-            let on_closed = self.props.onclosed.clone();
+            let on_closed = props.onclosed.clone();
             self.closed_listener = Some(EventListener::new(
                 &element,
                 "MDCSnackbar:closed",

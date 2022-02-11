@@ -10,7 +10,7 @@ use yew::html;
 
 html! {
     <MatButton label="Click me!" />
-}
+};
 ```
 
 ## Getting started

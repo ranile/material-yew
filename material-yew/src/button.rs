@@ -1,7 +1,7 @@
 use crate::bool_to_option;
-use std::borrow::Cow;
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
+use yew::virtual_dom::AttrValue;
 
 #[wasm_bindgen(module = "/build/mwc-button.js")]
 extern "C" {
@@ -19,11 +19,11 @@ loader_hack!(Button);
 /// Props for [`MatButton`]
 ///
 /// [MWC Documentation for properties](https://github.com/material-components/material-components-web-components/tree/master/packages/button#propertiesattributes)
-#[derive(Debug, Properties, Clone)]
+#[derive(Debug, Properties, PartialEq, Clone)]
 pub struct ButtonProps {
     pub label: String,
     #[prop_or_default]
-    pub icon: Option<Cow<'static, str>>,
+    pub icon: Option<AttrValue>,
     #[prop_or_default]
     pub raised: bool,
     #[prop_or_default]
@@ -43,16 +43,16 @@ component!(
     ButtonProps,
     |props: &ButtonProps| {
         html! {
-            <mwc-button
-            icon=props.icon.clone()
-            label=props.label.clone()
-            disabled=props.disabled
-            raised=bool_to_option(props.raised)
-            unelevated=bool_to_option(props.unelevated)
-            outlined=bool_to_option(props.outlined)
-            dense=bool_to_option(props.dense)
-            trailingIcon=bool_to_option(props.trailing_icon)
-            ></mwc-button>
+             <mwc-button
+             icon={props.icon.clone()}
+             label={props.label.clone()}
+             disabled={props.disabled}
+             raised={bool_to_option(props.raised)}
+             unelevated={bool_to_option(props.unelevated)}
+             outlined={bool_to_option(props.outlined)}
+             dense={bool_to_option(props.dense)}
+             trailingIcon={bool_to_option(props.trailing_icon)}
+             ></mwc-button>
         }
     },
     Button,

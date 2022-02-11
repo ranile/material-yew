@@ -10,5 +10,5 @@ fn main() {
             "../syntect-dumps/syntax-set.syntax"
         )));
     });
-    yew::start_app::<App>()
+    yew::start_app::<App>();
 }

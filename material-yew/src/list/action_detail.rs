@@ -8,6 +8,7 @@ use wasm_bindgen::JsCast;
 /// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/list#mwc-list-2)
 #[derive(Debug)]
 pub struct ActionDetail {
+    #[allow(dead_code)]
     index: ListIndex,
 }
 

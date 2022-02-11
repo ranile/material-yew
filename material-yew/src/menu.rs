@@ -5,10 +5,10 @@ pub use models::*;
 use crate::list::{ListIndex, SelectedDetail};
 use crate::{bool_to_option, event_into_details, to_option_string, WeakComponentLink};
 use gloo::events::EventListener;
-use std::borrow::Cow;
 use wasm_bindgen::prelude::*;
 use web_sys::Node;
 use yew::prelude::*;
+use yew::virtual_dom::AttrValue;
 
 #[wasm_bindgen(module = "/build/mwc-menu.js")]
 extern "C" {
@@ -48,7 +48,6 @@ loader_hack!(Menu);
 ///
 /// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/menu)
 pub struct MatMenu {
-    props: MenuProps,
     node_ref: NodeRef,
     opened_listener: Option<EventListener>,
     closed_listener: Option<EventListener>,
@@ -60,7 +59,7 @@ pub struct MatMenu {
 ///
 /// MWC Documentation [properties](https://github.com/material-components/material-components-web-components/tree/master/packages/menu#propertiesattributes)
 /// and [events](https://github.com/material-components/material-components-web-components/tree/master/packages/menu#events)
-#[derive(Properties, Clone)]
+#[derive(Properties, PartialEq, Clone)]
 pub struct MenuProps {
     /// Changing this prop re-renders the component.
     /// For general usage, consider using `show` method provided by
@@ -92,7 +91,7 @@ pub struct MenuProps {
     #[prop_or_default]
     pub wrap_focus: bool,
     #[prop_or_default]
-    pub inner_role: Cow<'static, str>,
+    pub inner_role: Option<AttrValue>,
     #[prop_or_default]
     pub multi: bool,
     #[prop_or_default]
@@ -135,11 +134,13 @@ impl Component for MatMenu {
     type Message = ();
     type Properties = MenuProps;
 
-    fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
-        props.menu_link.borrow_mut().replace(link);
+    fn create(ctx: &Context<Self>) -> Self {
+        ctx.props()
+            .menu_link
+            .borrow_mut()
+            .replace(ctx.link().clone());
         Menu::ensure_loaded();
         Self {
-            props,
             node_ref: NodeRef::default(),
             opened_listener: None,
             closed_listener: None,
@@ -148,70 +149,63 @@ impl Component for MatMenu {
         }
     }
 
-    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
-        false
-    }
-
-    fn change(&mut self, props: Self::Properties) -> bool {
-        self.props = props;
-        true
-    }
-
-    fn view(&self) -> Html {
+    fn view(&self, ctx: &Context<Self>) -> Html {
+        let props = ctx.props();
         html! {
-            <mwc-menu
-                open=self.props.open
-                corner=to_option_string(self.props.corner.to_string())
-                menuCorner=to_option_string(self.props.menu_corner.to_string())
-                quick=bool_to_option(self.props.quick)
-                absolute=bool_to_option(self.props.absolute)
-                fixed=bool_to_option(self.props.fixed)
-                x=self.props.x.map(|it| Cow::from(it.to_string()))
-                y=self.props.y.map(|it| Cow::from(it.to_string()))
-                forceGroupSelection=bool_to_option(self.props.force_group_selection)
-                defaultFocus=to_option_string(self.props.default_focus.to_string())
-                fullwidth=bool_to_option(self.props.fullwidth)
-                wrapFocus=bool_to_option(self.props.wrap_focus)
-                innerRole=self.props.inner_role.clone()
-                multi=bool_to_option(self.props.multi)
-                activatable=bool_to_option(self.props.activatable)
-                ref=self.node_ref.clone()
-            >
-              { self.props.children.clone() }
-            </mwc-menu>
+             <mwc-menu
+                 open={props.open}
+                 corner={to_option_string(props.corner.to_string())}
+                 menuCorner={to_option_string(props.menu_corner.to_string())}
+                 quick={bool_to_option(props.quick)}
+                 absolute={bool_to_option(props.absolute)}
+                 fixed={bool_to_option(props.fixed)}
+                 x={props.x.map(|it| it.to_string())}
+                 y={props.y.map(|it| it.to_string())}
+                 forceGroupSelection={bool_to_option(props.force_group_selection)}
+                 defaultFocus={to_option_string(props.default_focus.to_string())}
+                 fullwidth={bool_to_option(props.fullwidth)}
+                 wrapFocus={bool_to_option(props.wrap_focus)}
+                 innerRole={props.inner_role.clone()}
+                 multi={bool_to_option(props.multi)}
+                 activatable={bool_to_option(props.activatable)}
+                 ref={self.node_ref.clone()}
+             >
+               {props.children.clone()}
+             </mwc-menu>
         }
     }
 
-    fn rendered(&mut self, first_render: bool) {
+    fn rendered(&mut self, ctx: &Context<Self>, first_render: bool) {
+        let props = ctx.props();
         let menu = self.node_ref.cast::<Menu>().unwrap();
         if first_render {
-            if let Some(anchor) = self.props.anchor.as_ref() {
+            if let Some(anchor) = props.anchor.as_ref() {
                 menu.set_anchor(anchor);
             }
         }
         if self.opened_listener.is_none() {
-            let onopened = self.props.onopened.clone();
+            let onopened = props.onopened.clone();
             self.opened_listener = Some(EventListener::new(&menu, "opened", move |_| {
                 onopened.emit(());
             }));
         }
 
         if self.closed_listener.is_none() {
-            let onclosed = self.props.onclosed.clone();
+            let onclosed = props.onclosed.clone();
             self.closed_listener = Some(EventListener::new(&menu, "closed", move |_| {
                 onclosed.emit(());
             }));
         }
 
         if self.selected_listener.is_none() {
-            let onselected = self.props.onselected.clone();
+            let onselected = props.onselected.clone();
             self.selected_listener = Some(EventListener::new(&menu, "selected", move |event| {
                 onselected.emit(SelectedDetail::from(event_into_details(event)));
             }));
         }
 
         if self.action_listener.is_none() {
-            let onaction = self.props.onaction.clone();
+            let onaction = props.onaction.clone();
             self.action_listener = Some(EventListener::new(&menu.clone(), "action", move |_| {
                 let val: JsValue = menu.index();
 

@@ -10,10 +10,10 @@ pub use drawer_title::*;
 
 use crate::{bool_to_option, WeakComponentLink};
 use gloo::events::EventListener;
-use std::borrow::Cow;
 use wasm_bindgen::prelude::*;
 use web_sys::Node;
 use yew::prelude::*;
+use yew::virtual_dom::AttrValue;
 
 #[wasm_bindgen(module = "/build/mwc-drawer.js")]
 extern "C" {
@@ -40,7 +40,6 @@ loader_hack!(Drawer);
 ///
 /// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/drawer)
 pub struct MatDrawer {
-    props: DrawerProps,
     node_ref: NodeRef,
     opened_listener: Option<EventListener>,
     closed_listener: Option<EventListener>,
@@ -52,14 +51,14 @@ pub struct MatDrawer {
 ///
 /// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/drawer#propertiesattributes)
 /// - [Events](https://github.com/material-components/material-components-web-components/tree/master/packages/drawer#events)
-#[derive(Properties, Clone)]
+#[derive(Properties, PartialEq, Clone)]
 pub struct DrawerProps {
     #[prop_or_default]
     pub open: bool,
     #[prop_or_default]
     pub has_header: bool,
     #[prop_or_default]
-    pub drawer_type: Cow<'static, str>,
+    pub drawer_type: Option<AttrValue>,
     /// Binds to `opened` event on `mwc-drawer`
     ///
     /// See events docs to learn more.
@@ -79,41 +78,42 @@ impl Component for MatDrawer {
     type Message = ();
     type Properties = DrawerProps;
 
-    fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
-        props.drawer_link.borrow_mut().replace(link);
+    fn create(ctx: &Context<Self>) -> Self {
+        ctx.props()
+            .drawer_link
+            .borrow_mut()
+            .replace(ctx.link().clone());
         Drawer::ensure_loaded();
         Self {
-            props,
             node_ref: NodeRef::default(),
             opened_listener: None,
             closed_listener: None,
         }
     }
 
-    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
-        false
-    }
-
-    fn change(&mut self, props: Self::Properties) -> bool {
-        self.props = props;
-        true
-    }
-
-    fn view(&self) -> Html {
+    fn view(&self, ctx: &Context<Self>) -> Html {
+        let props = ctx.props();
         html! {
-        <mwc-drawer hasHeader=bool_to_option(self.props.has_header) ref=self.node_ref.clone()>
-            { self.props.children.clone() }
+        <mwc-drawer hasHeader={bool_to_option(props.has_header)} ref={self.node_ref.clone()}>
+            {props.children.clone()}
         </mwc-drawer>
-                }
+               }
     }
 
-    fn rendered(&mut self, _first_render: bool) {
+    fn rendered(&mut self, ctx: &Context<Self>, _first_render: bool) {
+        let props = ctx.props();
         let element = self.node_ref.cast::<Drawer>().unwrap();
-        element.set_type(&JsValue::from(self.props.drawer_type.as_ref()));
-        element.set_open(self.props.open);
+        element.set_type(&JsValue::from(
+            props
+                .drawer_type
+                .as_ref()
+                .map(|s| s.as_ref())
+                .unwrap_or_default(),
+        ));
+        element.set_open(props.open);
 
         if self.opened_listener.is_none() {
-            let onopen_callback = self.props.onopened.clone();
+            let onopen_callback = props.onopened.clone();
             self.opened_listener = Some(EventListener::new(
                 &element,
                 "MDCDrawer:opened",
@@ -124,7 +124,7 @@ impl Component for MatDrawer {
         }
 
         if self.closed_listener.is_none() {
-            let onclose_callback = self.props.onclosed.clone();
+            let onclose_callback = props.onclosed.clone();
             self.closed_listener = Some(EventListener::new(
                 &element,
                 "MDCDrawer:closed",

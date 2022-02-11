@@ -20,7 +20,6 @@ loader_hack!(CheckListItem);
 ///
 /// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/list#checklist)
 pub struct MatCheckListItem {
-    props: CheckListItemProps,
     node_ref: NodeRef,
     request_selected_listener: Option<EventListener>,
 }
@@ -29,7 +28,7 @@ pub struct MatCheckListItem {
 ///
 /// MWC Documentation for [properties](https://github.com/material-components/material-components-web-components/tree/master/packages/list#mwc-check-list-item)
 /// and [events](https://github.com/material-components/material-components-web-components/tree/master/packages/list#mwc-check-list-item-1)
-#[derive(Debug, Properties, Clone)]
+#[derive(Debug, Properties, PartialEq, Clone)]
 pub struct CheckListItemProps {
     #[prop_or_default]
     pub left: bool,
@@ -46,40 +45,32 @@ impl Component for MatCheckListItem {
     type Message = ();
     type Properties = CheckListItemProps;
 
-    fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
+    fn create(_: &Context<Self>) -> Self {
         CheckListItem::ensure_loaded();
         Self {
-            props,
             node_ref: NodeRef::default(),
             request_selected_listener: None,
         }
     }
 
-    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
-        false
-    }
-
-    fn change(&mut self, props: Self::Properties) -> bool {
-        self.props = props;
-        true
-    }
-
-    fn view(&self) -> Html {
+    fn view(&self, ctx: &Context<Self>) -> Html {
+        let props = ctx.props();
         html! {
-            <mwc-check-list-item
-                left=bool_to_option(self.props.left)
-                graphic=self.props.graphic.to_cow_string()
-                disabled=self.props.disabled
-                ref=self.node_ref.clone()
-            >{ self.props.children.clone() }</mwc-check-list-item>
+             <mwc-check-list-item
+                 left={bool_to_option(props.left)}
+                 graphic={props.graphic.as_str()}
+                 disabled={props.disabled}
+                 ref={self.node_ref.clone()}
+             >{props.children.clone()}</mwc-check-list-item>
         }
     }
 
-    fn rendered(&mut self, _first_render: bool) {
+    fn rendered(&mut self, ctx: &Context<Self>, _first_render: bool) {
+        let props = ctx.props();
         if self.request_selected_listener.is_none() {
             self.request_selected_listener = Some(request_selected_listener(
                 &self.node_ref,
-                self.props.on_request_selected.clone(),
+                props.on_request_selected.clone(),
             ));
         }
     }

@@ -1,7 +1,7 @@
 use crate::bool_to_option;
-use std::borrow::Cow;
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
+use yew::virtual_dom::AttrValue;
 
 #[wasm_bindgen(module = "/build/mwc-formfield.js")]
 extern "C" {
@@ -17,11 +17,11 @@ loader_hack!(Formfield);
 /// Props for [`MatFormfield`]
 ///
 /// [MWC Documentation for properties](https://github.com/material-components/material-components-web-components/tree/master/packages/formfield#propertiesattributes)
-#[derive(Properties, Clone)]
+#[derive(Properties, PartialEq, Clone)]
 pub struct FormfieldProps {
     pub children: Children,
     #[prop_or_default]
-    pub label: Cow<'static, str>,
+    pub label: Option<AttrValue>,
     #[prop_or_default]
     pub align_end: bool,
     #[prop_or_default]
@@ -35,12 +35,12 @@ component!(
     FormfieldProps,
     |props: &FormfieldProps| {
         html! {
-            <mwc-formfield
-                label=props.label.clone()
-                alignEnd=bool_to_option(props.align_end)
-                spaceBetween=bool_to_option(props.space_between)
-                nowrap=bool_to_option(props.nowrap)
-            >{ props.children.clone() }</mwc-formfield>
+             <mwc-formfield
+                 label={props.label.clone()}
+                 alignEnd={bool_to_option(props.align_end)}
+                 spaceBetween={bool_to_option(props.space_between)}
+                 nowrap={bool_to_option(props.nowrap)}
+             >{props.children.clone()}</mwc-formfield>
         }
     },
     Formfield,

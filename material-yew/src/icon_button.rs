@@ -1,6 +1,6 @@
-use std::borrow::Cow;
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
+use yew::virtual_dom::AttrValue;
 
 #[wasm_bindgen(module = "/build/mwc-icon-button.js")]
 extern "C" {
@@ -16,12 +16,12 @@ loader_hack!(IconButton);
 /// Props for [`MatIconButton`]
 ///
 /// [MWC Documentation for properties](https://github.com/material-components/material-components-web-components/tree/master/packages/icon-button#propertiesattributes)
-#[derive(Debug, Properties, Clone)]
+#[derive(Debug, Properties, PartialEq, Clone)]
 pub struct IconButtonProps {
     #[prop_or_default]
-    pub label: Cow<'static, str>,
+    pub label: Option<AttrValue>,
     #[prop_or_default]
-    pub icon: Cow<'static, str>,
+    pub icon: Option<AttrValue>,
     #[prop_or_default]
     pub disabled: bool,
     #[prop_or_default]
@@ -33,11 +33,11 @@ component!(
     IconButtonProps,
     |props: &IconButtonProps| {
         html! {
-            <mwc-icon-button
-                label=props.label.clone()
-                icon=props.icon.clone()
-                disabled=props.disabled
-            >{ props.children.clone() }</mwc-icon-button>
+             <mwc-icon-button
+                 label={props.label.clone()}
+                 icon={props.icon.clone()}
+                 disabled={props.disabled}
+             >{props.children.clone()}</mwc-icon-button>
         }
     },
     IconButton,

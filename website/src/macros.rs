@@ -26,9 +26,9 @@ pub fn highlight(code: &str, extension: &str) -> String {
             .unwrap();
         syntect::html::highlighted_html_for_string(
             code,
-            &data.syntax_set.as_ref().unwrap(),
+            data.syntax_set.as_ref().unwrap(),
             syntax,
-            &data.theme.as_ref().unwrap(),
+            data.theme.as_ref().unwrap(),
         )
     })
 }

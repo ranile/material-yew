@@ -3,7 +3,7 @@ use yew::prelude::*;
 const SLOT: &str = "title";
 
 /// Props for [`MatDrawerTitle`]
-#[derive(Properties, Clone)]
+#[derive(Properties, PartialEq, Clone)]
 pub struct DrawerTitleProps {
     pub children: Children,
 }
@@ -13,30 +13,19 @@ pub struct DrawerTitleProps {
 /// If the child passed is an element (a `VTag`), then it is modified to include
 /// the appropriate attributes. Otherwise, the child is wrapped in a `span`
 /// containing said attributes.
-pub struct MatDrawerTitle {
-    props: DrawerTitleProps,
-}
+pub struct MatDrawerTitle {}
 
 impl Component for MatDrawerTitle {
     type Message = ();
     type Properties = DrawerTitleProps;
 
-    fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
-        Self { props }
+    fn create(_: &Context<Self>) -> Self {
+        Self {}
     }
 
-    fn update(&mut self, _msg: Self::Message) -> bool {
-        false
-    }
-
-    fn change(&mut self, props: Self::Properties) -> bool {
-        self.props = props;
-        true
-    }
-
-    fn view(&self) -> Html {
-        let children = self
-            .props
+    fn view(&self, ctx: &Context<Self>) -> Html {
+        let props = ctx.props();
+        let children = props
             .children
             .iter()
             .map(|child| {
@@ -47,9 +36,9 @@ impl Component for MatDrawerTitle {
                     }
                     _ => {
                         html! {
-                            <span slot=SLOT>
-                                { child }
-                            </span>
+                             <span slot={SLOT}>
+                                 {child}
+                             </span>
                         }
                     }
                 }
@@ -57,7 +46,7 @@ impl Component for MatDrawerTitle {
             .collect::<Html>();
 
         html! {
-            { children }
+             {children}
         }
     }
 }

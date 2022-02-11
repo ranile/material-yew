@@ -1,10 +1,10 @@
 use crate::{bool_to_option, event_details_into};
 use gloo::events::EventListener;
 use js_sys::Object;
-use std::borrow::Cow;
 use wasm_bindgen::prelude::*;
 use web_sys::Element;
 use yew::prelude::*;
+use yew::virtual_dom::AttrValue;
 
 #[wasm_bindgen(module = "/build/mwc-tab.js")]
 extern "C" {
@@ -21,7 +21,6 @@ loader_hack!(Tab);
 ///
 /// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/tab)
 pub struct MatTab {
-    props: TabProps,
     node_ref: NodeRef,
     interacted_listener: Option<EventListener>,
 }
@@ -30,16 +29,16 @@ pub struct MatTab {
 ///
 /// MWC Documentation [properties](https://github.com/material-components/material-components-web-components/tree/master/packages/tab#propertiesattributes)
 /// and [events](https://github.com/material-components/material-components-web-components/tree/master/packages/tab#events)
-#[derive(Debug, Properties, Clone)]
+#[derive(Debug, Properties, PartialEq, Clone)]
 pub struct TabProps {
     #[prop_or_default]
-    pub label: Cow<'static, str>,
+    pub label: Option<AttrValue>,
     #[prop_or_default]
-    pub icon: Cow<'static, str>,
+    pub icon: Option<AttrValue>,
     #[prop_or_default]
     pub has_image_icon: bool,
     #[prop_or_default]
-    pub indicator_icon: Cow<'static, str>,
+    pub indicator_icon: Option<AttrValue>,
     #[prop_or_default]
     pub is_fading_indicator: bool,
     #[prop_or_default]
@@ -61,45 +60,37 @@ impl Component for MatTab {
     type Message = ();
     type Properties = TabProps;
 
-    fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
+    fn create(_: &Context<Self>) -> Self {
         Tab::ensure_loaded();
         Self {
-            props,
             node_ref: NodeRef::default(),
             interacted_listener: None,
         }
     }
 
-    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
-        false
-    }
-
-    fn change(&mut self, props: Self::Properties) -> bool {
-        self.props = props;
-        true
-    }
-
-    fn view(&self) -> Html {
+    fn view(&self, ctx: &Context<Self>) -> Html {
+        let props = ctx.props();
         html! {
-            <mwc-tab
-                label=self.props.label.clone()
-                icon=self.props.icon.clone()
-                hasImageIcon=bool_to_option(self.props.has_image_icon)
-                indicatorIcon=self.props.indicator_icon.clone()
-                isFadingIndicator=bool_to_option(self.props.is_fading_indicator)
-                minWidth=bool_to_option(self.props.min_width)
-                isMinWidthIndicator=bool_to_option(self.props.is_min_width_indicator)
-                stacked=bool_to_option(self.props.stacked)
-                ref=self.node_ref.clone()
-            >{ self.props.children.clone() }</mwc-tab>
+             <mwc-tab
+                 label={props.label.clone()}
+                 icon={props.icon.clone()}
+                 hasImageIcon={bool_to_option(props.has_image_icon)}
+                 indicatorIcon={props.indicator_icon.clone()}
+                 isFadingIndicator={bool_to_option(props.is_fading_indicator)}
+                 minWidth={bool_to_option(props.min_width)}
+                 isMinWidthIndicator={bool_to_option(props.is_min_width_indicator)}
+                 stacked={bool_to_option(props.stacked)}
+                 ref={self.node_ref.clone()}
+             >{props.children.clone()}</mwc-tab>
         }
     }
 
-    fn rendered(&mut self, _first_render: bool) {
+    fn rendered(&mut self, ctx: &Context<Self>, _first_render: bool) {
+        let props = ctx.props();
         if self.interacted_listener.is_none() {
             let element = self.node_ref.cast::<Element>().unwrap();
 
-            let on_interacted = self.props.oninteracted.clone();
+            let on_interacted = props.oninteracted.clone();
             self.interacted_listener = Some(EventListener::new(
                 &element,
                 "MDCTab:interacted",

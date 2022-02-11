@@ -23,7 +23,6 @@ loader_hack!(TopAppBarFixed);
 ///
 /// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/top-app-bar-fixed)
 pub struct MatTopAppBarFixed {
-    props: TopAppBarFixedProps,
     node_ref: NodeRef,
     nav_listener: Option<EventListener>,
 }
@@ -34,7 +33,7 @@ pub struct MatTopAppBarFixed {
 ///
 /// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/top-app-bar-fixed#propertiesattributes)
 /// - [Events](https://github.com/material-components/material-components-web-components/tree/master/packages/top-app-bar-fixed#events)
-#[derive(Debug, Properties, Clone)]
+#[derive(Debug, Properties, PartialEq, Clone)]
 pub struct TopAppBarFixedProps {
     pub children: Children,
     #[prop_or_default]
@@ -54,38 +53,30 @@ impl Component for MatTopAppBarFixed {
     type Message = ();
     type Properties = TopAppBarFixedProps;
 
-    fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
+    fn create(_: &Context<Self>) -> Self {
         TopAppBarFixed::ensure_loaded();
         Self {
-            props,
             node_ref: NodeRef::default(),
             nav_listener: None,
         }
     }
 
-    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
-        false
-    }
-
-    fn change(&mut self, props: Self::Properties) -> bool {
-        self.props = props;
-        true
-    }
-
-    fn view(&self) -> Html {
+    fn view(&self, ctx: &Context<Self>) -> Html {
+        let props = ctx.props();
         html! {
-            <mwc-top-app-bar-fixed
-                centerTitle=bool_to_option(self.props.center_title)
-                dense=bool_to_option(self.props.dense)
-                prominent=bool_to_option(self.props.prominent)
-                ref=self.node_ref.clone()
-            >{ self.props.children.clone() }</mwc-top-app-bar-fixed>
+             <mwc-top-app-bar-fixed
+                 centerTitle={bool_to_option(props.center_title)}
+                 dense={bool_to_option(props.dense)}
+                 prominent={bool_to_option(props.prominent)}
+                 ref={self.node_ref.clone()}
+             >{props.children.clone()}</mwc-top-app-bar-fixed>
         }
     }
 
-    fn rendered(&mut self, _first_render: bool) {
+    fn rendered(&mut self, ctx: &Context<Self>, _first_render: bool) {
+        let props = ctx.props();
         if self.nav_listener.is_none() {
-            let callback = self.props.onnavigationiconclick.clone();
+            let callback = props.onnavigationiconclick.clone();
             let element = self.node_ref.cast::<Element>().unwrap();
 
             self.nav_listener = Some(EventListener::new(

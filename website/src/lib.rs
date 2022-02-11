@@ -19,61 +19,59 @@ use syntect::highlighting::Theme;
 use syntect::parsing::SyntaxSet;
 use wasm_bindgen::prelude::*;
 
-#[derive(Switch, Clone)]
+#[derive(Debug, Clone, Copy, PartialEq, Routable)]
 pub enum AppRoute {
-    #[to = "/components/button"]
+    #[at("/components/button")]
     Button,
-    #[to = "/components/checkbox"]
+    #[at("/components/checkbox")]
     Checkbox,
-    #[to = "/components/radio"]
+    #[at("/components/radio")]
     Radio,
-    #[to = "/components/switch"]
+    #[at("/components/switch")]
     Switch,
-    #[to = "/components/fab"]
+    #[at("/components/fab")]
     Fab,
-    #[to = "/components/icon-button-toggle"]
+    #[at("/components/icon-button-toggle")]
     IconButtonToggle,
-    #[to = "/components/icon-button"]
+    #[at("/components/icon-button")]
     IconButton,
-    #[to = "/components/icon"]
+    #[at("/components/icon")]
     Icon,
-    #[to = "/components/circular-progress"]
+    #[at("/components/circular-progress")]
     CircularProgress,
-    #[to = "/components/drawer"]
+    #[at("/components/drawer")]
     Drawer,
-    #[to = "/components/form-field"]
+    #[at("/components/form-field")]
     FormField,
-    #[to = "/components/linear-progress"]
+    #[at("/components/linear-progress")]
     LinearProgress,
-    #[to = "/components/list"]
+    #[at("/components/list")]
     List,
-    #[to = "/components/slider"]
+    #[at("/components/slider")]
     Slider,
-    #[to = "/components/tabs"]
+    #[at("/components/tabs")]
     Tabs,
-    #[to = "/components/snackbar"]
+    #[at("/components/snackbar")]
     Snackbar,
-    #[to = "/components/textfield"]
+    #[at("/components/textfield")]
     Textfield,
-    #[to = "/components/textarea"]
+    #[at("/components/textarea")]
     TextArea,
-    #[to = "/components/select"]
+    #[at("/components/select")]
     Select,
-    #[to = "/components/menu"]
+    #[at("/components/menu")]
     Menu,
-    #[to = "/components/dialog"]
+    #[at("/components/dialog")]
     Dialog,
-    #[to = "/components"]
+    #[at("/components")]
     Components,
-    #[to = "/"]
+    #[at("/")]
     Home,
 }
 
-type AppRouter = Router<AppRoute>;
-type AppRouterAnchor = RouterAnchor<AppRoute>;
+type AppLink = Link<AppRoute>;
 
 pub struct App {
-    link: ComponentLink<Self>,
     /// `true` represents open; `false` represents close
     drawer_state: bool,
 }
@@ -98,14 +96,13 @@ impl Component for App {
     type Message = Msg;
     type Properties = ();
 
-    fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
+    fn create(_: &Context<Self>) -> Self {
         Self {
-            link,
             drawer_state: false,
         }
     }
 
-    fn update(&mut self, msg: Self::Message) -> ShouldRender {
+    fn update(&mut self, _: &Context<Self>, msg: Self::Message) -> bool {
         match msg {
             Msg::NavIconClick => {
                 self.drawer_state = !self.drawer_state;
@@ -121,146 +118,141 @@ impl Component for App {
             }
         }
     }
-    fn change(&mut self, _props: Self::Properties) -> bool {
-        false
-    }
 
-    fn view(&self) -> Html {
+    fn view(&self, ctx: &Context<Self>) -> Html {
+        let link = ctx.link();
         let is_on_mobile = is_on_mobile();
 
         let components = if !is_on_mobile {
-            html! { <MatButton label="Components"/> }
+            html! { <MatButton label="Components"/>}
         } else {
             html! {
-                <MatIconButton label="Components">
-                    <img src="/assets/components.png" alt="Components" />
-                </MatIconButton>
+                 <MatIconButton label="Components">
+                     <img src="/assets/components.png" alt="Components" />
+                 </MatIconButton>
             }
         };
 
         let docs = if !is_on_mobile {
-            html! { <MatButton label="API Docs"/> }
+            html! { <MatButton label="API Docs"/>}
         } else {
-            html! { <MatIconButton icon="description" label="API Docs" /> }
+            html! { <MatIconButton icon="description" label="API Docs" />}
         };
 
         let github = if !is_on_mobile {
-            html! { <MatButton label="GitHub" /> }
+            html! { <MatButton label="GitHub" />}
         } else {
             html! {
-                <MatIconButton label="GitHub">
-                    <img src="/assets/github.png" alt="GitHub logo" />
-                </MatIconButton>
+                 <MatIconButton label="GitHub">
+                     <img src="/assets/github.png" alt="GitHub logo" />
+                 </MatIconButton>
             }
         };
 
         html! { <>
-        <MatDrawer open=self.drawer_state drawer_type="dismissible"
-            onopened=self.link.callback(|_| Msg::Opened)
-            onclosed=self.link.callback(|_| Msg::Closed)>
+        <BrowserRouter>
+            <MatDrawer open={self.drawer_state} drawer_type="dismissible"
+                onopened={link.callback(|_| Msg::Opened)}
+                onclosed={link.callback(|_| Msg::Closed)}>
 
-                <MatDrawerTitle>
-                    <span class="drawer-title">{"Components"}</span>
-                </MatDrawerTitle>
+                    <MatDrawerTitle>
+                        <span class="drawer-title">{"Components"}</span>
+                    </MatDrawerTitle>
 
-                <div class="drawer-content">
-                    <MatList>
-                        <AppRouterAnchor route=AppRoute::Button><MatListItem>{"Button"}</MatListItem></AppRouterAnchor>
-                        <AppRouterAnchor route=AppRoute::Checkbox><MatListItem>{"Checkbox"}</MatListItem></AppRouterAnchor>
-                        <AppRouterAnchor route=AppRoute::Radio><MatListItem>{"Radio"}</MatListItem></AppRouterAnchor>
-                        <AppRouterAnchor route=AppRoute::Switch><MatListItem>{"Switch"}</MatListItem></AppRouterAnchor>
-                        <AppRouterAnchor route=AppRoute::Fab><MatListItem>{"Floating Action Button"}</MatListItem></AppRouterAnchor>
-                        <AppRouterAnchor route=AppRoute::IconButton><MatListItem>{"Icon Button"}</MatListItem></AppRouterAnchor>
-                        <AppRouterAnchor route=AppRoute::Icon><MatListItem>{"Icon"}</MatListItem></AppRouterAnchor>
-                        <AppRouterAnchor route=AppRoute::CircularProgress><MatListItem>{"Circular Progress"}</MatListItem></AppRouterAnchor>
-                        <AppRouterAnchor route=AppRoute::FormField><MatListItem>{"Form Field"}</MatListItem></AppRouterAnchor>
-                        <AppRouterAnchor route=AppRoute::LinearProgress><MatListItem>{"Linear Progress"}</MatListItem></AppRouterAnchor>
-                        <AppRouterAnchor route=AppRoute::List><MatListItem>{"List"}</MatListItem></AppRouterAnchor>
-                        <AppRouterAnchor route=AppRoute::IconButtonToggle><MatListItem>{"Icon Button Toggle"}</MatListItem></AppRouterAnchor>
-                        <AppRouterAnchor route=AppRoute::Slider><MatListItem>{"Slider"}</MatListItem></AppRouterAnchor>
-                        <AppRouterAnchor route=AppRoute::Tabs><MatListItem>{"Tabs"}</MatListItem></AppRouterAnchor>
-                        <AppRouterAnchor route=AppRoute::Snackbar><MatListItem>{"Snackbar"}</MatListItem></AppRouterAnchor>
-                        <AppRouterAnchor route=AppRoute::Textfield><MatListItem>{"Textfield"}</MatListItem></AppRouterAnchor>
-                        <AppRouterAnchor route=AppRoute::TextArea><MatListItem>{"TextArea"}</MatListItem></AppRouterAnchor>
-                        <AppRouterAnchor route=AppRoute::Select><MatListItem>{"Select"}</MatListItem></AppRouterAnchor>
-                        <AppRouterAnchor route=AppRoute::Menu><MatListItem>{"Menu"}</MatListItem></AppRouterAnchor>
-                        <AppRouterAnchor route=AppRoute::Dialog><MatListItem>{"Dialog"}</MatListItem></AppRouterAnchor>
-                    </MatList>
-                </div>
-                <MatDrawerAppContent>
-                    <div class="app-content">
-                        <MatTopAppBarFixed onnavigationiconclick=self.link.callback(|_| Msg::NavIconClick)>
-                            <MatTopAppBarNavigationIcon>
-                                <MatIconButton icon="menu"></MatIconButton>
-                            </MatTopAppBarNavigationIcon>
-
-                            <MatTopAppBarTitle>
-                                <div class="app-title">
-                                    <AppRouterAnchor route=AppRoute::Home>
-                                        <h1>{"Material Yew"}</h1>
-                                    </AppRouterAnchor>
-                                    <span class="action-item">
-                                        <AppRouterAnchor route=AppRoute::Components>
-                                            { components }
-                                        </AppRouterAnchor>
-                                    </span>
-                                </div>
-                            </MatTopAppBarTitle>
-
-                            <MatTopAppBarActionItems>
-                                <a class="action-item" href="https://github.com/hamza1311/yew-material">
-                                    { github }
-                                </a>
-                            </MatTopAppBarActionItems>
-
-                            <MatTopAppBarActionItems>
-                                <a class="action-item" href="/docs/material_yew">
-                                    { docs }
-                                </a>
-                            </MatTopAppBarActionItems>
-
-                        </MatTopAppBarFixed>
-                        <main id="router-outlet">
-                        <AppRouter
-                            render=AppRouter::render(Self::switch)
-                            // redirect=AppRouter::redirect(|route: Route| {
-                            //     AppRoute::PageNotFound(Permissive(Some(route.route))).into_public()
-                            // })
-                        />
-                        </main>
+                    <div class="drawer-content">
+                        <MatList>
+                            <AppLink to={AppRoute::Button}><MatListItem>{"Button"}</MatListItem></AppLink>
+                            <AppLink to={AppRoute::Checkbox}><MatListItem>{"Checkbox"}</MatListItem></AppLink>
+                            <AppLink to={AppRoute::Radio}><MatListItem>{"Radio"}</MatListItem></AppLink>
+                            <AppLink to={AppRoute::Switch}><MatListItem>{"Switch"}</MatListItem></AppLink>
+                            <AppLink to={AppRoute::Fab}><MatListItem>{"Floating Action Button"}</MatListItem></AppLink>
+                            <AppLink to={AppRoute::IconButton}><MatListItem>{"Icon Button"}</MatListItem></AppLink>
+                            <AppLink to={AppRoute::Icon}><MatListItem>{"Icon"}</MatListItem></AppLink>
+                            <AppLink to={AppRoute::CircularProgress}><MatListItem>{"Circular Progress"}</MatListItem></AppLink>
+                            <AppLink to={AppRoute::FormField}><MatListItem>{"Form Field"}</MatListItem></AppLink>
+                            <AppLink to={AppRoute::LinearProgress}><MatListItem>{"Linear Progress"}</MatListItem></AppLink>
+                            <AppLink to={AppRoute::List}><MatListItem>{"List"}</MatListItem></AppLink>
+                            <AppLink to={AppRoute::IconButtonToggle}><MatListItem>{"Icon Button Toggle"}</MatListItem></AppLink>
+                            <AppLink to={AppRoute::Slider}><MatListItem>{"Slider"}</MatListItem></AppLink>
+                            <AppLink to={AppRoute::Tabs}><MatListItem>{"Tabs"}</MatListItem></AppLink>
+                            <AppLink to={AppRoute::Snackbar}><MatListItem>{"Snackbar"}</MatListItem></AppLink>
+                            <AppLink to={AppRoute::Textfield}><MatListItem>{"Textfield"}</MatListItem></AppLink>
+                            <AppLink to={AppRoute::TextArea}><MatListItem>{"TextArea"}</MatListItem></AppLink>
+                            <AppLink to={AppRoute::Select}><MatListItem>{"Select"}</MatListItem></AppLink>
+                            <AppLink to={AppRoute::Menu}><MatListItem>{"Menu"}</MatListItem></AppLink>
+                            <AppLink to={AppRoute::Dialog}><MatListItem>{"Dialog"}</MatListItem></AppLink>
+                        </MatList>
                     </div>
-                </MatDrawerAppContent>
-            </MatDrawer>
-        </> }
+                    <MatDrawerAppContent>
+                        <div class="app-content">
+                            <MatTopAppBarFixed onnavigationiconclick={link.callback(|_| Msg::NavIconClick)}>
+                                <MatTopAppBarNavigationIcon>
+                                    <MatIconButton icon="menu"></MatIconButton>
+                                </MatTopAppBarNavigationIcon>
+
+                                <MatTopAppBarTitle>
+                                    <div class="app-title">
+                                        <AppLink to={AppRoute::Home}>
+                                            <h1>{"Material Yew"}</h1>
+                                        </AppLink>
+                                        <span class="action-item">
+                                            <AppLink to={AppRoute::Components}>
+                                                {components}
+                                            </AppLink>
+                                        </span>
+                                    </div>
+                                </MatTopAppBarTitle>
+
+                                <MatTopAppBarActionItems>
+                                    <a class="action-item" href="https://github.com/hamza1311/yew-material">
+                                        {github}
+                                    </a>
+                                </MatTopAppBarActionItems>
+
+                                <MatTopAppBarActionItems>
+                                    <a class="action-item" href="/docs/material_yew">
+                                        {docs}
+                                    </a>
+                                </MatTopAppBarActionItems>
+
+                            </MatTopAppBarFixed>
+                            <main id="router-outlet">
+                                <yew_router::Switch<AppRoute> render={yew_router::Switch::render(Self::switch)} />
+                            </main>
+                        </div>
+                    </MatDrawerAppContent>
+                </MatDrawer>
+            </BrowserRouter>
+        </>}
     }
 }
 
 impl App {
-    fn switch(switch: AppRoute) -> Html {
+    fn switch(switch: &AppRoute) -> Html {
         match switch {
-            AppRoute::Home => html! { <Home /> },
-            AppRoute::Components => html! { <Components /> },
-            AppRoute::Button => html! { <Button /> },
-            AppRoute::Checkbox => html! { <Checkbox /> },
-            AppRoute::Radio => html! { <Radio /> },
-            AppRoute::Switch => html! { <Switch /> },
-            AppRoute::Fab => html! { <Fab /> },
-            AppRoute::IconButton => html! { <IconButton /> },
-            AppRoute::Icon => html! { <Icon /> },
-            AppRoute::CircularProgress => html! { <CircularProgress /> },
-            AppRoute::Drawer => html! { <Drawer /> },
-            AppRoute::FormField => html! { <FormField /> },
-            AppRoute::LinearProgress => html! { <LinearProgress /> },
-            AppRoute::List => html! { <List /> },
-            AppRoute::IconButtonToggle => html! { <IconButtonToggle /> },
-            AppRoute::Slider => html! { <Slider /> },
-            AppRoute::Tabs => html! { <Tabs /> },
-            AppRoute::Snackbar => html! { <Snackbar /> },
-            AppRoute::Textfield => html! { <Textfield /> },
-            AppRoute::TextArea => html! { <TextArea /> },
-            AppRoute::Select => html! { <Select /> },
-            AppRoute::Menu => html! { <Menu /> },
-            AppRoute::Dialog => html! { <Dialog /> },
+            AppRoute::Home => html! { <Home />},
+            AppRoute::Components => html! { <Components />},
+            AppRoute::Button => html! { <Button />},
+            AppRoute::Checkbox => html! { <Checkbox />},
+            AppRoute::Radio => html! { <Radio />},
+            AppRoute::Switch => html! { <Switch />},
+            AppRoute::Fab => html! { <Fab />},
+            AppRoute::IconButton => html! { <IconButton />},
+            AppRoute::Icon => html! { <Icon />},
+            AppRoute::CircularProgress => html! { <CircularProgress />},
+            AppRoute::Drawer => html! { <Drawer />},
+            AppRoute::FormField => html! { <FormField />},
+            AppRoute::LinearProgress => html! { <LinearProgress />},
+            AppRoute::List => html! { <List />},
+            AppRoute::IconButtonToggle => html! { <IconButtonToggle />},
+            AppRoute::Slider => html! { <Slider />},
+            AppRoute::Tabs => html! { <Tabs />},
+            AppRoute::Snackbar => html! { <Snackbar />},
+            AppRoute::Textfield => html! { <Textfield />},
+            AppRoute::TextArea => html! { <TextArea />},
+            AppRoute::Select => html! { <Select />},
+            AppRoute::Menu => html! { <Menu />},
+            AppRoute::Dialog => html! { <Dialog />},
         }
     }
 }
@@ -280,7 +272,7 @@ fn html_to_element(html: &str) -> Html {
 }
 
 pub fn is_on_mobile() -> bool {
-    yew::utils::window()
+    gloo_utils::window()
         .match_media("(max-width: 600px)")
         .unwrap()
         .unwrap()

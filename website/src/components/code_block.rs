@@ -3,8 +3,6 @@ use material_yew::MatIconButton;
 use yew::prelude::*;
 
 pub struct Codeblock {
-    link: ComponentLink<Self>,
-    props: Props,
     showing_code: bool,
 }
 
@@ -12,7 +10,7 @@ pub enum Msg {
     FlipShowCode,
 }
 
-#[derive(Properties, Clone)]
+#[derive(Properties, PartialEq, Clone)]
 pub struct Props {
     // pub children: Children,
     // pub code: String,
@@ -26,15 +24,13 @@ impl Component for Codeblock {
     type Message = Msg;
     type Properties = Props;
 
-    fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
+    fn create(_: &Context<Self>) -> Self {
         Self {
-            link,
-            props,
             showing_code: false,
         }
     }
 
-    fn update(&mut self, msg: Self::Message) -> ShouldRender {
+    fn update(&mut self, _: &Context<Self>, msg: Self::Message) -> bool {
         match msg {
             Msg::FlipShowCode => {
                 self.showing_code = !self.showing_code;
@@ -43,18 +39,15 @@ impl Component for Codeblock {
         }
     }
 
-    fn change(&mut self, props: Self::Properties) -> bool {
-        self.props = props;
-        true
-    }
-
-    fn view(&self) -> Html {
-        let code = html_to_element(&self.props.code_and_html.0);
+    fn view(&self, ctx: &Context<Self>) -> Html {
+        let props = ctx.props();
+        let link = ctx.link();
+        let code = html_to_element(&props.code_and_html.0);
         html! { <>
-            <section class="codeblock" style=format!("max-width: {}%", self.props.max_width)>
+            <section class="codeblock" style={format!("max-width: {}%", props.max_width)}>
                 <section class="header">
-                    <h2 class="title">{&self.props.title}</h2>
-                    <span class="right-icon" onclick=self.link.callback(|_| Msg::FlipShowCode)>
+                    <h2 class="title">{&props.title}</h2>
+                    <span class="right-icon" onclick={link.callback(|_| Msg::FlipShowCode)}>
                         <MatIconButton icon="code" />
                     </span>
                 </section>
@@ -62,11 +55,11 @@ impl Component for Codeblock {
                 {
                     if self.showing_code {
                         {code}
-                    } else { html!{} }
-                }
+                   } else { html!{}}
+               }
 
-                { self.props.code_and_html.1.clone() }
+                {props.code_and_html.1.clone()}
             </section>
-        </> }
+        </>}
     }
 }

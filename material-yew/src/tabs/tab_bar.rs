@@ -20,7 +20,6 @@ loader_hack!(TabBar);
 ///
 /// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/tab-bar)
 pub struct MatTabBar {
-    props: TabBarProps,
     node_ref: NodeRef,
     activated_listener: Option<EventListener>,
 }
@@ -29,7 +28,7 @@ pub struct MatTabBar {
 ///
 /// MWC Documentation [properties](https://github.com/material-components/material-components-web-components/tree/master/packages/tab-bar#propertiesattributes)
 /// and [events](https://github.com/material-components/material-components-web-components/tree/master/packages/tab-bar#events)
-#[derive(Debug, Properties, Clone)]
+#[derive(Debug, Properties, PartialEq, Clone)]
 pub struct TabBarProps {
     #[prop_or_default]
     pub active_index: u32,
@@ -46,38 +45,30 @@ impl Component for MatTabBar {
     type Message = ();
     type Properties = TabBarProps;
 
-    fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
+    fn create(_: &Context<Self>) -> Self {
         TabBar::ensure_loaded();
         Self {
-            props,
             node_ref: NodeRef::default(),
             activated_listener: None,
         }
     }
 
-    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
-        false
-    }
-
-    fn change(&mut self, props: Self::Properties) -> bool {
-        self.props = props;
-        true
-    }
-
-    fn view(&self) -> Html {
+    fn view(&self, ctx: &Context<Self>) -> Html {
+        let props = ctx.props();
         html! {
-            <mwc-tab-bar
-                activeIndex=to_option_string(self.props.active_index)
-                ref=self.node_ref.clone()
-            >{ self.props.children.clone() }</mwc-tab-bar>
+             <mwc-tab-bar
+                 activeIndex={to_option_string(props.active_index)}
+                 ref={self.node_ref.clone()}
+             >{props.children.clone()}</mwc-tab-bar>
         }
     }
 
-    fn rendered(&mut self, _first_render: bool) {
+    fn rendered(&mut self, ctx: &Context<Self>, _first_render: bool) {
+        let props = ctx.props();
         if self.activated_listener.is_none() {
             let element = self.node_ref.cast::<Element>().unwrap();
 
-            let on_activated = self.props.onactivated.clone();
+            let on_activated = props.onactivated.clone();
             self.activated_listener = Some(EventListener::new(
                 &element,
                 "MDCTabBar:activated",
