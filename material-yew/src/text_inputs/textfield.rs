@@ -160,6 +160,12 @@ impl Component for MatTextField {
         }
     }
 
+    fn changed(&mut self, _ctx: &Context<Self>) -> bool {
+        // clear event listener in case a new callback was registered
+        self.input_listener = None;
+        true
+    }
+
     fn rendered(&mut self, ctx: &Context<Self>, first_render: bool) {
         let props = ctx.props();
         let element = self.node_ref.cast::<TextField>().unwrap();

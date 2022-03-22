@@ -6,11 +6,11 @@ use wasm_bindgen::{JsCast, JsValue};
 /// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/list#mwc-list-1)
 #[derive(Debug)]
 pub enum ListIndex {
-    /// Provided when `multi` prop is set to `true` on the component
+    /// Provided when `multi` prop is set to `false` (default) on the component
     ///
     /// `None` denotes value os `-1`
     Single(Option<usize>),
-    /// Provided when `multi` prop is set to `false` (default) on the component
+    /// Provided when `multi` prop is set to `true` on the component
     Multi(HashSet<usize>),
 }
 
