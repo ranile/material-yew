@@ -1,8 +1,8 @@
 use super::set_on_input_handler;
-use crate::bool_to_option;
 use crate::text_inputs::{
     validity_state::ValidityStateJS, TextFieldType, ValidityState, ValidityTransform,
 };
+use crate::{bool_to_option, WeakComponentLink};
 use gloo::events::EventListener;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
@@ -113,13 +113,19 @@ pub struct TextFieldProps {
     pub oninput: Callback<String>,
     #[prop_or_default]
     pub name: Option<AttrValue>,
+    #[prop_or_default]
+    pub component_link: WeakComponentLink<MatTextField>,
 }
 
 impl Component for MatTextField {
     type Message = ();
     type Properties = TextFieldProps;
 
-    fn create(_: &Context<Self>) -> Self {
+    fn create(ctx: &Context<Self>) -> Self {
+        ctx.props()
+            .component_link
+            .borrow_mut()
+            .replace(ctx.link().clone());
         TextField::ensure_loaded();
         Self {
             node_ref: NodeRef::default(),
@@ -160,9 +166,13 @@ impl Component for MatTextField {
         }
     }
 
-    fn changed(&mut self, _ctx: &Context<Self>) -> bool {
-        // clear event listener in case a new callback was registered
+    fn changed(&mut self, ctx: &Context<Self>) -> bool {
+        // clear event listeners and update link in case the props changed
         self.input_listener = None;
+        ctx.props()
+            .component_link
+            .borrow_mut()
+            .replace(ctx.link().clone());
         true
     }
 
@@ -206,6 +216,16 @@ impl MatTextField {
         func: F,
     ) -> ValidityTransform {
         ValidityTransform::new(func)
+    }
+}
+
+impl WeakComponentLink<MatTextField> {
+    pub fn value(&self) -> String {
+        (*self.borrow().as_ref().unwrap().get_component().unwrap())
+            .node_ref
+            .cast::<TextField>()
+            .unwrap()
+            .value()
     }
 }
 
