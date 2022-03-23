@@ -153,6 +153,11 @@ impl Component for MatSelect {
         }
     }
 
+    fn changed(&mut self, _ctx: &Context<Self>) -> bool {
+        // clear listeners in case a new callback was registered
+        true
+    }
+
     //noinspection DuplicatedCode
     fn rendered(&mut self, ctx: &Context<Self>, first_render: bool) {
         let props = ctx.props();

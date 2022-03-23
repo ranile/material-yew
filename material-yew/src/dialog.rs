@@ -147,6 +147,19 @@ impl Component for MatDialog {
                }
     }
 
+    fn changed(&mut self, ctx: &Context<Self>) -> bool {
+        // clear event listeners in case a new callback was registered
+        self.opening_listener = None;
+        self.opened_listener = None;
+        self.closing_listener = None;
+        self.closed_listener = None;
+        ctx.props()
+            .dialog_link
+            .borrow_mut()
+            .replace(ctx.link().clone());
+        true
+    }
+
     fn rendered(&mut self, ctx: &Context<Self>, _first_render: bool) {
         let props = ctx.props();
         let element = self.node_ref.cast::<Element>().unwrap();
