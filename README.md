@@ -1,5 +1,7 @@
 # Material Yew
 
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
 *Material Yew* is a components library for [Yew framework](https://yew.rs/) which is a wrapper around [Material Web Components](https://github.com/material-components/material-components-web-components) exposing Yew components. All modern browsers are supported. There is no support for polyfills required by Internet Explorer 11.
 
 ### Example
@@ -73,6 +75,12 @@ These components respect the theming applied to Material Web Components using st
 ## Documentation
 
 Full API documentation can be found [here](https://yew-material.web.app/docs/material_yew). Demos of components can be found [here](https://yew-material.web.app/components).
+
+## Meta
+
+Distributed under the Apache License 2.0 license. See `LICENSE` for more information.
+
+[https://github.com/hamza1311/](https://github.com/hamza1311/)
 
 ## Contributing
 
