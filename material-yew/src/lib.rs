@@ -75,7 +75,7 @@ fn to_option_string(s: impl Display) -> Option<AttrValue> {
     if s.is_empty() {
         None
     } else {
-        Some(AttrValue::Owned(s))
+        Some(AttrValue::from(s))
     }
 }
 
