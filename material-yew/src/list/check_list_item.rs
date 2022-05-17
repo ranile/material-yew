@@ -38,6 +38,8 @@ pub struct CheckListItemProps {
     pub disabled: bool,
     #[prop_or_default]
     pub on_request_selected: Callback<RequestSelectedDetail>,
+    #[prop_or_default]
+    pub selected: bool,
     pub children: Children,
 }
 
@@ -60,6 +62,7 @@ impl Component for MatCheckListItem {
                  left={bool_to_option(props.left)}
                  graphic={props.graphic.as_str()}
                  disabled={props.disabled}
+                 selected={props.selected}
                  ref={self.node_ref.clone()}
              >{props.children.clone()}</mwc-check-list-item>
         }
