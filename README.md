@@ -68,7 +68,7 @@ Following are all the cargo features available (each feature corresponds to its 
 
 ## Theming
 
-These components respect the theming applied to Material Web Components using stylesheets. [Learn about how to theme Material Web Components.](https://github.com/material-components/material-components-web-components/blob/master/docs/theming.md)
+These components respect the theming applied to Material Web Components using stylesheets. [Learn about how to theme Material Web Components.](https://github.com/material-components/material-web/blob/mwc/docs/theming.md)
 
 ## Documentation
 
