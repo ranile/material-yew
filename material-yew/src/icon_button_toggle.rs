@@ -89,6 +89,12 @@ impl Component for MatIconButtonToggle {
         }
     }
 
+    fn changed(&mut self, _ctx: &Context<Self>) -> bool {
+        // clear event listener in case the props changed
+        self.change_listener = None;
+        true
+    }
+
     fn rendered(&mut self, ctx: &Context<Self>, _first_render: bool) {
         let props = ctx.props();
         if self.change_listener.is_none() {

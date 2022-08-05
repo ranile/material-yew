@@ -118,6 +118,17 @@ impl Component for MatList {
         }
     }
 
+    fn changed(&mut self, ctx: &Context<Self>) -> bool {
+        // clear event listeners and update link in case the props changed
+        self.action_listener = None;
+        self.selected_listener = None;
+        ctx.props()
+            .list_link
+            .borrow_mut()
+            .replace(ctx.link().clone());
+        true
+    }
+
     fn view(&self, ctx: &Context<Self>) -> Html {
         let props = ctx.props();
         html! {

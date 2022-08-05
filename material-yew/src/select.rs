@@ -153,8 +153,16 @@ impl Component for MatSelect {
         }
     }
 
-    fn changed(&mut self, _ctx: &Context<Self>) -> bool {
-        // clear listeners in case a new callback was registered
+    fn changed(&mut self, ctx: &Context<Self>) -> bool {
+        // clear event listeners and update link in case the props changed
+        self.opened_listener = None;
+        self.closed_listener = None;
+        self.action_listener = None;
+        self.selected_listener = None;
+        ctx.props()
+            .select_link
+            .borrow_mut()
+            .replace(ctx.link().clone());
         true
     }
 

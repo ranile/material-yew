@@ -81,6 +81,12 @@ impl Component for MatCheckbox {
         }
     }
 
+    fn changed(&mut self, _ctx: &Context<Self>) -> bool {
+        // clear event listeners in case the props changed
+        self.change_listener = None;
+        true
+    }
+
     fn rendered(&mut self, ctx: &Context<Self>, _first_render: bool) {
         let props = ctx.props();
         let element = self.node_ref.cast::<Checkbox>().unwrap();
