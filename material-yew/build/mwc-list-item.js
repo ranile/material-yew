@@ -1,1 +1,1 @@
-import{P as s,Q as e,_ as t,d as a}from"./core.js";let l=class extends s{};l.styles=e,l=t([a("mwc-list-item")],l);export{l as ListItem};
+import{O as s,_ as e,P as t,f as a}from"./core.js";let l=class extends t{};l.styles=[s],l=e([a("mwc-list-item")],l);export{l as ListItem};
