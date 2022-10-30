@@ -18,7 +18,7 @@ loader_hack!(TabBar);
 
 /// The `mwc-tab-bar` component
 ///
-/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/tab-bar)
+/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/tab-bar)
 pub struct MatTabBar {
     node_ref: NodeRef,
     activated_listener: Option<EventListener>,
@@ -26,8 +26,8 @@ pub struct MatTabBar {
 
 /// Props for `MatTabBar`.
 ///
-/// MWC Documentation [properties](https://github.com/material-components/material-components-web-components/tree/master/packages/tab-bar#propertiesattributes)
-/// and [events](https://github.com/material-components/material-components-web-components/tree/master/packages/tab-bar#events)
+/// MWC Documentation [properties](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/tab-bar#propertiesattributes)
+/// and [events](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/tab-bar#events)
 #[derive(Debug, Properties, PartialEq, Clone)]
 pub struct TabBarProps {
     #[prop_or_default]

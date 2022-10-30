@@ -28,7 +28,7 @@ loader_hack!(IconButtonToggle);
 
 /// The `mwc-icon-button-toggle` component
 ///
-/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/icon-button-toggle)
+/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/icon-button-toggle)
 pub struct MatIconButtonToggle {
     node_ref: NodeRef,
     change_listener: Option<EventListener>,
@@ -38,8 +38,8 @@ pub struct MatIconButtonToggle {
 ///
 /// MWC Documentation:
 ///
-/// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/icon-button-toggle#propertiesattributes)
-/// - [Events](https://github.com/material-components/material-components-web-components/tree/master/packages/icon-button-toggle#events)
+/// - [Properties](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/icon-button-toggle#propertiesattributes)
+/// - [Events](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/icon-button-toggle#events)
 #[derive(Debug, Properties, PartialEq, Clone)]
 pub struct IconButtonToggleProps {
     #[prop_or_default]

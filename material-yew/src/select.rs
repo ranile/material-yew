@@ -35,7 +35,7 @@ loader_hack!(Select);
 
 /// The `mwc-select` component
 ///
-/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/select)
+/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/select)
 pub struct MatSelect {
     node_ref: NodeRef,
     validity_transform_closure:
@@ -50,8 +50,8 @@ pub struct MatSelect {
 ///
 /// MWC Documentation:
 ///
-/// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/select#propertiesattributes)
-/// - [Events](https://github.com/material-components/material-components-web-components/tree/master/packages/select#events)
+/// - [Properties](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/select#propertiesattributes)
+/// - [Events](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/select#events)
 #[derive(Properties, PartialEq, Clone)]
 pub struct Props {
     #[prop_or_default]

@@ -40,7 +40,7 @@ loader_hack!(Snackbar);
 
 /// The `mwc-snackbar` component
 ///
-/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/snackbar)
+/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/snackbar)
 pub struct MatSnackbar {
     node_ref: NodeRef,
     opening_listener: Option<EventListener>,
@@ -53,8 +53,8 @@ pub struct MatSnackbar {
 ///
 /// MWC Documentation:
 ///
-/// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/snackbar#propertiesattributes)
-/// - [Events](https://github.com/material-components/material-components-web-components/tree/master/packages/snackbar#events)
+/// - [Properties](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/snackbar#propertiesattributes)
+/// - [Events](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/snackbar#events)
 #[derive(Properties, PartialEq, Clone)]
 pub struct SnackbarProps {
     #[prop_or_default]

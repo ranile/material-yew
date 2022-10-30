@@ -14,7 +14,7 @@ loader_hack!(Icon);
 
 /// Props for [`MatIcon`]
 ///
-/// [MWC Documentation for properties](https://github.com/material-components/material-components-web-components/tree/master/packages/icon#propertiesattributes)
+/// [MWC Documentation for properties](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/icon#propertiesattributes)
 #[derive(Debug, Properties, PartialEq, Clone)]
 pub struct IconProps {
     pub children: Children,

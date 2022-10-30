@@ -38,7 +38,7 @@ loader_hack!(Drawer);
 
 /// The `mwc-drawer` component
 ///
-/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/drawer)
+/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/drawer)
 pub struct MatDrawer {
     node_ref: NodeRef,
     opened_listener: Option<EventListener>,
@@ -49,8 +49,8 @@ pub struct MatDrawer {
 ///
 /// MWC Documentation:
 ///
-/// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/drawer#propertiesattributes)
-/// - [Events](https://github.com/material-components/material-components-web-components/tree/master/packages/drawer#events)
+/// - [Properties](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/drawer#propertiesattributes)
+/// - [Events](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/drawer#events)
 #[derive(Properties, PartialEq, Clone)]
 pub struct DrawerProps {
     #[prop_or_default]

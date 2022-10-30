@@ -15,7 +15,7 @@ loader_hack!(IconButton);
 
 /// Props for [`MatIconButton`]
 ///
-/// [MWC Documentation for properties](https://github.com/material-components/material-components-web-components/tree/master/packages/icon-button#propertiesattributes)
+/// [MWC Documentation for properties](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/icon-button#propertiesattributes)
 #[derive(Debug, Properties, PartialEq, Clone)]
 pub struct IconButtonProps {
     #[prop_or_default]

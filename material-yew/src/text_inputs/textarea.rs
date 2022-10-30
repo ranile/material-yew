@@ -39,7 +39,7 @@ loader_hack!(TextArea);
 
 /// The `mwc-textarea` component
 ///
-/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/textarea)
+/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/textarea)
 pub struct MatTextArea {
     node_ref: NodeRef,
     validity_transform_closure:
@@ -70,7 +70,7 @@ impl TextAreaCharCounter {
 ///
 /// MWC Documentation:
 ///
-/// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/checkbox#propertiesattributes)
+/// - [Properties](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/checkbox#propertiesattributes)
 #[derive(Properties, PartialEq, Clone)]
 pub struct TextAreaProps {
     #[prop_or_default]

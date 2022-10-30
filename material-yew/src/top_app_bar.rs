@@ -25,7 +25,7 @@ loader_hack!(TopAppBar);
 
 /// The `mwc-top-app-bar` component
 ///
-/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/top-app-bar)
+/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/top-app-bar)
 pub struct MatTopAppBar {
     node_ref: NodeRef,
     nav_listener: Option<EventListener>,
@@ -35,8 +35,8 @@ pub struct MatTopAppBar {
 ///
 /// MWC Documentation:
 ///
-/// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/top-app-bar#propertiesattributes)
-/// - [Events](https://github.com/material-components/material-components-web-components/tree/master/packages/top-app-bar#events)
+/// - [Properties](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/top-app-bar#propertiesattributes)
+/// - [Events](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/top-app-bar#events)
 #[derive(Debug, Properties, PartialEq, Clone)]
 pub struct TopAppBarProps {
     pub children: Children,

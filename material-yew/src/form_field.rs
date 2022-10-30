@@ -16,7 +16,7 @@ loader_hack!(Formfield);
 
 /// Props for [`MatFormfield`]
 ///
-/// [MWC Documentation for properties](https://github.com/material-components/material-components-web-components/tree/master/packages/formfield#propertiesattributes)
+/// [MWC Documentation for properties](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/formfield#propertiesattributes)
 #[derive(Properties, PartialEq, Clone)]
 pub struct FormfieldProps {
     pub children: Children,

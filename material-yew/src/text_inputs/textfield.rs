@@ -40,7 +40,7 @@ loader_hack!(TextField);
 
 /// The `mwc-textfield` component
 ///
-/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/textfield)
+/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/textfield)
 pub struct MatTextField {
     node_ref: NodeRef,
     validity_transform_closure:
@@ -52,7 +52,7 @@ pub struct MatTextField {
 ///
 /// MWC Documentation:
 ///
-/// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/textfield#propertiesattributes)
+/// - [Properties](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/textfield#propertiesattributes)
 #[derive(Properties, PartialEq, Clone)]
 pub struct TextFieldProps {
     #[prop_or_default]

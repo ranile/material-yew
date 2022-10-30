@@ -46,7 +46,7 @@ loader_hack!(Menu);
 
 /// The `mwc-menu` Component
 ///
-/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/menu)
+/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/menu)
 pub struct MatMenu {
     node_ref: NodeRef,
     opened_listener: Option<EventListener>,
@@ -57,8 +57,8 @@ pub struct MatMenu {
 
 /// Props for `MatMenu`
 ///
-/// MWC Documentation [properties](https://github.com/material-components/material-components-web-components/tree/master/packages/menu#propertiesattributes)
-/// and [events](https://github.com/material-components/material-components-web-components/tree/master/packages/menu#events)
+/// MWC Documentation [properties](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/menu#propertiesattributes)
+/// and [events](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/menu#events)
 #[derive(Properties, PartialEq, Clone)]
 pub struct MenuProps {
     /// Changing this prop re-renders the component.
@@ -219,7 +219,7 @@ impl Component for MatMenu {
 impl WeakComponentLink<MatMenu> {
     /// Binds to `getFocusedItemIndex` method.
     ///
-    /// See [here](https://github.com/material-components/material-components-web-components/tree/master/packages/menu#methods) for details
+    /// See [here](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/menu#methods) for details
     pub fn get_focused_item_index(&self) -> usize {
         (*self.borrow().as_ref().unwrap().get_component().unwrap())
             .node_ref
@@ -230,7 +230,7 @@ impl WeakComponentLink<MatMenu> {
 
     /// Binds to `focusItemAtIndex` method.
     ///
-    /// See [here](https://github.com/material-components/material-components-web-components/tree/master/packages/menu#methods) for details
+    /// See [here](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/menu#methods) for details
     pub fn focus_item_at_index(&self, index: usize) {
         (*self.borrow().as_ref().unwrap().get_component().unwrap())
             .node_ref
@@ -244,7 +244,7 @@ impl WeakComponentLink<MatMenu> {
     /// `index` is `JsValue` because `MWCMenuIndex` mentioned in mwc docs is
     /// completely undocumented.
     ///
-    /// See [here](https://github.com/material-components/material-components-web-components/tree/master/packages/menu#methods) for details
+    /// See [here](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/menu#methods) for details
     pub fn select(&self, index: &JsValue) {
         (*self.borrow().as_ref().unwrap().get_component().unwrap())
             .node_ref
@@ -255,7 +255,7 @@ impl WeakComponentLink<MatMenu> {
 
     /// Binds to `show` method.
     ///
-    /// See [here](https://github.com/material-components/material-components-web-components/tree/master/packages/menu#methods) for details
+    /// See [here](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/menu#methods) for details
     pub fn show(&self) {
         (*self.borrow().as_ref().unwrap().get_component().unwrap())
             .node_ref
@@ -266,7 +266,7 @@ impl WeakComponentLink<MatMenu> {
 
     /// Binds to `close` method.
     ///
-    /// See [here](https://github.com/material-components/material-components-web-components/tree/master/packages/menu#methods) for details
+    /// See [here](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/menu#methods) for details
     pub fn close(&self) {
         (*self.borrow().as_ref().unwrap().get_component().unwrap())
             .node_ref

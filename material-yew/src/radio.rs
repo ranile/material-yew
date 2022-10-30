@@ -25,7 +25,7 @@ loader_hack!(Radio);
 
 /// The `mwc-radio` component
 ///
-/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/radio)
+/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/radio)
 pub struct MatRadio {
     node_ref: NodeRef,
     change_listener: Option<EventListener>,
@@ -35,8 +35,8 @@ pub struct MatRadio {
 ///
 /// MWC Documentation:
 ///
-/// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/radio#propertiesattributes)
-/// - [Events](https://github.com/material-components/material-components-web-components/tree/master/packages/radio#events)
+/// - [Properties](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/radio#propertiesattributes)
+/// - [Events](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/radio#events)
 #[derive(Debug, Properties, PartialEq, Clone)]
 pub struct RadioProps {
     #[prop_or_default]

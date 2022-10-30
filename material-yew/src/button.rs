@@ -18,7 +18,7 @@ loader_hack!(Button);
 
 /// Props for [`MatButton`]
 ///
-/// [MWC Documentation for properties](https://github.com/material-components/material-components-web-components/tree/master/packages/button#propertiesattributes)
+/// [MWC Documentation for properties](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/button#propertiesattributes)
 #[derive(Debug, Properties, PartialEq, Clone)]
 pub struct ButtonProps {
     pub label: String,

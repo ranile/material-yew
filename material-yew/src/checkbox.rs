@@ -25,7 +25,7 @@ loader_hack!(Checkbox);
 
 /// The `mwc-checkbox` component
 ///
-/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/checkbox)
+/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/checkbox)
 pub struct MatCheckbox {
     node_ref: NodeRef,
     change_listener: Option<EventListener>,
@@ -35,8 +35,8 @@ pub struct MatCheckbox {
 ///
 /// MWC Documentation:
 ///
-/// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/checkbox#propertiesattributes)
-/// - [Events](https://github.com/material-components/material-components-web-components/tree/master/packages/checkbox#events)
+/// - [Properties](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/checkbox#propertiesattributes)
+/// - [Events](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/checkbox#events)
 #[derive(Debug, Properties, PartialEq, Clone)]
 pub struct CheckboxProps {
     #[prop_or_default]

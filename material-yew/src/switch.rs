@@ -23,7 +23,7 @@ loader_hack!(Switch);
 
 /// The `mwc-switch` component
 ///
-/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/switch)
+/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/switch)
 pub struct MatSwitch {
     node_ref: NodeRef,
     change_listener: Option<EventListener>,
@@ -33,8 +33,8 @@ pub struct MatSwitch {
 ///
 /// MWC Documentation:
 ///
-/// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/switch#propertiesattributes)
-/// - [Events](https://github.com/material-components/material-components-web-components/tree/master/packages/switch#events)
+/// - [Properties](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/switch#propertiesattributes)
+/// - [Events](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/switch#events)
 #[derive(Debug, Properties, PartialEq, Clone)]
 pub struct SwitchProps {
     #[prop_or_default]

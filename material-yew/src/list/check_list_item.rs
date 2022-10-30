@@ -18,7 +18,7 @@ loader_hack!(CheckListItem);
 
 /// The `mwc-check-list-item` component
 ///
-/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/list#checklist)
+/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/list#checklist)
 pub struct MatCheckListItem {
     node_ref: NodeRef,
     request_selected_listener: Option<EventListener>,
@@ -26,8 +26,8 @@ pub struct MatCheckListItem {
 
 /// Props for [`MatCheckListItem`]
 ///
-/// MWC Documentation for [properties](https://github.com/material-components/material-components-web-components/tree/master/packages/list#mwc-check-list-item)
-/// and [events](https://github.com/material-components/material-components-web-components/tree/master/packages/list#mwc-check-list-item-1)
+/// MWC Documentation for [properties](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/list#mwc-check-list-item)
+/// and [events](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/list#mwc-check-list-item-1)
 #[derive(Debug, Properties, PartialEq, Clone)]
 pub struct CheckListItemProps {
     #[prop_or_default]

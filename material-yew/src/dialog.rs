@@ -35,7 +35,7 @@ loader_hack!(Dialog);
 
 /// The `mwc-dialog` component.
 ///
-/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/dialog)
+/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/dialog)
 ///
 /// ## Actions
 ///
@@ -53,8 +53,8 @@ pub struct MatDialog {
 ///
 /// MWC Documentation:
 ///
-/// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/dialog#propertiesattributes)
-/// - [Events](https://github.com/material-components/material-components-web-components/tree/master/packages/dialog#events)
+/// - [Properties](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/dialog#propertiesattributes)
+/// - [Events](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/dialog#events)
 #[derive(Properties, PartialEq, Clone)]
 pub struct DialogProps {
     #[prop_or_default]

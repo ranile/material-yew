@@ -19,7 +19,7 @@ loader_hack!(RadioListItem);
 
 /// The `mwc-list-item` Component
 ///
-/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/list#mwc-radio-list-item)
+/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/list#mwc-radio-list-item)
 pub struct MatRadioListItem {
     node_ref: NodeRef,
     request_selected_listener: Option<EventListener>,
@@ -27,8 +27,8 @@ pub struct MatRadioListItem {
 
 /// Props for [`MatRadioListItem`]
 ///
-/// MWC Documentation [properties](https://github.com/material-components/material-components-web-components/tree/master/packages/list#mwc-radio-list-item-1)
-/// and [events](https://github.com/material-components/material-components-web-components/tree/master/packages/list#mwc-radio-list-item-2)
+/// MWC Documentation [properties](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/list#mwc-radio-list-item-1)
+/// and [events](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/list#mwc-radio-list-item-2)
 #[derive(Debug, Properties, PartialEq, Clone)]
 pub struct RadioListItemProps {
     #[prop_or_default]

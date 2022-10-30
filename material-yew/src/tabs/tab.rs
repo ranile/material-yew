@@ -19,7 +19,7 @@ loader_hack!(Tab);
 
 /// The `mwc-tab` component
 ///
-/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/tab)
+/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/tab)
 pub struct MatTab {
     node_ref: NodeRef,
     interacted_listener: Option<EventListener>,
@@ -27,8 +27,8 @@ pub struct MatTab {
 
 /// Props for `MatTab`
 ///
-/// MWC Documentation [properties](https://github.com/material-components/material-components-web-components/tree/master/packages/tab#propertiesattributes)
-/// and [events](https://github.com/material-components/material-components-web-components/tree/master/packages/tab#events)
+/// MWC Documentation [properties](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/tab#propertiesattributes)
+/// and [events](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/tab#events)
 #[derive(Debug, Properties, PartialEq, Clone)]
 pub struct TabProps {
     #[prop_or_default]

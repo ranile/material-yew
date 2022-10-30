@@ -3,7 +3,7 @@ use std::fmt;
 /// Equivalent to typescript type
 /// `'avatar'|'icon'|'medium'|'large'|'control'|null`
 ///
-/// See `GraphicType` [here](https://github.com/material-components/material-components-web-components/tree/master/packages/list#mwc-list-item-1)
+/// See `GraphicType` [here](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/list#mwc-list-item-1)
 #[derive(Clone, PartialEq, Debug)]
 pub enum GraphicType {
     Avatar,

@@ -17,7 +17,7 @@ loader_hack!(CircularProgress);
 
 /// Props for [`MatCircularProgress`]
 ///
-/// [MWC Documentation for properties](https://github.com/material-components/material-components-web-components/tree/master/packages/circular-progress#propertiesattributes)
+/// [MWC Documentation for properties](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/circular-progress#propertiesattributes)
 #[derive(Debug, Properties, PartialEq, Clone)]
 pub struct CircularProgressProps {
     #[prop_or_default]
