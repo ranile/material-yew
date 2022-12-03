@@ -76,7 +76,7 @@ impl Component for MatTopAppBarFixed {
         }
     }
 
-    fn changed(&mut self, _ctx: &Context<Self>) -> bool {
+    fn changed(&mut self, _ctx: &Context<Self>, _old_props: &Self::Properties) -> bool {
         // clear nav_listener in case a new callback was registered
         self.nav_listener = None;
         true

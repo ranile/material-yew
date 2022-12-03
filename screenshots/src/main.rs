@@ -135,10 +135,11 @@ impl Component for App {
                     ListIndex::Single(Some(index)) => index,
                     _ => panic!("Unreachable executed"),
                 };
-                let component = *COMPONENTS
+                let _component = *COMPONENTS
                     .get(index)
                     .expect("index too high. This should never happen");
-                use_history().unwrap().push(component);
+                
+// FIXME                use_history().unwrap().push(component);
                 true
             }
             Msg::OpenMenu => {
@@ -156,19 +157,22 @@ impl Component for App {
             }
         };
 
+        let menu = |_| -> Html { html! { } };
+        /* FIXME
         // this is a special case as its stateful
-        let menu = html! { <>
+        let menu =  |_| -> Html { html! { <>
             <span onclick={ctx.link().callback(|_| Msg::OpenMenu)} >
                 <MatButton label="Show meat" />
             </span>
             <div>
-                <MatMenu menu_link={self.menu_link.clone()} open=true>
+                <MatMenu  menu_link={self.menu_link} open=true>
                     <MatListItem>{"Chicken"}</MatListItem>
                     <MatListItem>{"Mutton"}</MatListItem>
                     <MatListItem>{"Beef"}</MatListItem>
                 </MatMenu>
             </div>
-        </>};
+        </>}};
+        */
 
         html! { <>
         <BrowserRouter>
@@ -176,7 +180,7 @@ impl Component for App {
                 <MatSelect label="Components" outlined=true onselected={on_selected} >
                     { for COMPONENTS.iter().map(list_item)}
                 </MatSelect>
-                <Switch<AppRoute> render={Switch::render(move |switch| Self::switch(*switch, menu.clone()))} />
+                <Switch<AppRoute> render={menu} />
             </main>
         </BrowserRouter>
         </>}
@@ -384,5 +388,5 @@ impl App {
 }
 
 fn main() {
-    yew::start_app::<App>();
+    yew::Renderer::<App>::new().render();
 }

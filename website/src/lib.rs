@@ -217,7 +217,7 @@ impl Component for App {
 
                             </MatTopAppBarFixed>
                             <main id="router-outlet">
-                                <yew_router::Switch<AppRoute> render={yew_router::Switch::render(Self::switch)} />
+                                <yew_router::Switch<AppRoute> render={App::switch} />
                             </main>
                         </div>
                     </MatDrawerAppContent>
@@ -228,7 +228,7 @@ impl Component for App {
 }
 
 impl App {
-    fn switch(switch: &AppRoute) -> Html {
+    fn switch(switch: AppRoute) -> Html {
         match switch {
             AppRoute::Home => html! { <Home />},
             AppRoute::Components => html! { <Components />},

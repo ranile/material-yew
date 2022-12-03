@@ -81,7 +81,7 @@ impl Component for MatCheckbox {
         }
     }
 
-    fn changed(&mut self, _ctx: &Context<Self>) -> bool {
+    fn changed(&mut self, _ctx: &Context<Self>, _old_props: &Self::Properties) -> bool {
         // clear event listeners in case the props changed
         self.change_listener = None;
         true

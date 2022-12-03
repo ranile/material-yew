@@ -118,7 +118,7 @@ impl Component for MatList {
         }
     }
 
-    fn changed(&mut self, ctx: &Context<Self>) -> bool {
+    fn changed(&mut self, ctx: &Context<Self>, _old_props: &Self::Properties) -> bool {
         // clear event listeners and update link in case the props changed
         self.action_listener = None;
         self.selected_listener = None;

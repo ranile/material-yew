@@ -147,7 +147,7 @@ impl Component for MatDialog {
                }
     }
 
-    fn changed(&mut self, ctx: &Context<Self>) -> bool {
+    fn changed(&mut self, ctx: &Context<Self>, _old_props: &Self::Properties) -> bool {
         // clear event listeners and update link in case the props changed
         self.opening_listener = None;
         self.opened_listener = None;
