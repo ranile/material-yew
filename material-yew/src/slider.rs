@@ -41,7 +41,7 @@ pub struct SliderProps {
     pub min: u32,
     #[prop_or(100)]
     pub max: u32,
-    #[prop_or(0)]
+    #[prop_or(1)]
     pub step: u32,
     #[prop_or(false)]
     pub pin: bool,
