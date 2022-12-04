@@ -1,7 +1,6 @@
 use material_yew::{
     dialog::{ActionType, MatDialogAction},
     icon_button_toggle::{MatOffIconButtonToggle, MatOnIconButtonToggle},
-    select::{ListIndex, SelectedDetail},
     text_inputs::TextFieldType,
     MatButton, MatCheckbox, MatCircularProgress, MatDialog, MatFab, MatFormfield, MatIcon,
     MatIconButton, MatIconButtonToggle, MatLinearProgress, MatList, MatListItem, MatMenu, MatRadio,
@@ -11,6 +10,7 @@ use material_yew::{
 use yew::prelude::*;
 use yew::virtual_dom::AttrValue;
 use yew_router::prelude::*;
+use yew_router::router::BrowserRouter;
 
 #[derive(Debug, Clone, Copy, PartialEq, Routable)]
 pub enum AppRoute {
@@ -114,7 +114,6 @@ pub struct App {
 }
 
 pub enum Msg {
-    Select(SelectedDetail),
     OpenMenu,
 }
 
@@ -128,67 +127,43 @@ impl Component for App {
         }
     }
 
-    fn update(&mut self, _: &Context<Self>, msg: Self::Message) -> bool {
+    fn update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
         match msg {
-            Msg::Select(details) => {
-                let index = match details.index {
-                    ListIndex::Single(Some(index)) => index,
-                    _ => panic!("Unreachable executed"),
-                };
-                let _component = *COMPONENTS
-                    .get(index)
-                    .expect("index too high. This should never happen");
-                
-// FIXME                use_history().unwrap().push(component);
-                true
-            }
             Msg::OpenMenu => {
+                gloo_console::debug!("update() Msg::OpenMenu");
                 self.menu_link.show();
                 false
             }
         }
     }
 
-    fn view(&self, ctx: &Context<Self>) -> Html {
-        let on_selected = ctx.link().callback(Msg::Select);
+    fn view(&self, _ctx: &Context<Self>) -> Html {
         let list_item = |comp: &AppRoute| {
             html! {
-                 <MatListItem value={format!("{:?}", comp)}> {comp.to_string()} </MatListItem>
+                <Link<AppRoute> to={*comp}>
+                <MatListItem value={format!("{:?}", comp)}>
+                {comp.to_string()}    
+                </MatListItem>
+                </Link<AppRoute>> 
             }
         };
 
-        let menu = |_| -> Html { html! { } };
-        /* FIXME
-        // this is a special case as its stateful
-        let menu =  |_| -> Html { html! { <>
-            <span onclick={ctx.link().callback(|_| Msg::OpenMenu)} >
-                <MatButton label="Show meat" />
-            </span>
-            <div>
-                <MatMenu  menu_link={self.menu_link} open=true>
-                    <MatListItem>{"Chicken"}</MatListItem>
-                    <MatListItem>{"Mutton"}</MatListItem>
-                    <MatListItem>{"Beef"}</MatListItem>
-                </MatMenu>
-            </div>
-        </>}};
-        */
-
         html! { <>
-        <BrowserRouter>
-            <main id="screenshots">
-                <MatSelect label="Components" outlined=true onselected={on_selected} >
-                    { for COMPONENTS.iter().map(list_item)}
-                </MatSelect>
-                <Switch<AppRoute> render={menu} />
-            </main>
-        </BrowserRouter>
+            <BrowserRouter>
+                <main id="screenshots">
+                    <MatSelect label="Components" outlined=true>
+                        { for COMPONENTS.iter().map(list_item)}
+                    </MatSelect>
+                    <Switch<AppRoute> render={App::switch} />
+                </main>
+            </BrowserRouter>
         </>}
     }
 }
 
 impl App {
-    fn switch(switch: AppRoute, menu: Html) -> Html {
+    fn switch(switch: AppRoute) -> Html 
+    {
         let ret = match switch {
             AppRoute::Button => {
                 html! {
@@ -364,7 +339,14 @@ impl App {
             AppRoute::Menu => {
                 html! {
                      <section id="menu" class="container">
-                         {menu}
+                        <span>
+                            <MatButton label="Show meat" />
+                        </span>
+                        <MatMenu open=true>
+                            <MatListItem>{"Chicken"}</MatListItem>
+                            <MatListItem>{"Mutton"}</MatListItem>
+                            <MatListItem>{"Beef"}</MatListItem>
+                        </MatMenu>
                      </section>
                 }
             }
