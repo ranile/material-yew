@@ -20,7 +20,11 @@ html! {
 `Cargo.toml`:
 ```toml
 [dependencies]
-material-yew = "0.2"
+material-yew = { version = "0.2", features = ["full"] }
+```
+or
+```shell
+cargo add material-yew --features full
 ```
 
 Material icons and a Material font can also be imported for full functionality.  
