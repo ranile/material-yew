@@ -29,6 +29,9 @@ features = [
     "HtmlElement"
 ]
 
+[dev-dependencies]
+wasm-bindgen-test = "0.3"
+
 [features]
 button = []
 circular-progress = []
@@ -80,7 +83,9 @@ full = [
     "select",
     "menu",
 ]
-default = []
+default = [
+    "button",
+]
 
 [package.metadata.docs.rs]
 all-features = true
