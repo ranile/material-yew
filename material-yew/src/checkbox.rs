@@ -25,7 +25,7 @@ loader_hack!(Checkbox);
 
 /// The `mwc-checkbox` component
 ///
-/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/checkbox)
+/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/checkbox)
 pub struct MatCheckbox {
     node_ref: NodeRef,
     change_listener: Option<EventListener>,
@@ -35,8 +35,8 @@ pub struct MatCheckbox {
 ///
 /// MWC Documentation:
 ///
-/// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/checkbox#propertiesattributes)
-/// - [Events](https://github.com/material-components/material-components-web-components/tree/master/packages/checkbox#events)
+/// - [Properties](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/checkbox#propertiesattributes)
+/// - [Events](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/checkbox#events)
 #[derive(Debug, Properties, PartialEq, Clone)]
 pub struct CheckboxProps {
     #[prop_or_default]
@@ -81,7 +81,7 @@ impl Component for MatCheckbox {
         }
     }
 
-    fn changed(&mut self, _ctx: &Context<Self>) -> bool {
+    fn changed(&mut self, _ctx: &Context<Self>, _old_props: &Self::Properties) -> bool {
         // clear event listeners in case the props changed
         self.change_listener = None;
         true

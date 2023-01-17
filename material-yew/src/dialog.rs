@@ -35,7 +35,7 @@ loader_hack!(Dialog);
 
 /// The `mwc-dialog` component.
 ///
-/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/dialog)
+/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/dialog)
 ///
 /// ## Actions
 ///
@@ -53,8 +53,8 @@ pub struct MatDialog {
 ///
 /// MWC Documentation:
 ///
-/// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/dialog#propertiesattributes)
-/// - [Events](https://github.com/material-components/material-components-web-components/tree/master/packages/dialog#events)
+/// - [Properties](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/dialog#propertiesattributes)
+/// - [Events](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/dialog#events)
 #[derive(Properties, PartialEq, Clone)]
 pub struct DialogProps {
     #[prop_or_default]
@@ -147,7 +147,7 @@ impl Component for MatDialog {
                }
     }
 
-    fn changed(&mut self, ctx: &Context<Self>) -> bool {
+    fn changed(&mut self, ctx: &Context<Self>, _old_props: &Self::Properties) -> bool {
         // clear event listeners and update link in case the props changed
         self.opening_listener = None;
         self.opened_listener = None;

@@ -16,7 +16,7 @@ loader_hack!(Fab);
 
 /// Props for [`MatFab`]
 ///
-/// [MWC Documentation for properties](https://github.com/material-components/material-components-web-components/tree/master/packages/fab#propertiesattributes)
+/// [MWC Documentation for properties](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/fab#propertiesattributes)
 #[derive(Debug, Properties, PartialEq, Clone)]
 pub struct FabProps {
     #[prop_or_default]

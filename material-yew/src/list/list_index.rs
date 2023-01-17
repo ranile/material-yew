@@ -3,7 +3,7 @@ use wasm_bindgen::{JsCast, JsValue};
 
 /// The `MWCListIndex` type
 ///
-/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/list#mwc-list-1)
+/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/list#mwc-list-1)
 #[derive(Debug)]
 pub enum ListIndex {
     /// Provided when `multi` prop is set to `false` (default) on the component

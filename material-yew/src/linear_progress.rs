@@ -15,7 +15,7 @@ loader_hack!(LinearProgress);
 
 /// Props for [`MatLinearProgress`]
 ///
-/// [MWC Documentation for properties](https://github.com/material-components/material-components-web-components/tree/master/packages/linear-progress#propertiesattributes)
+/// [MWC Documentation for properties](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/linear-progress#propertiesattributes)
 #[derive(Debug, Properties, PartialEq, Clone)]
 pub struct LinearProgressProps {
     #[prop_or_default]

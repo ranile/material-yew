@@ -2,7 +2,7 @@
 // See: https://github.com/rustwasm/wasm-bindgen/issues/2774
 // Can remove when wasm-bindgen is updated.
 #![allow(clippy::unused_unit)]
-//! A Material components library for [Yew](https://yew.rs). It wrpas around [Material Web Components](https://github.com/material-components/material-components-web-components) exposing Yew components.
+//! A Material components library for [Yew](https://yew.rs). It wrpas around [Material Web Components](https://github.com/material-components/material-web) exposing Yew components.
 //!
 //! Example usage:
 //! ```rust
@@ -46,7 +46,7 @@ macro_rules! component {
         paste::paste! {
             #[doc = "The `mwc-" $mwc_name "` component"]
             #[doc = ""]
-            #[doc = "[MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/"$mwc_name")"]
+            #[doc = "[MWC Documentation](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/"$mwc_name")"]
             pub struct $comp;
        }
         impl yew::Component for $comp {
@@ -75,7 +75,7 @@ fn to_option_string(s: impl Display) -> Option<AttrValue> {
     if s.is_empty() {
         None
     } else {
-        Some(AttrValue::Owned(s))
+        Some(AttrValue::from(s))
     }
 }
 

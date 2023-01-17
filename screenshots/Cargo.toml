@@ -8,7 +8,9 @@ edition = "2018"
 
 [dependencies]
 wasm-bindgen = "0.2"
-yew = "0.19"
-yew-router = "0.16"
+yew = { version="0.20.0", features = ["csr"] }
+yew-router = "0.17.0"
 material-yew = { path = "../material-yew", features = ["full"] }
 weblog = "0.3"
+gloo-console = "0.2.3"
+partial_application = "0.2.1"

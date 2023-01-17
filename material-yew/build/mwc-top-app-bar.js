@@ -1,1 +1,1 @@
-import{T as s,k as a,_ as e,d as t}from"./core.js";let o=class extends s{};o.styles=a,o=e([t("mwc-top-app-bar")],o);export{o as TopAppBar};
+import{x as s,_ as a,T as e,f as t}from"./core.js";let o=class extends e{};o.styles=[s],o=a([t("mwc-top-app-bar")],o);export{o as TopAppBar};

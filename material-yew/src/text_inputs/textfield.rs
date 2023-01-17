@@ -40,7 +40,7 @@ loader_hack!(TextField);
 
 /// The `mwc-textfield` component
 ///
-/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/textfield)
+/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/textfield)
 pub struct MatTextField {
     node_ref: NodeRef,
     validity_transform_closure:
@@ -52,7 +52,7 @@ pub struct MatTextField {
 ///
 /// MWC Documentation:
 ///
-/// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/textfield#propertiesattributes)
+/// - [Properties](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/textfield#propertiesattributes)
 #[derive(Properties, PartialEq, Clone)]
 pub struct TextFieldProps {
     #[prop_or_default]
@@ -166,7 +166,7 @@ impl Component for MatTextField {
         }
     }
 
-    fn changed(&mut self, ctx: &Context<Self>) -> bool {
+    fn changed(&mut self, ctx: &Context<Self>, _old_props: &Self::Properties) -> bool {
         // clear event listeners and update link in case the props changed
         self.input_listener = None;
         ctx.props()

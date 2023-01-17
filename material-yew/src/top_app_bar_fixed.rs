@@ -21,7 +21,7 @@ loader_hack!(TopAppBarFixed);
 
 /// The `mwc-top-app-bar-fixed` component
 ///
-/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/top-app-bar-fixed)
+/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/top-app-bar-fixed)
 pub struct MatTopAppBarFixed {
     node_ref: NodeRef,
     nav_listener: Option<EventListener>,
@@ -31,8 +31,8 @@ pub struct MatTopAppBarFixed {
 ///
 /// MWC Documentation:
 ///
-/// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/top-app-bar-fixed#propertiesattributes)
-/// - [Events](https://github.com/material-components/material-components-web-components/tree/master/packages/top-app-bar-fixed#events)
+/// - [Properties](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/top-app-bar-fixed#propertiesattributes)
+/// - [Events](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/top-app-bar-fixed#events)
 #[derive(Debug, Properties, PartialEq, Clone)]
 pub struct TopAppBarFixedProps {
     pub children: Children,
@@ -42,6 +42,8 @@ pub struct TopAppBarFixedProps {
     pub dense: bool,
     #[prop_or_default]
     pub prominent: bool,
+    #[prop_or_default]
+    pub short: bool,
     /// Binds to `MDCTopAppBar:nav`
     ///
     /// See events docs to learn more.
@@ -68,12 +70,13 @@ impl Component for MatTopAppBarFixed {
                  centerTitle={bool_to_option(props.center_title)}
                  dense={bool_to_option(props.dense)}
                  prominent={bool_to_option(props.prominent)}
+                 short={bool_to_option(props.short)}
                  ref={self.node_ref.clone()}
              >{props.children.clone()}</mwc-top-app-bar-fixed>
         }
     }
 
-    fn changed(&mut self, _ctx: &Context<Self>) -> bool {
+    fn changed(&mut self, _ctx: &Context<Self>, _old_props: &Self::Properties) -> bool {
         // clear nav_listener in case a new callback was registered
         self.nav_listener = None;
         true

@@ -5,7 +5,7 @@ use wasm_bindgen::JsCast;
 
 /// The `RequestSelectedDetail` type
 ///
-/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/list#mwc-list-2)
+/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/list#mwc-list-2)
 #[derive(Debug)]
 pub struct SelectedDetail {
     pub index: ListIndex,
@@ -14,7 +14,7 @@ pub struct SelectedDetail {
 
 /// Type for [`SelectedDetail::diff`]
 ///
-/// See `**` [here on MWC documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/list#mwc-list-2).
+/// See `**` [here on MWC documentation](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/list#mwc-list-2).
 #[derive(Debug)]
 pub struct IndexDiff {
     pub added: Vec<usize>,

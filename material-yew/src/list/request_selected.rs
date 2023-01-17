@@ -13,7 +13,7 @@ pub enum RequestSelectedSource {
 
 /// The `RequestSelectedDetail` type
 ///
-/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/list#mwc-list-item-2)
+/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/list#mwc-list-item-2)
 pub struct RequestSelectedDetail {
     pub selected: bool,
     pub source: RequestSelectedSource,

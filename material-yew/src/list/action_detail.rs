@@ -5,7 +5,7 @@ use wasm_bindgen::JsCast;
 
 /// The `ActionDetail` type
 ///
-/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/list#mwc-list-2)
+/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/list#mwc-list-2)
 #[derive(Debug)]
 pub struct ActionDetail {
     #[allow(dead_code)]

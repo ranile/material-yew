@@ -55,7 +55,7 @@ loader_hack!(List);
 
 /// The `mwc-list` component
 ///
-/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/list)
+/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/list)
 pub struct MatList {
     node_ref: NodeRef,
     action_listener: Option<EventListener>,
@@ -66,8 +66,8 @@ pub struct MatList {
 ///
 /// MWC Documentation:
 ///
-/// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/list#mwc-list-1)
-/// - [Events](https://github.com/material-components/material-components-web-components/tree/master/packages/list#mwc-list-2)
+/// - [Properties](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/list#mwc-list-1)
+/// - [Events](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/list#mwc-list-2)
 #[derive(Properties, PartialEq, Clone)]
 pub struct ListProps {
     #[prop_or_default]
@@ -118,7 +118,7 @@ impl Component for MatList {
         }
     }
 
-    fn changed(&mut self, ctx: &Context<Self>) -> bool {
+    fn changed(&mut self, ctx: &Context<Self>, _old_props: &Self::Properties) -> bool {
         // clear event listeners and update link in case the props changed
         self.action_listener = None;
         self.selected_listener = None;
@@ -172,7 +172,7 @@ impl Component for MatList {
 impl WeakComponentLink<MatList> {
     /// Binds to `toggle` method.
     ///
-    /// See [here](https://github.com/material-components/material-components-web-components/tree/master/packages/list#methods) for details
+    /// See [here](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/list#methods) for details
     pub fn toggle(&self, index: usize, force: bool) {
         let list = (*self.borrow().as_ref().unwrap().get_component().unwrap())
             .node_ref
@@ -183,7 +183,7 @@ impl WeakComponentLink<MatList> {
 
     /// Binds to `getFocusedItemIndex` method.
     ///
-    /// See [here](https://github.com/material-components/material-components-web-components/tree/master/packages/list#methods) for details
+    /// See [here](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/list#methods) for details
     pub fn get_focused_item_index(&self) -> usize {
         (*self.borrow().as_ref().unwrap().get_component().unwrap())
             .node_ref
@@ -194,7 +194,7 @@ impl WeakComponentLink<MatList> {
 
     /// Binds to `focusItemAtIndex` method.
     ///
-    /// See [here](https://github.com/material-components/material-components-web-components/tree/master/packages/list#methods) for details
+    /// See [here](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/list#methods) for details
     pub fn focus_item_at_index(&self, index: usize) {
         (*self.borrow().as_ref().unwrap().get_component().unwrap())
             .node_ref

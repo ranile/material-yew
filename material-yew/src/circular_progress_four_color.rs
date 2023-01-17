@@ -17,7 +17,7 @@ loader_hack!(CircularProgressFourColor);
 
 /// Props for [`MatCircularProgressFourColor`]
 ///
-/// [MWC Documentation for properties](https://github.com/material-components/material-components-web-components/tree/master/packages/circular-progress-four-color#propertiesattributes)
+/// [MWC Documentation for properties](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/circular-progress-four-color#propertiesattributes)
 #[derive(Debug, Properties, PartialEq, Clone)]
 pub struct CircularProgressFourColorProps {
     #[prop_or_default]

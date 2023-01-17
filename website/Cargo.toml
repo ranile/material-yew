@@ -8,8 +8,8 @@ build = "build.rs"
 
 [dependencies]
 wasm-bindgen = "0.2"
-yew = "0.19"
-yew-router = "0.16"
+yew = { version="0.20.0", features = ["csr"] }
+yew-router = "0.17.0"
 gloo-utils = "0.1"
 gloo-console = "0.2"
 

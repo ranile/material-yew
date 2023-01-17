@@ -20,7 +20,7 @@ loader_hack!(Slider);
 
 /// The `mwc-snackbar` component
 ///
-/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/master/packages/slider)
+/// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/slider)
 pub struct MatSlider {
     node_ref: NodeRef,
     input_listener: Option<EventListener>,
@@ -31,8 +31,8 @@ pub struct MatSlider {
 ///
 /// MWC Documentation:
 ///
-/// - [Properties](https://github.com/material-components/material-components-web-components/tree/master/packages/slider#propertiesattributes)
-/// - [Events](https://github.com/material-components/material-components-web-components/tree/master/packages/slider#events)
+/// - [Properties](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/slider#propertiesattributes)
+/// - [Events](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/slider#events)
 #[derive(Debug, Properties, PartialEq, Clone)]
 pub struct SliderProps {
     #[prop_or(0)]
@@ -41,7 +41,7 @@ pub struct SliderProps {
     pub min: u32,
     #[prop_or(100)]
     pub max: u32,
-    #[prop_or(0)]
+    #[prop_or(1)]
     pub step: u32,
     #[prop_or(false)]
     pub pin: bool,
