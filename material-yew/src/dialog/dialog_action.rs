@@ -52,22 +52,24 @@ impl Component for MatDialogAction {
 
     fn view(&self, ctx: &Context<Self>) -> Html {
         let props = ctx.props();
-        let children = props.children.iter().map(|child| {
-            match child {
+        let children = props
+            .children
+            .iter()
+            .map(|child| match child {
                 Html::VTag(mut vtag) => {
                     vtag.add_attribute("slot", props.action_type.to_string());
                     if let Some(action) = props.action.as_ref() {
                         vtag.add_attribute("dialogAction", action.to_owned());
-                   }
+                    }
                     Html::VTag(vtag)
-               }
+                }
                 _ => html! {
-                    <span slot={props.action_type.to_string()} dialogAction={props.action.clone()}>
-                        {child}
-                    </span>
-               }
-           }
-       }).collect::<Html>();
+                     <span slot={props.action_type.to_string()} dialogAction={props.action.clone()}>
+                         {child}
+                     </span>
+                },
+            })
+            .collect::<Html>();
 
         html! {
              {children}

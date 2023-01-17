@@ -67,7 +67,7 @@ macro_rules! component {
 }
 
 fn bool_to_option(value: bool) -> Option<AttrValue> {
-    value.then(|| AttrValue::Static("true"))
+    value.then_some(AttrValue::Static("true"))
 }
 
 fn to_option_string(s: impl Display) -> Option<AttrValue> {

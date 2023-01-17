@@ -195,7 +195,11 @@ impl Component for MatDialog {
 
 impl WeakComponentLink<MatDialog> {
     pub fn focus(&self) {
-        (*self.borrow().as_ref().unwrap().get_component().unwrap())
+        self.borrow()
+            .as_ref()
+            .unwrap()
+            .get_component()
+            .unwrap()
             .node_ref
             .cast::<Dialog>()
             .unwrap()
@@ -203,7 +207,11 @@ impl WeakComponentLink<MatDialog> {
     }
 
     pub fn blur(&self) {
-        (*self.borrow().as_ref().unwrap().get_component().unwrap())
+        self.borrow()
+            .as_ref()
+            .unwrap()
+            .get_component()
+            .unwrap()
             .node_ref
             .cast::<Dialog>()
             .unwrap()
@@ -211,7 +219,11 @@ impl WeakComponentLink<MatDialog> {
     }
 
     pub fn show(&self) {
-        (*self.borrow().as_ref().unwrap().get_component().unwrap())
+        self.borrow()
+            .as_ref()
+            .unwrap()
+            .get_component()
+            .unwrap()
             .node_ref
             .cast::<Dialog>()
             .unwrap()
@@ -219,7 +231,11 @@ impl WeakComponentLink<MatDialog> {
     }
 
     pub fn close(&self) {
-        (*self.borrow().as_ref().unwrap().get_component().unwrap())
+        self.borrow()
+            .as_ref()
+            .unwrap()
+            .get_component()
+            .unwrap()
             .node_ref
             .cast::<Dialog>()
             .unwrap()

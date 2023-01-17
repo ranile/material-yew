@@ -221,7 +221,11 @@ impl WeakComponentLink<MatMenu> {
     ///
     /// See [here](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/menu#methods) for details
     pub fn get_focused_item_index(&self) -> usize {
-        (*self.borrow().as_ref().unwrap().get_component().unwrap())
+        self.borrow()
+            .as_ref()
+            .unwrap()
+            .get_component()
+            .unwrap()
             .node_ref
             .cast::<Menu>()
             .unwrap()
@@ -232,7 +236,11 @@ impl WeakComponentLink<MatMenu> {
     ///
     /// See [here](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/menu#methods) for details
     pub fn focus_item_at_index(&self, index: usize) {
-        (*self.borrow().as_ref().unwrap().get_component().unwrap())
+        self.borrow()
+            .as_ref()
+            .unwrap()
+            .get_component()
+            .unwrap()
             .node_ref
             .cast::<Menu>()
             .unwrap()
@@ -246,7 +254,11 @@ impl WeakComponentLink<MatMenu> {
     ///
     /// See [here](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/menu#methods) for details
     pub fn select(&self, index: &JsValue) {
-        (*self.borrow().as_ref().unwrap().get_component().unwrap())
+        self.borrow()
+            .as_ref()
+            .unwrap()
+            .get_component()
+            .unwrap()
             .node_ref
             .cast::<Menu>()
             .unwrap()
@@ -257,7 +269,11 @@ impl WeakComponentLink<MatMenu> {
     ///
     /// See [here](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/menu#methods) for details
     pub fn show(&self) {
-        (*self.borrow().as_ref().unwrap().get_component().unwrap())
+        self.borrow()
+            .as_ref()
+            .unwrap()
+            .get_component()
+            .unwrap()
             .node_ref
             .cast::<Menu>()
             .unwrap()
@@ -268,7 +284,11 @@ impl WeakComponentLink<MatMenu> {
     ///
     /// See [here](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/menu#methods) for details
     pub fn close(&self) {
-        (*self.borrow().as_ref().unwrap().get_component().unwrap())
+        self.borrow()
+            .as_ref()
+            .unwrap()
+            .get_component()
+            .unwrap()
             .node_ref
             .cast::<Menu>()
             .unwrap()
@@ -277,7 +297,11 @@ impl WeakComponentLink<MatMenu> {
 
     /// Setter method for `anchor`.
     pub fn set_anchor(&self, anchor: web_sys::HtmlElement) {
-        (*self.borrow().as_ref().unwrap().get_component().unwrap())
+        self.borrow()
+            .as_ref()
+            .unwrap()
+            .get_component()
+            .unwrap()
             .node_ref
             .cast::<Menu>()
             .unwrap()

@@ -142,9 +142,9 @@ impl Component for App {
             html! {
                 <Link<AppRoute> to={*comp}>
                 <MatListItem value={format!("{:?}", comp)}>
-                {comp.to_string()}    
+                {comp.to_string()}
                 </MatListItem>
-                </Link<AppRoute>> 
+                </Link<AppRoute>>
             }
         };
 
@@ -162,8 +162,7 @@ impl Component for App {
 }
 
 impl App {
-    fn switch(switch: AppRoute) -> Html 
-    {
+    fn switch(switch: AppRoute) -> Html {
         let ret = match switch {
             AppRoute::Button => {
                 html! {

@@ -221,7 +221,11 @@ impl MatTextField {
 
 impl WeakComponentLink<MatTextField> {
     pub fn value(&self) -> String {
-        (*self.borrow().as_ref().unwrap().get_component().unwrap())
+        self.borrow()
+            .as_ref()
+            .unwrap()
+            .get_component()
+            .unwrap()
             .node_ref
             .cast::<TextField>()
             .unwrap()

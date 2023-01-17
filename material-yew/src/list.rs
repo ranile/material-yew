@@ -174,7 +174,12 @@ impl WeakComponentLink<MatList> {
     ///
     /// See [here](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/list#methods) for details
     pub fn toggle(&self, index: usize, force: bool) {
-        let list = (*self.borrow().as_ref().unwrap().get_component().unwrap())
+        let list = self
+            .borrow()
+            .as_ref()
+            .unwrap()
+            .get_component()
+            .unwrap()
             .node_ref
             .cast::<List>()
             .unwrap();
@@ -185,7 +190,11 @@ impl WeakComponentLink<MatList> {
     ///
     /// See [here](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/list#methods) for details
     pub fn get_focused_item_index(&self) -> usize {
-        (*self.borrow().as_ref().unwrap().get_component().unwrap())
+        self.borrow()
+            .as_ref()
+            .unwrap()
+            .get_component()
+            .unwrap()
             .node_ref
             .cast::<List>()
             .unwrap()
@@ -196,7 +205,11 @@ impl WeakComponentLink<MatList> {
     ///
     /// See [here](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/list#methods) for details
     pub fn focus_item_at_index(&self, index: usize) {
-        (*self.borrow().as_ref().unwrap().get_component().unwrap())
+        self.borrow()
+            .as_ref()
+            .unwrap()
+            .get_component()
+            .unwrap()
             .node_ref
             .cast::<List>()
             .unwrap()

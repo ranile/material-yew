@@ -214,7 +214,12 @@ impl Component for MatSelect {
 
 impl WeakComponentLink<MatSelect> {
     pub fn select(&self, val: usize) {
-        let c = (*self.borrow().as_ref().unwrap().get_component().unwrap())
+        let c = self
+            .borrow()
+            .as_ref()
+            .unwrap()
+            .get_component()
+            .unwrap()
             .node_ref
             .clone();
         let select_element = c.cast::<Select>().unwrap();

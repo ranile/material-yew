@@ -42,10 +42,10 @@ macro_rules! with_raw_code {
             .find(concat!("with_raw_code!(", stringify!($key)))
             .expect(&format!("marker {:?} not found", stringify!($key)));
         let body_offset = CODE[marker_start..].find('{').unwrap();
-        let code = crate::macros::read_until_close(&CODE[marker_start + body_offset + 9..]);
+        let code = $crate::macros::read_until_close(&CODE[marker_start + body_offset + 9..]);
         let code = unindent::unindent(code);
 
-        let html_string = crate::macros::highlight(&code, "rs");
+        let html_string = $crate::macros::highlight(&code, "rs");
 
         (html_string, $expr)
     }};

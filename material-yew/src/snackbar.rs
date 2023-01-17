@@ -192,7 +192,11 @@ impl Component for MatSnackbar {
 
 impl WeakComponentLink<MatSnackbar> {
     pub fn show(&self) {
-        (*self.borrow().as_ref().unwrap().get_component().unwrap())
+        self.borrow()
+            .as_ref()
+            .unwrap()
+            .get_component()
+            .unwrap()
             .node_ref
             .cast::<Snackbar>()
             .unwrap()
@@ -200,7 +204,11 @@ impl WeakComponentLink<MatSnackbar> {
     }
 
     pub fn close(&self, reason: &str) {
-        (*self.borrow().as_ref().unwrap().get_component().unwrap())
+        self.borrow()
+            .as_ref()
+            .unwrap()
+            .get_component()
+            .unwrap()
             .node_ref
             .cast::<Snackbar>()
             .unwrap()

@@ -139,7 +139,12 @@ impl Component for MatDrawer {
 impl WeakComponentLink<MatDrawer> {
     /// A convenience method to for `drawer.open = !drawer.open`
     pub fn flip_open_state(&self) {
-        let node_ref = (*self.borrow().as_ref().unwrap().get_component().unwrap())
+        let node_ref = self
+            .borrow()
+            .as_ref()
+            .unwrap()
+            .get_component()
+            .unwrap()
             .node_ref
             .clone();
         let element = node_ref.cast::<Drawer>().unwrap();
