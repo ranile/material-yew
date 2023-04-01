@@ -231,6 +231,18 @@ impl WeakComponentLink<MatTextField> {
             .unwrap()
             .value()
     }
+
+    pub fn set_value(&self, value: &str) {
+        self.borrow()
+            .as_ref()
+            .unwrap()
+            .get_component()
+            .unwrap()
+            .node_ref
+            .cast::<TextField>()
+            .unwrap()
+            .set_value(&JsValue::from_str(value));
+    }
 }
 
 #[wasm_bindgen]
