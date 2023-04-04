@@ -103,8 +103,10 @@ impl Component for MatIconButtonToggle {
             let callback = props.onchange.clone();
             self.change_listener = Some(EventListener::new(
                 &element.clone(),
-                "MDCIconButtonToggle:change",
-                move |_| callback.emit(element.on()),
+                "icon-button-toggle-change",
+                move |_| {
+                    callback.emit(element.on())
+                },
             ));
         }
     }
