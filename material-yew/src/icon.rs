@@ -18,6 +18,8 @@ loader_hack!(Icon);
 #[derive(Debug, Properties, PartialEq, Clone)]
 pub struct IconProps {
     pub children: Children,
+    #[prop_or_default]
+    pub class: Classes,
 }
 
 component!(
@@ -25,7 +27,7 @@ component!(
     IconProps,
     |props: &IconProps| {
         html! {
-             <mwc-icon>{props.children.clone()}</mwc-icon>
+             <mwc-icon class={props.class.to_owned()}>{props.children.clone()}</mwc-icon>
         }
     },
     Icon,
