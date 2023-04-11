@@ -3,8 +3,8 @@ mod models;
 pub use models::*;
 
 use crate::list::{ListIndex, SelectedDetail};
+use crate::utils::Listener;
 use crate::{bool_to_option, event_into_details, to_option_string, WeakComponentLink};
-use gloo::events::EventListener;
 use wasm_bindgen::prelude::*;
 use web_sys::Node;
 use yew::prelude::*;
@@ -49,10 +49,10 @@ loader_hack!(Menu);
 /// [MWC Documentation](https://github.com/material-components/material-components-web-components/tree/v0.27.0/packages/menu)
 pub struct MatMenu {
     node_ref: NodeRef,
-    opened_listener: Option<EventListener>,
-    closed_listener: Option<EventListener>,
-    action_listener: Option<EventListener>,
-    selected_listener: Option<EventListener>,
+    onopened: Listener<()>,
+    onclosed: Listener<()>,
+    onaction: Listener<ListIndex>,
+    onselected: Listener<SelectedDetail>,
 }
 
 /// Props for `MatMenu`
@@ -142,10 +142,10 @@ impl Component for MatMenu {
         Menu::ensure_loaded();
         Self {
             node_ref: NodeRef::default(),
-            opened_listener: None,
-            closed_listener: None,
-            action_listener: None,
-            selected_listener: None,
+            onopened: Listener::default(),
+            onclosed: Listener::default(),
+            onaction: Listener::default(),
+            onselected: Listener::default(),
         }
     }
 
@@ -183,36 +183,25 @@ impl Component for MatMenu {
                 menu.set_anchor(anchor);
             }
         }
-        if self.opened_listener.is_none() {
-            let onopened = props.onopened.clone();
-            self.opened_listener = Some(EventListener::new(&menu, "opened", move |_| {
-                onopened.emit(());
-            }));
-        }
 
-        if self.closed_listener.is_none() {
-            let onclosed = props.onclosed.clone();
-            self.closed_listener = Some(EventListener::new(&menu, "closed", move |_| {
-                onclosed.emit(());
-            }));
-        }
+        self.onopened
+            .set(&menu, "opened", &props.onopened, |cb| move |_| cb.emit(()));
+        self.onclosed
+            .set(&menu, "closed", &props.onclosed, |cb| move |_| cb.emit(()));
 
-        if self.selected_listener.is_none() {
-            let onselected = props.onselected.clone();
-            self.selected_listener = Some(EventListener::new(&menu, "selected", move |event| {
-                onselected.emit(SelectedDetail::from(event_into_details(event)));
-            }));
-        }
+        self.onselected
+            .set(&menu, "selected", &props.onselected, |cb| {
+                move |event| cb.emit(SelectedDetail::from(event_into_details(event)))
+            });
+        self.onaction
+            .set(&menu.clone(), "action", &props.onaction, |cb| {
+                move |_| {
+                    let val: JsValue = menu.index();
 
-        if self.action_listener.is_none() {
-            let onaction = props.onaction.clone();
-            self.action_listener = Some(EventListener::new(&menu.clone(), "action", move |_| {
-                let val: JsValue = menu.index();
-
-                let index = ListIndex::from(val);
-                onaction.emit(index);
-            }));
-        }
+                    let index = ListIndex::from(val);
+                    cb.emit(index)
+                }
+            });
     }
 }
 
