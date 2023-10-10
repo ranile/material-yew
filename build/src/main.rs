@@ -58,13 +58,13 @@ const MATERIAL_WEB_DIR: &str = "material-web";
 fn main() -> eyre::Result<()> {
     color_eyre::install()?;
 
-    let component = "button";
+    let component_name = "button";
 
     let path = Path::new(env!("CARGO_MANIFEST_DIR"))
         .join(MATERIAL_WEB_DIR)
         .join("docs")
         .join("components")
-        .join(format!("{}.md", component));
+        .join(format!("{}.md", component_name));
 
     let doc = std::fs::read_to_string(&path)
         .with_note(|| format!("failed to read file {}", path.display()))?;
@@ -80,7 +80,9 @@ fn main() -> eyre::Result<()> {
         .into_iter()
         .map(process_variant)
         .collect::<eyre::Result<Vec<Component>>>()?;
-    codegen::gen_component(component, components);
+    let component = codegen::gen_component(component_name, components);
+    let component = utils::format_tokens(component)?;
+    std::fs::write(format!("src/{component_name}.rs"), component).unwrap();
     Ok(())
 }
 

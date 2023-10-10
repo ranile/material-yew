@@ -2,3 +2,5 @@ target
 node_modules
 dist
 
+# no need to include @material/web bundled in the repo
+md-web
