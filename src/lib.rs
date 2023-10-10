@@ -1,7 +1,25 @@
-use wasm_bindgen::JsValue;
+use wasm_bindgen::prelude::*;
 use web_sys::{HtmlFormElement as HTMLFormElement, NodeList};
-use yew::virtual_dom::VTag;
 use yew::prelude::*;
+use yew::virtual_dom::VTag;
+
+macro_rules! import_material_web_module {
+    ($module:literal) => {{
+        #[wasm_bindgen::prelude::wasm_bindgen(module = $module)]
+        extern "C" {
+            #[wasm_bindgen(getter)]
+            fn __dummy_loader() -> wasm_bindgen::JsValue;
+        }
+
+        #[allow(dead_code)]
+        static LOADED: std::sync::Once = std::sync::Once::new();
+        {
+            LOADED.call_once(|| {
+                __dummy_loader();
+            });
+        }
+    }};
+}
 
 fn js_value_or_null<T>(v: Option<T>) -> JsValue
 where
@@ -75,19 +93,27 @@ pub struct Props {
     pub children: Html,
 }
 
+mod js {
+}
+
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(js_name = "import")]
+    fn import(v: &str) -> JsValue;
+}
 
 #[function_component]
 pub fn Button(props: &Props) -> Html {
+    use_effect_with((), |_| import_material_web_module!("/build/dist/button.js"));
     html! { <@{props.variant.as_tag_name()}
-        disabled={props.disabled.unwrap_or_default()}
-        ~href={js_value_from_string_or_null(props.href.as_ref())}
-        ~target={js_value_from_string_or_null(props.target.as_ref())}
-        ~trailingIcon={js_value_or_null(props.trailing_icon.clone())}
-        ~hasIcon={js_value_or_null(props.has_icon.clone())}
-        ~type={js_value_from_string_or_null(props.typepe.as_ref())}
-        ~value={props.value.clone().unwrap_or_default()}
-        ~name={js_value_from_string_or_null(props.name.as_ref())}
-        ~form={js_value_or_null(props.form.clone())}
- > {props.children.clone()} </@> }
+           disabled={props.disabled.unwrap_or_default()}
+           ~href={js_value_from_string_or_null(props.href.as_ref())}
+           ~target={js_value_from_string_or_null(props.target.as_ref())}
+           ~trailingIcon={js_value_or_null(props.trailing_icon.clone())}
+           ~hasIcon={js_value_or_null(props.has_icon.clone())}
+           ~type={js_value_from_string_or_null(props.typepe.as_ref())}
+           ~value={props.value.clone().unwrap_or_default()}
+           ~name={js_value_from_string_or_null(props.name.as_ref())}
+           ~form={js_value_or_null(props.form.clone())}
+    > {props.children.clone()} </@> }
 }
-

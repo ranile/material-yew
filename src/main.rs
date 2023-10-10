@@ -4,7 +4,7 @@ use material_yew::{Button, ButtonVariants};
 fn App() -> Html {
 
     html! {
-        <Button variant={ButtonVariants::Filled}>
+        <Button variant={ButtonVariants::FilledTonal}>
         {"Click me"}
         </Button>
         // <form>
