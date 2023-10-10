@@ -1,6 +1,0 @@
-[workspace]
-members = [
-    "material-yew",
-    "website",
-    "screenshots"
-]
