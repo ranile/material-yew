@@ -14,6 +14,8 @@ impl Type {
             "boolean" => "bool",
             "string" => "AttrValue",
             "number" => "f64",
+            // mappings for web_sys types
+            "HTMLElement & Partial<SurfacePositionTarget>" => "HtmlElement",
             ty => ty
         }
     }

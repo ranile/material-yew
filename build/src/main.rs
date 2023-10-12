@@ -5,7 +5,8 @@ mod utils;
 use crate::ty::Type;
 use crate::utils::IterExt;
 use color_eyre::Section;
-use eyre::{bail, ensure, ContextCompat, Report};
+use convert_case::{Case, Casing};
+use eyre::{bail, ensure, eyre, ContextCompat, Report};
 use pulldown_cmark::{CowStr, Event, HeadingLevel, Options, Parser, Tag};
 use serde::Deserialize;
 use std::collections::HashMap;
@@ -58,7 +59,12 @@ const MATERIAL_WEB_DIR: &str = "material-web";
 fn main() -> eyre::Result<()> {
     color_eyre::install()?;
 
-    let component_name = "button";
+    let mut args = std::env::args().into_iter().skip(1);
+    let component_name = args
+        .next()
+        .ok_or_else(|| eyre!("expected component name"))?;
+    let handle_each_component_individually =
+        args.next().and_then(|it| it.parse().ok()).unwrap_or(false);
 
     let path = Path::new(env!("CARGO_MANIFEST_DIR"))
         .join(MATERIAL_WEB_DIR)
@@ -80,9 +86,30 @@ fn main() -> eyre::Result<()> {
         .into_iter()
         .map(process_variant)
         .collect::<eyre::Result<Vec<Component>>>()?;
-    let component = codegen::gen_component(component_name, components);
-    let component = utils::format_tokens(component)?;
-    std::fs::write(format!("src/{component_name}.rs"), component).unwrap();
+    if handle_each_component_individually {
+        for component in components {
+            let component_name = component.name.strip_prefix("md-").unwrap().to_owned();
+            let component = codegen::gen_component(&component_name, vec![component]);
+            let component = utils::format_tokens(component)?;
+            std::fs::write(
+                format!(
+                    "{}/../src/{}.rs",
+                    env!("CARGO_MANIFEST_DIR"),
+                    component_name.to_case(Case::Snake)
+                ),
+                component,
+            )
+            .unwrap();
+        }
+    } else {
+        let component = codegen::gen_component(&component_name, components);
+        let component = utils::format_tokens(component)?;
+        std::fs::write(
+            format!("{}/../src/{}.rs", env!("CARGO_MANIFEST_DIR"), component_name.to_case(Case::Snake)),
+            component,
+        )
+        .unwrap();
+    }
     Ok(())
 }
 
@@ -129,17 +156,21 @@ fn process_variant(doc: Vec<Event>) -> eyre::Result<Component> {
 
 fn extract_data_from_md_table<'a>(
     mut iter: impl Iterator<Item = Event<'a>>,
-    heading: &str
+    heading: &str,
 ) -> eyre::Result<Vec<HashMap<CowStr<'a>, String>>> {
     let mut entries = vec![];
     let mut head = iter
         .by_ref()
         .take_while(|e| !matches!(e, Event::End(Tag::TableHead)))
         .collect::<Vec<_>>();
-    ensure!(
-        matches!(head.iter().nth(1), Some(Event::Text(t)) if *t == CowStr::Borrowed(heading)),
-        "expected #### {}", heading
-    );
+    if !matches!(head.iter().nth(1), Some(Event::Text(t)) if *t == CowStr::Borrowed(heading)) {
+        if heading == "Properties" {
+            bail!("expected heading to be {}", heading)
+        } else if heading == "Events" {
+            // no events, only methods
+            return Ok(entries);
+        }
+    }
     let first_cell = head
         .iter()
         .position(|e| matches!(e, Event::Start(Tag::TableCell)))

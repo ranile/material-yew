@@ -1,7 +1,21 @@
+//!
+//!
+//! ## TODOs
+//!
+//! ### Missing Components
+//! - [`md-chip-set`](https://material-web.dev/components/chip/#mdchipset-lessmd-chip-setgreater)
+//! - [`dialog`](https://material-web.dev/components/dialog/)
 mod button;
 mod radio;
+mod menu_item;
+mod sub_menu;
+mod menu;
+
 pub use button::{Button, ButtonVariants};
 pub use radio::{Radio};
+pub use menu_item::{MenuItem};
+pub use sub_menu::{SubMenu};
+pub use menu::{Menu};
 
 use wasm_bindgen::prelude::*;
 use yew::AttrValue;
@@ -40,9 +54,9 @@ where
     }
 }
 
-fn js_value_from_string_or_null(v: Option<&AttrValue>) -> JsValue {
+fn js_value_from_string_or_null(v: Option<&AttrValue>) -> Option<JsValue> {
     match v {
-        Some(v) => JsValue::from_str(&*v),
-        None => JsValue::NULL,
+        Some(v) => Some(JsValue::from_str(&*v)),
+        None => None,
     }
 }

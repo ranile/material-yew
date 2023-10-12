@@ -6,6 +6,9 @@ const config = {
     input: [
         "./rollup_inputs/button.js",
         "@material/web/radio/radio.js",
+        "@material/web/menu/menu.js",
+        "@material/web/menu/menu-item.js",
+        "@material/web/menu/sub-menu.js",
     ],
     plugins: [nodeResolve()],
     output: {
