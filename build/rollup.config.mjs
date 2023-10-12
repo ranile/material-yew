@@ -5,6 +5,10 @@ import nodeResolve from "@rollup/plugin-node-resolve";
 const config = {
     input: [
         "./rollup_inputs/button.js",
+        "./rollup_inputs/fab.js",
+        "./rollup_inputs/chip.js",
+        "./rollup_inputs/icon-button.js",
+        "@material/web/checkbox/checkbox.js",
         "@material/web/radio/radio.js",
         "@material/web/menu/menu.js",
         "@material/web/menu/menu-item.js",

@@ -192,19 +192,26 @@ fn gen_to_html(component: &Component) -> String {
     component.properties.iter().for_each(|p| {
         gen_prop_assignment(&mut output, &p);
     });
-    output.push_str(" /> }");
+    output.push_str("> ");
+    output.push_str("{props.children.clone()}");
+    output.push_str(&format!(" </{name}> }}"));
     output
 }
 
 fn gen_prop_assignment(output: &mut String, p: &Property) {
     output.push_str("\t");
-    if !(p.property == "disabled" || p.property == "required" || p.property == "value") {
+    if !(p.property == "disabled"
+        || p.property == "required"
+        || p.property == "value"
+        || p.property == "open"
+        || p.property == "selected")
+    {
         output.push('~')
     }
     output.push_str(&p.property);
     output.push_str("={");
     let value = p.property.to_case(Case::Snake).replace("ty", "type");
-    if p.property == "disabled" || p.property == "required" {
+    if p.property == "disabled" || p.property == "required" || p.property == "open" || p.property == "selected" {
         output.push_str("props.");
         output.push_str(&value);
         output.push_str(".unwrap_or_default()");
@@ -225,6 +232,21 @@ fn gen_prop_assignment(output: &mut String, p: &Property) {
 }
 
 impl Property {
+    fn default_value(&self, ty: &syn::Type) -> Option<syn::Expr> {
+        let d = self.default.as_ref()?;
+        let mut d = d.replace("'", "\"");
+        if d == "undefined" {
+            return Some(syn::parse_quote!(None))
+        } else if d.contains(".") {
+            d = format!("{d:?}")
+        }
+        let attr_value: syn::Type = syn::parse_quote!(AttrValue);
+        if *ty == attr_value {
+            d = format!("AttrValue::Static({d})")
+        }
+        let expr = syn::parse_str::<syn::Expr>(&d).ok()?;
+        Some(syn::parse_quote!(Some(#expr)))
+    }
     fn to_tokens(&self) -> TokenStream {
         let name = Ident::new(
             &self.property.to_case(Case::Snake).replace("ty", "type"),
@@ -235,12 +257,12 @@ impl Property {
             .as_ref()
             .map(|d| quote! { #[doc = #d] })
             .unwrap_or_default();
-        let inner_ty = self.ty.as_ident();
-        let (ty, attr) = if self.default.is_some() {
+        let inner_ty = self.ty.as_type();
+        let (ty, attr) = if let Some(default) = &self.default_value(&inner_ty) {
             (
                 quote! { Option<#inner_ty> },
                 quote! {
-                    #[prop_or_default]
+                    #[prop_or(#default)]
                 },
             )
         } else {

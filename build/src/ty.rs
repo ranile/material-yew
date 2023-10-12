@@ -13,14 +13,14 @@ impl Type {
         match ty {
             "boolean" => "bool",
             "string" => "AttrValue",
-            "number" => "f64",
+            "number" => "usize",
             // mappings for web_sys types
-            "HTMLElement & Partial<SurfacePositionTarget>" => "HtmlElement",
+            "HTMLElement & Partial<SurfacePositionTarget>" => "web_sys::HtmlElement",
             ty => ty
         }
     }
-    pub(crate) fn as_ident(&self) -> Ident {
+    pub(crate) fn as_type(&self) -> syn::Type {
         let ty = Self::convert_ts_to_rust(&self.0);
-        Ident::new(&ty, Span::call_site())
+        syn::parse_str(ty).unwrap()
     }
 }

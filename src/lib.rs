@@ -6,6 +6,10 @@
 //! - [`md-chip-set`](https://material-web.dev/components/chip/#mdchipset-lessmd-chip-setgreater)
 //! - [`dialog`](https://material-web.dev/components/dialog/)
 mod button;
+mod checkbox;
+mod chip;
+mod fab;
+mod icon_button;
 mod radio;
 mod menu_item;
 mod sub_menu;
@@ -40,7 +44,7 @@ macro_rules! import_material_web_module {
 
 pub(crate) use import_material_web_module;
 
-pub(crate) fn load_core() {
+pub fn load_core() {
     import_material_web_module!("/md-web/core.js");
 }
 
