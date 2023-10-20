@@ -17,6 +17,8 @@ mod sub_menu;
 mod menu;
 mod list;
 mod list_item;
+mod circular_progress;
+mod linear_progress;
 
 pub use button::{Button, ButtonVariants};
 pub use radio::{Radio};
@@ -25,6 +27,9 @@ pub use sub_menu::{SubMenu};
 pub use menu::{Menu};
 pub use list::{List};
 pub use list_item::{ListItem};
+pub use circular_progress::{CircularProgress};
+pub use linear_progress::{LinearProgress};
+
 
 use wasm_bindgen::prelude::*;
 use yew::AttrValue;

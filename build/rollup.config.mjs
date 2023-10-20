@@ -15,6 +15,8 @@ const config = {
         "@material/web/menu/sub-menu.js",
         "@material/web/list/list.js",
         "@material/web/list/list-item.js",
+        "@material/web/progress/circular-progress.js",
+        "@material/web/progress/linear-progress.js",
     ],
     plugins: [nodeResolve()],
     output: {
