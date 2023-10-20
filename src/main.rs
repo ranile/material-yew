@@ -1,5 +1,5 @@
 use yew::prelude::*;
-use material_yew::{Menu, MenuItem, Button, ButtonVariants};
+use material_yew::{Menu, MenuItem, Button, ButtonVariants, List, ListItem};
 #[function_component]
 fn App() -> Html {
     html! {
@@ -18,20 +18,20 @@ fn App() -> Html {
                 </MenuItem>
             </Menu>
         </span>
-        <span style="position: relative">
-          // <md-filled-button id="usage-anchor">{"Set with idref"}</md-filled-button>
-          // <md-menu ~open={true} id="usage-menu" anchor="usage-anchor">
-          //   <md-menu-item>
-          //     <div slot="headline">{"Apple"}</div>
-          //   </md-menu-item>
-          //   <md-menu-item>
-          //     <div slot="headline">{"Banana"}</div>
-          //   </md-menu-item>
-          //   <md-menu-item>
-          //     <div slot="headline">{"Cucumber"}</div>
-          //   </md-menu-item>
-          // </md-menu>
-        </span>
+        <div>
+            <List>
+                <ListItem>{"Apple"}</ListItem>
+                <ListItem>{"Banana"}</ListItem>
+                <ListItem>
+                    <div slot="headline">
+                        {"Cucumber"}
+                    </div>
+                    <div slot="supporting-text">
+                        {"Cucumbers are long green fruits that are just as long as this multi-line description"}
+                    </div>
+                </ListItem>
+            </List>
+        </div>
         </div>
     }
 }

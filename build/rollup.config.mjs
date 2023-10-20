@@ -13,6 +13,8 @@ const config = {
         "@material/web/menu/menu.js",
         "@material/web/menu/menu-item.js",
         "@material/web/menu/sub-menu.js",
+        "@material/web/list/list.js",
+        "@material/web/list/list-item.js",
     ],
     plugins: [nodeResolve()],
     output: {
