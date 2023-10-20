@@ -22,6 +22,10 @@ pub struct Props {
     #[prop_or(None)]
     pub labels: Option<NodeList>,
     pub children: Html,
+    #[prop_or(None)]
+    pub oninput: Option<Callback<Event>>,
+    #[prop_or(None)]
+    pub onchange: Option<Callback<Event>>,
 }
 
 #[function_component]
@@ -36,5 +40,7 @@ pub fn Radio(props: &Props) -> Html {
         ~name={crate::js_value_from_string_or_null(props.name.as_ref())}
         ~form={crate::js_value_or_null(props.form.clone())}
         ~labels={crate::js_value_or_null(props.labels.clone())}
+        oninput={props.oninput.clone()}
+        onchange={props.onchange.clone()}
     > {props.children.clone()} </md-radio> }
 }

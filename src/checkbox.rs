@@ -41,6 +41,8 @@ pub struct Props {
     #[prop_or(None)]
     pub will_validate: Option<bool>,
     pub children: Html,
+    #[prop_or(None)]
+    pub onclick: Option<Callback<MouseEvent>>,
 }
 
 #[function_component]
@@ -60,5 +62,6 @@ pub fn Checkbox(props: &Props) -> Html {
         ~validity={crate::js_value_or_null(props.validitype.clone())}
         ~validationMessage={crate::js_value_from_string_or_null(props.validation_message.as_ref())}
         ~willValidate={crate::js_value_or_null(props.will_validate.clone())}
+        onclick={props.onclick.clone()}
     > {props.children.clone()} </md-checkbox> }
 }

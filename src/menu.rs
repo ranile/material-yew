@@ -55,6 +55,14 @@ pub struct Props {
     # [prop_or (Some (wasm_bindgen :: JsValue :: NULL . into ()))]
     pub anchor_element: Option<web_sys::HtmlElement>,
     pub children: Html,
+    #[prop_or(None)]
+    pub onopening: Option<Callback<Event>>,
+    #[prop_or(None)]
+    pub onopened: Option<Callback<Event>>,
+    #[prop_or(None)]
+    pub onclosing: Option<Callback<Event>>,
+    #[prop_or(None)]
+    pub onclosed: Option<Callback<Event>>,
 }
 
 #[function_component]

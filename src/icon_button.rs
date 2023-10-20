@@ -61,6 +61,13 @@ pub struct Props {
     #[doc = "The variant to use."]
     pub variant: IconButtonVariants,
     pub children: Html,
+
+    #[prop_or(None)]
+    pub onclick: Option<Callback<MouseEvent>>,
+    #[prop_or(None)]
+    pub oninput: Option<Callback<InputEvent>>,
+    #[prop_or(None)]
+    pub onchange: Option<Callback<Event>>,
 }
 
 #[function_component]
@@ -81,5 +88,8 @@ pub fn IconButton(props: &Props) -> Html {
         ~name={crate::js_value_from_string_or_null(props.name.as_ref())}
         ~form={crate::js_value_or_null(props.form.clone())}
         ~labels={crate::js_value_or_null(props.labels.clone())}
+        onclick={props.onclick.clone()}
+        oninput={props.oninput.clone()}
+        onchange={props.onchange.clone()}
     > {props.children.clone()} </@> }
 }

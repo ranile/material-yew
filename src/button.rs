@@ -54,7 +54,8 @@ pub struct Props {
     #[doc = "The variant to use."]
     pub variant: ButtonVariants,
     pub children: Html,
-    pub onclick: Callback<MouseEvent>,
+    #[prop_or(None)]
+    pub onclick: Option<Callback<MouseEvent>>,
 }
 
 #[function_component]

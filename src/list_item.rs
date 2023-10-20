@@ -14,6 +14,9 @@ pub struct Props {
     #[prop_or(Some(AttrValue::Static("")))]
     pub target: Option<AttrValue>,
     pub children: Html,
+
+    #[prop_or(None)]
+    pub onfocus: Option<Callback<Event>>,
 }
 
 #[function_component]
@@ -26,5 +29,6 @@ pub fn ListItem(props: &Props) -> Html {
         ~type={crate::js_value_from_string_or_null(props.typepe.as_ref())}
         ~href={crate::js_value_from_string_or_null(props.href.as_ref())}
         ~target={crate::js_value_from_string_or_null(props.target.as_ref())}
+        onfocus={props.onfocus.clone()}
     > {props.children.clone()} </md-list-item> }
 }
