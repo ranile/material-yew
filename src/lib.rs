@@ -21,6 +21,7 @@ mod list_item;
 mod circular_progress;
 mod linear_progress;
 mod slider;
+mod switch;
 
 pub use button::{Button, ButtonVariants};
 pub use radio::{Radio};
@@ -31,6 +32,8 @@ pub use list::{List};
 pub use list_item::{ListItem};
 pub use circular_progress::{CircularProgress};
 pub use linear_progress::{LinearProgress};
+pub use slider::{Slider};
+pub use switch::{Switch};
 
 
 use wasm_bindgen::prelude::*;

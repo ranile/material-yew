@@ -18,6 +18,7 @@ const config = {
         "@material/web/progress/circular-progress.js",
         "@material/web/progress/linear-progress.js",
         "@material/web/slider/slider.js",
+        "@material/web/switch/switch.js",
     ],
     plugins: [nodeResolve()],
     output: {
