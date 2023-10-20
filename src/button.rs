@@ -54,6 +54,7 @@ pub struct Props {
     #[doc = "The variant to use."]
     pub variant: ButtonVariants,
     pub children: Html,
+    pub onclick: Callback<MouseEvent>,
 }
 
 #[function_component]
@@ -71,5 +72,6 @@ pub fn Button(props: &Props) -> Html {
         value={props.value.clone().unwrap_or_default()}
         ~name={crate::js_value_from_string_or_null(props.name.as_ref())}
         ~form={crate::js_value_or_null(props.form.clone())}
+        onclick={props.onclick.clone()}
     > {props.children.clone()} </@> }
 }
