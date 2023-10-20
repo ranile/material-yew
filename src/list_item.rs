@@ -16,7 +16,7 @@ pub struct Props {
     pub children: Html,
 
     #[prop_or(None)]
-    pub onfocus: Option<Callback<Event>>,
+    pub onfocus: Option<Callback<FocusEvent>>,
 }
 
 #[function_component]

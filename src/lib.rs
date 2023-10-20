@@ -4,7 +4,8 @@
 //!
 //! ### Missing Components
 //! - [`md-chip-set`](https://material-web.dev/components/chip/#mdchipset-lessmd-chip-setgreater)
-//! - [`dialog`](https://material-web.dev/components/dialog/)
+//! - [`md-dialog`](https://material-web.dev/components/dialog/)
+//! - [`md-select`](https://material-web.dev/components/select/)
 //! - [`md-sub-menu` events](https://material-web.dev/components/menu/#events-2)
 mod button;
 mod checkbox;
@@ -19,6 +20,7 @@ mod list;
 mod list_item;
 mod circular_progress;
 mod linear_progress;
+mod slider;
 
 pub use button::{Button, ButtonVariants};
 pub use radio::{Radio};

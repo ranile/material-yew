@@ -23,7 +23,7 @@ pub struct Props {
     pub labels: Option<NodeList>,
     pub children: Html,
     #[prop_or(None)]
-    pub oninput: Option<Callback<Event>>,
+    pub oninput: Option<Callback<InputEvent>>,
     #[prop_or(None)]
     pub onchange: Option<Callback<Event>>,
 }

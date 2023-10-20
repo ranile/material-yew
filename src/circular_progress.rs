@@ -22,7 +22,7 @@ pub fn CircularProgress(props: &Props) -> Html {
         crate::import_material_web_module!("/md-web/circular-progress.js")
     });
     html! { <md-circular-progress
-        value={props.value.clone().unwrap_or_default()}
+        // TODO: value={props.value.clone().unwrap_or_default()}
         ~max={crate::js_value_or_null(props.max.clone())}
         ~indeterminate={crate::js_value_or_null(props.indeterminate.clone())}
         ~fourColor={crate::js_value_or_null(props.four_color.clone())}

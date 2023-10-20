@@ -26,7 +26,7 @@ pub fn LinearProgress(props: &Props) -> Html {
     });
     html! { <md-linear-progress
         ~buffer={crate::js_value_or_null(props.buffer.clone())}
-        value={props.value.clone().unwrap_or_default()}
+        // TODO: value={props.value.clone().unwrap_or_default()}
         ~max={crate::js_value_or_null(props.max.clone())}
         ~indeterminate={crate::js_value_or_null(props.indeterminate.clone())}
         ~fourColor={crate::js_value_or_null(props.four_color.clone())}
