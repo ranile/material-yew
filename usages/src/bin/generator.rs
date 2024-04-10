@@ -217,7 +217,7 @@ fn main() -> eyre::Result<()> {
         let usage = make_example_usage(file, file_name)?;
         writeln!(
             output,
-            "fn test_{}() -> Html {{",
+            "pub fn test_{}() -> Html {{",
             file_name.strip_suffix(".rs").unwrap_or_default()
         )?;
         let usage = format!("html! {{\n{}\n}}", indent(usage.trim(), 1));
