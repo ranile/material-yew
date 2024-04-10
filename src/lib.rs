@@ -34,6 +34,10 @@ pub use circular_progress::{CircularProgress};
 pub use linear_progress::{LinearProgress};
 pub use slider::{Slider};
 pub use switch::{Switch};
+pub use icon_button::{IconButton, IconButtonVariants};
+pub use checkbox::Checkbox;
+pub use chip::{Chip, ChipVariants};
+pub use fab::{Fab, FabVariants};
 
 
 use wasm_bindgen::prelude::*;
