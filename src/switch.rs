@@ -43,7 +43,6 @@ pub struct Props {
     #[doc = ""]
     #[prop_or(None)]
     pub will_validate: Option<bool>,
-    pub children: Html,
     #[prop_or(None)]
     pub oninput: Option<Callback<InputEvent>>,
     #[prop_or(None)]
@@ -70,5 +69,5 @@ pub fn Switch(props: &Props) -> Html {
         ~willValidate={crate::js_value_or_null(props.will_validate.clone())}
         oninput={props.oninput.clone()}
         onchange={props.onchange.clone()}
-    > {props.children.clone()} </md-switch> }
+    />}
 }

@@ -1231,6 +1231,7 @@ version = "0.1.0"
 dependencies = [
  "eyre",
  "material-yew",
+ "prettyplease",
  "proc-macro2",
  "quote",
  "syn 2.0.58",

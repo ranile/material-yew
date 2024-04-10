@@ -69,7 +69,6 @@ pub struct Props {
     #[doc = ""]
     #[prop_or(None)]
     pub labels: Option<NodeList>,
-    pub children: Html,
 }
 
 #[function_component]
@@ -100,5 +99,5 @@ pub fn Slider(props: &Props) -> Html {
         ~nameEnd={crate::js_value_from_string_or_null(props.name_end.as_ref())}
         ~form={crate::js_value_or_null(props.form.clone())}
         ~labels={crate::js_value_or_null(props.labels.clone())}
-    > {props.children.clone()} </md-slider> }
+    />}
 }

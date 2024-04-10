@@ -13,7 +13,6 @@ pub struct Props {
     #[doc = "Whether or not to render indeterminate mode using 4 colors instead of one."]
     #[prop_or(Some(false))]
     pub four_color: Option<bool>,
-    pub children: Html,
 }
 
 #[function_component]
@@ -26,5 +25,5 @@ pub fn CircularProgress(props: &Props) -> Html {
         ~max={crate::js_value_or_null(props.max.clone())}
         ~indeterminate={crate::js_value_or_null(props.indeterminate.clone())}
         ~fourColor={crate::js_value_or_null(props.four_color.clone())}
-    > {props.children.clone()} </md-circular-progress> }
+    /> }
 }

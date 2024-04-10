@@ -21,7 +21,6 @@ pub struct Props {
     #[doc = ""]
     #[prop_or(None)]
     pub labels: Option<NodeList>,
-    pub children: Html,
     #[prop_or(None)]
     pub oninput: Option<Callback<InputEvent>>,
     #[prop_or(None)]
@@ -42,5 +41,5 @@ pub fn Radio(props: &Props) -> Html {
         ~labels={crate::js_value_or_null(props.labels.clone())}
         oninput={props.oninput.clone()}
         onchange={props.onchange.clone()}
-    > {props.children.clone()} </md-radio> }
+    /> }
 }
