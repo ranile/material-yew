@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@material/web": "^1.0.0"
+    "@material/web": "1.4.0"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^15.2.2",
