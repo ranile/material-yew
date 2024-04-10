@@ -1,14 +1,15 @@
 #![allow(dead_code)]
 use yew::prelude::*;
 use yew_router::{BrowserRouter, Switch};
+
 use crate::route::Route;
 
-mod usage;
 mod route;
+mod usage;
 
 fn switch(route: Route) -> Html {
     match route {
-        Route::Menu => usage::test_menu(html!{}),
+        Route::Menu => usage::test_menu(html! {}),
         Route::Button => usage::test_button(html! { "Button" }),
         Route::CircularProgress => usage::test_circular_progress(),
         Route::IconButton => todo!("icon"),
@@ -32,7 +33,7 @@ fn App() -> Html {
         <BrowserRouter>
         <Switch<Route> render={switch} />
         </BrowserRouter>
-        
+
     }
 }
 

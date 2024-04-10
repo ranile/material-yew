@@ -1,24 +1,23 @@
+use web_sys::{HtmlFormElement as HTMLFormElement, NodeList};
 use yew::prelude::*;
-use web_sys::HtmlFormElement as HTMLFormElement;
-use web_sys::NodeList;
 #[derive(Properties, PartialEq)]
 pub struct Props {
-    #[doc = "Whether or not the radio is disabled."]
+    /// Whether or not the radio is disabled.
     #[prop_or(Some(false))]
     pub disabled: Option<bool>,
-    #[doc = "The element value to use in form submission when checked."]
+    /// The element value to use in form submission when checked.
     #[prop_or(Some(AttrValue::Static("on")))]
     pub value: Option<AttrValue>,
-    #[doc = ""]
+    ///
     #[prop_or(None)]
     pub checked: Option<bool>,
-    #[doc = ""]
+    ///
     #[prop_or(None)]
     pub name: Option<AttrValue>,
-    #[doc = ""]
+    ///
     #[prop_or(None)]
     pub form: Option<HTMLFormElement>,
-    #[doc = ""]
+    ///
     #[prop_or(None)]
     pub labels: Option<NodeList>,
     #[prop_or(None)]

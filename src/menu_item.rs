@@ -1,26 +1,27 @@
 use yew::prelude::*;
 #[derive(Properties, PartialEq)]
 pub struct Props {
-    #[doc = "Disables the item and makes it non-selectable and non-interactive."]
+    /// Disables the item and makes it non-selectable and non-interactive.
     #[prop_or(Some(false))]
     pub disabled: Option<bool>,
-    #[doc = "Sets the behavior and role of the menu item, defaults to “menuitem”."]
+    /// Sets the behavior and role of the menu item, defaults to “menuitem”.
     #[prop_or(Some(AttrValue::Static("menuitem")))]
     pub typepe: Option<AttrValue>,
-    #[doc = "Sets the underlying <code>HTMLAnchorElement</code>’s <code>href</code> resource attribute."]
+    /// Sets the underlying <code>HTMLAnchorElement</code>’s <code>href</code> resource attribute.
     #[prop_or(Some(AttrValue::Static("")))]
     pub href: Option<AttrValue>,
-    #[doc = "Sets the underlying <code>HTMLAnchorElement</code>’s <code>target</code> attribute when <code>href</code> is set."]
+    /// Sets the underlying <code>HTMLAnchorElement</code>’s <code>target</code> attribute when
+    /// <code>href</code> is set.
     #[prop_or(Some(AttrValue::Static("")))]
     pub target: Option<AttrValue>,
-    #[doc = "Keeps the menu open if clicked or keyboard selected."]
+    /// Keeps the menu open if clicked or keyboard selected.
     #[prop_or(Some(false))]
     pub keep_open: Option<bool>,
-    #[doc = "Sets the item in the selected visual state when a submenu is opened."]
+    /// Sets the item in the selected visual state when a submenu is opened.
     #[prop_or(Some(false))]
     pub selected: Option<bool>,
-    #[doc = ""]
-    # [prop_or (Some (AttrValue :: Static ("")))]
+    ///
+    #[prop_or(Some(AttrValue::Static("")))]
     pub typepeahead_text: Option<AttrValue>,
     pub children: Html,
 }

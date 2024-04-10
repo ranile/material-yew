@@ -2,25 +2,25 @@ use wasm_bindgen::JsValue;
 use yew::prelude::*;
 #[derive(Properties, PartialEq)]
 pub struct Props {
-    #[doc = "The anchorCorner to set on the submenu."]
+    /// The anchorCorner to set on the submenu.
     #[prop_or(Some(AttrValue::Static("Corner.START_END")))]
     pub anchor_corner: Option<AttrValue>,
-    #[doc = "The menuCorner to set on the submenu."]
+    /// The menuCorner to set on the submenu.
     #[prop_or(Some(AttrValue::Static("Corner.START_START")))]
     pub menu_corner: Option<AttrValue>,
-    #[doc = "The delay between mouseenter and submenu opening."]
+    /// The delay between mouseenter and submenu opening.
     #[prop_or(Some(400))]
     pub hover_open_delay: Option<usize>,
-    #[doc = "The delay between ponterleave and the submenu closing."]
+    /// The delay between ponterleave and the submenu closing.
     #[prop_or(Some(400))]
     pub hover_close_delay: Option<usize>,
-    #[doc = "READONLY: self-identifies as a menu item and sets its identifying attribute"]
+    /// READONLY: self-identifies as a menu item and sets its identifying attribute
     #[prop_or(Some(true))]
     pub is_sub_menu: Option<bool>,
-    #[doc = ""]
+    ///
     # [prop_or (Some (wasm_bindgen :: JsValue :: NULL . into ()))]
     pub item: Option<JsValue>,
-    #[doc = ""]
+    ///
     # [prop_or (Some (wasm_bindgen :: JsValue :: NULL . into ()))]
     pub menu: Option<JsValue>,
     pub children: Html,

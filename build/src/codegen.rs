@@ -1,9 +1,10 @@
-use crate::ty::Type;
-use crate::{utils, Component, Property};
 use convert_case::{Case, Casing};
 use eyre::ensure;
 use proc_macro2::{Ident, Span, TokenStream};
 use quote::quote;
+
+use crate::ty::Type;
+use crate::{utils, Component, Property};
 
 pub fn gen_component(component_name: &str, mut variants: Vec<Component>) -> String {
     if variants.len() == 1 {
@@ -211,7 +212,11 @@ fn gen_prop_assignment(output: &mut String, p: &Property) {
     output.push_str(&p.property);
     output.push_str("={");
     let value = p.property.to_case(Case::Snake).replace("ty", "type");
-    if p.property == "disabled" || p.property == "required" || p.property == "open" || p.property == "selected" {
+    if p.property == "disabled"
+        || p.property == "required"
+        || p.property == "open"
+        || p.property == "selected"
+    {
         output.push_str("props.");
         output.push_str(&value);
         output.push_str(".unwrap_or_default()");
@@ -236,7 +241,7 @@ impl Property {
         let d = self.default.as_ref()?;
         let mut d = d.replace("'", "\"");
         if d == "undefined" {
-            return Some(syn::parse_quote!(None))
+            return Some(syn::parse_quote!(None));
         } else if d.contains(".") {
             d = format!("{d:?}")
         }
@@ -247,6 +252,7 @@ impl Property {
         let expr = syn::parse_str::<syn::Expr>(&d).ok()?;
         Some(syn::parse_quote!(Some(#expr)))
     }
+
     fn to_tokens(&self) -> TokenStream {
         let name = Ident::new(
             &self.property.to_case(Case::Snake).replace("ty", "type"),

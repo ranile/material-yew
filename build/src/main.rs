@@ -2,15 +2,17 @@ mod codegen;
 mod ty;
 mod utils;
 
-use crate::ty::Type;
-use crate::utils::IterExt;
+use std::collections::HashMap;
+use std::path::Path;
+
 use color_eyre::Section;
 use convert_case::{Case, Casing};
 use eyre::{bail, ensure, eyre, ContextCompat, Report};
 use pulldown_cmark::{CowStr, Event, HeadingLevel, Options, Parser, Tag};
 use serde::Deserialize;
-use std::collections::HashMap;
-use std::path::Path;
+
+use crate::ty::Type;
+use crate::utils::IterExt;
 
 #[derive(Debug, Clone, Deserialize, PartialEq)]
 #[serde(rename_all = "PascalCase")]
@@ -105,7 +107,11 @@ fn main() -> eyre::Result<()> {
         let component = codegen::gen_component(&component_name, components);
         let component = utils::format_tokens(component)?;
         std::fs::write(
-            format!("{}/../src/{}.rs", env!("CARGO_MANIFEST_DIR"), component_name.to_case(Case::Snake)),
+            format!(
+                "{}/../src/{}.rs",
+                env!("CARGO_MANIFEST_DIR"),
+                component_name.to_case(Case::Snake)
+            ),
             component,
         )
         .unwrap();
@@ -210,19 +216,28 @@ fn extract_data_from_md_table<'a>(
                 [Event::Start(Tag::TableCell), contents @ .., Event::End(Tag::TableCell)] => {
                     let mut buf = String::new();
                     if *header == CowStr::Borrowed("Description") {
-                        pulldown_cmark::html::push_html(&mut buf, contents.iter().map(|e| (*e).clone()));
+                        pulldown_cmark::html::push_html(
+                            &mut buf,
+                            contents.iter().map(|e| (*e).clone()),
+                        );
                     } else {
                         for txt in contents {
                             match txt {
                                 Event::Text(t) => buf.push_str(t),
                                 Event::Code(t) => buf.push_str(t),
-                                actual => bail!("expected Text or Code, found {:?} as value for {header}", actual),
+                                actual => bail!(
+                                    "expected Text or Code, found {:?} as value for {header}",
+                                    actual
+                                ),
                             }
                         }
                     }
                     properties.insert(header.clone(), buf);
                 }
-                c => bail!("expected at least 2 elements (Start, .., End) defining a table cell; found {c:?}"),
+                c => bail!(
+                    "expected at least 2 elements (Start, .., End) defining a table cell; found \
+                     {c:?}"
+                ),
             }
         }
         entries.push(properties)

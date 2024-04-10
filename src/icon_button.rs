@@ -1,6 +1,5 @@
+use web_sys::{HtmlFormElement as HTMLFormElement, NodeList};
 use yew::prelude::*;
-use web_sys::HtmlFormElement as HTMLFormElement;
-use web_sys::NodeList;
 #[derive(PartialEq)]
 pub enum IconButtonVariants {
     Standard,
@@ -22,43 +21,45 @@ impl IconButtonVariants {
 
 #[derive(Properties, PartialEq)]
 pub struct Props {
-    #[doc = "Disables the icon button and makes it non-interactive."]
+    /// Disables the icon button and makes it non-interactive.
     #[prop_or(Some(false))]
     pub disabled: Option<bool>,
-    #[doc = "Flips the icon if it is in an RTL context at startup."]
+    /// Flips the icon if it is in an RTL context at startup.
     #[prop_or(Some(false))]
     pub flip_icon_in_rtl: Option<bool>,
-    #[doc = "Sets the underlying <code>HTMLAnchorElement</code>’s <code>href</code> resource attribute."]
+    /// Sets the underlying <code>HTMLAnchorElement</code>’s <code>href</code> resource attribute.
     #[prop_or(Some(AttrValue::Static("")))]
     pub href: Option<AttrValue>,
-    #[doc = "Sets the underlying <code>HTMLAnchorElement</code>’s <code>target</code> attribute."]
+    /// Sets the underlying <code>HTMLAnchorElement</code>’s <code>target</code> attribute.
     #[prop_or(Some(AttrValue::Static("")))]
     pub target: Option<AttrValue>,
-    #[doc = "The <code>aria-label</code> of the button when the button is toggleable and selected."]
+    /// The <code>aria-label</code> of the button when the button is toggleable and selected.
     #[prop_or(Some(AttrValue::Static("")))]
     pub aria_label_selected: Option<AttrValue>,
-    #[doc = "When true, the button will toggle between selected and unselected states"]
+    /// When true, the button will toggle between selected and unselected states
     #[prop_or(Some(false))]
     pub toggle: Option<bool>,
-    #[doc = "Sets the selected state. When false, displays the default icon. When true, displays the selected icon, or the default icon If no <code>slot=&quot;selected&quot;</code> icon is provided."]
+    /// Sets the selected state. When false, displays the default icon. When true, displays the
+    /// selected icon, or the default icon If no <code>slot=&quot;selected&quot;</code> icon is
+    /// provided.
     #[prop_or(Some(false))]
     pub selected: Option<bool>,
-    #[doc = ""]
+    ///
     #[prop_or(Some(AttrValue::Static("submit")))]
     pub typepe: Option<AttrValue>,
-    #[doc = ""]
+    ///
     #[prop_or(Some(AttrValue::Static("")))]
     pub value: Option<AttrValue>,
-    #[doc = ""]
+    ///
     #[prop_or(None)]
     pub name: Option<AttrValue>,
-    #[doc = ""]
+    ///
     #[prop_or(None)]
     pub form: Option<HTMLFormElement>,
-    #[doc = ""]
+    ///
     #[prop_or(None)]
     pub labels: Option<NodeList>,
-    #[doc = "The variant to use."]
+    /// The variant to use.
     pub variant: IconButtonVariants,
     pub children: Html,
 

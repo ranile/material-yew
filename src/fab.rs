@@ -17,19 +17,20 @@ impl FabVariants {
 
 #[derive(Properties, PartialEq)]
 pub struct Props {
-    #[doc = "The FAB color variant to render."]
+    /// The FAB color variant to render.
     #[prop_or(Some(AttrValue::Static("surface")))]
     pub kind: Option<AttrValue>,
-    #[doc = "The size of the FAB.<br>NOTE: Branded FABs cannot be sized to <code>small</code>, and Extended FABs do not have different sizes."]
+    /// The size of the FAB.<br>NOTE: Branded FABs cannot be sized to <code>small</code>, and
+    /// Extended FABs do not have different sizes.
     #[prop_or(Some(AttrValue::Static("medium")))]
     pub size: Option<AttrValue>,
-    #[doc = "The text to display on the FAB."]
+    /// The text to display on the FAB.
     #[prop_or(Some(AttrValue::Static("")))]
     pub label: Option<AttrValue>,
-    #[doc = "Lowers the FAB’s elevation."]
+    /// Lowers the FAB’s elevation.
     #[prop_or(Some(false))]
     pub lowered: Option<bool>,
-    #[doc = "The variant to use."]
+    /// The variant to use.
     pub variant: FabVariants,
     pub children: Html,
 }

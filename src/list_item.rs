@@ -1,16 +1,18 @@
 use yew::prelude::*;
 #[derive(Properties, PartialEq)]
 pub struct Props {
-    #[doc = "Disables the item and makes it non-selectable and non-interactive."]
+    /// Disables the item and makes it non-selectable and non-interactive.
     #[prop_or(Some(false))]
     pub disabled: Option<bool>,
-    #[doc = "Sets the behavior of the list item, defaults to “text”. Change to “link” or “button” for interactive items."]
+    /// Sets the behavior of the list item, defaults to “text”. Change to “link” or “button” for
+    /// interactive items.
     #[prop_or(Some(AttrValue::Static("text")))]
     pub typepe: Option<AttrValue>,
-    #[doc = "Sets the underlying <code>HTMLAnchorElement</code>’s <code>href</code> resource attribute."]
+    /// Sets the underlying <code>HTMLAnchorElement</code>’s <code>href</code> resource attribute.
     #[prop_or(Some(AttrValue::Static("")))]
     pub href: Option<AttrValue>,
-    #[doc = "Sets the underlying <code>HTMLAnchorElement</code>’s <code>target</code> attribute when <code>href</code> is set."]
+    /// Sets the underlying <code>HTMLAnchorElement</code>’s <code>target</code> attribute when
+    /// <code>href</code> is set.
     #[prop_or(Some(AttrValue::Static("")))]
     pub target: Option<AttrValue>,
     pub children: Html,

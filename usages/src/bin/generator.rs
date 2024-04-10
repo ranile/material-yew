@@ -1,12 +1,13 @@
-use eyre::{eyre, WrapErr};
-use proc_macro2::{Ident, TokenStream};
-use quote::{quote, ToTokens};
 use std::fmt::Write as _;
 use std::fs::File;
 use std::io::Write as _;
-use syn::{Field, GenericArgument, Item, parse_quote, PathArguments, Type, TypePath};
 
-const INDENT_SIZE: usize= 4;
+use eyre::{eyre, WrapErr};
+use proc_macro2::{Ident, TokenStream};
+use quote::{quote, ToTokens};
+use syn::{parse_quote, Field, GenericArgument, Item, PathArguments, Type, TypePath};
+
+const INDENT_SIZE: usize = 4;
 
 #[derive(Debug)]
 enum SpecialPropTypes {
@@ -156,13 +157,13 @@ fn make_example_usage(file: syn::File, file_name: &str) -> Result<(Ident, String
                 }
             }
             Item::Fn(func)
-            if func
-                .attrs
-                .iter()
-                .any(|it| it.path().is_ident("function_component")) =>
-                {
-                    comp_name = Some(func.sig.ident.clone());
-                }
+                if func
+                    .attrs
+                    .iter()
+                    .any(|it| it.path().is_ident("function_component")) =>
+            {
+                comp_name = Some(func.sig.ident.clone());
+            }
             _ => {}
         }
     }

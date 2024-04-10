@@ -1,6 +1,7 @@
+use std::io::Write;
 use std::process::{Command, Stdio};
 use std::thread;
-use std::io::Write;
+
 use eyre::{ContextCompat, WrapErr};
 
 pub fn chunk_with<I>(iter: impl Iterator<Item = I>, callback: impl Fn(&I) -> bool) -> Vec<Vec<I>> {

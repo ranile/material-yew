@@ -21,25 +21,26 @@ impl ChipVariants {
 
 #[derive(Properties, PartialEq)]
 pub struct Props {
-    #[doc = ""]
+    ///
     #[prop_or(Some(false))]
     pub elevated: Option<bool>,
-    #[doc = ""]
+    ///
     #[prop_or(Some(AttrValue::Static("")))]
     pub href: Option<AttrValue>,
-    #[doc = ""]
+    ///
     #[prop_or(Some(AttrValue::Static("")))]
     pub target: Option<AttrValue>,
-    #[doc = "Whether or not the chip is disabled.<br>Disabled chips are not focusable, unless <code>always-focusable</code> is set."]
+    /// Whether or not the chip is disabled.<br>Disabled chips are not focusable, unless
+    /// <code>always-focusable</code> is set.
     #[prop_or(Some(false))]
     pub disabled: Option<bool>,
-    #[doc = "When true, allow disabled chips to be focused with arrow keys.<br>Add this when a chip needs increased visibility when disabled. See https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/#kbd_disabled_controls for more guidance on when this is needed."]
+    /// When true, allow disabled chips to be focused with arrow keys.<br>Add this when a chip needs increased visibility when disabled. See https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/#kbd_disabled_controls for more guidance on when this is needed.
     #[prop_or(Some(false))]
     pub always_focusable: Option<bool>,
-    #[doc = "The label of the chip."]
+    /// The label of the chip.
     #[prop_or(Some(AttrValue::Static("")))]
     pub label: Option<AttrValue>,
-    #[doc = "The variant to use."]
+    /// The variant to use.
     pub variant: ChipVariants,
     pub children: Html,
 }

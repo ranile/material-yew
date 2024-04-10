@@ -1,43 +1,42 @@
 use wasm_bindgen::JsValue;
+use web_sys::{HtmlFormElement as HTMLFormElement, NodeList};
 use yew::prelude::*;
-use web_sys::HtmlFormElement as HTMLFormElement;
-use web_sys::NodeList;
 
 type ValidityState = JsValue;
 
 #[derive(Properties, PartialEq)]
 pub struct Props {
-    #[doc = "Whether or not the checkbox is selected."]
+    /// Whether or not the checkbox is selected.
     #[prop_or(Some(false))]
     pub checked: Option<bool>,
-    #[doc = "Whether or not the checkbox is disabled."]
+    /// Whether or not the checkbox is disabled.
     #[prop_or(Some(false))]
     pub disabled: Option<bool>,
-    #[doc = "Whether or not the checkbox is indeterminate.<br>https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox#indeterminate_state_checkboxes"]
+    /// Whether or not the checkbox is indeterminate.<br>https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox#indeterminate_state_checkboxes
     #[prop_or(Some(false))]
     pub indeterminate: Option<bool>,
-    #[doc = "When true, require the checkbox to be selected when participating in form submission.<br>https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox#validation"]
+    /// When true, require the checkbox to be selected when participating in form submission.<br>https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox#validation
     #[prop_or(Some(false))]
     pub required: Option<bool>,
-    #[doc = "The value of the checkbox that is submitted with a form when selected.<br>https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox#value"]
+    /// The value of the checkbox that is submitted with a form when selected.<br>https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox#value
     #[prop_or(Some(AttrValue::Static("on")))]
     pub value: Option<AttrValue>,
-    #[doc = ""]
+    ///
     #[prop_or(None)]
     pub name: Option<AttrValue>,
-    #[doc = ""]
+    ///
     #[prop_or(None)]
     pub form: Option<HTMLFormElement>,
-    #[doc = ""]
+    ///
     #[prop_or(None)]
     pub labels: Option<NodeList>,
-    #[doc = ""]
+    ///
     #[prop_or(None)]
     pub validitype: Option<ValidityState>,
-    #[doc = ""]
+    ///
     #[prop_or(None)]
     pub validation_message: Option<AttrValue>,
-    #[doc = ""]
+    ///
     #[prop_or(None)]
     pub will_validate: Option<bool>,
     #[prop_or(None)]

@@ -1,5 +1,3 @@
-//!
-//!
 //! ## TODOs
 //!
 //! ### Missing Components
@@ -10,36 +8,34 @@
 mod button;
 mod checkbox;
 mod chip;
+mod circular_progress;
 mod fab;
 mod icon_button;
-mod radio;
-mod menu_item;
-mod sub_menu;
-mod menu;
+mod linear_progress;
 mod list;
 mod list_item;
-mod circular_progress;
-mod linear_progress;
+mod menu;
+mod menu_item;
+mod radio;
 mod slider;
+mod sub_menu;
 mod switch;
 
 pub use button::{Button, ButtonVariants};
-pub use radio::{Radio};
-pub use menu_item::{MenuItem};
-pub use sub_menu::{SubMenu};
-pub use menu::{Menu};
-pub use list::{List};
-pub use list_item::{ListItem};
-pub use circular_progress::{CircularProgress};
-pub use linear_progress::{LinearProgress};
-pub use slider::{Slider};
-pub use switch::{Switch};
-pub use icon_button::{IconButton, IconButtonVariants};
 pub use checkbox::Checkbox;
 pub use chip::{Chip, ChipVariants};
+pub use circular_progress::CircularProgress;
 pub use fab::{Fab, FabVariants};
-
-
+pub use icon_button::{IconButton, IconButtonVariants};
+pub use linear_progress::LinearProgress;
+pub use list::List;
+pub use list_item::ListItem;
+pub use menu::Menu;
+pub use menu_item::MenuItem;
+pub use radio::Radio;
+pub use slider::Slider;
+pub use sub_menu::SubMenu;
+pub use switch::Switch;
 use wasm_bindgen::prelude::*;
 use yew::AttrValue;
 

@@ -1,19 +1,20 @@
 use yew::prelude::*;
 #[derive(Properties, PartialEq)]
 pub struct Props {
-    #[doc = "Buffer amount to display, a fraction between 0 and 1."]
+    /// Buffer amount to display, a fraction between 0 and 1.
     #[prop_or(Some(1))]
     pub buffer: Option<usize>,
-    #[doc = "Progress to display, a fraction between 0 and <code>max</code>."]
+    /// Progress to display, a fraction between 0 and <code>max</code>.
     #[prop_or(Some(0))]
     pub value: Option<usize>,
-    #[doc = "Maximum progress to display, defaults to 1."]
+    /// Maximum progress to display, defaults to 1.
     #[prop_or(Some(1))]
     pub max: Option<usize>,
-    #[doc = "Whether or not to display indeterminate progress, which gives no indication to how long an activity will take."]
+    /// Whether or not to display indeterminate progress, which gives no indication to how long an
+    /// activity will take.
     #[prop_or(Some(false))]
     pub indeterminate: Option<bool>,
-    #[doc = "Whether or not to render indeterminate mode using 4 colors instead of one."]
+    /// Whether or not to render indeterminate mode using 4 colors instead of one.
     #[prop_or(Some(false))]
     pub four_color: Option<bool>,
 }
