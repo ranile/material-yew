@@ -1,5 +1,10 @@
 # Material Yew
 
+[![Crates.io](https://img.shields.io/crates/v/material-yew)](https://crates.io/crates/material-yew)
+[![API Docs](https://img.shields.io/docsrs/material-yew)](https://docs.rs/material-yew/)
+[![Apache-2.0 licensed](https://img.shields.io/github/license/hamza1311/material-yew)](https://github.com/hamza1311/material-yew/blob/master/LICENSE.md)
+[![Website](https://img.shields.io/website?url=https%3A%2F%2Fmaterial-yew.rm.rs%2F)](https://material-yew.rm.rs/)
+
 *Material Yew* is a components library for [Yew framework](https://yew.rs/) which is a wrapper around [Material Web Components](https://github.com/material-components/material-components-web-components) exposing Yew components. All modern browsers are supported. There is no support for polyfills required by Internet Explorer 11.
 
 ### Example
